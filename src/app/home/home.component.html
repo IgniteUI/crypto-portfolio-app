@@ -1,9 +1,38 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <h1>{{title}}</h1>
-<img src="assets/responsive.gif" alt="Ignite UI CLI">
 
-<div id="linksContainer">
-    <h3 class="links"><a target="_blank" rel="noopener" href="https://github.com/IgniteUI/ignite-ui-cli">Ignite UI CLI </a></h3>
-    <h3 class="links"><a target="_blank" rel="noopener" href="https://www.infragistics.com/products/ignite-ui-angular">Component Demos</a></h3>
-    <h3 class="links"><a target="_blank" rel="noopener" href="https://github.com/IgniteUI/igniteui-angular-ui-kits">Sketch UI Kit</a></h3>
+<div *ngIf="cryptos">
+    <div class="sample-wrapper">
+        <div class="sample-content">
+            <igx-input-group type="search" style="width:100%; padding-left:15px; padding-right: 15px">
+                <input #input1 igxInput placeholder="Search" [(ngModel)]="search1" />
+                <igx-prefix>
+                    <igx-icon>search</igx-icon>
+                </igx-prefix>
+                <igx-suffix *ngIf="input1.value.length > 0" (click)="input1.value = ''">
+                    <igx-icon>clear</igx-icon>
+                </igx-suffix>
+            </igx-input-group>
+            <article class="sample-column card-wrapper" *ngFor="let crypto of objectKeys(cryptos)">
+                <igx-card>
+                    <igx-card-header>
+                        <h3 class="igx-card-header__title">{{ cryptos[crypto].name }} ({{ cryptos[crypto].symbol }})</h3>
+                    </igx-card-header>
+                    <igx-card-content>
+                        <p class="igx-card-content__text">{{ cryptos[crypto].price_usd }} USD <span class="percent-style-{{ cryptos[crypto].percent_change_24h >= 0 ? 'up' : 'down'}}">({{ cryptos[crypto].percent_change_24h }})%</span></p>
+                        <p class="igx-card-content__text">Rank: {{ cryptos[crypto].rank }}</p>
+                        <p class="igx-card-content__text">Market Cap: {{ cryptos[crypto].market_cap_usd }}</p>
+                        <p class="igx-card-content__text">7d change: <span class="percent-style-{{ cryptos[crypto].percent_change_7d >= 0 ? 'up' : 'down'}}">({{ cryptos[crypto].percent_change_7d }})%</span></p>
+                    </igx-card-content>
+                    <igx-card-actions>
+                        <!-- <div class="igx-card-actions__igroup--end">
+                            <span igxButton="icon" igxRipple igxRippleCentered="true">
+                                <igx-icon fontSet="material" [name]="icon"></igx-icon>
+                            </span>
+                        </div> -->
+                    </igx-card-actions>
+                </igx-card>
+            </article>
+        </div>
+    </div>
 </div>

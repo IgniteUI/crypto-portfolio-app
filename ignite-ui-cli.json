@@ -1,17 +1,22 @@
 {
-	"version": "",
-	"project": {
-		"framework": "angular",
-		"projectType": "igx-ts",
-		"theme": "zero-blocks",
-		"themePath": "$(themePath)",
-		"isBundle": false,
-		"bundleFilePath": "",
-		"igniteuiSource": "",
-		"components": [],
-		"sourceFiles": [],
-		"isShowcase": false,
-		"version": ""
-	},
-	"build": {}
+    "igPackageRegistry": "https://packages.infragistics.com/npm/js-licensed/",
+    "customTemplates": [],
+    "skipGit": false,
+    "skipAnalytic": false,
+    "version": "",
+    "project": {
+        "framework": "angular",
+        "projectType": "igx-ts",
+        "theme": "zero-blocks",
+        "themePath": "$(themePath)",
+        "isBundle": false,
+        "bundleFilePath": "",
+        "igniteuiSource": "",
+        "components": [],
+        "sourceFiles": [],
+        "isShowcase": false,
+        "version": ""
+    },
+    "build": {},
+    "packagesInstalled": true
 }

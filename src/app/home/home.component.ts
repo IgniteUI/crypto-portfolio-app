@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { DataService  } from '../data.service';
+import { IgxFilterOptions } from 'igniteui-angular/main';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   title = 'Welcome to IgniteUI for Angular!';
-  constructor() { }
+  objectKeys = Object.keys;
+  cryptos: any;
+  public search1: string;
+
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.getPrices()
+      .subscribe(res => {
+        this.cryptos = res;
+        console.log(res);
+      });
   }
 
+  get fo1() {
+    const _fo = new IgxFilterOptions();
+    _fo.key = 'text';
+    _fo.inputValue = this.search1;
+    return _fo;
+}
 }

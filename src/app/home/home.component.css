@@ -20,3 +20,16 @@ a {
 img {
   max-width:100%;
 }
+
+.card-wrapper {
+  max-width: 260px;
+  min-width: 160px;
+}
+
+.percent-style-up {
+  color: green;
+}
+
+.percent-style-down {
+  color: red;
+}

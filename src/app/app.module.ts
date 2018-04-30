@@ -5,13 +5,29 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule } from 'igniteui-angular/main';
+import { IgxNavigationDrawerModule,
+          IgxNavbarModule,
+          IgxLayoutModule,
+          IgxRippleModule,
+          IgxAvatarModule,
+          IgxButtonModule,
+          IgxIconModule,
+          IgxCardModule,
+          IgxInputGroupModule
+} from 'igniteui-angular/main';
+
 import { HomeComponent } from './home/home.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { IgxFinancialChartModule } from 'igniteui-angular-charts/ES5/igx-financial-chart-module';
+
+import { DataService } from './data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    StatisticsComponent
   ],
   imports: [
     FormsModule,
@@ -21,9 +37,17 @@ import { HomeComponent } from './home/home.component';
     IgxNavigationDrawerModule,
     IgxNavbarModule,
     IgxLayoutModule,
-    IgxRippleModule
+    IgxRippleModule,
+    IgxFinancialChartModule,
+    HttpClientModule,
+    IgxAvatarModule,
+    IgxButtonModule,
+    IgxIconModule,
+    IgxCardModule,
+    IgxInputGroupModule
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
