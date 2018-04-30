@@ -13,7 +13,8 @@ import { IgxNavigationDrawerModule,
           IgxButtonModule,
           IgxIconModule,
           IgxCardModule,
-          IgxInputGroupModule
+          IgxInputGroupModule,
+          IgxFilterModule
 } from 'igniteui-angular/main';
 
 import { HomeComponent } from './home/home.component';
@@ -44,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     IgxButtonModule,
     IgxIconModule,
     IgxCardModule,
-    IgxInputGroupModule
+    IgxInputGroupModule,
+    IgxFilterModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

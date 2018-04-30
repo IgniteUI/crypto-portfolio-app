@@ -19,14 +19,13 @@ export class HomeComponent implements OnInit {
     this.data.getPrices()
       .subscribe(res => {
         this.cryptos = res;
-        console.log(res);
       });
   }
 
   get fo1() {
     const _fo = new IgxFilterOptions();
-    _fo.key = 'text';
-    _fo.inputValue = this.search1;
+    _fo.key = 'name';
+    _fo.inputValue = this.search1 ? this.search1 : '';
     return _fo;
 }
 }

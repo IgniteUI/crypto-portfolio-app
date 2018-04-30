@@ -13,16 +13,16 @@
                     <igx-icon>clear</igx-icon>
                 </igx-suffix>
             </igx-input-group>
-            <article class="sample-column card-wrapper" *ngFor="let crypto of objectKeys(cryptos)">
+            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1">
                 <igx-card>
                     <igx-card-header>
-                        <h3 class="igx-card-header__title">{{ cryptos[crypto].name }} ({{ cryptos[crypto].symbol }})</h3>
+                        <h3 class="igx-card-header__title">{{ crypto.name }} ({{ crypto.symbol }})</h3>
                     </igx-card-header>
                     <igx-card-content>
-                        <p class="igx-card-content__text">{{ cryptos[crypto].price_usd }} USD <span class="percent-style-{{ cryptos[crypto].percent_change_24h >= 0 ? 'up' : 'down'}}">({{ cryptos[crypto].percent_change_24h }})%</span></p>
-                        <p class="igx-card-content__text">Rank: {{ cryptos[crypto].rank }}</p>
-                        <p class="igx-card-content__text">Market Cap: {{ cryptos[crypto].market_cap_usd }}</p>
-                        <p class="igx-card-content__text">7d change: <span class="percent-style-{{ cryptos[crypto].percent_change_7d >= 0 ? 'up' : 'down'}}">({{ cryptos[crypto].percent_change_7d }})%</span></p>
+                        <p class="igx-card-content__text">{{ crypto.price_usd }} USD <span class="percent-style-{{ crypto.percent_change_24h >= 0 ? 'up' : 'down'}}">({{ crypto.percent_change_24h }})%</span></p>
+                        <p class="igx-card-content__text">Rank: {{ crypto.rank }}</p>
+                        <p class="igx-card-content__text">Market Cap: {{ crypto.market_cap_usd }}</p>
+                        <p class="igx-card-content__text">7d change: <span class="percent-style-{{ crypto.percent_change_7d >= 0 ? 'up' : 'down'}}">({{ crypto.percent_change_7d }})%</span></p>
                     </igx-card-content>
                     <igx-card-actions>
                         <!-- <div class="igx-card-actions__igroup--end">
