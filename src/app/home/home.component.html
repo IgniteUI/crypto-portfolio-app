@@ -12,7 +12,7 @@
                     <igx-icon>clear</igx-icon>
                 </igx-suffix>
             </igx-input-group>
-            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1">
+            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1" [@flyInOut3]>
                 <igx-card>
                     <igx-card-header>
                         <h3 class="igx-card-header__title">{{ crypto.name }} ({{ crypto.symbol }})</h3>
