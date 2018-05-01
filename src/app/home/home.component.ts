@@ -8,7 +8,6 @@ import { IgxFilterOptions } from 'igniteui-angular/main';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  title = 'Welcome to IgniteUI for Angular!';
   objectKeys = Object.keys;
   cryptos: any;
   public search1: string;
@@ -27,5 +26,5 @@ export class HomeComponent implements OnInit {
     _fo.key = 'name';
     _fo.inputValue = this.search1 ? this.search1 : '';
     return _fo;
-}
+  }
 }

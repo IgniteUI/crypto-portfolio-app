@@ -1,11 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<h1>{{title}}</h1>
 
 <div *ngIf="cryptos">
     <div class="sample-wrapper">
         <div class="sample-content">
-            <igx-input-group type="search" style="width:100%; padding-left:15px; padding-right: 15px">
-                <input #input1 igxInput placeholder="Search" [(ngModel)]="search1" />
+            <igx-input-group type="search" class="searchBox">
+                <input #input1 igxInput placeholder="Search by name" [(ngModel)]="search1" />
                 <igx-prefix>
                     <igx-icon>search</igx-icon>
                 </igx-prefix>
@@ -24,13 +23,14 @@
                         <p class="igx-card-content__text">Market Cap: {{ crypto.market_cap_usd }}</p>
                         <p class="igx-card-content__text">7d change: <span class="percent-style-{{ crypto.percent_change_7d >= 0 ? 'up' : 'down'}}">({{ crypto.percent_change_7d }})%</span></p>
                     </igx-card-content>
-                    <igx-card-actions>
-                        <!-- <div class="igx-card-actions__igroup--end">
+                    <!-- <igx-card-actions>
+                        <div class="igx-card-actions__igroup--end">
+                            <button igxButton igxRipple >Select</button>
                             <span igxButton="icon" igxRipple igxRippleCentered="true">
                                 <igx-icon fontSet="material" [name]="icon"></igx-icon>
                             </span>
-                        </div> -->
-                    </igx-card-actions>
+                        </div>
+                    </igx-card-actions> -->
                 </igx-card>
             </article>
         </div>

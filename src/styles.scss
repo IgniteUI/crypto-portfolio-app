@@ -21,7 +21,7 @@ $app-palette: igx-palette($primary, $secondary);
   width: inherit;
   position: relative;
   height: 100%;
-  margin: 0 auto;
+  margin: 15px auto;
   background: transparent;
 }
 
@@ -60,6 +60,14 @@ $app-palette: igx-palette($primary, $secondary);
   color: #717171;
 }
 
+.igx-card
+{
+  flex-flow: row;
+}
+
+.igx-card igx-card-content {
+  padding: 0em;
+}
 
 @-webkit-keyframes color-change-2x {
   0% {
