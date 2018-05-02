@@ -1,3 +1,11 @@
-<p>Basic Financial chart with automatic toolbar and type selection.</p>
-<igx-financial-chart [dataSource]="data" height="600px" width="100%">
+<p>Select a Cryptocurrency from the List
+    <igx-input-group>
+        <input #input1 igxInput [(ngModel)]="cryptoName" />
+    </igx-input-group>
+    to see all price changes for the past
+    <igx-input-group>
+            <input #input1 igxInput [(ngModel)]="daysCount" />
+    </igx-input-group>
+    days.</p>
+<igx-financial-chart [dataSource]="data" height="600px" width="100%" isToolbarVisible="false" chartType="candle">
 </igx-financial-chart>
