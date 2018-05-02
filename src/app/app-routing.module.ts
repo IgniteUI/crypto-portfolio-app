@@ -5,8 +5,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, data: { text: 'Home' } },
-  { path: 'statistics', component: StatisticsComponent, data: { text: 'Statistics' } }
+  { path: 'home', component: HomeComponent, data: { text: 'My Blockfolio', iconName: 'account_box' } },
+  { path: 'statistics', component: StatisticsComponent, data: { text: 'Volatility', iconName: 'show_chart' } }
 ];
 
 @NgModule({

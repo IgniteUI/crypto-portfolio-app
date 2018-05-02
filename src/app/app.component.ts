@@ -15,7 +15,8 @@ import { IgxNavigationDrawerComponent } from 'igniteui-angular/navigation-drawer
 export class AppComponent implements OnInit {
   public topNavLinks: Array<{
     path: string,
-    name: string
+    name: string,
+    icon: string
   }> = [];
   @ViewChild(IgxNavigationDrawerComponent) public navdrawer: IgxNavigationDrawerComponent;
 
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit {
       if (route.path && route.data && route.path.indexOf('*') === -1) {
         this.topNavLinks.push({
           name: route.data.text,
-          path: '/' + route.path
+          path: '/' + route.path,
+          icon: route.data.iconName
         });
       }
     }

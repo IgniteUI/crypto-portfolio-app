@@ -8,7 +8,8 @@ import {
   transition,
   animate,
   keyframes,
-  group
+  group,
+  ViewChild
 } from '@angular/core';
 
 import { DataService  } from '../data.service';
@@ -88,10 +89,7 @@ export class HomeComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getPrices()
-      .subscribe(res => {
-        this.cryptos = res;
-      });
+    this.getData();
   }
 
   get fo1() {
@@ -99,5 +97,17 @@ export class HomeComponent implements OnInit {
     fo.key = 'name';
     fo.inputValue = this.search1 ? this.search1 : '';
     return fo;
+  }
+
+  getData() {
+    this.data.getPrices()
+      .subscribe(res => {
+        this.cryptos = res;
+      });
+  }
+
+  clear(input) {
+    input.value = '';
+    this.getData();
   }
 }

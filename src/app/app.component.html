@@ -1,12 +1,20 @@
 <div class="main" igxLayout>
-  <igx-nav-drawer #nav id="project-menu" isOpen="true" [enableGestures]='true' width="280px">
+  <igx-nav-drawer #nav id="project-menu" isOpen="true" [enableGestures]='true' width="280px" [pin]="true">
     <ng-template igxDrawer>
       <span igxDrawerItem [isHeader]="true">Views</span>
-      <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active" routerLink="{{route.path}}">{{route.name}}</span>
+      <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active" routerLink="{{route.path}}">
+          <igx-icon fontSet="material" name="{{route.icon}}"></igx-icon>
+          <span>{{route.name}}</span>
+      </span>
     </ng-template>
+    <!-- <ng-template igxDrawerMini>
+        <span igxDrawerItem igxRipple>
+            <igx-icon fontSet="material" name="home"></igx-icon>
+        </span>
+    </ng-template> -->
   </igx-nav-drawer>
   <div igxFlex>
-    <igx-navbar title="cryptoApp" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex></igx-navbar>
+    <igx-navbar title="Cryptocurrency Blockfolio Application" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex></igx-navbar>
     <div class="content" igxLayout igxLayoutJustify="center">
       <router-outlet></router-outlet>
      </div>
