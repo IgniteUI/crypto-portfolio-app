@@ -8,7 +8,7 @@ import { DataService  } from '../data.service';
 })
 export class StatisticsComponent implements OnInit {
   public cryptoName = 'BTC';
-  public daysCount = 7;
+  public daysCount = 100;
   data: any;
 
   constructor(private dataService: DataService) { }

@@ -14,6 +14,7 @@ import {
 
 import { DataService  } from '../data.service';
 import { IgxFilterOptions } from 'igniteui-angular/main';
+import { resolveDefinition } from '@angular/core/src/view/util';
 
 @Component({
   selector: 'app-home',
@@ -102,12 +103,24 @@ export class HomeComponent implements OnInit {
   getData() {
     this.data.getPrices()
       .subscribe(res => {
-        this.cryptos = res;
+        // this.cryptos = res['data'];
+        const fetchedData = Object.keys(res['data']),
+          newData = [];
+
+        for (const key of fetchedData) {
+          newData.push(res['data'][key]);
+        }
+
+        this.cryptos = newData;
       });
   }
 
   clear(input) {
     input.value = '';
     this.getData();
+  }
+
+  formatData(item) {
+    debugger;
   }
 }
