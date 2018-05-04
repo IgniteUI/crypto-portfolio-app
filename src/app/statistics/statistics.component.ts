@@ -20,7 +20,13 @@ export class StatisticsComponent implements OnInit {
   getData() {
     this.dataService.getLastSevenDaysPrices(this.cryptoName, this.daysCount)
       .subscribe(res => {
-        this.data = Object.assign(res).Data;
+        this.data = Object.assign(res).Data.map(item => {
+          // multiply by 1000 because Date() requires miliseconds
+          const dateObject = new Date(item.time * 1000);
+          item.time = dateObject;
+
+          return item;
+        });
       });
   }
 }

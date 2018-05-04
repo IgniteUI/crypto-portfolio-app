@@ -5,17 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { IgxNavigationDrawerModule,
-          IgxNavbarModule,
-          IgxLayoutModule,
-          IgxRippleModule,
-          IgxAvatarModule,
-          IgxButtonModule,
-          IgxIconModule,
-          IgxCardModule,
-          IgxInputGroupModule,
-          IgxFilterModule
-} from 'igniteui-angular/main';
+import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule, IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule, IgxInputGroupModule, IgxFilterModule, IgxGridModule } from 'igniteui-angular/main';
 
 import { HomeComponent } from './home/home.component';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -23,12 +13,14 @@ import { IgxFinancialChartModule } from 'igniteui-angular-charts/ES5/igx-financi
 
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BlockGridComponent } from './block-grid/block-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    BlockGridComponent
   ],
   imports: [
     FormsModule,
@@ -46,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     IgxIconModule,
     IgxCardModule,
     IgxInputGroupModule,
-    IgxFilterModule
+    IgxFilterModule,
+    IgxGridModule.forRoot()
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

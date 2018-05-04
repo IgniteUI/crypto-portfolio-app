@@ -1,11 +1,20 @@
-<p>Select a Cryptocurrency from the List
-    <igx-input-group>
+<span>Select a Cryptocurrency from the List </span>
+<span style="width: 40px; display: inline-block;">
+    <igx-input-group style="width: 100%">
         <input #input1 igxInput [(ngModel)]="cryptoName" (input)="this.getData()" />
     </igx-input-group>
-    to see all price changes for the past
-    <igx-input-group>
-            <input #input1 igxInput [(ngModel)]="daysCount" (input)="this.getData()" />
+</span>
+
+<span>to see all price changes for the past</span>
+<span style="width: 85px; display: inline-block;">
+    <igx-input-group style="width: 100%">
+        <input #input1 igxInput [(ngModel)]="daysCount" (input)="this.getData()" />
+        <igx-suffix>
+                days.
+        </igx-suffix>
     </igx-input-group>
-    days.</p>
-<igx-financial-chart [dataSource]="data" height="600px" width="100%" isToolbarVisible="false" chartType="candle">
+</span>
+
+
+<igx-financial-chart [dataSource]="data" height="600px" width="100%" style="margin-top: 20px;" isToolbarVisible="false" chartType="candle">
 </igx-financial-chart>

@@ -100,10 +100,9 @@ export class HomeComponent implements OnInit {
     return fo;
   }
 
-  getData() {
+  private getData() {
     this.data.getPrices()
       .subscribe(res => {
-        // this.cryptos = res['data'];
         const fetchedData = Object.keys(res['data']),
           newData = [];
 
@@ -111,16 +110,22 @@ export class HomeComponent implements OnInit {
           newData.push(res['data'][key]);
         }
 
-        this.cryptos = newData;
+        this.cryptos = this.sortDataByKey(newData, 'rank');
       });
   }
 
-  clear(input) {
+  public clear(input) {
     input.value = '';
     this.getData();
   }
 
-  formatData(item) {
-    debugger;
+  private sortDataByKey(array, keyToSortBy) {
+    function sortByKey(a, b) {
+        const x = a[keyToSortBy];
+        const y = b[keyToSortBy];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    }
+
+    return array.sort(sortByKey);
   }
 }

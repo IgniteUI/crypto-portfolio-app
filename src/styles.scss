@@ -17,6 +17,9 @@ $app-palette: igx-palette($primary, $secondary);
   margin: 15px;
 }
 
+app-home {
+  width: 100%;
+}
 .sample-wrapper {
   width: inherit;
   position: relative;

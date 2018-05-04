@@ -23,9 +23,4 @@ export class DataService {
         return this.result = result;
     });
   }
-
-  getMapKeyValueByIndex(obj, idx) {
-    const key = Object.keys(obj)[idx];
-    return { key: key, value: obj[key] };
- }
 }
