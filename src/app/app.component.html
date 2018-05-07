@@ -14,7 +14,18 @@
     </ng-template> -->
   </igx-nav-drawer>
   <div igxFlex>
-    <igx-navbar title="Cryptocurrency Blockfolio Application" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex></igx-navbar>
+    <igx-navbar title="Cryptocurrency Blockfolio Application" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
+      <span>
+        <div *ngIf="afAuth.authState | async as user; else showLogin">
+          Hello {{ user.displayName }}!
+          <button (click)="logout()">Logout</button>
+        </div>
+        <ng-template #showLogin>
+          <p>Please login.</p>
+          <!-- <button (click)="login()">Login with Google</button> -->
+        </ng-template>
+      </span>
+    </igx-navbar>
     <div class="content" igxLayout igxLayoutJustify="center">
       <router-outlet></router-outlet>
      </div>

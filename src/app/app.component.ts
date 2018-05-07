@@ -5,6 +5,7 @@ import 'rxjs/add/operator/filter';
 import { routes } from './app-routing.module';
 
 import { IgxNavigationDrawerComponent } from 'igniteui-angular/navigation-drawer';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
@@ -13,6 +14,8 @@ import { IgxNavigationDrawerComponent } from 'igniteui-angular/navigation-drawer
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  name: any;
+
   public topNavLinks: Array<{
     path: string,
     name: string,
@@ -20,7 +23,7 @@ export class AppComponent implements OnInit {
   }> = [];
   @ViewChild(IgxNavigationDrawerComponent) public navdrawer: IgxNavigationDrawerComponent;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public afAuth: AngularFireAuth) {
     for (const route of routes) {
       if (route.path && route.data && route.path.indexOf('*') === -1) {
         this.topNavLinks.push({
@@ -30,6 +33,12 @@ export class AppComponent implements OnInit {
         });
       }
     }
+
+    this.afAuth.authState.subscribe(auth => {
+      if (auth) {
+        this.name = auth;
+      }
+    });
   }
 
   public ngOnInit(): void {
@@ -42,4 +51,10 @@ export class AppComponent implements OnInit {
           }
       });
   }
+
+  private logout() {
+    this.afAuth.auth.signOut();
+    console.log('logged out');
+    this.router.navigateByUrl('/home');
+ }
 }

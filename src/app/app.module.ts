@@ -5,7 +5,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule, IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule, IgxInputGroupModule, IgxFilterModule, IgxGridModule } from 'igniteui-angular/main';
+import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule,
+  IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
+  IgxInputGroupModule, IgxFilterModule, IgxGridModule
+} from 'igniteui-angular/main';
 
 import { HomeComponent } from './home/home.component';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -14,13 +17,33 @@ import { IgxFinancialChartModule } from 'igniteui-angular-charts/ES5/igx-financi
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BlockGridComponent } from './block-grid/block-grid.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LoginComponent } from './login/login.component';
+import { EmailComponent } from './email/email.component';
+import { SignupComponent } from './signup/signup.component';
+import { AuthGuard } from './auth.service';
+
+export const firebaseConfig = {
+  apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
+  authDomain: 'crypto-portfolio-tracker.firebaseapp.com',
+  databaseURL: 'https://crypto-portfolio-tracker.firebaseio.com',
+  projectId: 'crypto-portfolio-tracker',
+  storageBucket: 'crypto-portfolio-tracker.appspot.com',
+  messagingSenderId: '1078645280256'
+};
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     StatisticsComponent,
-    BlockGridComponent
+    BlockGridComponent,
+    LoginComponent,
+    EmailComponent,
+    SignupComponent
   ],
   imports: [
     FormsModule,
@@ -39,9 +62,13 @@ import { BlockGridComponent } from './block-grid/block-grid.component';
     IgxCardModule,
     IgxInputGroupModule,
     IgxFilterModule,
-    IgxGridModule.forRoot()
+    IgxGridModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
-  providers: [DataService],
+  providers: [DataService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {
