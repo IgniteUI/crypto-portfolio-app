@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { employeesData } from './localData';
+import { Http } from "@angular/http";
+import { DataService  } from '../data.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-block-grid',
@@ -7,11 +9,26 @@ import { employeesData } from './localData';
   styleUrls: ['./block-grid.component.css']
 })
 export class BlockGridComponent implements OnInit {
-  public localData: any[];
-  title = 'block-grid';
-  constructor() { }
+  public remoteData: Observable<any[]>;
+
+  constructor(private data: DataService) {
+  }
 
   ngOnInit() {
-    this.localData = employeesData;
+    this.loadData();
+  }
+
+  private loadData() {
+    this.data.getData()
+      .subscribe(res => {
+        const fetchedData = Object.keys(res['data']),
+          newData = [];
+
+        for (const key of fetchedData) {
+          newData.push(res['data'][key]);
+        }
+
+        this.remoteData = this.data.sortDataByKey(newData, 'rank');
+      });
   }
 }

@@ -2,21 +2,21 @@
 
 <div *ngIf="cryptos">
     <div class="sample-wrapper">
+        <igx-input-group type="search" class="searchBox">
+            <input #input1 igxInput placeholder="Search by name" [(ngModel)]="search1" />
+            <igx-prefix>
+                <igx-icon>search</igx-icon>
+            </igx-prefix>
+            <igx-suffix *ngIf="input1.value.length > 0" (click)="clear(input1)">
+                <igx-icon>clear</igx-icon>
+            </igx-suffix>
+        </igx-input-group>
         <div class="sample-content">
-            <igx-input-group type="search" class="searchBox">
-                <input #input1 igxInput placeholder="Search by name" [(ngModel)]="search1" />
-                <igx-prefix>
-                    <igx-icon>search</igx-icon>
-                </igx-prefix>
-                <igx-suffix *ngIf="input1.value.length > 0" (click)="clear(input1)">
-                    <igx-icon>clear</igx-icon>
-                </igx-suffix>
-            </igx-input-group>
+
             <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1" [@flyInOut3]>
                 <igx-card>
                     <igx-card-header>
-
-                            <h3 class="igx-card-header__title"><img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto.id }}.png" /> <br />{{ crypto.name }} ({{ crypto.symbol }})</h3>
+                        <h3 class="igx-card-header__title"><img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto.id }}.png" /> <br />{{ crypto.name }} ({{ crypto.symbol }})</h3>
                     </igx-card-header>
                     <igx-card-content>
                             <p class="igx-card-content__text">{{ crypto.quotes.USD.price }} USD <span class="percent-style-{{ crypto.quotes.USD.percent_change_24h >= 0 ? 'up' : 'down'}}">({{ crypto.quotes.USD.percent_change_24h }})%</span></p>

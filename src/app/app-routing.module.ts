@@ -7,9 +7,9 @@ import { BlockGridComponent } from './block-grid/block-grid.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, data: { text: "Top 100 Crypto's", iconName: 'call_made' } },
-  { path: 'my', component: HomeComponent, data: { text: 'My Blockfolio', iconName: 'account_box' } },
+  { path: 'block-grid', component: BlockGridComponent, data: { text: 'Grid view', iconName: 'account_box' } },
   { path: 'statistics', component: StatisticsComponent, data: { text: 'Volatility', iconName: 'show_chart' } },
-  { path: 'block-grid', component: BlockGridComponent, data: { text: 'My Blockfolio', iconName: 'account_box' } }
+  { path: 'block-grid', component: BlockGridComponent, data: { text: 'My Blockfolio', iconName: 'account_box' } },
 ];
 
 @NgModule({

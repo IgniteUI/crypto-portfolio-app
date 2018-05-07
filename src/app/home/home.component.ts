@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getData() {
-    this.data.getPrices()
+    this.data.getData()
       .subscribe(res => {
         const fetchedData = Object.keys(res['data']),
           newData = [];
@@ -110,22 +110,12 @@ export class HomeComponent implements OnInit {
           newData.push(res['data'][key]);
         }
 
-        this.cryptos = this.sortDataByKey(newData, 'rank');
+        this.cryptos = this.data.sortDataByKey(newData, 'rank');
       });
   }
 
   public clear(input) {
     input.value = '';
     this.getData();
-  }
-
-  private sortDataByKey(array, keyToSortBy) {
-    function sortByKey(a, b) {
-        const x = a[keyToSortBy];
-        const y = b[keyToSortBy];
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    }
-
-    return array.sort(sortByKey);
   }
 }

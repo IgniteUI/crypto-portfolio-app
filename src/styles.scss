@@ -20,6 +20,11 @@ $app-palette: igx-palette($primary, $secondary);
 app-home {
   width: 100%;
 }
+
+app-block-grid {
+  width: 100%;
+}
+
 .sample-wrapper {
   width: inherit;
   position: relative;
@@ -70,6 +75,14 @@ app-home {
 
 .igx-card igx-card-content {
   padding: 0em;
+}
+
+.percent-style-up {
+  color: green;
+}
+
+.percent-style-down {
+  color: red;
 }
 
 @-webkit-keyframes color-change-2x {

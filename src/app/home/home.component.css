@@ -26,14 +26,6 @@ img {
   min-width: 160px;
 }
 
-.percent-style-up {
-  color: green;
-}
-
-.percent-style-down {
-  color: red;
-}
-
 .searchBox {
   width:100%;
   padding-left:15px;

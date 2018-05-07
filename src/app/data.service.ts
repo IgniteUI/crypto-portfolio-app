@@ -9,7 +9,7 @@ export class DataService {
 
   constructor(private _http: HttpClient) { }
 
-  getPrices() {
+  getData() {
     // return this._http.get('https://api.coinmarketcap.com/v1/ticker/')
     return this._http.get('https://api.coinmarketcap.com/v2/ticker/?convert=BTC&limit=1000')
       .map(result =>  {
@@ -22,5 +22,15 @@ export class DataService {
       '&tsym=USD&limit=' + forDays).map(result =>  {
         return this.result = result;
     });
+  }
+
+  public sortDataByKey(array, keyToSortBy) {
+    function sortByKey(a, b) {
+        const x = a[keyToSortBy];
+        const y = b[keyToSortBy];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    }
+
+    return array.sort(sortByKey);
   }
 }
