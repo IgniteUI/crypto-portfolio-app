@@ -6,15 +6,20 @@ import 'rxjs/add/operator/map';
 export class DataService {
 
   result: any;
+  cachedData: any;
 
   constructor(private _http: HttpClient) { }
 
   getData() {
-    // return this._http.get('https://api.coinmarketcap.com/v1/ticker/')
-    return this._http.get('https://api.coinmarketcap.com/v2/ticker/?convert=BTC&limit=1000')
+    if (!this.cachedData) {
+      // return this._http.get('https://api.coinmarketcap.com/v1/ticker/')
+      this.cachedData = this._http.get('https://api.coinmarketcap.com/v2/ticker/?convert=BTC&limit=1000')
       .map(result =>  {
         return this.result = result;
       });
+    }
+
+    return this.cachedData;
   }
 
   getLastSevenDaysPrices(name: String, forDays: Number) {

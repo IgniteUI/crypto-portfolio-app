@@ -15,9 +15,9 @@ import * as firebase from 'firebase/app';
 export class LoginComponent implements OnInit {
 
   error: any;
-  constructor(public afa: AngularFireAuth, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, private router: Router) {
 
-    this.afa.authState.subscribe(auth => {
+    this.afAuth.authState.subscribe(auth => {
       if (auth) {
         this.router.navigateByUrl('/statistics');
       }
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginFb() {
-    this.afa.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
+    this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
         (success) => {
         this.router.navigate(['/statistics']);
       }).catch(
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginGoogle() {
-    this.afa.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       (success) => {
       this.router.navigate(['/statistics']);
     }).catch(

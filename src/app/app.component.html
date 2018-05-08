@@ -18,10 +18,10 @@
       <span>
         <div *ngIf="afAuth.authState | async as user; else showLogin">
           Hello {{ user.displayName }}!
-          <button (click)="logout()">Logout</button>
+          <button igxButton="raised" igxRipple (click)="logout()">Logout</button>
         </div>
         <ng-template #showLogin>
-          <div><button (click)="login()">Login</button></div>
+          <div><button igxButton="raised" igxRipple (click)="login()">Login</button></div>
         </ng-template>
       </span>
     </igx-navbar>

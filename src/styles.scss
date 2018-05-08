@@ -3,7 +3,7 @@
 @import "~igniteui-angular/core/styles/themes/index";
 
 $primary: #8049ff !default;
-$secondary: #12ce31 !default;
+$secondary: #E29C45 !default;
 
 $app-palette: igx-palette($primary, $secondary);
 
@@ -85,6 +85,24 @@ app-block-grid {
   color: red;
 }
 
+.form-container {
+  background:white;
+  padding:3.5em;
+  width:500px;
+  // position:fixed;
+  // left:50%;
+  // margin-left:-250px;
+}
+
+.button {
+  padding:1em;
+  width:100%;
+  cursor:pointer;
+  margin-bottom:15px;
+  font-size:1em;
+  height: 50px;
+}
+
 @-webkit-keyframes color-change-2x {
   0% {
       background: #fdf8f0;
@@ -120,3 +138,5 @@ app-block-grid {
       opacity: 1;
   }
 }
+
+
