@@ -15,6 +15,7 @@ import {
 import { DataService  } from '../data.service';
 import { IgxFilterOptions } from 'igniteui-angular/main';
 import { resolveDefinition } from '@angular/core/src/view/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit {
   cryptos: any;
   public search1: string;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private router: Router) { }
 
   ngOnInit() {
     this.getData();
@@ -77,5 +78,9 @@ export class HomeComponent implements OnInit {
   public clear(input) {
     input.value = '';
     this.getData();
+  }
+
+  public openChart(evt, symbol) {
+    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
   }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService  } from '../data.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-statistics',
@@ -7,11 +10,21 @@ import { DataService  } from '../data.service';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnInit {
-  public cryptoName = 'BTC';
-  public daysCount = 100;
+  public cryptoName;
+  public daysCount;
   data: any;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+    // route.params.map(p => p.cryptoName).subscribe(res => this.cryptoName = res);
+
+    this.route
+      .paramMap
+      .pipe(map(params => params.get('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => this.cryptoName = res);
+
+    this.route
+      .paramMap
+      .pipe(map(params => params.get('daysCount') || route.routeConfig.data.daysCount)).subscribe(res => this.daysCount = res);
+  }
 
   ngOnInit() {
     this.getData();

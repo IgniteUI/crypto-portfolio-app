@@ -1,9 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 // import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn } from '../router.animations';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-login',
@@ -13,22 +14,29 @@ import * as firebase from 'firebase/app';
   host: {'[@moveIn]': ''}
 })
 export class LoginComponent implements OnInit {
+  return = '';
 
   error: any;
-  constructor(public afAuth: AngularFireAuth, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute) {
 
     this.afAuth.authState.subscribe(auth => {
       if (auth) {
-        this.router.navigateByUrl('/statistics');
+        this.router.navigateByUrl(this.return);
       }
     });
 
   }
 
+  ngOnInit() {
+    // Get the query params
+    this.route.queryParams
+      .subscribe(params => this.return = params['return'] || '/forums');
+  }
+
   loginFb() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
         (success) => {
-        this.router.navigate(['/statistics']);
+          this.router.navigate([this.return]);
       }).catch(
         (err) => {
         this.error = err;
@@ -38,15 +46,11 @@ export class LoginComponent implements OnInit {
   loginGoogle() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       (success) => {
-      this.router.navigate(['/statistics']);
+      this.router.navigate([this.return]);
     }).catch(
       (err) => {
       this.error = err;
     });
-  }
-
-
-  ngOnInit() {
   }
 
 }
