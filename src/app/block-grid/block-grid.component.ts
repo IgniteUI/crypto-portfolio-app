@@ -9,9 +9,10 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./block-grid.component.css']
 })
 export class BlockGridComponent implements OnInit {
-  public remoteData: Observable<any[]>;
+  public remoteData: any[];
 
   constructor(private data: DataService) {
+    this.remoteData = [];
   }
 
   ngOnInit() {

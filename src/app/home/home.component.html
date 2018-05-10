@@ -21,7 +21,7 @@
                     <igx-card-content>
                             <p class="igx-card-content__text">{{ crypto.quotes.USD.price }} USD <span class="percent-style-{{ crypto.quotes.USD.percent_change_24h >= 0 ? 'up' : 'down'}}">({{ crypto.quotes.USD.percent_change_24h }})%</span></p>
                             <p class="igx-card-content__text">Rank: {{ crypto.rank }}</p>
-                            <p class="igx-card-content__text">Market Cap: {{ crypto.quotes.USD.market_cap }}</p>
+                            <p class="igx-card-content__text">Market Cap: {{ crypto.quotes.USD.market_cap | number:'3.0-5' }}</p>
                             <p class="igx-card-content__text">7d change: <span class="percent-style-{{ crypto.quotes.USD.percent_change_7d >= 0 ? 'up' : 'down'}}">({{ crypto.quotes.USD.percent_change_7d }})%</span></p>
                     </igx-card-content>
                     <!-- <igx-card-actions>
