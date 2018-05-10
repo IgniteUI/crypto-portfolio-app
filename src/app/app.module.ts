@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule,
   IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
-  IgxInputGroupModule, IgxFilterModule, IgxGridModule
+  IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule
 } from 'igniteui-angular/main';
 
 import { HomeComponent } from './home/home.component';
@@ -25,6 +25,7 @@ import { LoginComponent } from './login/login.component';
 import { EmailComponent } from './email/email.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './auth.service';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
@@ -43,7 +44,8 @@ export const firebaseConfig = {
     BlockGridComponent,
     LoginComponent,
     EmailComponent,
-    SignupComponent
+    SignupComponent,
+    PortfolioComponent
   ],
   imports: [
     FormsModule,
@@ -61,6 +63,7 @@ export const firebaseConfig = {
     IgxIconModule,
     IgxCardModule,
     IgxInputGroupModule,
+    IgxListModule,
     IgxFilterModule,
     IgxGridModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),

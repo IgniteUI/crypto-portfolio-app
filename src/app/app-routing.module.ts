@@ -7,15 +7,16 @@ import { AuthGuard } from './auth.service';
 import { LoginComponent } from './login/login.component';
 import { EmailComponent } from './email/email.component';
 import { SignupComponent } from './signup/signup.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, data: { text: 'Top 100 Crypto`s', iconName: 'call_made' } },
-  { path: 'block-grid', component: BlockGridComponent, data: { text: 'Grid view', iconName: 'account_box' } },
+  { path: 'block-grid', component: BlockGridComponent, data: { text: 'Grid view', iconName: 'grid_on' } },
   { path: 'statistics', component: StatisticsComponent,
-    data: { text: 'Volatility', iconName: 'show_chart', cryptoName: 'BTC', daysCount: 100 },
+    data: { text: 'Volatility', iconName: 'insert_chart_outlined', cryptoName: 'BTC', daysCount: 100 },
     canActivate: [AuthGuard] },
-  { path: 'block-grid', component: BlockGridComponent, data: { text: 'My Blockfolio', iconName: 'account_box' } },
+  { path: 'portfolio', component: PortfolioComponent, data: { text: 'My portfolio', iconName: 'account_box' } },
   { path: 'login', component: LoginComponent },
   { path: 'email', component: EmailComponent },
   { path: 'signup', component: SignupComponent }

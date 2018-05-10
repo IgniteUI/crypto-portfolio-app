@@ -1,0 +1,27 @@
+<igx-input-group type="search" class="search">
+  <igx-prefix>
+      <igx-icon>search</igx-icon>
+  </igx-prefix>
+  <input #search igxInput placeholder="Search Cryptocurrencies" [(ngModel)]="searchCrypto">
+  <igx-suffix *ngIf="search.value.length > 0" (click)="searchCrypto = null">
+      <igx-icon>clear</igx-icon>
+  </igx-suffix>
+</igx-input-group>
+
+<div class="list-sample">
+  <igx-list>
+      <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
+      <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;" [@flyInOut]>
+          <div class="item-container">
+              <div class="crypto">
+                  <!-- <igx-avatar [src]="crypto.photo" roundShape="true"></igx-avatar> -->
+                  <div class="crypto__info">
+                      <span class="name">{{ crypto.name }}</span>
+                      <!-- <span class="phone">{{ crypto.rank }}</span> -->
+                  </div>
+              </div>
+              <igx-icon name="star" [color]="crypto.isFavorite ? 'orange' : 'lightgray'" (click)="toggleFavorite(crypto)"></igx-icon>
+          </div>
+      </igx-list-item>
+  </igx-list>
+</div>

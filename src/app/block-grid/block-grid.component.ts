@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Http } from "@angular/http";
+import { Http } from '@angular/http';
 import { DataService  } from '../data.service';
 import { Observable } from 'rxjs/Rx';
 
