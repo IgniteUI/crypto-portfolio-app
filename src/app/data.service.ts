@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { offlineData } from '../assets/offlineData';
+import { IfObservable } from 'rxjs/observable/IfObservable';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataService {
 
-  result: any;
   cachedData: any;
 
   constructor(private _http: HttpClient) { }
@@ -15,14 +17,19 @@ export class DataService {
       // return this._http.get('https://api.coinmarketcap.com/v1/ticker/')
       this.cachedData = this._http.get('https://api.coinmarketcap.com/v2/ticker/?convert=BTC&limit=1000')
       .map(result =>  {
-        const fetchedData = Object.keys(result['data']),
-          newData = [];
+        let newData = [];
 
-        for (const key of fetchedData) {
-          newData.push(this.flattenObject(result['data'][key]));
+        if (result['metadata'].error === null) {
+          const fetchedData = Object.keys(result['data']);
+
+          for (const key of fetchedData) {
+            newData.push(this.flattenObject(result['data'][key]));
+          }
+        } else {
+          newData = offlineData;
         }
 
-        return this.result = newData;
+        return newData;
       });
     }
 
@@ -32,7 +39,7 @@ export class DataService {
   getLastSevenDaysPrices(name: String, forDays: Number) {
     return this._http.get('https://min-api.cryptocompare.com/data/histoday?fsym=' + name.toUpperCase() +
       '&tsym=USD&limit=' + forDays).map(result =>  {
-        return this.result = result;
+        return result;
     });
   }
 
@@ -46,7 +53,7 @@ export class DataService {
     return array.sort(sortByKey);
   }
 
-  public flattenObject = function(ob) {
+  private flattenObject = function(ob) {
     const toReturn = {};
 
     for (const i in ob) {
