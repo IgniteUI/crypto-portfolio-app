@@ -15,7 +15,14 @@ export class DataService {
       // return this._http.get('https://api.coinmarketcap.com/v1/ticker/')
       this.cachedData = this._http.get('https://api.coinmarketcap.com/v2/ticker/?convert=BTC&limit=1000')
       .map(result =>  {
-        return this.result = result;
+        const fetchedData = Object.keys(result['data']),
+          newData = [];
+
+        for (const key of fetchedData) {
+          newData.push(this.flattenObject(result['data'][key]));
+        }
+
+        return this.result = newData;
       });
     }
 
@@ -38,4 +45,23 @@ export class DataService {
 
     return array.sort(sortByKey);
   }
+
+  public flattenObject = function(ob) {
+    const toReturn = {};
+
+    for (const i in ob) {
+      if (!ob.hasOwnProperty(i)) { continue; }
+
+      if ((typeof ob[i]) === 'object') {
+        const flatObject = this.flattenObject(ob[i]);
+        for (const x in flatObject) {
+          if (!flatObject.hasOwnProperty(x)) { continue; }
+          toReturn[i + '.' + x] = flatObject[x];
+        }
+      } else {
+        toReturn[i] = ob[i];
+      }
+    }
+    return toReturn;
+  };
 }

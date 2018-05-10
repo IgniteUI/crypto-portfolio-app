@@ -5,44 +5,44 @@
             <img src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" /> <span style="font-size: 1.5em">{{ item }}</span>
         </ng-template>
     </igx-column>
-    <igx-column field='quotes'>
+    <igx-column field='quotes.USD.price'>
         <ng-template igxHeader let-column="column">
             <igx-icon name="attach_money"></igx-icon>
         </ng-template>
         <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-            {{ item.USD.price }}
+            {{ item }}
         </ng-template>
     </igx-column>
-    <igx-column field='quotes' sortable="true">
+    <igx-column field='quotes.USD.percent_change_7d' sortable="true">
         <ng-template igxHeader let-column="column">
             Percent change 7d
         </ng-template>
         <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-            <span class="percent-style-{{ item.USD.percent_change_7d >= 0 ? 'up' : 'down'}}"> {{ item.USD.percent_change_7d }} %</span>
+            <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
         </ng-template>
     </igx-column>
-    <igx-column field='quotes' sortable="true">
+    <igx-column field='quotes.USD.percent_change_1h' sortable="true">
         <ng-template igxHeader let-column="column">
             % change 1h
         </ng-template>
         <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-            <span class="percent-style-{{ item.USD.percent_change_1h >= 0 ? 'up' : 'down'}}"> {{ item.USD.percent_change_1h }} %</span>
+            <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
         </ng-template>
     </igx-column>
-    <igx-column field='quotes' sortable="true">
+    <igx-column field='quotes.USD.percent_change_24h' sortable="true">
         <ng-template igxHeader let-column="column">
             % change 7d
         </ng-template>
         <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-            <span class="percent-style-{{ item.USD.percent_change_24h >= 0 ? 'up' : 'down'}}"> {{ item.USD.percent_change_24h }} %</span>
+            <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
         </ng-template>
     </igx-column>
-    <igx-column field='quotes' sortable="true">
+    <igx-column field='quotes.USD.percent_change_7d' sortable="true">
         <ng-template igxHeader let-column="column">
             % change 7d
         </ng-template>
         <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-            <span class="percent-style-{{ item.USD.percent_change_7d >= 0 ? 'up' : 'down'}}"> {{ item.USD.percent_change_7d }} %</span>
+            <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
         </ng-template>
     </igx-column>
 </igx-grid>

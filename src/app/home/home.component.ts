@@ -22,39 +22,6 @@ import { resolveDefinition } from '@angular/core/src/view/util';
   styleUrls: ['./home.component.css'],
   animations: [
     trigger('flyInOut', [
-      state('in', style({opacity: 1, transform: 'translateY(0)'})),
-      transition('void => *', [
-        style({
-          opacity: 0,
-          transform: 'translateY(-100%)'
-        }),
-        animate('0.5s ease-in')
-      ]),
-      transition('* => void', [
-        animate('0.5s 0.3s ease-out', style({
-          opacity: 0,
-          transform: 'translateY(100%)'
-        }))
-      ])
-    ]),
-    trigger('flyInOut2', [
-      state('in', style({transform: 'translateY(0)'})),
-      transition('void => *', [
-        animate(600, keyframes([
-          style({opacity: 0, transform: 'translateY(-100%)', offset: 0}),
-          style({opacity: 1, transform: 'translateY(20px)',  offset: 0.5}),
-          style({opacity: 1, transform: 'translateY(0)',     offset: 1.0})
-        ]))
-      ]),
-      transition('* => void', [
-        animate(600, keyframes([
-          style({opacity: 1, transform: 'translateY(0)',     offset: 0}),
-          style({opacity: 1, transform: 'translateY(-20px)', offset: 0.5}),
-          style({opacity: 0, transform: 'translateY(100%)',  offset: 1.0})
-        ]))
-      ])
-    ]),
-    trigger('flyInOut3', [
       state('in', style({width: 120, transform: 'translateX(0)', opacity: 1})),
       transition('void => *', [
         style({width: 10, transform: 'translateX(50px)', opacity: 0}),
@@ -103,14 +70,7 @@ export class HomeComponent implements OnInit {
   private getData() {
     this.data.getData()
       .subscribe(res => {
-        const fetchedData = Object.keys(res['data']),
-          newData = [];
-
-        for (const key of fetchedData) {
-          newData.push(res['data'][key]);
-        }
-
-        this.cryptos = this.data.sortDataByKey(newData, 'rank');
+        this.cryptos = this.data.sortDataByKey(res, 'rank');
       });
   }
 

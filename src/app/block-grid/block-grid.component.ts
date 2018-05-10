@@ -22,14 +22,7 @@ export class BlockGridComponent implements OnInit {
   private loadData() {
     this.data.getData()
       .subscribe(res => {
-        const fetchedData = Object.keys(res['data']),
-          newData = [];
-
-        for (const key of fetchedData) {
-          newData.push(res['data'][key]);
-        }
-
-        this.remoteData = this.data.sortDataByKey(newData, 'rank');
+        this.remoteData = this.data.sortDataByKey(res, 'rank');
       });
   }
 }
