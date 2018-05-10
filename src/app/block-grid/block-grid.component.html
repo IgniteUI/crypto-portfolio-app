@@ -7,18 +7,19 @@
     </igx-column>
     <igx-column field='quotes.USD.price'>
         <ng-template igxHeader let-column="column">
-            <igx-icon name="attach_money"></igx-icon>
+            <!-- <igx-icon name="attach_money"></igx-icon> -->
+            Price
         </ng-template>
         <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-            {{ item }}
+            $ {{ item }}
         </ng-template>
     </igx-column>
-    <igx-column field='quotes.USD.percent_change_7d' sortable="true">
+    <igx-column field='total_supply' sortable="true">
         <ng-template igxHeader let-column="column">
-            Percent change 7d
+            Total supply
         </ng-template>
         <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-            <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
+            <span> $ {{ item | number:'3.0-5' }}</span>
         </ng-template>
     </igx-column>
     <igx-column field='quotes.USD.percent_change_1h' sortable="true">
