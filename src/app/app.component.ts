@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
   public topNavLinks: Array<{
     path: string,
     name: string,
-    icon: string
+    icon: string,
+    subItem: boolean
   }> = [];
   @ViewChild(IgxNavigationDrawerComponent) public navdrawer: IgxNavigationDrawerComponent;
 
@@ -29,7 +30,8 @@ export class AppComponent implements OnInit {
         this.topNavLinks.push({
           name: route.data.text,
           path: '/' + route.path,
-          icon: route.data.iconName
+          icon: route.data.iconName,
+          subItem: route.data.subItem
         });
       }
     }

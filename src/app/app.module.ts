@@ -26,6 +26,7 @@ import { EmailComponent } from './email/email.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './auth.service';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { BlockListComponent } from './block-list/block-list.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
@@ -45,7 +46,8 @@ export const firebaseConfig = {
     LoginComponent,
     EmailComponent,
     SignupComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    BlockListComponent
   ],
   imports: [
     FormsModule,

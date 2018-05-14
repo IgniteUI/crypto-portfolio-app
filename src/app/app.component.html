@@ -3,6 +3,7 @@
     <ng-template igxDrawer>
       <span igxDrawerItem [isHeader]="true">Views</span>
       <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active" routerLink="{{route.path}}">
+          <span *ngIf="route.subItem">&nbsp;&nbsp;&nbsp;&nbsp;</span>
           <igx-icon fontSet="material" name="{{route.icon}}"></igx-icon>
           <span>{{route.name}}</span>
       </span>

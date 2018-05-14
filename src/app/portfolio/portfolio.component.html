@@ -9,7 +9,7 @@
 </igx-input-group>
 
 <div class="list-sample">
-  <igx-list>
+  <igx-list height="100%">
       <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
       <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;" [@flyInOut]>
           <div class="item-container">
@@ -17,7 +17,7 @@
                   <!-- <igx-avatar [src]="crypto.photo" roundShape="true"></igx-avatar> -->
                   <div class="crypto__info">
                       <span class="name">{{ crypto.name }}</span>
-                      <!-- <span class="phone">{{ crypto.rank }}</span> -->
+                      <span class="phone">{{ crypto.rank }}</span>
                   </div>
               </div>
               <igx-icon name="star" [color]="crypto.isFavorite ? 'orange' : 'lightgray'" (click)="toggleFavorite(crypto)"></igx-icon>
