@@ -36,10 +36,19 @@ export class ItemService {
     const listObservable = this.items.snapshotChanges();
     listObservable.subscribe();
   }
+
+  updateItem(key: string, item: BlockItem): void {
+    this.items.update(key, item).catch(error => console.log(error));
+  }
+
+  deleteItem(key: string): void {
+    this.items.remove(key).catch(error => console.log(error));
+  }
 }
 
 
 export class BlockItem {
+    key: string;
     coinName: string;
     holdings: number;
 }

@@ -1,34 +1,45 @@
-<h4 class="sample-title">Blockfolio</h4>
-<form class="input-group-form">
-    <igx-input-group *ngFor="let blockItem of blockItems | async">
-        <!-- <input igxInput name="fullName" type="text" [(ngModel)]="blockItem.coinName"  /> -->
-        <label igxLabel>{{ blockItem.coinName }}</label>
-        <label igxLabel>{{ blockItem.holdings }}</label>
-    </igx-input-group>
+<div style="width: 100%;">
+    <igx-tabs>
+        <igx-tabs-group label="My list" icon="format_list_numbered">
+            <!-- <ul>
+                <li *ngFor="let blockItem of blockItems | async">
+                    {{ blockItem.coinName }} and {{ blockItem.holdings }}
 
-    <ul>
-        <li *ngFor="let blockItem of blockItems | async">
-          {{ blockItem.coinName }} and {{ blockItem.holdings }}
-        </li>
-      </ul>
-    <!-- <igx-input-group>
-        <igx-prefix>+359</igx-prefix>
-        <label igxLabel for="phone">Phone</label>
-        <input igxInput name="phone" type="text" [(ngModel)]="user.phone" />
-        <igx-suffix>
-            <igx-icon name="phone"></igx-icon>
-        </igx-suffix>
-        <igx-hint position="start">Ex.: +359 888 123 456</igx-hint>
-    </igx-input-group>
-    <igx-input-group>
-        <label igxLabel for="email">Email address</label>
-        <input igxInput name="email" type="email" [(ngModel)]="user.email" required />
-        <igx-suffix>
-            <igx-icon name="email"></igx-icon>
-        </igx-suffix>
-    </igx-input-group>
-    <div class="button-wrapper">
-        <button igxButton="raised" igxRipple>Book</button>
-    </div> -->
-    <button igxButton="raised" igxRipple (click)="addItem()">Book</button>
-</form>
+                    <span igxButton="raised" igxRipple (click)='deleteItem(blockItem)'>Delete</span>
+                </li>
+            </ul> -->
+
+            <igx-grid [data]="blockItems | async" width="500px" height="500px" (onEditDone)="updateRow($event)"
+                (onSelection)="selectCell($event)">
+                <igx-column field="coinName" header="Coin name" ></igx-column>
+                <!-- <igx-column field="holdings" header="Holdings" editable="true" [hasSummary]="true" [dataType]="'number'"></igx-column> -->
+                <igx-column field="holdings" header="Holdings" editable="true"></igx-column>
+                <igx-column >
+                    <ng-template igxHeader let-column="column">
+                        Actions
+                    </ng-template>
+                    <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
+                        <span igxButton="raised" igxRipple (click)='deleteRow(item)'>Delete</span>
+                    </ng-template>
+                </igx-column>
+            </igx-grid>
+        </igx-tabs-group>
+        <igx-tabs-group label="Add holdings" icon="playlist_add">
+            <igx-input-group type="border">
+                <label igxLabel for="coin">Coin name</label>
+                <input id="coin" igxInput name="coin" type="text"  [(ngModel)]="newItem.coinName" />
+                <!-- <igx-hint position="start">Ex.: BTC</igx-hint> -->
+            </igx-input-group>
+            <br />
+            <igx-input-group type="border">
+                <label igxLabel for="holdings">Holdings</label>
+                <input igxInput name="holdings" type="number" [(ngModel)]="newItem.holdings" />
+                <!-- <igx-hint position="start">Ex.: 100</igx-hint> -->
+            </igx-input-group>
+            <br />
+            <div class="button-wrapper">
+                <button igxButton="raised" igxRipple (click)="addItem()">Add to portfolio</button>
+            </div>
+        </igx-tabs-group>
+    </igx-tabs>
+</div>

@@ -1,6 +1,6 @@
 :host {
   display: block;
-  padding: 16px;
+  // padding: 16px;
   flex: inherit;
 }
 
@@ -46,3 +46,15 @@ igx-icon {
   margin-bottom: 16px;
 }
 
+igx-tabs {
+  width: 100%;
+}
+
+igx-tab-item {
+  max-width: none !important;
+  width: 50%;
+}
+
+igx-tabs-group {
+  padding: 20px;
+}
