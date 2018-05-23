@@ -19,7 +19,9 @@
                         Actions
                     </ng-template>
                     <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-                        <span igxButton="raised" igxRipple (click)='deleteRow(item)'>Delete</span>
+                        <span igxButton="raised" igxRipple (click)='deleteRow(item)' style="margin-top: -9px;">
+                            <igx-icon name="highlight_off"></igx-icon>
+                        </span>
                     </ng-template>
                 </igx-column>
             </igx-grid>
@@ -41,5 +43,11 @@
                 <button igxButton="raised" igxRipple (click)="addItem()">Add to portfolio</button>
             </div>
         </igx-tabs-group>
+
     </igx-tabs>
+    <div style="margin-left:100px; display: flex; position: fixed; bottom: 0; justify-content: center">
+        <igx-snackbar #snack [autoHide]="true" displayTime="4500" message="Record was deleted" actionText="Undo"
+            (onAction)="restore()">
+        </igx-snackbar>
+    </div>
 </div>

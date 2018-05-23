@@ -1,20 +1,8 @@
-import {
-  Component,
-  OnInit,
-  NgModule,
-  // trigger,
-  // state,
-  // style,
-  // transition,
-  // animate,
-  // keyframes,
-  // group,
-  ViewChild,
-  ViewEncapsulation,
-  Input} from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild, ViewEncapsulation, Input} from '@angular/core';
+import { trigger, transition, style, animate, query, stagger, group, keyframes} from '@angular/animations';
 
-import { IgxFilterOptions, IgxListItemComponent } from 'igniteui-angular/main';
-// import { moveIn, fallIn, moveInLeft } from '../router.animations';
+import { IgxFilterOptions, IgxListItemComponent, IgxSnackbarComponent } from 'igniteui-angular/main';
+import { moveIn, fallIn, moveInLeft } from '../router.animations';
 import { BlockItem, ItemService } from '../block-item.service';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
@@ -35,7 +23,10 @@ export class PortfolioComponent implements OnInit {
   public selectedRow;
   public selectedCell;
 
+  @ViewChild('snack') public snack: IgxSnackbarComponent;
+
   public newItem: BlockItem = new BlockItem();
+  public deletedItem;
 
   constructor(private dataService: ItemService, private readonly afs: AngularFirestore) {
 
@@ -67,11 +58,12 @@ export class PortfolioComponent implements OnInit {
   }
 
   deleteRow(item) {
-    debugger;
     this.selectedRow = Object.assign({}, this.selectedCell.row);
     this.deleteItem(this.selectedCell.cell.row.rowData);
+    this.deletedItem = this.selectedCell.cell.row.rowData;
 
     this.selectedCell = {};
+    this.snack.show();
     // this.snax.message = `Row with ID ${this.selectedRow.rowData.id} was deleted`;
     // this.snax.show();
   }
@@ -81,5 +73,10 @@ export class PortfolioComponent implements OnInit {
     updatedItem.holdings = obj.newValue;
 
     this.updateItem(updatedItem);
+  }
+
+  public restore() {
+    this.dataService.createItem(this.deletedItem);
+    this.snack.hide();
   }
 }

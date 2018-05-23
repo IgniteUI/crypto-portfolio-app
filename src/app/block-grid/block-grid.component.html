@@ -1,11 +1,11 @@
-<igx-grid #grid1 [data]="remoteData" width="1300px" height="800px" style="margin: 20px" >
-    <igx-column field='rank' header='#' sortable="true"></igx-column>
-    <igx-column field='name' header='Name'>
+<igx-grid #grid1 [data]="remoteData" width="1100px" height="555px" style="margin: 20px" >
+    <igx-column field='rank' header='#' width="100px"></igx-column>
+    <igx-column field='name' header='Name' [filterable]="true">
         <ng-template igxCell let-cell="cell" let-item>
-            <img src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" /> <span style="font-size: 1.5em">{{ item }}</span>
+            <img src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" /> <span style="font-size: 1.5em"> {{ item }}</span>
         </ng-template>
     </igx-column>
-    <igx-column field='quotes.USD.price'>
+    <igx-column field='quotes.USD.price' filterable="true" dataType="number">
         <ng-template igxHeader let-column="column">
             <!-- <igx-icon name="attach_money"></igx-icon> -->
             Price
@@ -14,7 +14,7 @@
             $ {{ item }}
         </ng-template>
     </igx-column>
-    <igx-column field='total_supply' sortable="true">
+    <igx-column field='total_supply' sortable="true" filterable="true" dataType="number">
         <ng-template igxHeader let-column="column">
             Total supply
         </ng-template>
@@ -38,7 +38,7 @@
             <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
         </ng-template>
     </igx-column>
-    <igx-column field='quotes.USD.percent_change_7d' sortable="true">
+    <igx-column field='quotes.USD.percent_change_7d' sortable="true" >
         <ng-template igxHeader let-column="column">
             Change (7d)
         </ng-template>

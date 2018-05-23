@@ -5,7 +5,7 @@ import {
   ViewChild } from '@angular/core';
 import { DataService } from '../data.service';
 import { IgxFilterOptions, IgxListItemComponent } from 'igniteui-angular/main';
-import { trigger, transition, style, animate, query, stagger} from '@angular/animations';
+import { trigger, transition, style, animate, query, stagger, group, keyframes} from '@angular/animations';
 
 @Component({
   selector: 'app-block-list',
