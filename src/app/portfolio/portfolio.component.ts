@@ -10,73 +10,38 @@ import {
   keyframes,
   group,
   ViewChild } from '@angular/core';
-import { DataService } from '../data.service';
+
 import { IgxFilterOptions, IgxListItemComponent } from 'igniteui-angular/main';
 import { moveIn, fallIn, moveInLeft } from '../router.animations';
+import { BlockItem, ItemService } from '../block-item.service';
+import { Observable } from 'rxjs/Observable';
+import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: 'app-portfolio',
   templateUrl: './portfolio.component.html',
-  styleUrls: ['./portfolio.component.scss'],
-  host: {'[@moveIn]': ''},
-  animations: [moveIn(), fallIn(), moveInLeft(),
-    trigger('flyInOut', [
-      state('in', style({width: 120, transform: 'translateX(0)', opacity: 1})),
-      transition('void => *', [
-        style({width: 10, transform: 'translateX(50px)', opacity: 0}),
-        group([
-          animate('0.5s 0.3s ease', style({
-            transform: 'translateX(0)',
-            width: 140
-          })),
-          animate('0.5s ease', style({
-            opacity: 1
-          }))
-        ])
-      ]),
-      transition('* => void', [
-        group([
-          animate('0.5s ease', style({
-            transform: 'translateX(50px)',
-            width: 20
-          })),
-          animate('0.5s 0.4s ease', style({
-            opacity: 0
-          }))
-        ])
-      ])
-    ])
-  ]
+  styleUrls: ['./portfolio.component.scss']
 })
 export class PortfolioComponent implements OnInit {
 
-  public remoteData: any[];
   public searchCrypto: string;
+  public blockItemsCollection: AngularFireList<BlockItem>;
+  public blockItems: Observable<BlockItem[]>;
 
-  constructor(private data: DataService) {
-    this.remoteData = [];
-  }
+  constructor(private dataService: ItemService) {}
 
   ngOnInit() {
-    this.loadData();
+    this.blockItemsCollection = this.dataService.getItemsList();
+    this.blockItems = this.blockItemsCollection.valueChanges();
+    debugger;
   }
 
-  private loadData() {
-    this.data.getData()
-      .subscribe(res => {
-        this.remoteData = this.data.sortDataByKey(res, 'rank');
-      });
-  }
-
-  get filterCryptos() {
-    const fo = new IgxFilterOptions();
-    fo.key = 'name';
-    fo.inputValue = this.searchCrypto;
-    return fo;
-  }
-
-  private toggleFavorite(crypto: any) {
-    crypto.isFavorite = !crypto.isFavorite;
+  private addItem() {
+    const item = new BlockItem();
+    item.coinName = 'Sub';
+    item.holdings = 2000;
+    this.dataService.createItem(item);
   }
 
 }

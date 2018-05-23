@@ -1,27 +1,34 @@
-<igx-input-group type="search" class="search">
-  <igx-prefix>
-      <igx-icon>search</igx-icon>
-  </igx-prefix>
-  <input #search igxInput placeholder="Search Cryptocurrencies" [(ngModel)]="searchCrypto">
-  <igx-suffix *ngIf="search.value.length > 0" (click)="searchCrypto = null">
-      <igx-icon>clear</igx-icon>
-  </igx-suffix>
-</igx-input-group>
+<h4 class="sample-title">Blockfolio</h4>
+<form class="input-group-form">
+    <igx-input-group *ngFor="let blockItem of blockItems | async">
+        <!-- <input igxInput name="fullName" type="text" [(ngModel)]="blockItem.coinName"  /> -->
+        <label igxLabel>{{ blockItem.coinName }}</label>
+        <label igxLabel>{{ blockItem.holdings }}</label>
+    </igx-input-group>
 
-<div class="list-sample">
-  <igx-list height="100%">
-      <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
-      <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;" [@flyInOut]>
-          <div class="item-container">
-              <div class="crypto">
-                  <!-- <igx-avatar [src]="crypto.photo" roundShape="true"></igx-avatar> -->
-                  <div class="crypto__info">
-                      <span class="name">{{ crypto.name }}</span>
-                      <span class="phone">{{ crypto.rank }}</span>
-                  </div>
-              </div>
-              <igx-icon name="star" [color]="crypto.isFavorite ? 'orange' : 'lightgray'" (click)="toggleFavorite(crypto)"></igx-icon>
-          </div>
-      </igx-list-item>
-  </igx-list>
-</div>
+    <ul>
+        <li *ngFor="let blockItem of blockItems | async">
+          {{ blockItem.coinName }} and {{ blockItem.holdings }}
+        </li>
+      </ul>
+    <!-- <igx-input-group>
+        <igx-prefix>+359</igx-prefix>
+        <label igxLabel for="phone">Phone</label>
+        <input igxInput name="phone" type="text" [(ngModel)]="user.phone" />
+        <igx-suffix>
+            <igx-icon name="phone"></igx-icon>
+        </igx-suffix>
+        <igx-hint position="start">Ex.: +359 888 123 456</igx-hint>
+    </igx-input-group>
+    <igx-input-group>
+        <label igxLabel for="email">Email address</label>
+        <input igxInput name="email" type="email" [(ngModel)]="user.email" required />
+        <igx-suffix>
+            <igx-icon name="email"></igx-icon>
+        </igx-suffix>
+    </igx-input-group>
+    <div class="button-wrapper">
+        <button igxButton="raised" igxRipple>Book</button>
+    </div> -->
+    <button igxButton="raised" igxRipple (click)="addItem()">Book</button>
+</form>

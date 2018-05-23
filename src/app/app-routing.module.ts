@@ -18,7 +18,8 @@ export const routes: Routes = [
   { path: 'statistics', component: StatisticsComponent,
     data: { text: 'Volatility', iconName: 'insert_chart_outlined', cryptoName: 'BTC', daysCount: 100 },
     canActivate: [AuthGuard] },
-  { path: 'portfolio', component: PortfolioComponent, data: { text: 'My portfolio', iconName: 'account_box' } },
+  { path: 'portfolio', component: PortfolioComponent, data: { text: 'My portfolio', iconName: 'account_box' },
+    canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'email', component: EmailComponent },
   { path: 'signup', component: SignupComponent }

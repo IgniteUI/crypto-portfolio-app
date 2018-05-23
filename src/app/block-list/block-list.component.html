@@ -21,12 +21,12 @@
                             <span style="width: 140px; display: inline-grid;">
                                 {{ crypto.name  }} ({{crypto.symbol }})</span>
                             <span style="width: 105px; display: inline-grid;">${{ crypto['quotes.USD.price'] }}</span>
-                            <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}"> {{ crypto['quotes.USD.percent_change_7d'] }} %</span>
+                            <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}"> {{ crypto['quotes.USD.percent_change_7d'] }} % </span>(7d)
                         </span>
                         <!-- <span class="phone">{{ crypto.rank }}</span> -->
                     </div>
                 </div>
-                <igx-icon name="star" [color]="crypto.isFavorite ? 'orange' : 'lightgray'" (click)="toggleFavorite(crypto)"></igx-icon>
+                <!-- <igx-icon name="star" [color]="crypto.isFavorite ? 'orange' : 'lightgray'" (click)="toggleFavorite(crypto)"></igx-icon> -->
             </div>
         </igx-list-item>
     </igx-list>
