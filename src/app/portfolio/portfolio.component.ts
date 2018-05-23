@@ -26,7 +26,7 @@ export class PortfolioComponent implements OnInit {
   @ViewChild('snack') public snack: IgxSnackbarComponent;
 
   public newItem: BlockItem = new BlockItem();
-  public deletedItem;
+  public deletedItem: BlockItem = new BlockItem();
 
   constructor(private dataService: ItemService, private readonly afs: AngularFirestore) {
 
@@ -60,7 +60,9 @@ export class PortfolioComponent implements OnInit {
   deleteRow(item) {
     this.selectedRow = Object.assign({}, this.selectedCell.row);
     this.deleteItem(this.selectedCell.cell.row.rowData);
-    this.deletedItem = this.selectedCell.cell.row.rowData;
+
+    this.deletedItem.coinName = this.selectedCell.cell.row.rowData.coinName;
+    this.deletedItem.holdings = this.selectedCell.cell.row.rowData.holdings;
 
     this.selectedCell = {};
     this.snack.show();
@@ -78,5 +80,6 @@ export class PortfolioComponent implements OnInit {
   public restore() {
     this.dataService.createItem(this.deletedItem);
     this.snack.hide();
+    this.deletedItem = new BlockItem();
   }
 }
