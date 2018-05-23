@@ -12,8 +12,8 @@
             </igx-suffix>
         </igx-input-group>
         <div class="sample-content">
-
-            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1" [@flyInOut]>
+                <!-- <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1" [@flyInOut]> -->
+            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1">
                 <igx-card>
                     <igx-card-header>
                         <h3 class="igx-card-header__title"><img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto.id }}.png" /> <br />{{ crypto.name }} ({{ crypto.symbol }})</h3>

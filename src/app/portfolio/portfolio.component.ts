@@ -2,19 +2,19 @@ import {
   Component,
   OnInit,
   NgModule,
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-  keyframes,
-  group,
+  // trigger,
+  // state,
+  // style,
+  // transition,
+  // animate,
+  // keyframes,
+  // group,
   ViewChild,
   ViewEncapsulation,
   Input} from '@angular/core';
 
 import { IgxFilterOptions, IgxListItemComponent } from 'igniteui-angular/main';
-import { moveIn, fallIn, moveInLeft } from '../router.animations';
+// import { moveIn, fallIn, moveInLeft } from '../router.animations';
 import { BlockItem, ItemService } from '../block-item.service';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';

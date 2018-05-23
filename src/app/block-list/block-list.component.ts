@@ -2,9 +2,6 @@ import {
   Component,
   OnInit,
   NgModule,
-  state,
-  keyframes,
-  group,
   ViewChild } from '@angular/core';
 import { DataService } from '../data.service';
 import { IgxFilterOptions, IgxListItemComponent } from 'igniteui-angular/main';
