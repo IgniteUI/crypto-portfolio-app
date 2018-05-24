@@ -10,21 +10,31 @@
     </ng-template>
     <!-- <ng-template igxDrawerMini>
         <span igxDrawerItem igxRipple>
-            <igx-icon fontSet="material" name="home"></igx-icon>
+            <igx-icon fontSet="material" name="lock"></igx-icon>
         </span>
     </ng-template> -->
   </igx-nav-drawer>
   <div igxFlex>
-    <igx-navbar title="Cryptocurrency Blockfolio Application" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
+    <igx-navbar title="Crypto Blockfolio App" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
       <span>
         <div *ngIf="afAuth.authState | async as user; else showLogin">
-          Hello {{ user.displayName }}!
+          Hey {{ user.displayName }}!
           <button igxButton="raised" igxRipple (click)="logout()">Logout</button>
         </div>
         <ng-template #showLogin>
           <div><button igxButton="raised" igxRipple (click)="login()">Login</button></div>
         </ng-template>
       </span>
+      <!-- for mobile view -->
+      <!-- <span>
+          <div *ngIf="afAuth.authState | async as user; else showLogin">
+            Hey {{ user.displayName }}!
+            <button igxButton="raised" igxRipple (click)="logout()"><igx-icon fontSet="material" name="lock"></igx-icon></button>
+          </div>
+          <ng-template #showLogin>
+            <div><button igxButton="raised" igxRipple (click)="login()"><igx-icon fontSet="material" name="lock_open"></igx-icon></button></div>
+          </ng-template>
+        </span> -->
     </igx-navbar>
     <div class="content" igxLayout igxLayoutJustify="center">
       <router-outlet></router-outlet>

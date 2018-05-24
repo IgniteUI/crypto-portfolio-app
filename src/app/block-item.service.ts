@@ -51,4 +51,8 @@ export class BlockItem {
     key: string;
     coinName: string;
     holdings: number;
+    cryptoId: number;
+    coinSymbol: string;
+    rank: number;
+    totalSupply: number;
 }

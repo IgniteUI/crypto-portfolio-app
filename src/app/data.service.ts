@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class DataService {
 
-  cachedData: any;
+  public cachedData: any;
 
   constructor(private _http: HttpClient) { }
 

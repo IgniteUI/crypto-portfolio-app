@@ -9,9 +9,28 @@
                 </li>
             </ul> -->
 
-            <igx-grid [data]="blockItems | async" width="500px" height="500px" (onEditDone)="updateRow($event)"
+            <igx-grid [data]="blockItems" width="500px" height="500px" (onEditDone)="updateRow($event)"
                 (onSelection)="selectCell($event)">
-                <igx-column field="coinName" header="Coin name" ></igx-column>
+                <igx-column field="coinSymbol">
+                    <ng-template igxHeader let-column="column">
+                        Coin symbol
+                    </ng-template>
+                    <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                        <div style="margin-top: -7px;">
+                            <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ cell.row.rowData.cryptoId }}.png" />
+                            <span style= "position: absolute; margin-top: 9px; margin-left: 10px;">{{ cell.row.rowData.coinSymbol }}</span>
+                        </div>
+                    </ng-template>
+                </igx-column>
+                <igx-column field="coinSymbol">
+                    <ng-template igxHeader let-column="column">
+                        Coin symbol
+                    </ng-template>
+                    <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                            {{ cell.row.rowData.coinName }}, {{ cell.row.rowData.cryptoId }}, {{ cell.row.rowData.coinSymbol }},
+                            {{ cell.row.rowData.rank }}, {{ cell.row.rowData.totalSupply }}, {{ cell.row.rowData.holdings }}
+                    </ng-template>
+                </igx-column>
                 <!-- <igx-column field="holdings" header="Holdings" editable="true" [hasSummary]="true" [dataType]="'number'"></igx-column> -->
                 <igx-column field="holdings" header="Holdings" editable="true"></igx-column>
                 <igx-column >
@@ -29,7 +48,7 @@
         <igx-tabs-group label="Add holdings" icon="playlist_add">
             <igx-input-group type="border">
                 <label igxLabel for="coin">Coin name</label>
-                <input id="coin" igxInput name="coin" type="text"  [(ngModel)]="newItem.coinName" />
+                <input id="coin" igxInput name="coin" type="text" [(ngModel)]="newItem.coinSymbol" />
                 <!-- <igx-hint position="start">Ex.: BTC</igx-hint> -->
             </igx-input-group>
             <br />
@@ -48,6 +67,10 @@
     <div style="margin-left:100px; display: flex; position: fixed; bottom: 0; justify-content: center">
         <igx-snackbar #snack [autoHide]="true" displayTime="4500" message="Record was deleted" actionText="Undo"
             (onAction)="restore()">
+        </igx-snackbar>
+    </div>
+    <div style="margin-left:100px; display: flex; position: fixed; bottom: 0; justify-content: center">
+        <igx-snackbar #snackExists [autoHide]="true" displayTime="2500">
         </igx-snackbar>
     </div>
 </div>
