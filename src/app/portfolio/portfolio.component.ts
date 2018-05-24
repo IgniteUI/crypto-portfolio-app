@@ -9,6 +9,7 @@ import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/fires
 import { AngularFireList } from 'angularfire2/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-portfolio',
@@ -20,7 +21,7 @@ export class PortfolioComponent implements OnInit {
 
   public searchCrypto: string;
   public blockItemsCollection: AngularFireList<BlockItem>;
-  public blockItems: any = [];
+  public blockItems: BlockItem[] = [];
   public selectedRow;
   public selectedCell;
   private fetchedCoin: any;
@@ -31,7 +32,8 @@ export class PortfolioComponent implements OnInit {
   public newItem: BlockItem = new BlockItem();
   public deletedItem: BlockItem = new BlockItem();
 
-  constructor(private blockItemService: ItemService, private dataService: DataService, private readonly afs: AngularFirestore) {
+  constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
+      private readonly afs: AngularFirestore) {
 
   }
 
@@ -77,6 +79,10 @@ export class PortfolioComponent implements OnInit {
     this.deletedItem.coinSymbol = this.selectedCell.cell.row.rowData.coinSymbol;
     this.deletedItem.rank = this.selectedCell.cell.row.rowData.rank;
     this.deletedItem.totalSupply = this.selectedCell.cell.row.rowData.totalSupply;
+    this.deletedItem.oneHourPercentChange = this.selectedCell.cell.row.rowData.oneHourPercentChange;
+    this.deletedItem.oneDayPercentChange = this.selectedCell.cell.row.rowData.oneDayPercentChange;
+    this.deletedItem.sevenDaysPercentChange = this.selectedCell.cell.row.rowData.sevenDaysPercentChange;
+    this.deletedItem.usdPrice = this.selectedCell.cell.row.rowData.usdPrice;
 
     this.selectedCell = {};
     this.snack.show();
@@ -95,29 +101,6 @@ export class PortfolioComponent implements OnInit {
     this.deletedItem = new BlockItem();
   }
 
-  public findCoin(coin): Observable<any> {
-    return this.dataService.cachedData.map(res => {
-      const fCoin = res.filter(item => item.symbol === coin);
-      debugger;
-      // Check coin existence
-      if (fCoin[0]) {
-        this.newItem.coinSymbol = this.newItem.coinSymbol.toUpperCase();
-        this.newItem.coinName = fCoin[0].name;
-        this.newItem.cryptoId = fCoin[0].id;
-        this.newItem.rank = fCoin[0].rank;
-        this.newItem.totalSupply = fCoin[0].total_supply;
-
-        this.blockItemService.createItem(this.newItem);
-        this.newItem = new BlockItem();
-      } else {
-        this.snackExists.message = 'Coin does not exist!';
-        this.snackExists.show();
-      }
-
-      return fCoin;
-    });
-  }
-
   private checkCoinExistence(coin) {
       const fCoin = this.blockItems.filter(item => item.coinSymbol === coin.toUpperCase());
 
@@ -126,8 +109,64 @@ export class PortfolioComponent implements OnInit {
         this.snackExists.show();
       } else {
         // find coin and add it if exsist
-        this.findCoin(this.newItem.coinSymbol.toUpperCase())
-          .subscribe(result => this.fetchedCoin = result);
+        this.findCoin(this.newItem.coinSymbol.toUpperCase());
       }
+  }
+  public findCoin(coin) {
+    this.dataService.getCryptoIdFromSymbol(coin).subscribe(filteredItem => {
+      if (filteredItem) {
+        this.dataService.getSpecificCoinData(filteredItem['id']).subscribe(result => {
+          this.newItem.coinSymbol = this.newItem.coinSymbol.toUpperCase();
+          this.newItem.coinName = result['name'];
+          this.newItem.cryptoId = result['id'];
+          this.newItem.rank = result['rank'];
+          this.newItem.totalSupply = result['total_supply'];
+          this.newItem.oneHourPercentChange = result['quotes.USD.percent_change_1h'];
+          this.newItem.oneDayPercentChange = result['quotes.USD.percent_change_24h'];
+          this.newItem.sevenDaysPercentChange = result['quotes.USD.percent_change_7d'];
+          this.newItem.usdPrice = result['quotes.USD.price'];
+
+          this.blockItemService.createItem(this.newItem);
+          this.newItem = new BlockItem();
+
+          this.snackExists.message = 'Added!';
+          this.snackExists.show();
+        }, err => {
+          console.log(err);
+        });
+      } else {
+          this.snackExists.message = 'Coin does not exist!';
+          this.snackExists.show();
+      }
+    });
+  }
+
+  public updatePortfolio() {
+    for (const coin of this.blockItems) {
+        this.dataService.getSpecificCoinData(coin.cryptoId).subscribe(res => {
+          coin.oneHourPercentChange = res['quotes.USD.percent_change_1h'];
+          coin.oneDayPercentChange = res['quotes.USD.percent_change_24h'];
+          coin.sevenDaysPercentChange = res['quotes.USD.percent_change_7d'];
+          coin.usdPrice = res['quotes.USD.price'];
+        });
+    }
+  }
+
+  private calculateHoldings(holdings, price) {
+    return holdings * price;
+  }
+
+  private calculateTotalPortfolio() {
+    let total = 0;
+
+    for (const coin of this.blockItems) {
+      total += this.calculateHoldings(coin.holdings, coin.usdPrice);
+    }
+
+    return total;
+  }
+
+  public openChart(evt, symbol) {
+    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
   }
 }

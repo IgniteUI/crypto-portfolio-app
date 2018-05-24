@@ -43,6 +43,19 @@ export class DataService {
     });
   }
 
+  public getSpecificCoinData(cryptoId) {
+    return this._http.get('https://api.coinmarketcap.com/v2/ticker/' + cryptoId + '/?structure=array').map(result =>  {
+        return this.flattenObject(result['data'][0]);
+    });
+  }
+
+  public getCryptoIdFromSymbol(symbol) {
+    return this._http.get('https://api.coinmarketcap.com/v2/listings/').map(result =>  {
+      const crypto = result['data'].filter(item => item.symbol === symbol)
+      return crypto[0];
+    });
+  }
+
   public sortDataByKey(array, keyToSortBy) {
     function sortByKey(a, b) {
         const x = a[keyToSortBy];

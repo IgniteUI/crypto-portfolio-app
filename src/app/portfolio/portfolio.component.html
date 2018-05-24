@@ -1,28 +1,26 @@
 <div style="width: 100%;">
     <igx-tabs>
         <igx-tabs-group label="My list" icon="format_list_numbered">
-            <!-- <ul>
-                <li *ngFor="let blockItem of blockItems | async">
-                    {{ blockItem.coinName }} and {{ blockItem.holdings }}
-
-                    <span igxButton="raised" igxRipple (click)='deleteItem(blockItem)'>Delete</span>
-                </li>
-            </ul> -->
-
-            <igx-grid [data]="blockItems" width="500px" height="500px" (onEditDone)="updateRow($event)"
+            <h4>Total Portfolio Value: {{ calculateTotalPortfolio() | number:'0.2-2' }}</h4>
+            <button igxButton="raised" igxRipple (click)="updatePortfolio()"><igx-icon>refresh</igx-icon></button>
+            <br />
+            <igx-grid [data]="blockItems" width="600px" height="500px" (onEditDone)="updateRow($event)"
                 (onSelection)="selectCell($event)">
-                <igx-column field="coinSymbol">
+                <igx-column field="coinSymbol" field="coinSymbol" sortable="true">
                     <ng-template igxHeader let-column="column">
                         Coin symbol
                     </ng-template>
                     <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
-                        <div style="margin-top: -7px;">
-                            <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ cell.row.rowData.cryptoId }}.png" />
-                            <span style= "position: absolute; margin-top: 9px; margin-left: 10px;">{{ cell.row.rowData.coinSymbol }}</span>
-                        </div>
+                        <a style="color: black;" (click)="openChart($event, cell.row.rowData.coinSymbol)">
+                            <div style="margin-top: -7px;">
+                                <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ cell.row.rowData.cryptoId }}.png" />
+                                <span style= "position: absolute; margin-top: 16px; margin-left: 10px;">
+                                    {{ cell.row.rowData.coinSymbol }}</span>
+                            </div>
+                        </a>
                     </ng-template>
                 </igx-column>
-                <igx-column field="coinSymbol">
+                <!-- <igx-column field="coinSymbol">
                     <ng-template igxHeader let-column="column">
                         Coin symbol
                     </ng-template>
@@ -30,9 +28,27 @@
                             {{ cell.row.rowData.coinName }}, {{ cell.row.rowData.cryptoId }}, {{ cell.row.rowData.coinSymbol }},
                             {{ cell.row.rowData.rank }}, {{ cell.row.rowData.totalSupply }}, {{ cell.row.rowData.holdings }}
                     </ng-template>
-                </igx-column>
+                </igx-column> -->
                 <!-- <igx-column field="holdings" header="Holdings" editable="true" [hasSummary]="true" [dataType]="'number'"></igx-column> -->
-                <igx-column field="holdings" header="Holdings" editable="true"></igx-column>
+                <igx-column field="holdings" header="Holdings" editable="true" sortable="true">
+                    <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                        <div style="margin-top: -7px;">
+                            ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.usdPrice) | number:'0.2-2' }}
+                            <br />
+                            <b>{{ cell.row.rowData.holdings | number:'1.0-5'}}</b>
+                        </div>
+                    </ng-template>
+                </igx-column>
+                <igx-column header="Price" field="usdPrice" sortable="true">
+                    <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                        <div style="margin-top: -7px;">
+                            ${{ cell.row.rowData.usdPrice | number:'0.2-2' }}
+                            <br />
+                            <b><span class="percent-style-{{ cell.row.rowData.oneDayPercentChange >= 0 ? 'up' : 'down'}}"> {{ cell.row.rowData.oneDayPercentChange }} % </span></b>
+                        </div>
+
+                    </ng-template>
+                </igx-column>
                 <igx-column >
                     <ng-template igxHeader let-column="column">
                         Actions

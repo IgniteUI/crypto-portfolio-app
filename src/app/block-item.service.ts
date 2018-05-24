@@ -55,4 +55,8 @@ export class BlockItem {
     coinSymbol: string;
     rank: number;
     totalSupply: number;
+    usdPrice: number;
+    oneHourPercentChange: number;
+    oneDayPercentChange: number;
+    sevenDaysPercentChange: number;
 }
