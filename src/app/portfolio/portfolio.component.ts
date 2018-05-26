@@ -33,9 +33,7 @@ export class PortfolioComponent implements OnInit {
   public deletedItem: BlockItem = new BlockItem();
 
   constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
-      private readonly afs: AngularFirestore) {
-
-  }
+      private readonly afs: AngularFirestore) { }
 
   ngOnInit() {
     this.blockItemsCollection = this.blockItemService.getItemsList();
