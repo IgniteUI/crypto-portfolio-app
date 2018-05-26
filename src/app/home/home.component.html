@@ -12,28 +12,26 @@
             </igx-suffix>
         </igx-input-group>
         <div class="sample-content">
-            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: fo1" [@flyInOut]>
+            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: filterOptions" [@flyInOut]>
                 <igx-card>
                     <igx-card-header>
-                        <h3 class="igx-card-header__title"><img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto.id }}.png" /> <br />{{ crypto.name }} ({{ crypto.symbol }})</h3>
+                        <h3 class="igx-card-header__title">
+                            <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto.id }}.png" />
+                            <br />{{ crypto.name }} ({{ crypto.symbol }})</h3>
                         <button igxButton igxRipple (click)="openChart($event, crypto.symbol)">
                             <igx-icon fontSet="material">trending_up</igx-icon>
                         </button>
                     </igx-card-header>
                     <igx-card-content>
-                            <p class="igx-card-content__text">{{ crypto['quotes.USD.price'] }} USD <span class="percent-style-{{ crypto['quotes.USD.percent_change_24h'] >= 0 ? 'up' : 'down'}}">({{ crypto['quotes.USD.percent_change_24h'] }})%</span></p>
-                            <p class="igx-card-content__text">Rank: {{ crypto.rank }}</p>
-                            <p class="igx-card-content__text">Market Cap: {{ crypto['quotes.USD.market_cap'] | number:'3.0-5' }}</p>
-                            <p class="igx-card-content__text">7d change: <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}">({{ crypto['quotes.USD.percent_change_7d'] }})%</span></p>
+                        <p class="igx-card-content__text">{{ crypto['quotes.USD.price'] }} USD
+                            <span class="percent-style-{{ crypto['quotes.USD.percent_change_24h'] >= 0 ? 'up' : 'down'}}">({{ crypto['quotes.USD.percent_change_24h'] }})%</span>
+                        </p>
+                        <p class="igx-card-content__text">Rank: {{ crypto.rank }}</p>
+                        <p class="igx-card-content__text">Market Cap: {{ crypto['quotes.USD.market_cap'] | number:'3.0-5' }}</p>
+                        <p class="igx-card-content__text">7d change:
+                            <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}">({{ crypto['quotes.USD.percent_change_7d'] }})%</span>
+                        </p>
                     </igx-card-content>
-                    <!-- <igx-card-actions>
-                        <div class="igx-card-actions__igroup--end">
-                            <button igxButton igxRipple >View chart</button>
-                            <span igxButton="icon" igxRipple igxRippleCentered="true" (click)="openChart($event, item)">
-                                <igx-icon fontSet="material" [name]="icon"></igx-icon>
-                            </span>
-                        </div>
-                    </igx-card-actions> -->
                 </igx-card>
             </article>
         </div>

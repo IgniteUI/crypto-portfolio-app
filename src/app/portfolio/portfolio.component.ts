@@ -68,33 +68,6 @@ export class PortfolioComponent implements OnInit {
     this.selectedCell = event;
   }
 
-  deleteRow(item) {
-    this.selectedRow = Object.assign({}, this.selectedCell.row);
-    this.deleteItem(this.selectedCell.cell.row.rowData);
-
-    // store deleted data
-    this.deletedItem.coinName = this.selectedCell.cell.row.rowData.coinName;
-    this.deletedItem.holdings = this.selectedCell.cell.row.rowData.holdings;
-    this.deletedItem.cryptoId = this.selectedCell.cell.row.rowData.cryptoId;
-    this.deletedItem.coinSymbol = this.selectedCell.cell.row.rowData.coinSymbol;
-    this.deletedItem.rank = this.selectedCell.cell.row.rowData.rank;
-    this.deletedItem.totalSupply = this.selectedCell.cell.row.rowData.totalSupply;
-    this.deletedItem.oneHourPercentChange = this.selectedCell.cell.row.rowData.oneHourPercentChange;
-    this.deletedItem.oneDayPercentChange = this.selectedCell.cell.row.rowData.oneDayPercentChange;
-    this.deletedItem.sevenDaysPercentChange = this.selectedCell.cell.row.rowData.sevenDaysPercentChange;
-    this.deletedItem.usdPrice = this.selectedCell.cell.row.rowData.usdPrice;
-
-    this.selectedCell = {};
-    this.snack.show();
-  }
-
-  updateRow(obj) {
-    const updatedItem = obj.row.rowData;
-    updatedItem.holdings = obj.newValue;
-
-    this.updateItem(updatedItem);
-  }
-
   public restore() {
     this.blockItemService.createItem(this.deletedItem);
     this.snack.hide();
@@ -152,6 +125,10 @@ export class PortfolioComponent implements OnInit {
     }
   }
 
+  public openChart(evt, symbol) {
+    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
+  }
+
   private calculateHoldings(holdings, price) {
     return holdings * price;
   }
@@ -166,7 +143,31 @@ export class PortfolioComponent implements OnInit {
     return total;
   }
 
-  public openChart(evt, symbol) {
-    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
+  public deleteRow(item) {
+    this.selectedRow = Object.assign({}, this.selectedCell.row);
+    this.deleteItem(this.selectedCell.cell.row.rowData);
+
+    // store deleted data
+    this.deletedItem.coinName = this.selectedCell.cell.row.rowData.coinName;
+    this.deletedItem.holdings = this.selectedCell.cell.row.rowData.holdings;
+    this.deletedItem.cryptoId = this.selectedCell.cell.row.rowData.cryptoId;
+    this.deletedItem.coinSymbol = this.selectedCell.cell.row.rowData.coinSymbol;
+    this.deletedItem.rank = this.selectedCell.cell.row.rowData.rank;
+    this.deletedItem.totalSupply = this.selectedCell.cell.row.rowData.totalSupply;
+    this.deletedItem.oneHourPercentChange = this.selectedCell.cell.row.rowData.oneHourPercentChange;
+    this.deletedItem.oneDayPercentChange = this.selectedCell.cell.row.rowData.oneDayPercentChange;
+    this.deletedItem.sevenDaysPercentChange = this.selectedCell.cell.row.rowData.sevenDaysPercentChange;
+    this.deletedItem.usdPrice = this.selectedCell.cell.row.rowData.usdPrice;
+
+    this.selectedCell = {};
+    this.snack.show();
   }
+
+  public updateRow(obj) {
+    const updatedItem = obj.row.rowData;
+    updatedItem.holdings = obj.newValue;
+
+    this.updateItem(updatedItem);
+  }
+
 }

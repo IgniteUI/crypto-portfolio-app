@@ -81,9 +81,9 @@
     }
 
     .form-container {
-        padding:1.2em;
+        /* padding:1.2em; */
         width:90%;
-        margin-left:-45%;
+        /* margin-left:-45%; */
     }
     button {
         font-size:1em;

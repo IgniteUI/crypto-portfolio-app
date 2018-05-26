@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService  } from '../data.service';
+import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -15,7 +15,6 @@ export class StatisticsComponent implements OnInit {
   data: any;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
-    // route.params.map(p => p.cryptoName).subscribe(res => this.cryptoName = res);
 
     this.route
       .paramMap

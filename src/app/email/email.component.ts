@@ -9,14 +9,13 @@ import { moveIn, fallIn } from '../router.animations';
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.scss'],
   animations: [moveIn(), fallIn()],
-  host: {'[@moveIn]': ''}
+  host: { '[@moveIn]': '' }
 })
 export class EmailComponent implements OnInit {
-
   state = '';
-    error: any;
+  error: any;
 
-    constructor(public afAuth: AngularFireAuth, private router: Router) {
+  constructor(public afAuth: AngularFireAuth, private router: Router) {
     this.afAuth.authState.subscribe(auth => {
       if (auth) {
         this.router.navigateByUrl('/statistics');
@@ -30,13 +29,13 @@ export class EmailComponent implements OnInit {
       console.log(formData.value);
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (success) => {
-        console.log(success);
-        this.router.navigate(['/statistics']);
-      }).catch(
-        (err) => {
-        console.log(err);
-        this.error = err;
-      });
+          console.log(success);
+          this.router.navigate(['/statistics']);
+        }).catch(
+          (err) => {
+            console.log(err);
+            this.error = err;
+          });
     }
   }
 

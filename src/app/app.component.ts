@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 
@@ -15,6 +15,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class AppComponent implements OnInit {
   name: any;
+  public innerWidth: any;
 
   public topNavLinks: Array<{
     path: string,
@@ -23,6 +24,11 @@ export class AppComponent implements OnInit {
     subItem: boolean
   }> = [];
   @ViewChild(IgxNavigationDrawerComponent) public navdrawer: IgxNavigationDrawerComponent;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+  }
 
   constructor(private router: Router, public afAuth: AngularFireAuth) {
     for (const route of routes) {
@@ -52,6 +58,8 @@ export class AppComponent implements OnInit {
               this.navdrawer.close();
           }
       });
+
+    this.innerWidth = window.innerWidth;
   }
 
   private logout() {

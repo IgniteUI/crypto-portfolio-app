@@ -1,33 +1,41 @@
-<igx-input-group type="search" class="search">
-    <igx-prefix>
-        <igx-icon>search</igx-icon>
-    </igx-prefix>
-    <input #search igxInput placeholder="Search Cryptocurrencies" [(ngModel)]="searchCrypto">
-    <igx-suffix *ngIf="search.value.length > 0" (click)="searchCrypto = null">
-        <igx-icon>clear</igx-icon>
-    </igx-suffix>
-  </igx-input-group>
+<div class="sample-wrapper">
+    <igx-input-group type="search" class="search">
+        <igx-prefix>
+            <igx-icon>search</igx-icon>
+        </igx-prefix>
+        <input #search igxInput placeholder="Search by name" [(ngModel)]="searchCrypto">
+        <igx-suffix *ngIf="search.value.length > 0" (click)="searchCrypto = null">
+            <igx-icon>clear</igx-icon>
+        </igx-suffix>
+    </igx-input-group>
 
-  <div class="list-sample">
-    <igx-list [@listAnimation]="remoteData.length">
-        <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
-        <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;">
-            <div class="item-container">
-                <div class="crypto">
-                    <!-- <igx-avatar [src]="crypto.photo" roundShape="true"></igx-avatar> -->
-                    <div class="crypto__info">
-                        <span class="name">
-                            <igx-icon [color]="crypto['quotes.USD.percent_change_7d'] >= 0 ? 'green' : 'red'" name="arrow_{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'upward' : 'downward'}}"></igx-icon>
-                            <span style="width: 140px; display: inline-grid;">
-                                {{ crypto.name  }} ({{crypto.symbol }})</span>
-                            <span style="width: 105px; display: inline-grid;">${{ crypto['quotes.USD.price'] }}</span>
-                            <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}"> {{ crypto['quotes.USD.percent_change_7d'] }} % </span>(7d)
-                        </span>
-                        <!-- <span class="phone">{{ crypto.rank }}</span> -->
+    <div class="list-sample">
+        <igx-list [@listAnimation]="remoteData.length">
+            <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
+            <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;">
+                <div class="item-container">
+                    <div class="crypto">
+                        <!-- <igx-avatar [src]="crypto.photo" roundShape="true"></igx-avatar> -->
+                        <div class="crypto__info">
+                            <span class="name">
+                                <!-- <span>
+                                <igx-icon [color]="crypto['quotes.USD.percent_change_7d'] >= 0 ? 'green' : 'red'"
+                                    name="arrow_{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}">
+                                </igx-icon>
+                            </span> -->
+                                <span class="li_item">
+                                    {{ crypto.name }}
+                                    <!-- ({{crypto.symbol }}) -->
+                                </span>
+                                <span class="li_item">${{ crypto['quotes.USD.price'] }}</span>
+                                <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}">
+                                    {{ crypto['quotes.USD.percent_change_7d'] }} %
+                                </span>(7d)
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <!-- <igx-icon name="star" [color]="crypto.isFavorite ? 'orange' : 'lightgray'" (click)="toggleFavorite(crypto)"></igx-icon> -->
-            </div>
-        </igx-list-item>
-    </igx-list>
-  </div>
+            </igx-list-item>
+        </igx-list>
+    </div>
+</div>

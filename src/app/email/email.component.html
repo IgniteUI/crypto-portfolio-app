@@ -1,31 +1,25 @@
 <div class="form-container">
   <h2>Custom Login</h2>
-
   <span class="error" *ngIf="error" [@fallIn]='state'>{{ error }}</span>
-
   <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-
     <igx-input-group>
       <label igxLabel for="email">Email address</label>
       <input igxInput name="email" type="email" [(ngModel)]="email" required />
       <igx-suffix>
-          <igx-icon name="email"></igx-icon>
+        <igx-icon name="email"></igx-icon>
       </igx-suffix>
     </igx-input-group>
     <igx-input-group>
       <label igxLabel for="password">Password</label>
       <input igxInput name="password" type="password" [(ngModel)]="password" required />
       <igx-suffix>
-          <igx-icon name="lock"></igx-icon>
+        <igx-icon name="lock"></igx-icon>
       </igx-suffix>
     </igx-input-group>
-
-    <!-- <input type="text" placeholder="Email address.." (ngModel)="email" name="email" class="txt" required>
-    <input type="password" placeholder="Password" (ngModel)="password" name="password" class="txt" required> -->
     <br />
     <button igxButton="raised" igxRipple type="submit" [disabled]="!formData.valid" class="basic-btn">Log in</button>
     <a igxButton="raised" igxRipple routerLink="/login" id="goback">Go back</a>
     <br />
     <a routerLink="/signup" class="alc">Don't have an account?</a>
-</form>
+  </form>
 </div>

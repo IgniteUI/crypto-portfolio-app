@@ -5,6 +5,8 @@
 $primary: #8049ff !default;
 $secondary: #E29C45 !default;
 
+// $secondary: rgb(255, 219, 88) !default;
+
 $app-palette: igx-palette($primary, $secondary);
 
 @include igx-core();
@@ -22,6 +24,10 @@ app-home {
 }
 
 app-block-grid {
+  width: 100%;
+}
+
+app-portfolio {
   width: 100%;
 }
 
