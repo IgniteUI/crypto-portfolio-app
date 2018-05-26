@@ -79,3 +79,19 @@ igx-tabs-group {
     bottom: 0;
     justify-content: center;
 }
+
+.addCoinForm {
+    padding: 12px 24px 24px;
+
+    igx-input-group + igx-input-group {
+        margin-top: 24px;
+    }
+}
+#addBtn {
+    margin-left: 10px;
+}
+
+.sample-content {
+    padding-left: 10px;
+    display: block;
+}

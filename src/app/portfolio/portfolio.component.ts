@@ -47,13 +47,14 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  private addItem() {
+  private addItem(event) {
     if (!this.dataService.cachedData) {
       this.dataService.getData();
     }
 
     // Check whether the coin is already in your portfolio
     this.checkCoinExistence(this.newItem.coinSymbol);
+    event.dialog.close();
   }
 
   private updateItem(item) {
