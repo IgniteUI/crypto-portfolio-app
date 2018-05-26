@@ -21,6 +21,11 @@ export class BlockGridComponent implements OnInit {
     this.loadData();
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
+  public ngAfterViewInit() {
+    this.grid1.reflow();
+  }
+
   private loadData() {
     this.data.getData()
       .subscribe(res => {

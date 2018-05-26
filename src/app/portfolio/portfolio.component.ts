@@ -35,7 +35,10 @@ export class PortfolioComponent implements OnInit {
   constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
       private readonly afs: AngularFirestore) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  public ngAfterViewInit() {
     this.blockItemsCollection = this.blockItemService.getItemsList();
     this.blockItemsCollection.snapshotChanges().pipe(
         map(actions => actions.map(a => ({ key: a.payload.key, ...a.payload.val()
