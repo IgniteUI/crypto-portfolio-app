@@ -15,6 +15,8 @@ export class SignupComponent implements OnInit {
 
   state = '';
   error: any;
+  email: any;
+  password: any;
 
   constructor(public afAuth: AngularFireAuth, private router: Router) {
 

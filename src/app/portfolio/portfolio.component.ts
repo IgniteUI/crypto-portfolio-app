@@ -45,7 +45,7 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  private addItem(event) {
+  public addItem(event) {
     if (!this.dataService.cachedData) {
       this.dataService.getData();
     }
@@ -128,11 +128,11 @@ export class PortfolioComponent implements OnInit {
     this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
   }
 
-  private calculateHoldings(holdings, price) {
+  public calculateHoldings(holdings, price) {
     return holdings * price;
   }
 
-  private calculateTotalPortfolio() {
+  public calculateTotalPortfolio() {
     let total = 0;
 
     for (const coin of this.blockItems) {

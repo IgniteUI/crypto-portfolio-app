@@ -31,3 +31,7 @@ img {
   padding-left:15px;
   padding-right: 15px;
 }
+
+.sample-content {
+  display:flex;
+}

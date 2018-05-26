@@ -1,5 +1,8 @@
 <div class="sample-wrapper">
     <div class="sample-content">
+        <button id="refreshBtn" igxButton="raised" igxRipple (click)="refreshGrid()">
+            <igx-icon>refresh</igx-icon>
+        </button>
         <igx-grid #grid1 [data]="remoteData" width="100%" height="555px">
             <igx-column field='rank' header='#' width="100px"></igx-column>
             <igx-column field='name' header='Name' [filterable]="true">
