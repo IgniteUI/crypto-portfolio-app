@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-buildinfo"
+        version="2.0.1">
+    <name>BuildInfo</name>
+    <description>Cordova/Phonegap Build Information Plugin. Get PackageName, Version, Debug and more...</description>
+    <license>MIT</license>
+    <keywords>debug,buildconfig,buildinfo,phonegap,cordova</keywords>
+    <author>Mikihiro Hayashi</author>
+    <repo>https://github.com/lynrin/cordova-plugin-buildinfo</repo>
+
+    <hook type="after_plugin_install" src="scripts/after_install.js" />
+    <hook type="before_plugin_uninstall" src="scripts/before_uninstall.js" />
+
+    <js-module src="www/buildinfo.js" name="BuildInfo">
+        <clobbers target="BuildInfo"/>
+    </js-module>
+
+    <engines>
+        <engine name="cordova" version=">=5.4.0"/>
+        <engine name="cordova-ios" version=">=4.0.0"/>
+        <engine name="cordova-android" version=">=5.0.0"/>
+        <engine name="cordova-windows" version=">=4.0.0"/>
+    </engines>
+
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BuildInfo">
+                <param name="android-package" value="org.apache.cordova.buildinfo.BuildInfo"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/BuildInfo.java" target-dir="src/org/apache/cordova/buildinfo"/>
+        <framework src="src/android/BuildInfo.gradle" custom="true" type="gradleReference"/>
+    </platform>
+
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="BuildInfo">
+                <param name="ios-package" value="CDVBuildInfo"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/CDVBuildInfo.h"/>
+        <source-file src="src/ios/CDVBuildInfo.m"/>
+    </platform>
+
+    <platform name="windows">
+        <js-module src="src/windows/BuildInfoProxy.js" name="BuildInfoProxy">
+            <merges target=""/>
+        </js-module>
+        <resource-file src="src/windows/buildinfo.resjson" target="strings/buildinfo.resjson" />
+    </platform>
+</plugin>

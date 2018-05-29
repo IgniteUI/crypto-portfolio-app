@@ -1,0 +1,47 @@
+{
+  "_from": "cordova-plugin-browsertab",
+  "_id": "cordova-plugin-browsertab@0.2.0",
+  "_inBundle": false,
+  "_integrity": "sha1-Hgf5hy4VRnpQ59FKc/79h0+u1ko=",
+  "_location": "/cordova-plugin-browsertab",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-browsertab",
+    "name": "cordova-plugin-browsertab",
+    "escapedName": "cordova-plugin-browsertab",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-browsertab/-/cordova-plugin-browsertab-0.2.0.tgz",
+  "_shasum": "1e07f9872e15467a50e7d14a73fefd874faed64a",
+  "_spec": "cordova-plugin-browsertab",
+  "_where": "C:\\Users\\zkolev\\code\\cryptoApp\\mobile",
+  "author": {
+    "name": "Google, Inc."
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-browsertab",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "In-app browser tabs for Android and iOS",
+  "keywords": [
+    "sfsafariviewcontroller",
+    "custom-tabs",
+    "browser-tabs",
+    "browser"
+  ],
+  "license": "Apache-2.0",
+  "name": "cordova-plugin-browsertab",
+  "version": "0.2.0"
+}

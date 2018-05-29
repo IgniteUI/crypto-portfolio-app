@@ -34,17 +34,34 @@ export class LoginComponent implements OnInit {
   }
 
   loginFb() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
-        (success) => {
-          this.router.navigate([this.return]);
-      }).catch(
-        (err) => {
-        this.error = err;
-      });
+    // this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
+    //     (success) => {
+    //       this.router.navigate([this.return]);
+    //   }).catch(
+    //     (err) => {
+    //     this.error = err;
+    //   });
+
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider()).then(function() {
+      return firebase.auth().getRedirectResult();
+    }).then(function(result) {
+      const token = result.credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+
+      this.router.navigate([this.return]);
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      this.error = errorMessage;
+    });
   }
 
   loginGoogle() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()).then(
       (success) => {
       this.router.navigate([this.return]);
     }).catch(

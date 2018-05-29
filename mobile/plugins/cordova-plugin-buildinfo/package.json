@@ -1,0 +1,85 @@
+{
+  "_from": "cordova-plugin-buildinfo@2.0.1",
+  "_id": "cordova-plugin-buildinfo@2.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-Y2bJggvkPQ0yL49L4Cp9LFpl/0g=",
+  "_location": "/cordova-plugin-buildinfo",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-buildinfo@2.0.1",
+    "name": "cordova-plugin-buildinfo",
+    "escapedName": "cordova-plugin-buildinfo",
+    "rawSpec": "2.0.1",
+    "saveSpec": null,
+    "fetchSpec": "2.0.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-buildinfo/-/cordova-plugin-buildinfo-2.0.1.tgz",
+  "_shasum": "6366c9820be43d0d322f8f4be02a7d2c5a65ff48",
+  "_spec": "cordova-plugin-buildinfo@2.0.1",
+  "_where": "C:\\Users\\zkolev\\code\\cryptoApp\\mobile",
+  "author": {
+    "name": "Mikihiro Hayashi"
+  },
+  "bugs": {
+    "url": "https://github.com/lynrin/cordova-plugin-buildinfo/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-buildinfo",
+    "platforms": [
+      "android",
+      "ios",
+      "windows"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova/Phonegap Build Information Plugin. Get PackageName, Version, Debug and more...",
+  "devDependencies": {
+    "jshint": "^2.6.0"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "0.0.0": {
+        "cordova": ">=4.0.0"
+      },
+      "2.0.0": {
+        "cordova": ">=5.4.0",
+        "cordova-android": ">=5.0.0",
+        "cordova-ios": ">=4.0.0",
+        "cordova-windows": ">=4.0.0"
+      },
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/lynrin/cordova-plugin-buildinfo#readme",
+  "keywords": [
+    "debug",
+    "buildconfig",
+    "buildinfo",
+    "phonegap",
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-windows"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-buildinfo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lynrin/cordova-plugin-buildinfo.git"
+  },
+  "scripts": {
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests",
+    "test": "npm run jshint"
+  },
+  "version": "2.0.1"
+}
