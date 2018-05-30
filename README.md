@@ -2,6 +2,10 @@
 
 Application that uses Ignite UI for Angular components along with Firebase data storage and a lot more ..
 
+Open https://zdrawku.github.io/crypto-portfolio-app/ to see the web app.
+
+Mobile app available [here](https://drive.google.com/drive/folders/1ooju9wTa-ttdkW_NJJPKkaVtPpMMJTmk), only for Android phones.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.
 
 ## Development server
