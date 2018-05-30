@@ -1,19 +1,20 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
 import { Http } from '@angular/http';
 import { DataService  } from '../data.service';
 import { Observable } from 'rxjs/Rx';
 import { IgxGridComponent } from 'igniteui-angular/grid/grid.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-block-grid',
   templateUrl: './block-grid.component.html',
   styleUrls: ['./block-grid.component.css']
 })
-export class BlockGridComponent implements OnInit {
+export class BlockGridComponent implements OnInit, AfterViewInit  {
   public remoteData: any[];
   @ViewChild('grid1') public grid1: IgxGridComponent;
 
-  constructor(private data: DataService) {
+  constructor(private data: DataService, private router: Router) {
     this.remoteData = [];
   }
 
@@ -22,8 +23,10 @@ export class BlockGridComponent implements OnInit {
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
-  public ngAfterViewInit() {
-    this.grid1.reflow();
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.refreshGrid();
+   }, 100);
   }
 
   private loadData() {
@@ -34,7 +37,6 @@ export class BlockGridComponent implements OnInit {
   }
 
   public refreshGrid() {
-    this.grid1.markForCheck();
     this.grid1.reflow();
     this.loadData();
   }
