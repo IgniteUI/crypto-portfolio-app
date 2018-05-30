@@ -1,5 +1,6 @@
 <div class="main" igxLayout>
-    <igx-nav-drawer #nav id="project-menu" isOpen="true" [enableGestures]='true' width="280px" [pin]="true">
+    <igx-nav-drawer #nav id="project-menu" isOpen="true" [enableGestures]='true'
+      width="280px" [pin]="false" pinThreshold="5000">
       <ng-template igxDrawer>
         <span igxDrawerItem [isHeader]="true">Menu</span>
         <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active" routerLink="{{route.path}}">
@@ -8,11 +9,6 @@
             <span>{{route.name}}</span>
         </span>
       </ng-template>
-      <!-- <ng-template igxDrawerMini>
-          <span igxDrawerItem igxRipple>
-              <igx-icon fontSet="material" name="lock"></igx-icon>
-          </span>
-      </ng-template> -->
     </igx-nav-drawer>
     <div igxFlex>
       <igx-navbar title="Crypto Blockfolio App" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
@@ -25,16 +21,6 @@
             <div><button igxButton="raised" igxRipple (click)="login()">Login</button></div>
           </ng-template>
         </span>
-        <!-- for mobile view -->
-        <!-- <span>
-            <div *ngIf="afAuth.authState | async as user; else showLogin">
-              Hey {{ user.displayName }}!
-              <button igxButton="raised" igxRipple (click)="logout()"><igx-icon fontSet="material" name="lock"></igx-icon></button>
-            </div>
-            <ng-template #showLogin>
-              <div><button igxButton="raised" igxRipple (click)="login()"><igx-icon fontSet="material" name="lock_open"></igx-icon></button></div>
-            </ng-template>
-          </span> -->
       </igx-navbar>
       <div class="content" igxLayout igxLayoutJustify="center">
         <router-outlet></router-outlet>

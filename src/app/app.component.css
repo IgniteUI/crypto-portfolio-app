@@ -9,3 +9,16 @@
 .temp {
   vertical-align:top;
 }
+
+.igx-nav-drawer__overlay {
+  position: fixed;
+}
+
+igx-navbar {
+  height: 56px;
+  display: block;
+}
+
+.igx-navbar {
+  position: fixed;
+}
