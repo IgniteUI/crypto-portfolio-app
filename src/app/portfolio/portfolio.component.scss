@@ -1,74 +1,14 @@
-:host {
-    display: block; // padding: 16px;
-    flex: inherit;
-}
+// :host {
+    // display: block; // padding: 16px;
+    // flex: inherit;
+// }
 
 #refreshBtn {
     margin-bottom: 21px;
 }
 
-.list-sample {
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-    height: 100%;
-}
-
 igx-icon {
     cursor: pointer;
-}
-
-.item-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.crypto {
-    display: flex; // flex: 1 0 240px;
-    align-items: center;
-    &__info {
-        display: flex;
-        flex-flow: column nowrap;
-        margin-left: 24px;
-    }
-}
-
-.name {
-    font-weight: 600;
-}
-
-.phone {
-    font-size: 0.875em;
-    line-height: 1;
-}
-
-.search {
-    margin-bottom: 16px;
-}
-
-.positionTop {
-    margin-top: -7px;
-}
-
-.symbolPosition {
-    position: absolute;
-    margin-top: 16px;
-    margin-left: 10px;
-}
-
-.aStyle {
-    color: black;
-}
-
-.sbPosition {
-    z-index: 1;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    @media only screen and (min-width: 786px) {
-     display: flex;
-    }
 }
 
 .addCoinForm {
@@ -84,5 +24,6 @@ igx-icon {
 
 .sample-content {
     padding-left: 10px;
-    display: block;
+    justify-content: center;
+    display:flex;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule, ViewChild, ViewEncapsulation, Input} from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild, ViewEncapsulation, Input, HostListener} from '@angular/core';
 import { trigger, transition, style, animate, query, stagger, group, keyframes} from '@angular/animations';
 
 import { IgxFilterOptions, IgxListItemComponent, IgxSnackbarComponent } from 'igniteui-angular/main';
@@ -10,6 +10,7 @@ import { AngularFireList } from 'angularfire2/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
+import { IgxGridComponent } from 'igniteui-angular/grid/grid.component';
 
 @Component({
   selector: 'app-portfolio',
@@ -28,9 +29,15 @@ export class PortfolioComponent implements OnInit {
 
   @ViewChild('snack') public snack: IgxSnackbarComponent;
   @ViewChild('snackExists') public snackExists: IgxSnackbarComponent;
+  @ViewChild('grid1') public grid1: IgxGridComponent;
 
   public newItem: BlockItem = new BlockItem();
   public deletedItem: BlockItem = new BlockItem();
+
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   this.grid1.reflow();
+  // }
 
   constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
       private readonly afs: AngularFirestore) { }

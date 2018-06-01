@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { Http } from '@angular/http';
 import { DataService  } from '../data.service';
 import { Observable } from 'rxjs/Rx';
@@ -14,6 +14,12 @@ export class BlockGridComponent implements OnInit, AfterViewInit  {
   public remoteData: any[];
   @ViewChild('grid1') public grid1: IgxGridComponent;
 
+  // @HostListener('window:resize', ['$event'])
+  // onResize(event) {
+  //   debugger;
+  //   this.grid1.reflow();
+  // }
+
   constructor(private data: DataService, private router: Router) {
     this.remoteData = [];
   }
@@ -26,7 +32,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit  {
   ngAfterViewInit() {
     setTimeout(() => {
       this.refreshGrid();
-   }, 100);
+    }, 100);
   }
 
   private loadData() {

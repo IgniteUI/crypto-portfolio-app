@@ -4,7 +4,7 @@
             <igx-icon>refresh</igx-icon>
         </button>
         <igx-grid #grid1 [data]="remoteData" width="100%" height="555px">
-            <igx-column field='rank' header='#'></igx-column>
+            <!-- <igx-column field='rank' header='#'></igx-column> -->
             <igx-column field='name' header='Name' [filterable]="true">
                 <ng-template igxCell let-cell="cell" let-item>
                     <img src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" />
