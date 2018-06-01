@@ -5,7 +5,7 @@ Application that uses Ignite UI for Angular components along with Firebase data 
 Open https://zdrawku.github.io/crypto-portfolio-app/ to see the web app.
  - base href used for the web app - `<base href="https://zdrawku.github.io/crypto-portfolio-app/">`
 
-Mobile app available [here](https://drive.google.com/drive/folders/1ooju9wTa-ttdkW_NJJPKkaVtPpMMJTmk), only for Android phones.
+Mobile app available [here](https://drive.google.com/drive/folders/1ooju9wTa-ttdkW_NJJPKkaVtPpMMJTmk?usp=sharing), only for Android phones.
  - base href used for the mobile app - `<base href="./" />`
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.
