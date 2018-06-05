@@ -53,6 +53,14 @@ export class PortfolioComponent implements OnInit {
     ).subscribe(res => {
       this.blockItems = res;
     });
+
+    setTimeout(() => {
+      this.refreshGrid();
+    }, 100);
+  }
+
+  public refreshGrid() {
+    this.grid1.reflow();
   }
 
   public addItem(event) {
@@ -111,7 +119,7 @@ export class PortfolioComponent implements OnInit {
           this.blockItemService.createItem(this.newItem);
           this.newItem = new BlockItem();
 
-          this.snackExists.message = 'Added!';
+          this.snackExists.message = 'Coin Added!';
           this.snackExists.show();
         }, err => {
           console.log(err);

@@ -20,10 +20,43 @@ igx-icon {
 }
 #addBtn {
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .sample-content {
     padding-left: 10px;
     justify-content: center;
     display:flex;
+}
+
+.positionTop {
+    width: 100%;
+    margin-top: -7px;
+}
+
+.symbolPosition {
+    position: absolute;
+    margin-top: 16px;
+    margin-left: 10px;
+}
+
+.aStyle {
+    color: black;
+}
+
+.sbPosition {
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    @media only screen and (min-width: 786px) {
+     display: flex;
+    }
+}
+
+
+igx-grid {
+    margin: 20px;
 }

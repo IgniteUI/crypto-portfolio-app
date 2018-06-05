@@ -1,81 +1,79 @@
-<div>
-    <div class="sample-wrapper">
-        <div class="sample-content">
-            <button id="refreshBtn" igxButton="raised" igxRipple (click)="updatePortfolio()">
-                <igx-icon>refresh</igx-icon> Total Portfolio Value: {{ calculateTotalPortfolio() | number:'0.2-2' }}
-            </button>
-            <button id="addBtn" igxButton="raised" igxRipple (click)="form.open()">
-                <igx-icon>playlist_add</igx-icon> Add coin
-            </button>
-            <igx-grid #grid1 [data]="blockItems" width="600px" height="500px" (onEditDone)="updateRow($event)" (onSelection)="selectCell($event)">
-                <igx-column field="coinSymbol" field="coinSymbol" sortable="true">
-                    <ng-template igxHeader let-column="column">
-                        Coin symbol
-                    </ng-template>
-                    <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
-                        <a class="aStyle" (click)="openChart($event, cell.row.rowData.coinSymbol)">
-                            <div class="positionTop">
-                                <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ cell.row.rowData.cryptoId }}.png" />
-                                <span class="symbolPosition">
-                                    {{ cell.row.rowData.coinSymbol }}</span>
-                            </div>
-                        </a>
-                    </ng-template>
-                </igx-column>
-                <!-- <igx-column field="holdings" header="Holdings" editable="true" [hasSummary]="true" [dataType]="'number'"></igx-column> -->
-                <igx-column field="holdings" header="Holdings" editable="true" sortable="true">
-                    <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+<div class="sample-wrapper">
+    <div class="sample-content">
+        <button id="refreshBtn" igxButton="raised" igxRipple (click)="updatePortfolio()">
+            <igx-icon>refresh</igx-icon> Total Portfolio Value: {{ calculateTotalPortfolio() | number:'0.2-2' }}
+        </button>
+        <button id="addBtn" igxButton="raised" igxRipple (click)="form.open()">
+            <igx-icon>playlist_add</igx-icon> Add coin
+        </button>
+        <igx-grid #grid1 [data]="blockItems" width="100%" height="500px" (onEditDone)="updateRow($event)" (onSelection)="selectCell($event)">
+            <igx-column field="coinSymbol" field="coinSymbol" sortable="true" [width]="'25%'">
+                <ng-template igxHeader let-column="column">
+                    Coin symbol
+                </ng-template>
+                <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                    <a class="aStyle" (click)="openChart($event, cell.row.rowData.coinSymbol)">
                         <div class="positionTop">
-                            ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.usdPrice) | number:'0.2-2' }}
-                            <br />
-                            <b>{{ cell.row.rowData.holdings | number:'1.0-5'}}</b>
+                            <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ cell.row.rowData.cryptoId }}.png" />
+                            <span class="symbolPosition">
+                                {{ cell.row.rowData.coinSymbol }}</span>
                         </div>
-                    </ng-template>
-                </igx-column>
-                <igx-column header="Price" field="usdPrice" sortable="true">
-                    <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
-                        <div class="positionTop">
-                            ${{ cell.row.rowData.usdPrice | number:'0.2-2' }}
-                            <br />
-                            <span class="percent-style-{{ cell.row.rowData.oneDayPercentChange >= 0 ? 'up' : 'down'}}"> {{ cell.row.rowData.oneDayPercentChange }} % </span>
-                        </div>
+                    </a>
+                </ng-template>
+            </igx-column>
+            <!-- <igx-column field="holdings" header="Holdings" editable="true" [hasSummary]="true" [dataType]="'number'"></igx-column> -->
+            <igx-column field="holdings" header="Holdings" editable="true" sortable="true" [width]="'25%'">
+                <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                    <div class="positionTop">
+                        ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.usdPrice) | number:'0.2-2' }}
+                        <br />
+                        <b>{{ cell.row.rowData.holdings | number:'1.0-5'}}</b>
+                    </div>
+                </ng-template>
+            </igx-column>
+            <igx-column header="Price" field="usdPrice" sortable="true" [width]="'25%'">
+                <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                    <div class="positionTop">
+                        ${{ cell.row.rowData.usdPrice | number:'0.2-2' }}
+                        <br />
+                        <span class="percent-style-{{ cell.row.rowData.oneDayPercentChange >= 0 ? 'up' : 'down'}}"> {{ cell.row.rowData.oneDayPercentChange }} % </span>
+                    </div>
 
-                    </ng-template>
-                </igx-column>
-                <igx-column width="100px">
-                    <ng-template igxHeader let-column="column">
-                        Actions
-                    </ng-template>
-                    <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-                        <span igxButton="icon" igxRipple (click)='deleteRow(item)' style="margin-top: -9px;">
-                            <igx-icon name="highlight_off"></igx-icon>
-                        </span>
-                    </ng-template>
-                </igx-column>
-            </igx-grid>
-            <div class="sbPosition">
-                <igx-snackbar #snack [autoHide]="false" displayTime="5555554500" message="Record was deleted" actionText="Undo" (onAction)="restore()">
-                </igx-snackbar>
-            </div>
-            <div class="sbPosition">
-                <igx-snackbar #snackExists [autoHide]="false" displayTime="5555552500">
-                </igx-snackbar>
-            </div>
+                </ng-template>
+            </igx-column>
+            <igx-column [width]="'25%'">
+                <ng-template igxHeader let-column="column">
+                    Actions
+                </ng-template>
+                <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
+                    <span igxButton="icon" igxRipple (click)='deleteRow(item)' style="margin-top: -9px;">
+                        <igx-icon name="highlight_off"></igx-icon>
+                    </span>
+                </ng-template>
+            </igx-column>
+        </igx-grid>
+        <div class="sbPosition">
+            <igx-snackbar #snack [autoHide]="false" displayTime="5555554500" message="Record was deleted" actionText="Undo" (onAction)="restore()">
+            </igx-snackbar>
         </div>
-
-        <igx-dialog #form title="Add coin" leftButtonLabel="Cancel" (onLeftButtonSelect)="form.close()" (onRightButtonSelect)="addItem($event)"
-            rightButtonLabel="Add coin" [closeOnOutsideSelect]="true">
-            <form class="addCoinForm">
-                <igx-input-group type="border">
-                    <label igxLabel for="coin">Coin name</label>
-                    <input id="coin" igxInput name="coin" type="text" [(ngModel)]="newItem.coinSymbol" />
-                </igx-input-group>
-                <br />
-                <igx-input-group type="border">
-                    <label igxLabel for="holdings">Holdings</label>
-                    <input igxInput name="holdings" type="number" [(ngModel)]="newItem.holdings" />
-                </igx-input-group>
-            </form>
-        </igx-dialog>
+        <div class="sbPosition">
+            <igx-snackbar #snackExists [autoHide]="false" displayTime="5555552500">
+            </igx-snackbar>
+        </div>
     </div>
+
+    <igx-dialog #form title="Add coin" leftButtonLabel="Cancel" (onLeftButtonSelect)="form.close()" (onRightButtonSelect)="addItem($event)"
+        rightButtonLabel="Add coin" [closeOnOutsideSelect]="true">
+        <form class="addCoinForm">
+            <igx-input-group type="border">
+                <label igxLabel for="coin">Coin name</label>
+                <input id="coin" igxInput name="coin" type="text" [(ngModel)]="newItem.coinSymbol" />
+            </igx-input-group>
+            <br />
+            <igx-input-group type="border">
+                <label igxLabel for="holdings">Holdings</label>
+                <input igxInput name="holdings" type="number" [(ngModel)]="newItem.holdings" />
+            </igx-input-group>
+        </form>
+    </igx-dialog>
 </div>
