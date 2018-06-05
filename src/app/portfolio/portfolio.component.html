@@ -53,11 +53,11 @@
             </igx-column>
         </igx-grid>
         <div class="sbPosition">
-            <igx-snackbar #snack [autoHide]="false" displayTime="5555554500" message="Record was deleted" actionText="Undo" (onAction)="restore()">
+            <igx-snackbar #snack [autoHide]="true" message="Record was deleted" actionText="Undo" (onAction)="restore()">
             </igx-snackbar>
         </div>
         <div class="sbPosition">
-            <igx-snackbar #snackExists [autoHide]="false" displayTime="5555552500">
+            <igx-snackbar #snackExists [autoHide]="true">
             </igx-snackbar>
         </div>
     </div>
