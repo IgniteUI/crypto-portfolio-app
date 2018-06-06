@@ -29,7 +29,7 @@
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <universal-links>
-        <host name="crypto-portfolio-tracker.firebaseio.com" scheme="https" />
+        <host name="t6a2h.app.goo.gl/XktS" scheme="https" />
         <host name="crypto-portfolio-tracker.firebaseapp.com" scheme="https">
             <path url="/__/auth/callback"/>
         </host>
