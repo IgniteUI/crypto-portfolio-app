@@ -1,17 +1,24 @@
 <div class="sample-wrapper">
     <div class="sample-content">
-        <button id="refreshBtn" igxButton="raised" igxRipple (click)="refreshGrid()">
-            <igx-icon>refresh</igx-icon>
-        </button>
+        <div *ngIf="!hideColumn; else elseBlock">
+            <button id="refreshBtn" igxButton="raised" igxRipple (click)="refreshGrid()">
+                <igx-icon>refresh</igx-icon>
+            </button>
+        </div>
+        <ng-template #elseBlock>
+            <button id="refreshFabBtn" igxButton="fab" igxRipple (click)="refreshGrid()">
+                <igx-icon>refresh</igx-icon>
+            </button>
+        </ng-template>
         <igx-grid #grid1 [data]="remoteData" width="100%" height="555px">
             <!-- <igx-column field='rank' header='#'></igx-column> -->
-            <igx-column field='name' header='Name' [filterable]="true" [width]="'16%'">
+            <igx-column field='name' header='Name' [filterable]="true" [width]="columnPercent">
                 <ng-template igxCell let-cell="cell" let-item>
                     <img src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" />
                     <span style="font-size: 1.5em"> {{ item }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.price' filterable="true" dataType="number" [width]="'16%'">
+            <igx-column field='quotes.USD.price' filterable="true" dataType="number" [width]="columnPercent">
                 <ng-template igxHeader let-column="column">
                     Price
                 </ng-template>
@@ -19,7 +26,7 @@
                     $ {{ item }}
                 </ng-template>
             </igx-column>
-            <igx-column field='total_supply' sortable="true" filterable="true" dataType="number" [width]="'16%'">
+            <igx-column field='total_supply' sortable="true" filterable="true" dataType="number" [width]="'16%'" [hidden]="hideColumn">
                 <ng-template igxHeader let-column="column">
                     Total supply
                 </ng-template>
@@ -27,7 +34,7 @@
                     <span> $ {{ item | number:'3.0-5' }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_1h' sortable="true" [width]="'16%'">
+            <igx-column field='quotes.USD.percent_change_1h' sortable="true" [width]="'16%'" [hidden]="hideColumn">
                 <ng-template igxHeader let-column="column">
                     (1 h) %
                 </ng-template>
@@ -35,7 +42,7 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_24h' sortable="true" [width]="'16%'">
+            <igx-column field='quotes.USD.percent_change_24h' sortable="true" [width]="'16%'" [hidden]="hideColumn">
                 <ng-template igxHeader let-column="column">
                     (24 h) %
                 </ng-template>
@@ -43,7 +50,7 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_7d' sortable="true" [width]="'20%'">
+            <igx-column field='quotes.USD.percent_change_7d' sortable="true" [width]="columnPercent">
                 <ng-template igxHeader let-column="column">
                     (7d) %
                 </ng-template>

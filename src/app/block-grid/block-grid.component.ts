@@ -13,12 +13,13 @@ import { Router } from '@angular/router';
 export class BlockGridComponent implements OnInit, AfterViewInit  {
   public remoteData: any[];
   @ViewChild('grid1') public grid1: IgxGridComponent;
+  private windowWidth: any;
+  private windowHeight: any;
 
-  // @HostListener('window:resize', ['$event'])
-  // onResize(event) {
-  //   debugger;
-  //   this.grid1.reflow();
-  // }
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.windowWidth = event.target.innerWidth;
+  }
 
   constructor(private data: DataService, private router: Router) {
     this.remoteData = [];
@@ -26,6 +27,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit  {
 
   ngOnInit() {
     this.loadData();
+    this.windowWidth = window.innerWidth;
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -33,6 +35,18 @@ export class BlockGridComponent implements OnInit, AfterViewInit  {
     setTimeout(() => {
       this.refreshGrid();
     }, 100);
+  }
+
+  get hideColumn() {
+    return this.windowWidth && this.windowWidth < 800;
+  }
+
+  get columnPercent() {
+    if (this.windowWidth && this.windowWidth < 800) {
+      return '33.3%';
+    } else {
+      return '16%';
+    }
   }
 
   private loadData() {

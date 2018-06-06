@@ -5,3 +5,10 @@ igx-grid {
 #refreshBtn {
     margin-left: 20px;
 }
+
+#refreshFabBtn {
+    position: fixed;
+    right: 33px;
+    z-index: 998;
+    bottom: 33px;
+}
