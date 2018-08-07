@@ -15,7 +15,7 @@
             <igx-column field='name' header='Name' [filterable]="true" [width]="columnPercent">
                 <ng-template igxCell let-cell="cell" let-item>
                     <img src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" />
-                    <span style="font-size: 1.5em"> {{ item }}</span>
+                    <span style="font-size: 1.5em; margin-left: 10px;">  {{ item }}</span>
                 </ng-template>
             </igx-column>
             <igx-column field='quotes.USD.price' filterable="true" dataType="number" [width]="columnPercent">
@@ -23,7 +23,7 @@
                     Price
                 </ng-template>
                 <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-                    $ {{ item }}
+                    $ {{ item | number:'0.0-2' }}
                 </ng-template>
             </igx-column>
             <igx-column field='total_supply' sortable="true" filterable="true" dataType="number" [width]="'16%'" [hidden]="hideColumn">

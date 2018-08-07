@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule,
   IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
   IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule
-} from 'igniteui-angular/main';
+} from 'igniteui-angular';
 
 import { HomeComponent } from './home/home.component';
 import { StatisticsComponent } from './statistics/statistics.component';

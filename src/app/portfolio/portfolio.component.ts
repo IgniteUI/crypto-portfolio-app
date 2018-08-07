@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule, ViewChild, ViewEncapsulation, Input, HostListener} from '@angular/core';
 import { trigger, transition, style, animate, query, stagger, group, keyframes} from '@angular/animations';
 
-import { IgxFilterOptions, IgxListItemComponent, IgxSnackbarComponent } from 'igniteui-angular/main';
+import { IgxFilterOptions, IgxListItemComponent, IgxSnackbarComponent } from 'igniteui-angular';
 import { moveIn, fallIn, moveInLeft } from '../router.animations';
 import { BlockItem, ItemService } from '../block-item.service';
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +10,7 @@ import { AngularFireList } from 'angularfire2/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
-import { IgxGridComponent } from 'igniteui-angular/grid/grid.component';
+import { IgxGridComponent } from 'igniteui-angular';
 
 @Component({
   selector: 'app-portfolio',

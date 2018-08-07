@@ -252,6 +252,10 @@ Apache License
  See the License for the specific language governing permissions and
  limitations under the License.
 
+jszip@3.1.5
+(MIT OR GPL-3.0)
+(MIT OR GPL-3.0)
+
 firebase@4.13.1
 Apache-2.0
 Apache-2.0

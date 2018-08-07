@@ -2,7 +2,7 @@ import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
 
 
 import { DataService } from '../data.service';
-import { IgxFilterOptions } from 'igniteui-angular/main';
+import { IgxFilterOptions } from 'igniteui-angular';
 import { resolveDefinition } from '@angular/core/src/view/util';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
