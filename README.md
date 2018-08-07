@@ -10,6 +10,11 @@ Mobile app available [here](https://drive.google.com/drive/folders/1ooju9wTa-ttd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.
 
+## dist and docs folders
+
+`dist` folder is used to store the files build with aot.
+`docs` folder is used for the [GitHub Pages](https://zdrawku.github.io/crypto-portfolio-app/) site. Related to [`Publishing your GitHub Pages site from a /docs folder on your `master` branch`](https://zdrawku.github.io/crypto-portfolio-app/)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
