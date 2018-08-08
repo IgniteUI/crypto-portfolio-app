@@ -2,8 +2,8 @@
 
 Application that uses Ignite UI for Angular components along with Firebase data storage and a lot more ..
 
-Open https://zdrawku.github.io/crypto-portfolio-app/ to see the web app.
- - base href used for the web app - `<base href="https://zdrawku.github.io/crypto-portfolio-app/">`
+Open https://igniteui.github.io/crypto-portfolio-app/ to see the web app.
+ - base href used for the web app - `<base href="https://ignite.github.io/crypto-portfolio-app/">`
 
 Mobile app available [here](https://drive.google.com/drive/folders/1ooju9wTa-ttdkW_NJJPKkaVtPpMMJTmk?usp=sharing), only for Android phones.
  - base href used for the mobile app - `<base href="./" />`
@@ -13,7 +13,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## dist and docs folders
 
 `dist` folder is used to store the files build with aot.
-`docs` folder is used for the [GitHub Pages](https://zdrawku.github.io/crypto-portfolio-app/) site. Related to [`Publishing your GitHub Pages site from a /docs folder on your `master` branch`](https://zdrawku.github.io/crypto-portfolio-app/)
+`docs` folder is used for the [GitHub Pages](https://igniteui.github.io/crypto-portfolio-app/) site. Related to [`Publishing your GitHub Pages site from a /docs folder on your `master` branch`](https://igniteui.github.io/crypto-portfolio-app/)
 
 ## Development server
 
