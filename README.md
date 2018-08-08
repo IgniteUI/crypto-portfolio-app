@@ -3,7 +3,7 @@
 Application that uses Ignite UI for Angular components along with Firebase data storage and a lot more ..
 
 Open https://igniteui.github.io/crypto-portfolio-app/ to see the web app.
- - base href used for the web app - `<base href="https://ignite.github.io/crypto-portfolio-app/">`
+ - base href used for the web app - `<base href="https://igniteui.github.io/crypto-portfolio-app/">`
 
 Mobile app available [here](https://drive.google.com/drive/folders/1ooju9wTa-ttdkW_NJJPKkaVtPpMMJTmk?usp=sharing), only for Android phones.
  - base href used for the mobile app - `<base href="./" />`
