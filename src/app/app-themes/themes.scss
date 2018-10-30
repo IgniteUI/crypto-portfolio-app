@@ -13,6 +13,10 @@ $dark-green-navbar: igx-navbar-theme(
   $background: $dark-green-background-black
 );
 
+$light-cell-selection: igx-grid-theme(
+    $palette: $app-palette,
+    $cell-selected-background: igx-color($app-palette,'primary',300)
+);
 .dark-theme{
     @include igx-theme($default-palette, $preset: $dark-green-theme);
     @include igx-navbar($dark-green-navbar);
@@ -32,7 +36,7 @@ $dark-green-navbar: igx-navbar-theme(
 
 .light-theme{
     @include igx-theme($app-palette);
-
+    @include igx-grid($light-cell-selection);
     .sample-wrapper{
         #sText{
             color: #000;
