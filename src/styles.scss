@@ -132,4 +132,19 @@ app-portfolio {
   }
 }
 
+@media screen and (max-width: 650px) {
+
+  [class*=sample-content]{
+      width: 600px;
+  }
+
+  [class*=user-name]{
+    float:left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+  }
+ }
+
 

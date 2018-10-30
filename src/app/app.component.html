@@ -23,7 +23,8 @@
           </div>
       <span>
         <div *ngIf="afAuth.authState | async as user; else showLogin">
-          <span *ngIf="innerWidth > 650">Hey {{ user.displayName }}!</span>
+          <span *ngIf="innerWidth > 650">Hey {{ user.displayName}}!</span>
+          <span *ngIf="innerWidth < 650">Hey {{ user.displayName.split(' ')[0] }}!</span>
           <button igxButton="raised" igxRipple (click)="logout()">Logout</button>
         </div>
         <ng-template #showLogin>

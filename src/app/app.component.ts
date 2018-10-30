@@ -62,10 +62,10 @@ export class AppComponent implements OnInit {
     this.router.events
       .filter((x) => x instanceof NavigationStart)
       .subscribe((event: NavigationStart) => {
-          if (event.url !== '/' && !this.navdrawer.pin) {
-              // Close drawer when selecting a view on mobile (unpinned)
-              this.navdrawer.close();
-          }
+        if (event.url !== '/' && !this.navdrawer.pin) {
+          // Close drawer when selecting a view on mobile (unpinned)
+          this.navdrawer.close();
+        }
       });
 
     this.innerWidth = window.innerWidth;
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
   public changeTheme(theme: THEMES) {
     if (theme === 'dark-theme') {
       document.body.style.background = '#414141';
-    } else{
+    } else {
       document.body.style.background = 'white';
     }
     this.cssClass = `igx-typography ${theme}`;
