@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { Http } from '@angular/http';
 import { DataService  } from '../data.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { IgxGridComponent } from 'igniteui-angular';
 import { Router } from '@angular/router';
 

@@ -1,13 +1,13 @@
 <div class="sample-wrapper">
-        <span>Cryptocurrency:  </span>
+        <span id="sText">Cryptocurrency:  </span>
         <span style="width: 40px; display: inline-block;">
             <igx-input-group style="width: 100%">
                 <input #input1 igxInput [(ngModel)]="cryptoName" (input)="this.getData()" />
             </igx-input-group>
         </span>
 
-        <span>to see all price changes for the past </span>
-        <span style="width: 85px; display: inline-block;">
+        <span id="sText">to see all price changes for the past </span>
+        <span style="width: 75px; display: inline-block;">
             <igx-input-group style="width: 100%">
                 <input #input1 igxInput [(ngModel)]="daysCount" (input)="this.getData()" />
                 <igx-suffix>
@@ -15,7 +15,8 @@
                 </igx-suffix>
             </igx-input-group>
         </span>
-
+        <div class = "chart-wrapper"> 
         <igx-financial-chart [dataSource]="data" height="400px" width="100%" style="margin-top: 20px;" isToolbarVisible="false" chartType="candle">
         </igx-financial-chart>
+    </div>
 </div>

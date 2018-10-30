@@ -20,17 +20,28 @@ $dark-green-navbar: igx-navbar-theme(
     .form-container{
         .alc{
             color: #72da67;
-        }
-    
+        } 
         #lockIcon{
             color: #72da67;
         }
-
     }
-
+    .chart-wrapper{
+        background: #DCDCDC;
+    }
 }
 
 .light-theme{
     @include igx-theme($app-palette);
+
+    .sample-wrapper{
+        #sText{
+            color: #000;
+        }
+    }
+    .form-container{
+        #register-header {
+            color: #000;
+        }   
+    }
 }
 
