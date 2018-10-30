@@ -1,19 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
-/* See: https://www.infragistics.com/products/ignite-ui-angular/angular/components/themes.html */
 @import "~igniteui-angular/lib/core/styles/themes/index";
 
-$primary: #8049ff !default;
-$secondary: #E29C45 !default;
-
-// $secondary: rgb(255, 219, 88) !default;
-
-$app-palette: igx-palette($primary, $secondary);
-
-@include igx-core();
-@include igx-theme($app-palette);
-
-//$navbar-theme: igx-navbar-theme($background: #731963)
-//@include igx-navbar($navbar-theme)
+@import 'app/app-themes/themes.scss';
 
 .content p {
   margin: 15px;
@@ -96,12 +83,8 @@ app-portfolio {
 }
 
 .form-container {
-  background:white;
   padding-top:1.5em;
   width:100%;
-  // position:fixed;
-  // left:50%;
-  // margin-left:-250px;
 }
 
 .button {

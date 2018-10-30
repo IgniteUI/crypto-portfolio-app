@@ -1,0 +1,36 @@
+@import '~igniteui-angular/lib/core/styles/themes/presets/dark-green/index';
+@import "~igniteui-angular/lib/core/styles/themes/utilities";
+
+$primary: #8049ff !default;
+$secondary: #E29C45 !default;
+
+$app-palette: igx-palette($primary, $secondary);
+
+@include igx-core();
+
+$dark-green-navbar: igx-navbar-theme(
+  $palette: $dark-green-palette,
+  $background: $dark-green-background-black
+);
+
+.dark-theme{
+    @include igx-theme($default-palette, $preset: $dark-green-theme);
+    @include igx-navbar($dark-green-navbar);
+    
+    .form-container{
+        .alc{
+            color: #72da67;
+        }
+    
+        #lockIcon{
+            color: #72da67;
+        }
+
+    }
+
+}
+
+.light-theme{
+    @include igx-theme($app-palette);
+}
+

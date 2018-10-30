@@ -1,0 +1,49 @@
+$chooser-size: 34px;
+
+@mixin theme-chooser-item($foreground, $background) {
+
+    position: relative;
+    width: $chooser-size;
+    height: $chooser-size;
+    border-radius: $chooser-size / 2;
+    overflow: hidden;
+    transform: rotate(45deg);
+    border: 2px solid white;
+    cursor: pointer;
+    transition: box-shadow .25s ease-out;
+    
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+      width: 50%;
+      top: 0;
+      bottom: 0;
+    }
+  
+    &::before {
+      left: 0;
+      background: $foreground;
+    }
+  
+    &::after {
+      right: 0;
+      background: $background;
+    }
+  
+    &:hover {
+      box-shadow: 0 0 2px 3px rgba(0, 0, 0, .24);
+    }
+  }
+  
+  .theme-chooser {
+    display: flex;
+  
+    &__item--light {
+      @include theme-chooser-item(#8049ff, #E29C45);
+    }
+  
+    &__item--dark {
+      @include theme-chooser-item(#000, #72da67);
+    }
+  }
