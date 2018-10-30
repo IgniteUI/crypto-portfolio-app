@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-block-grid',
   templateUrl: './block-grid.component.html',
-  styleUrls: ['./block-grid.component.css']
+  styleUrls: ['./block-grid.component.scss']
 })
 export class BlockGridComponent implements OnInit, AfterViewInit  {
   public remoteData: any[];
