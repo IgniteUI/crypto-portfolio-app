@@ -1,29 +1,38 @@
 <div class="main" igxLayout>
-    <igx-nav-drawer #nav id="project-menu" isOpen="false" [enableGestures]='true'
-      width="280px" [pin]="false" pinThreshold="5000">
-      <ng-template igxDrawer>
-        <span igxDrawerItem [isHeader]="true">Menu</span>
-        <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active" routerLink="{{route.path}}">
-            <span *ngIf="route.subItem">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <igx-icon fontSet="material" name="{{route.icon}}"></igx-icon>
-            <span>{{route.name}}</span>
-        </span>
-      </ng-template>
-    </igx-nav-drawer>
-    <div igxFlex>
-      <igx-navbar title="Crypto Blockfolio App" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
-        <span>
-          <div *ngIf="afAuth.authState | async as user; else showLogin">
-            <span *ngIf="innerWidth > 650">Hey {{ user.displayName }}!</span>
-            <button igxButton="raised" igxRipple (click)="logout()">Logout</button>
+  <igx-nav-drawer #nav id="project-menu" isOpen="false" [enableGestures]='true' width="280px" [pin]="false"
+    pinThreshold="5000">
+    <ng-template igxDrawer>
+      <span igxDrawerItem [isHeader]="true">Menu</span>
+      <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active"
+        routerLink="{{route.path}}">
+        <span *ngIf="route.subItem">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <igx-icon fontSet="material" name="{{route.icon}}"></igx-icon>
+        <span>{{route.name}}</span>
+      </span>
+    </ng-template>
+  </igx-nav-drawer>
+  <div igxFlex>
+    <igx-navbar title="Crypto Blockfolio App" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
+        <div class="theme-chooser">
+            <div class="theme-chooser__item--light"
+            (click)="this.changeTheme(THEME.LIGHT)" title = "Light Theme">
+            </div>
+            <div class="theme-chooser__item--dark" title = "Dark Theme"
+            (click)="this.changeTheme(THEME.DARK)">
+            </div>
           </div>
-          <ng-template #showLogin>
-            <div><button igxButton="raised" igxRipple (click)="login()">Login</button></div>
-          </ng-template>
-        </span>
-      </igx-navbar>
-      <div class="content" igxLayout igxLayoutJustify="center">
-        <router-outlet></router-outlet>
-       </div>
+      <span>
+        <div *ngIf="afAuth.authState | async as user; else showLogin">
+          <span *ngIf="innerWidth > 650">Hey {{ user.displayName }}!</span>
+          <button igxButton="raised" igxRipple (click)="logout()">Logout</button>
+        </div>
+        <ng-template #showLogin>
+          <div><button igxButton="raised" igxRipple (click)="login()">Login</button></div>
+        </ng-template>
+      </span>
+    </igx-navbar>
+    <div class="content" igxLayout igxLayoutJustify="center">
+      <router-outlet></router-outlet>
     </div>
   </div>
+</div>

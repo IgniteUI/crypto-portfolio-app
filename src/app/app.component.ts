@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation, HostBinding } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 
@@ -7,16 +7,24 @@ import { routes } from './app-routing.module';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-
+enum THEMES {
+  LIGHT = 'light-theme',
+  DARK = 'dark-theme'
+}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
   name: any;
   public innerWidth: any;
+  public THEME: typeof THEMES = THEMES;
+  @HostBinding('class')
+  public cssClass = `igx-typography ${this.THEME.LIGHT}`;
+
+
 
   public topNavLinks: Array<{
     path: string,
@@ -63,6 +71,15 @@ export class AppComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
+  public changeTheme(theme: THEMES) {
+    if (theme === 'dark-theme') {
+      document.body.style.background = '#414141';
+    } else{
+      document.body.style.background = 'white';
+    }
+    this.cssClass = `igx-typography ${theme}`;
+  }
+
   private logout() {
     this.afAuth.auth.signOut();
     this.router.navigateByUrl('/home');
@@ -71,4 +88,5 @@ export class AppComponent implements OnInit {
   private login() {
     this.router.navigate(['/login']);
   }
+
 }

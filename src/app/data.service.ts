@@ -51,7 +51,7 @@ export class DataService {
 
   public getCryptoIdFromSymbol(symbol) {
     return this._http.get('https://api.coinmarketcap.com/v2/listings/').map(result =>  {
-      const crypto = result['data'].filter(item => item.symbol === symbol)
+      const crypto = result['data'].filter(item => item.symbol === symbol);
       return crypto[0];
     });
   }
