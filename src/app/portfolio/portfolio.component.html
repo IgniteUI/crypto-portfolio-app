@@ -7,7 +7,7 @@
             <igx-icon>playlist_add</igx-icon> Add coin
         </button>
         <igx-grid #grid1 [data]="blockItems" width="100%" height="500px" (onEditDone)="updateRow($event)" (onSelection)="selectCell($event)">
-            <igx-column field="coinSymbol" field="coinSymbol" sortable="true" [width]="'25%'">
+            <igx-column field="coinSymbol" field="coinSymbol" sortable="true" >
                 <ng-template igxHeader let-column="column">
                     Coin symbol
                 </ng-template>
@@ -21,7 +21,7 @@
                     </a>
                 </ng-template>
             </igx-column>
-            <igx-column field="holdings" header="Holdings" editable="true" sortable="true" [width]="'25%'">
+            <igx-column field="holdings" header="Holdings" editable="true" sortable="true">
                 <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
                     <div class="positionTop">
                         ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.usdPrice) |
@@ -31,7 +31,7 @@
                     </div>
                 </ng-template>
             </igx-column>
-            <igx-column header="Price" field="usdPrice" sortable="true" [width]="'25%'">
+            <igx-column header="Price" field="usdPrice" sortable="true">
                 <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
                     <div class="positionTop">
                         ${{ cell.row.rowData.usdPrice | number:'0.2-2' }}
@@ -42,7 +42,7 @@
 
                 </ng-template>
             </igx-column>
-            <igx-column [width]="'25%'">
+            <igx-column >
                 <ng-template igxHeader let-column="column">
                     Actions
                 </ng-template>
