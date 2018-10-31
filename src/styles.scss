@@ -2,6 +2,11 @@
 
 @import 'app/app-themes/themes.scss';
 
+html,body,app-root {
+  height: 100%;
+}
+
+
 .content p {
   margin: 15px;
 }
@@ -71,15 +76,58 @@ app-portfolio {
 }
 
 .igx-card igx-card-content {
-  padding: 0em;
+  padding: 0;
+}
+
+
+igx-grid {
+  .percent-style-up,
+  .percent-style-down {
+    position: relative;
+    padding-right:10px;
+
+    &:after {
+      content:'';
+      position: absolute;
+      top:0;
+      right: 0;
+      height: 100%;
+      width: 4px;
+
+      border-radius: 5px;
+    }
+  }
 }
 
 .percent-style-up {
-  color: green;
+  color: #3f9a47;
+  &:after {
+    background: #3f9a47;
+  }
 }
 
 .percent-style-down {
-  color: red;
+  color: #aa2222;
+  &:after {
+    background: #aa2222;
+  }
+}
+
+.igx-grid__td--selected.negative {
+  background: #aa2222!important;
+
+  .percent-style-down {
+    color: #fff !important;
+  }
+}
+
+
+.igx-grid__td--selected.positive {
+  background: #3f9a47 !important;
+
+  .percent-style-up {
+    color: #fff !important;
+  }
 }
 
 .form-container {

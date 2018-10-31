@@ -34,7 +34,7 @@
                     <span> $ {{ item | number:'3.0-5' }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_1h' sortable="true" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes1h">
+            <igx-column field='quotes.USD.percent_change_1h' dataType="number" sortable="true" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes1h">
                 <ng-template igxHeader let-column="column">
                     (1 h) %
                 </ng-template>
@@ -42,7 +42,7 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_24h' sortable="true" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes24h">
+            <igx-column field='quotes.USD.percent_change_24h' dataType="number" sortable="true" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes24h">
                 <ng-template igxHeader let-column="column">
                     (24 h) %
                 </ng-template>
@@ -50,7 +50,7 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_7d' sortable="true" [groupable]="true" [cellClasses]="changes7d">
+            <igx-column field='quotes.USD.percent_change_7d' dataType="number" sortable="true" [groupable]="true" [cellClasses]="changes7d">
                 <ng-template igxHeader let-column="column">
                     (7d) %
                 </ng-template>
