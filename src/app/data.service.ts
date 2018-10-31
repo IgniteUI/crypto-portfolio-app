@@ -23,6 +23,13 @@ export class DataService {
           const fetchedData = Object.keys(result['data']);
 
           for (const key of fetchedData) {
+
+            if (result['data'][key].quotes['USD']['percent_change_24h'] >= 0) {
+              result['data'][key]['Positive Daily Scale'] = true;
+            } else {
+              result['data'][key]['Positive Daily Scale'] = false;
+            }
+
             newData.push(this.flattenObject(result['data'][key]));
           }
         } else {

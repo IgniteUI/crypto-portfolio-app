@@ -24,6 +24,46 @@ $light-cell-selection: igx-grid-theme(
   @include igx-theme($default-palette, $preset: $dark-green-theme);
   @include igx-navbar($dark-green-navbar);
 
+  .igx-grid__group-row--active {
+    background:  #72da67;
+
+    .igx-group-label{
+
+        &__column-name{
+          color: black
+        }
+        &__text{
+          color: black
+        }
+
+    }
+    igx-icon{
+      color: black
+    }
+    .igx-group-label__icon{
+      color: black
+    }
+  }
+
+  .igx-grid__group-row:hover {
+    background:  #72da67;
+
+    .igx-group-label{
+
+      &__column-name{
+        color: black
+      }
+      &__text{
+        color: black
+      }
+
+  }
+  igx-icon{
+    color: black
+  }
+}
+
+
   .form-container {
     .alc {
       color: #72da67;

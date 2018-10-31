@@ -58,9 +58,9 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_24h' header = "Day Change" [groupable]="true" dataType="boolean">
+            <igx-column field='Positive Daily Scale' [groupable]="true" dataType="boolean" [cellClasses]="changes24h">
                 <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-                    <span> {{ item >=0 ? true : false }}</span>
+                    <span class="daily-change-{{ item ? 'positive' : 'negative'}}"> {{ item }}</span>
                 </ng-template>
             </igx-column>
         </igx-grid>

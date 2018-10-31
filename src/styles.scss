@@ -119,6 +119,10 @@ igx-grid {
   .percent-style-down {
     color: #fff !important;
   }
+
+  .daily-change-negative{
+    color: #fff !important;
+  }
 }
 
 
@@ -128,7 +132,12 @@ igx-grid {
   .percent-style-up {
     color: #fff !important;
   }
+
+  .daily-change-positive{
+    color: #fff !important;
+  }
 }
+
 
 .form-container {
   padding-top:1.5em;
