@@ -44,6 +44,19 @@ export class PortfolioComponent implements OnInit {
   public newItem: BlockItem = new BlockItem();
   public deletedItem: BlockItem = new BlockItem();
 
+  private positive24h = (rowData: any): boolean => {
+    return rowData.oneDayPercentChange > 0;
+  }
+  private negative24h = (rowData: any): boolean => {
+    return rowData.oneDayPercentChange < 0;
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public dailyChanges = {
+    positive: this.positive24h,
+    negative: this.negative24h
+  };
+
   // @HostListener('window:resize', ['$event'])
   // onResize(event) {
   //   this.grid1.reflow();

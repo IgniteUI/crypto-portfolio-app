@@ -31,7 +31,7 @@
                     </div>
                 </ng-template>
             </igx-column>
-            <igx-column header="Price" field="usdPrice" sortable="true">
+            <igx-column header="Price" field="usdPrice" sortable="true" [cellClasses]= "dailyChanges">
                 <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
                     <div class="positionTop">
                         ${{ cell.row.rowData.usdPrice | number:'0.2-2' }}
