@@ -14,11 +14,11 @@
   <div igxFlex>
     <igx-navbar title="Crypto Blockfolio App" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
         <div class="theme-chooser">
-            <div class="theme-chooser__item--light"
-            (click)="this.changeTheme(THEME.LIGHT)" title = "Light Theme">
+            <div *ngIf ="darkTheme" class="theme-chooser__item--light"
+            (click)="this.changeTheme()" title = "Light Theme">
             </div>
-            <div class="theme-chooser__item--dark" title = "Dark Theme"
-            (click)="this.changeTheme(THEME.DARK)">
+            <div *ngIf ="!darkTheme" class="theme-chooser__item--dark" title = "Dark Theme"
+            (click)="this.changeTheme(true)">
             </div>
           </div>
       <span>

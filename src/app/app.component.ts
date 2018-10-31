@@ -7,10 +7,6 @@ import { routes } from './app-routing.module';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-enum THEMES {
-  LIGHT = 'light-theme',
-  DARK = 'dark-theme'
-}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,12 +16,7 @@ enum THEMES {
 export class AppComponent implements OnInit {
   name: any;
   public innerWidth: any;
-  public THEME: typeof THEMES = THEMES;
-  @HostBinding('class')
-  public cssClass = `igx-typography ${this.THEME.LIGHT}`;
-
-
-
+  public darkTheme = false;
   public topNavLinks: Array<{
     path: string,
     name: string,
@@ -59,6 +50,8 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    document.body.classList.add('light-theme');
+    document.body.style.background = '#eee';
     this.router.events
       .filter((x) => x instanceof NavigationStart)
       .subscribe((event: NavigationStart) => {
@@ -71,13 +64,18 @@ export class AppComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
-  public changeTheme(theme: THEMES) {
-    if (theme === 'dark-theme') {
+  public changeTheme(dark?: boolean) {
+    if (dark) {
+      this.darkTheme = true;
+      document.body.classList.remove('light-theme');
+      document.body.classList.add('dark-theme');
       document.body.style.background = '#414141';
     } else {
-      document.body.style.background = 'white';
+      document.body.classList.remove('dark-theme');
+      document.body.classList.add('light-theme');
+      document.body.style.background = '#eee';
+      this.darkTheme = false;
     }
-    this.cssClass = `igx-typography ${theme}`;
   }
 
   private logout() {
