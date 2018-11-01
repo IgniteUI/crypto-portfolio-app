@@ -1,5 +1,5 @@
 <div class="form-container">
-  <div>
+  <div *ngIf="!showSpinner; else elseBlock">
     <igx-icon id="lockIcon" name="lock_open"></igx-icon>
     <span class="error" *ngIf="error">{{ error }}</span>
 
@@ -20,4 +20,7 @@
 
     <a routerLink="/signup" routerLinkActive="active" class="alc">Sign up for an <strong>Account</strong></a>
   </div>
+  <ng-template #elseBlock>
+    <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+  </ng-template>
 </div>

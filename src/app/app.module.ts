@@ -29,6 +29,7 @@ import { AuthGuard } from './auth.service';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { BlockListComponent } from './block-list/block-list.component';
 import { ItemService } from './block-item.service';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
@@ -49,7 +50,8 @@ export const firebaseConfig = {
     EmailComponent,
     SignupComponent,
     PortfolioComponent,
-    BlockListComponent
+    BlockListComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     FormsModule,
