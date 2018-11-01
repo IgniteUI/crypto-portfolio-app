@@ -14,7 +14,7 @@
             <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
             <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;">
                 <div class="crypto">
-                     <igx-avatar class="crypto__avatar" [src]="crypto.photo" roundShape="true"></igx-avatar>
+                     <igx-avatar class="crypto__avatar" src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto['id'] }}.png" roundShape="true"></igx-avatar>
                     <div class="crypto__info">
                         <span class="crypto__item">
 

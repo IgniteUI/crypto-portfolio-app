@@ -32,6 +32,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
+    this.grid1.groupBy({fieldName: 'Positive Daily Scale', dir: 2});
     setTimeout(() => {
       this.refreshGrid();
     }, 100);
@@ -89,11 +90,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
   };
 
   private loadData() {
-    this.data.getData()
-      .subscribe(res => {
-        if(res) {
-          debugger;
-        }
+    this.data.getData().subscribe(res => {
         this.remoteData = this.data.sortDataByKey(res, 'rank');
       });
   }
