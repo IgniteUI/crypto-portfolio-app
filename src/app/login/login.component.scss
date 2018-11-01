@@ -1,23 +1,29 @@
 #lock {
-    width: 40%;
-    margin: 1.5em auto 4em auto;
-    display: block;
+  width: 40%;
+  margin: 1.5em auto 4em auto;
+  display: block;
 }
 
 #lockIcon {
-    width: 9.5rem;
-    height: 9.5rem;
-    font-size: 9.5rem;
-    color: #E29C45;
-    margin: 0.2em auto 0.1em auto;
-    display: block;
+  width: 9.5rem;
+  height: 9.5rem;
+  font-size: 9.5rem;
+  color: #E29C45;
+  margin: 0.2em auto 0.1em auto;
+  display: block;
+
+  @media only screen and (max-width: 786px) {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+  }
 }
 
 .button {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin:0 0 16px 0;
+  margin: 0 0 16px 0;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -25,13 +31,13 @@
 }
 
 #fb {
-    background: #3B5998;
-    color: #fff;
+  background: #3B5998;
+  color: #fff;
 }
 
 #google {
-    border: 1px solid #95989A;
-    background: #fff;
+  border: 1px solid #95989A;
+  background: #fff;
 }
 
 .s-logo {
@@ -41,22 +47,21 @@
 }
 
 #email {
-    background: #ECECEC;
+  background: #ECECEC;
 }
 
-
 .alc {
-    text-align: center;
-    display: block;
-    margin: 15px 0;
-    text-decoration: underline;
-    color: #E29C45
+  text-align: center;
+  display: block;
+  margin: 15px 0;
+  text-decoration: underline;
+  color: #E29C45
 }
 
 .error {
-    background: #f1f0ef;
-    padding: 1em;
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
+  background: #f1f0ef;
+  padding: 1em;
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
 }

@@ -14,8 +14,10 @@
             <!-- <igx-column field='rank' header='#'></igx-column> -->
             <igx-column field='name' header='Name' [filterable]="true" [groupable]="true" >
                 <ng-template igxCell let-cell="cell" let-item>
-                    <img src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" />
-                    <span style="font-size: 1.5em; margin-left: 10px;">  {{ item }}</span>
+                    <span class="coin-logo">
+                      <img  src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" />
+                    </span>
+                    <span class="coin-title">{{ item }}</span>
                 </ng-template>
             </igx-column>
             <igx-column field='quotes.USD.price' filterable="true" dataType="number" [groupable]="true">
@@ -34,7 +36,7 @@
                     <span> $ {{ item | number:'3.0-5' }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_1h' dataType="number" sortable="true" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes1h">
+            <igx-column width="160" field='quotes.USD.percent_change_1h' dataType="number" sortable="true" dataType="number" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes1h">
                 <ng-template igxHeader let-column="column">
                     (1 h) %
                 </ng-template>
@@ -42,11 +44,11 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_24h' dataType="number" sortable="true" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes24h">
+            <igx-column field='quotes.USD.percent_change_24h' dataType="number" sortable="true" [hidden]="hideColumn" dataType="number" [groupable]="true" [cellClasses]="changes24h">
                 <ng-template igxHeader let-column="column">
                     (24 h) %
                 </ng-template>
-                <ng-template igxCell let-item let-ri="rowIndex" let-column="column" let-class="{{ item >= 0 ? 'up' : 'down'}}">
+                <ng-template igxCell let-item let-ri="rowIndex" let-column="column" dataType="number"let-class="{{ item >= 0 ? 'up' : 'down'}}">
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>

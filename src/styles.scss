@@ -6,6 +6,9 @@ html,body,app-root {
   height: 100%;
 }
 
+body {
+  overflow-y: scroll;
+}
 
 .content p {
   margin: 15px;
@@ -31,7 +34,7 @@ app-portfolio {
   width: inherit;
   position: relative;
   height: 100%;
-  margin: 15px auto;
+  padding: 20px;
   background: transparent;
 }
 
@@ -49,7 +52,7 @@ app-portfolio {
 .sample-column {
   display: flex;
   flex-flow: column nowrap;
-  flex: 1 0 25%;
+  flex: 1 0 0%;
   align-content: flex-start;
   margin: 16px;
   min-width: 280px;
@@ -80,21 +83,11 @@ app-portfolio {
 }
 
 .form-container {
-  position: absolute;
-  max-width: 280px;
-  width: 280px;
-  margin: 0 auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
   height: calc(100vh - 56px);
-  min-height: 450px;
+  display: flex;
   align-items: center;
-  justify-content: center;
 }
+
 
 igx-grid {
   .percent-style-up,
@@ -152,12 +145,6 @@ igx-grid {
   .daily-change-positive{
     color: #fff !important;
   }
-}
-
-
-.form-container {
-  padding-top:1.5em;
-  width:100%;
 }
 
 .button {

@@ -13,16 +13,9 @@ a {
   justify-content: center;
 }
 
-:host{
-  text-align:center;
-}
-
-img {
-  max-width:100%;
-}
 
 .card-wrapper {
-  max-width: 260px;
+  max-width: 286px;
   min-width: 260px;
 }
 
@@ -34,4 +27,30 @@ img {
 
 .sample-content {
   display:flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.igx-card-header,
+.igx-card-header__title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.igx-card-content {
+  text-align: left;
+}
+
+.igx-card-header{
+  padding-bottom: 0!important;
+}
+
+.igx-card-header__title {
+  font-size: 18px;
+  img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+  }
 }
