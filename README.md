@@ -12,8 +12,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## dist and docs folders
 
-`dist` folder is used to store the files build with aot.
+`dist` folder is used to store the files build with aot. This folder should not be pushed to the repository.
 `docs` folder is used for the [GitHub Pages](https://igniteui.github.io/crypto-portfolio-app/) site. Related to [`Publishing your GitHub Pages site from a /docs folder on your `master` branch`](https://igniteui.github.io/crypto-portfolio-app/)
+Use `ng build --prod --aot` to build the project, `copy -> paste` into `docs` folder the generated content in `dist` folder, and replate the `base href`.
 
 ## Development server
 
