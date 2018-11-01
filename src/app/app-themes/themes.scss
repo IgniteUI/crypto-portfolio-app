@@ -1,22 +1,11 @@
 @import '~igniteui-angular/lib/core/styles/themes/presets/dark-green/index';
 @import "~igniteui-angular/lib/core/styles/themes/utilities";
-
 $primary: #8049ff !default;
 $secondary: #E29C45 !default;
-
 $app-palette: igx-palette($primary, $secondary);
-
 @include igx-core();
-
-$dark-green-navbar: igx-navbar-theme(
-  $palette: $dark-green-palette,
-  $background: $dark-green-background-black
-);
-
-$light-cell-selection: igx-grid-theme(
-  $palette: $app-palette,
-  $cell-selected-background: igx-color($app-palette, 'primary', 200)
-);
+$dark-green-navbar: igx-navbar-theme( $palette: $dark-green-palette, $background: $dark-green-background-black);
+$light-cell-selection: igx-grid-theme( $palette: $app-palette, $cell-selected-background: igx-color($app-palette, 'primary', 200));
 
 $icon-button-light: igx-button-theme(
   $palette: $app-palette,
@@ -32,7 +21,6 @@ $icon-button-dark: igx-button-theme(
   $icon-hover-background: igx-color($dark-green-palette, 'grays', 300),
   $icon-hover-color: igx-color($dark-green-palette, 'secondary')
 );
-
 .dark-theme {
   background: #333 !important;
   display: block;
@@ -68,26 +56,28 @@ $icon-button-dark: igx-button-theme(
 }
 
 .light-theme {
-  background: #f8f8f8;
-  display: block;
-  @include igx-theme($app-palette);
-  @include igx-grid($light-cell-selection);
-  .igx-card {
+    background: #f8f8f8;
+    display: block;
+    @include igx-theme($app-palette);
+    @include igx-grid($light-cell-selection);
+    .igx-card {
     @include igx-button($icon-button-light);
   }
   .sample-wrapper {
-    #sText {
-      color: #000;
+        #sText {
+            color: #000;
+        }
     }
-  }
-  .form-container {
-    #register-header {
-      color: #000;
+    .form-container {
+        #register-header {
+            color: #000;
+        }
     }
-  }
-
-  .list-sample {
-    background: #fff;
-  }
+    .chart-wrapper {
+        background: transparent;
+        margin-left: 30px;
+    }
+    .list-sample {
+        background: #fff;
+    }
 }
-
