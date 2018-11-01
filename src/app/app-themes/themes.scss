@@ -1,104 +1,84 @@
 @import '~igniteui-angular/lib/core/styles/themes/presets/dark-green/index';
 @import "~igniteui-angular/lib/core/styles/themes/utilities";
-
 $primary: #8049ff !default;
 $secondary: #E29C45 !default;
-
 $app-palette: igx-palette($primary, $secondary);
-
 @include igx-core();
-
-$dark-green-navbar: igx-navbar-theme(
-  $palette: $dark-green-palette,
-  $background: $dark-green-background-black
-);
-
-$light-cell-selection: igx-grid-theme(
-  $palette: $app-palette,
-  $cell-selected-background: igx-color($app-palette, 'primary', 200)
-);
-
+$dark-green-navbar: igx-navbar-theme( $palette: $dark-green-palette, $background: $dark-green-background-black);
+$light-cell-selection: igx-grid-theme( $palette: $app-palette, $cell-selected-background: igx-color($app-palette, 'primary', 200));
 .dark-theme {
-  background: #333;
-  display: block;
-  @include igx-theme($default-palette, $preset: $dark-green-theme);
-  @include igx-navbar($dark-green-navbar);
-
-  .igx-grid__group-row--active {
-    background:  #72da67;
-
-    .igx-group-label{
-
-        &__column-name{
-          color: black
+    background: #333;
+    display: block;
+    @include igx-theme($default-palette, $preset: $dark-green-theme);
+    @include igx-navbar($dark-green-navbar);
+    .igx-grid__group-row--active {
+        background: #72da67;
+        .igx-group-label {
+            &__column-name {
+                color: black
+            }
+            &__text {
+                color: black
+            }
         }
-        &__text{
-          color: black
+        igx-icon {
+            color: black
         }
-
+        .igx-group-label__icon {
+            color: black
+        }
     }
-    igx-icon{
-      color: black
+    .igx-grid__group-row:hover {
+        background: #72da67;
+        .igx-group-label {
+            &__column-name {
+                color: black
+            }
+            &__text {
+                color: black
+            }
+        }
+        igx-icon {
+            color: black
+        }
     }
-    .igx-group-label__icon{
-      color: black
+    .form-container {
+        .alc {
+            color: #72da67;
+        }
+        #lockIcon {
+            color: #72da67;
+        }
     }
-  }
-
-  .igx-grid__group-row:hover {
-    background:  #72da67;
-
-    .igx-group-label{
-
-      &__column-name{
-        color: black
-      }
-      &__text{
-        color: black
-      }
-
-  }
-  igx-icon{
-    color: black
-  }
-}
-
-
-  .form-container {
-    .alc {
-      color: #72da67;
+    .chart-wrapper {
+        background: transparent;
+        margin-left: 30px;
     }
-    #lockIcon {
-      color: #72da67;
+    .list-sample {
+        background: #424242;
     }
-  }
-  .chart-wrapper {
-    background: transparent;
-  }
-
-  .list-sample {
-    background: #424242;
-  }
 }
 
 .light-theme {
-  background: #f8f8f8;
-  display: block;
-  @include igx-theme($app-palette);
-  @include igx-grid($light-cell-selection);
-  .sample-wrapper {
-    #sText {
-      color: #000;
+    background: #f8f8f8;
+    display: block;
+    @include igx-theme($app-palette);
+    @include igx-grid($light-cell-selection);
+    .sample-wrapper {
+        #sText {
+            color: #000;
+        }
     }
-  }
-  .form-container {
-    #register-header {
-      color: #000;
+    .form-container {
+        #register-header {
+            color: #000;
+        }
     }
-  }
-
-  .list-sample {
-    background: #fff;
-  }
+    .chart-wrapper {
+        background: transparent;
+        margin-left: 30px;
+    }
+    .list-sample {
+        background: #fff;
+    }
 }
-
