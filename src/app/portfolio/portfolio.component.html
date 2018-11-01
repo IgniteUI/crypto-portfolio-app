@@ -6,7 +6,8 @@
         <button id="addBtn" igxButton="raised" igxRipple (click)="openDialog()">
             <igx-icon>playlist_add</igx-icon> Add coin
         </button>
-        <igx-grid #grid1 [data]="blockItems" width="100%" height="500px" (onEditDone)="updateRow($event)" (onSelection)="selectCell($event)">
+        <igx-grid #grid1 [data]="blockItems" width="100%" height="500px" (onEditDone)="updateRow($event)" (onSelection)="selectCell($event)"
+            [showToolbar]="true" toolbarTitle="My portfolio" [columnHiding]="true" [columnPinning]="true">
             <igx-column field="coinSymbol" field="coinSymbol" sortable="true" >
                 <ng-template igxHeader let-column="column">
                     Coin symbol
