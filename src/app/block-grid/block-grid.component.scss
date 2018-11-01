@@ -1,0 +1,25 @@
+#refreshBtn {
+  margin-bottom: 20px;
+}
+
+#refreshFabBtn {
+    position: fixed;
+    right: 33px;
+    z-index: 998;
+    bottom: 33px;
+}
+
+.coin-title {
+  font-size: 16px;
+}
+
+.coin-logo {
+  margin-right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255, .9);
+}

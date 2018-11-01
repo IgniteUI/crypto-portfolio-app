@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { DataService } from '../data.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-
+import {IgxLabelDirective} from 'igniteui-angular';
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StatisticsComponent implements OnInit {
   public cryptoName;

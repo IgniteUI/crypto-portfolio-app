@@ -26,3 +26,7 @@ Use phonegap to build the mobile application, the aot build proccess will update
 Keep in mind that the base href for the mobile app should be `<base href="./">`
 
 .zip the mobile folder and use [phonegap builder](https://build.phonegap.com/apps/) to generate .apk file/
+
+## More
+
+Loading spinners in the app - [SpinKit](https://github.com/tobiasahlin/SpinKit)

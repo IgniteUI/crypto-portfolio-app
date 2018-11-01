@@ -13,26 +13,32 @@
         <igx-list [@listAnimation]="remoteData.length">
             <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
             <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;">
-                <div class="item-container">
-                    <div class="crypto">
-                        <!-- <igx-avatar [src]="crypto.photo" roundShape="true"></igx-avatar> -->
-                        <div class="crypto__info">
-                            <span class="name">
-                                <!-- <span>
-                                <igx-icon [color]="crypto['quotes.USD.percent_change_7d'] >= 0 ? 'green' : 'red'"
-                                    name="arrow_{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}">
-                                </igx-icon>
-                            </span> -->
-                                <span class="li_item">
-                                    {{ crypto.name }}
-                                    <!-- ({{crypto.symbol }}) -->
-                                </span>
-                                <span class="li_item">${{ crypto['quotes.USD.price'] }}</span>
-                                <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}">
-                                    {{ crypto['quotes.USD.percent_change_7d'] }} %
-                                </span>(7d)
-                            </span>
-                        </div>
+                <div class="crypto">
+                    <div class="crypto__info">
+                        <span class="crypto__item">
+
+                            <div class="crypto__name">
+                              <igx-avatar size="small" class="crypto__avatar" src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto['id'] }}.png" roundShape="true"></igx-avatar>
+                              <span>
+                                  {{ crypto.name }}
+                                <!--({{crypto.symbol }})-->
+                              </span>
+                            </div>
+
+                            <div class="crypto__details">
+                              <span class="crypto__price">${{ crypto['quotes.USD.price'] }}</span>
+
+                              <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}">
+                                  {{ crypto['quotes.USD.percent_change_7d'] }} %
+                              </span>
+
+                              <igx-icon [color]="crypto['quotes.USD.percent_change_7d'] >= 0 ? 'green' : 'red'">
+                                    {{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                              </igx-icon>
+
+                              <span class="li_item">(7d)</span>
+                            </div>
+                        </span>
                     </div>
                 </div>
             </igx-list-item>

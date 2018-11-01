@@ -1,0 +1,83 @@
+@import '~igniteui-angular/lib/core/styles/themes/presets/dark-green/index';
+@import "~igniteui-angular/lib/core/styles/themes/utilities";
+$primary: #8049ff !default;
+$secondary: #E29C45 !default;
+$app-palette: igx-palette($primary, $secondary);
+@include igx-core();
+$dark-green-navbar: igx-navbar-theme( $palette: $dark-green-palette, $background: $dark-green-background-black);
+$light-cell-selection: igx-grid-theme( $palette: $app-palette, $cell-selected-background: igx-color($app-palette, 'primary', 200));
+
+$icon-button-light: igx-button-theme(
+  $palette: $app-palette,
+  $icon-color: #E29C45,
+  $icon-hover-background: igx-color($app-palette, 'secondary', 100),
+  $icon-hover-color: #E29C45
+);
+
+$icon-button-dark: igx-button-theme(
+  $palette: $dark-green-palette,
+  $flat-text-color: igx-color($dark-green-palette, 'secondary'),
+  $icon-color: igx-color($dark-green-palette, 'secondary'),
+  $icon-hover-background: igx-color($dark-green-palette, 'grays', 300),
+  $icon-hover-color: igx-color($dark-green-palette, 'secondary')
+);
+.dark-theme {
+  background: #333 !important;
+  display: block;
+  @include igx-theme($default-palette, $preset: $dark-green-theme);
+  @include igx-navbar($dark-green-navbar);
+  .igx-card {
+    @include igx-button($icon-button-dark);
+  }
+
+  .igx-grid__group-row--active {
+    background: rgba(114, 218, 103, 0.19);
+
+    &:Hover {
+      background: rgba(114, 218, 103, 0.19);
+    }
+  }
+
+  .form-container {
+    .alc {
+      color: #72da67;
+    }
+    #lockIcon {
+      color: #72da67;
+    }
+  }
+  .chart-wrapper {
+    background: transparent;
+  }
+
+  .list-sample {
+    background: #424242;
+  }
+}
+
+.light-theme {
+    background: #f8f8f8;
+    display: block;
+    @include igx-theme($app-palette);
+    @include igx-grid($light-cell-selection);
+    .igx-card {
+    @include igx-button($icon-button-light);
+  }
+  .sample-wrapper {
+        #sText {
+            color: #000;
+        }
+    }
+    .form-container {
+        #register-header {
+            color: #000;
+        }
+    }
+    .chart-wrapper {
+        background: transparent;
+        margin-left: 30px;
+    }
+    .list-sample {
+        background: #fff;
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation, HostBinding } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 
@@ -7,17 +7,16 @@ import { routes } from './app-routing.module';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
   name: any;
   public innerWidth: any;
-
+  public darkTheme = false;
   public topNavLinks: Array<{
     path: string,
     name: string,
@@ -51,16 +50,32 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    document.body.classList.add('light-theme');
+    document.body.style.background = '#eee';
     this.router.events
       .filter((x) => x instanceof NavigationStart)
       .subscribe((event: NavigationStart) => {
-          if (event.url !== '/' && !this.navdrawer.pin) {
-              // Close drawer when selecting a view on mobile (unpinned)
-              this.navdrawer.close();
-          }
+        if (event.url !== '/' && !this.navdrawer.pin) {
+          // Close drawer when selecting a view on mobile (unpinned)
+          this.navdrawer.close();
+        }
       });
 
     this.innerWidth = window.innerWidth;
+  }
+
+  public changeTheme(dark?: boolean) {
+    if (dark) {
+      this.darkTheme = true;
+      document.body.classList.remove('light-theme');
+      document.body.classList.add('dark-theme');
+      document.body.style.background = '#414141';
+    } else {
+      document.body.classList.remove('dark-theme');
+      document.body.classList.add('light-theme');
+      document.body.style.background = '#eee';
+      this.darkTheme = false;
+    }
   }
 
   private logout() {
@@ -71,4 +86,5 @@ export class AppComponent implements OnInit {
   private login() {
     this.router.navigate(['/login']);
   }
+
 }

@@ -1,10 +1,26 @@
 <div class="form-container">
-  <igx-icon id="lockIcon" name="lock_open"></igx-icon>
-  <span class="error" *ngIf="error">{{ error }}</span>
+  <div *ngIf="!showSpinner; else elseBlock">
+    <igx-icon id="lockIcon" name="lock_open"></igx-icon>
+    <span class="error" *ngIf="error">{{ error }}</span>
 
-  <button class="button" igxButton="raised" igxRipple (click)="loginFb()" id="fb">Login With Facebook</button><br>
-  <button class="button" igxButton="raised" igxRipple (click)="loginGoogle()" id="google">Login With Google</button>
-  <button class="button" igxButton="raised" igxRipple routerLink="/email" id="email">Email</button>
+    <button class="button" igxButton="raised" igxRipple (click)="loginFb()" id="fb">
+      <img class="s-logo" src="../../assets/images/facebook.svg" alt="">
+      <span>Login With Facebook</span>
+    </button>
 
-  <a routerLink="/signup" routerLinkActive="active" class="alc">Sign up for an <strong>Account</strong></a>
+    <button class="button" igxButton="raised" igxRipple (click)="loginGoogle()" id="google">
+      <img class="s-logo" src="../../assets/images/google.svg" alt="">
+      <span>Login With Google</span>
+    </button>
+
+    <button class="button" igxButton="raised" igxRipple routerLink="/email" id="email">
+      <igx-icon class="s-logo">email</igx-icon>
+      <span>Email</span>
+    </button>
+
+    <a routerLink="/signup" routerLinkActive="active" class="alc">Sign up for an <strong>Account</strong></a>
+  </div>
+  <ng-template #elseBlock>
+    <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+  </ng-template>
 </div>

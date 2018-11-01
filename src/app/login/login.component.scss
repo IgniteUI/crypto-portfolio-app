@@ -1,0 +1,47 @@
+#lock {
+  width: 40%;
+  margin: 1.5em auto 4em auto;
+  display: block;
+}
+
+
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 0 16px 0;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+#fb {
+  background: #3B5998;
+  color: #fff;
+  margin-top:10px;
+}
+
+#google {
+  border: 1px solid #95989A;
+  background: #fff;
+}
+
+.s-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+#email {
+  background: #ECECEC;
+}
+
+.error {
+  background: #f1f0ef;
+  padding: 1em;
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
+}

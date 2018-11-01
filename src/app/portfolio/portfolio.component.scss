@@ -1,7 +1,3 @@
-// :host {
-    // display: block; // padding: 16px;
-    // flex: inherit;
-// }
 
 #refreshBtn {
     margin-bottom: 21px;
@@ -36,14 +32,9 @@ igx-icon {
 
 .symbolPosition {
     position: absolute;
-    margin-top: 16px;
+    margin-top: 10px;
     margin-left: 10px;
 }
-
-.aStyle {
-    color: black;
-}
-
 .sbPosition {
     z-index: 1;
     position: fixed;

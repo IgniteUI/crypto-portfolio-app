@@ -1,52 +1,81 @@
 :host {
-    display: block;
-    padding: 16px;
-    flex: initial;
+  display: block;
+  flex: initial;
+}
+
+@media only screen and (max-width: 786px) {
+  :host {
+    flex: 1 0 0%;
+  }
+}
+
+.list-sample {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2),
+  0 1px 1px 0 rgba(0, 0, 0, 0.14),
+  0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  min-width: 500px;
+  @media only screen and (max-width: 786px) {
+    min-width: auto;
+  }
+  overflow-y: auto;
+  max-height: calc(100vh - 154px);
+  min-height: 200px;
+
+  border-radius: 5px;
+  margin-top: 8px;
+}
+
+.crypto {
+  display: flex;
+  align-items: center;
+}
+
+.crypto__info {
+  flex: 1 0 0%;
+}
+
+.crypto__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  @media only screen and (max-width: 639px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.crypto__avatar {
+  margin-right: 8px;
+}
+
+.crypto__name,
+.crypto__details {
+  display: flex;
+  align-items: center;
+  flex: 1 0 0%;
+}
+
+.crypto__details {
+  justify-content: space-between;
+  .crypto__price {
+    margin-right: 16px;
+  }
+}
+
+.percent-style-down {
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 639px) {
+  .crypto__details {
+    min-width: 100%;
   }
 
-  .list-sample {
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
-        0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-        0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-    // width: 800px;
+  .igx-navbar__title {
+    max-width: 144px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
-  igx-icon {
-    cursor: pointer;
-  }
-
-  .item-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .crypto {
-    display: flex;
-    // flex: 1 0 240px;
-    align-items: center;
-
-    &__info {
-      display: flex;
-      flex-flow: column nowrap;
-      margin-left: 24px;
-    }
-  }
-
-  .name {
-    // font-weight: 600;
-  }
-
-  .phone {
-    font-size: 0.875em;
-    line-height: 1;
-  }
-
-  .search {
-    margin-bottom: 16px;
-  }
-
-  .li_item {
-    width: 140px;
-    display: inline-grid;
-  }
+}

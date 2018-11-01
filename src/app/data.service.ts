@@ -23,6 +23,13 @@ export class DataService {
           const fetchedData = Object.keys(result['data']);
 
           for (const key of fetchedData) {
+
+            if (result['data'][key].quotes['USD']['percent_change_24h'] >= 0) {
+              result['data'][key]['daily_scale'] = true;
+            } else {
+              result['data'][key]['daily_scale'] = false;
+            }
+
             newData.push(this.flattenObject(result['data'][key]));
           }
         } else {
@@ -51,7 +58,7 @@ export class DataService {
 
   public getCryptoIdFromSymbol(symbol) {
     return this._http.get('https://api.coinmarketcap.com/v2/listings/').map(result =>  {
-      const crypto = result['data'].filter(item => item.symbol === symbol)
+      const crypto = result['data'].filter(item => item.symbol === symbol);
       return crypto[0];
     });
   }

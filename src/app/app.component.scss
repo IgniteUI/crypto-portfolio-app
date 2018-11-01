@@ -1,0 +1,29 @@
+@import './app-themes/chooser.scss';
+.main {
+    width: 100%;
+}
+
+.content {
+    flex: 1 1 100%;
+}
+
+.temp {
+    vertical-align: top;
+}
+
+.igx-nav-drawer__overlay {
+    position: fixed;
+}
+
+igx-navbar {
+    height: 56px;
+    display: block;
+}
+
+.igx-navbar {
+    position: fixed;
+}
+
+.account-container span {
+    margin-right: 13px;
+}

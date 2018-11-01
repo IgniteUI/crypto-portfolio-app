@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule,
   IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
-  IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule
+  IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule
 } from 'igniteui-angular';
 
 import { HomeComponent } from './home/home.component';
@@ -29,6 +29,7 @@ import { AuthGuard } from './auth.service';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { BlockListComponent } from './block-list/block-list.component';
 import { ItemService } from './block-item.service';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
@@ -49,7 +50,8 @@ export const firebaseConfig = {
     EmailComponent,
     SignupComponent,
     PortfolioComponent,
-    BlockListComponent
+    BlockListComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     FormsModule,
@@ -72,6 +74,7 @@ export const firebaseConfig = {
     IgxTabsModule,
     IgxSnackbarModule,
     IgxDialogModule,
+    IgxToggleModule,
     IgxGridModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features

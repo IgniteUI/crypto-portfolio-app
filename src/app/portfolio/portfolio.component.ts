@@ -1,7 +1,7 @@
-import { Component, OnInit, NgModule, ViewChild, ViewEncapsulation, Input, HostListener} from '@angular/core';
-import { trigger, transition, style, animate, query, stagger, group, keyframes} from '@angular/animations';
+import { Component, OnInit, NgModule, ViewChild, ViewEncapsulation, Input, HostListener } from '@angular/core';
+import { trigger, transition, style, animate, query, stagger, group, keyframes } from '@angular/animations';
 
-import { IgxFilterOptions, IgxListItemComponent, IgxSnackbarComponent } from 'igniteui-angular';
+import { IgxFilterOptions, IgxListItemComponent, IgxSnackbarComponent, IgxDialogComponent } from 'igniteui-angular';
 import { moveIn, fallIn, moveInLeft } from '../router.animations';
 import { BlockItem, ItemService } from '../block-item.service';
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +10,7 @@ import { AngularFireList } from 'angularfire2/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
-import { IgxGridComponent } from 'igniteui-angular';
+import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from 'igniteui-angular';
 
 @Component({
   selector: 'app-portfolio',
@@ -27,20 +27,46 @@ export class PortfolioComponent implements OnInit {
   public selectedCell;
   private fetchedCoin: any;
 
+
+  @ViewChild(IgxOverlayOutletDirective) public outlet: IgxOverlayOutletDirective;
   @ViewChild('snack') public snack: IgxSnackbarComponent;
   @ViewChild('snackExists') public snackExists: IgxSnackbarComponent;
   @ViewChild('grid1') public grid1: IgxGridComponent;
+  @ViewChild('form') public dialog: IgxDialogComponent;
+
+  private _dialogOverlaySettings = {
+    closeOnOutsideClick: true,
+    modal: true,
+    outlet: this.outlet,
+    scrollStrategy: new CloseScrollStrategy()
+  };
 
   public newItem: BlockItem = new BlockItem();
   public deletedItem: BlockItem = new BlockItem();
+
+  private positive24h = (rowData: any): boolean => {
+    return rowData.oneDayPercentChange > 0;
+  }
+  private negative24h = (rowData: any): boolean => {
+    return rowData.oneDayPercentChange < 0;
+  }
+
+  // tslint:disable-next-line:member-ordering
+  public dailyChanges = {
+    positive: this.positive24h,
+    negative: this.negative24h
+  };
 
   // @HostListener('window:resize', ['$event'])
   // onResize(event) {
   //   this.grid1.reflow();
   // }
-
+  public openDialog() {
+    this._dialogOverlaySettings.outlet = this.outlet;
+    this.dialog.open(this._dialogOverlaySettings);
+  }
   constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
-      private readonly afs: AngularFirestore) { }
+    private readonly afs: AngularFirestore) { }
 
   ngOnInit() { }
 
@@ -48,7 +74,8 @@ export class PortfolioComponent implements OnInit {
   public ngAfterViewInit() {
     this.blockItemsCollection = this.blockItemService.getItemsList();
     this.blockItemsCollection.snapshotChanges().pipe(
-        map(actions => actions.map(a => ({ key: a.payload.key, ...a.payload.val()
+      map(actions => actions.map(a => ({
+        key: a.payload.key, ...a.payload.val()
       })))
     ).subscribe(res => {
       this.blockItems = res;
@@ -66,9 +93,7 @@ export class PortfolioComponent implements OnInit {
   public addItem(event) {
     if (!this.dataService.cachedData) {
       this.dataService.getData();
-    }
-
-    // Check whether the coin is already in your portfolio
+    }    // Check whether the coin is already in your portfolio
     this.checkCoinExistence(this.newItem.coinSymbol);
     event.dialog.close();
   }
@@ -92,15 +117,15 @@ export class PortfolioComponent implements OnInit {
   }
 
   private checkCoinExistence(coin) {
-      const fCoin = this.blockItems.filter(item => item.coinSymbol === coin.toUpperCase());
+    const fCoin = this.blockItems.filter(item => item.coinSymbol === coin.toUpperCase());
 
-      if (fCoin.length !== 0) {
-        this.snackExists.message = 'Already added!';
-        this.snackExists.show();
-      } else {
-        // find coin and add it if exsist
-        this.findCoin(this.newItem.coinSymbol.toUpperCase());
-      }
+    if (fCoin.length !== 0) {
+      this.snackExists.message = 'Already added!';
+      this.snackExists.show();
+    } else {
+      // find coin and add it if exsist
+      this.findCoin(this.newItem.coinSymbol.toUpperCase());
+    }
   }
   public findCoin(coin) {
     this.dataService.getCryptoIdFromSymbol(coin).subscribe(filteredItem => {
@@ -125,20 +150,20 @@ export class PortfolioComponent implements OnInit {
           console.log(err);
         });
       } else {
-          this.snackExists.message = 'Coin does not exist!';
-          this.snackExists.show();
+        this.snackExists.message = 'Coin does not exist!';
+        this.snackExists.show();
       }
     });
   }
 
   public updatePortfolio() {
     for (const coin of this.blockItems) {
-        this.dataService.getSpecificCoinData(coin.cryptoId).subscribe(res => {
-          coin.oneHourPercentChange = res['quotes.USD.percent_change_1h'];
-          coin.oneDayPercentChange = res['quotes.USD.percent_change_24h'];
-          coin.sevenDaysPercentChange = res['quotes.USD.percent_change_7d'];
-          coin.usdPrice = res['quotes.USD.price'];
-        });
+      this.dataService.getSpecificCoinData(coin.cryptoId).subscribe(res => {
+        coin.oneHourPercentChange = res['quotes.USD.percent_change_1h'];
+        coin.oneDayPercentChange = res['quotes.USD.percent_change_24h'];
+        coin.sevenDaysPercentChange = res['quotes.USD.percent_change_7d'];
+        coin.usdPrice = res['quotes.USD.price'];
+      });
     }
   }
 

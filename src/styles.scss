@@ -1,19 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-/* See: https://www.infragistics.com/products/ignite-ui-angular/angular/components/themes.html */
 @import "~igniteui-angular/lib/core/styles/themes/index";
+@import 'app/app-themes/themes.scss';
 
-$primary: #8049ff !default;
-$secondary: #E29C45 !default;
+html, body, app-root {
+  height: 100%;
+}
 
-// $secondary: rgb(255, 219, 88) !default;
-
-$app-palette: igx-palette($primary, $secondary);
-
-@include igx-core();
-@include igx-theme($app-palette);
-
-//$navbar-theme: igx-navbar-theme($background: #731963)
-//@include igx-navbar($navbar-theme)
+body {
+  overflow-y: scroll;
+}
 
 .content p {
   margin: 15px;
@@ -35,12 +29,31 @@ app-portfolio {
   width: 100%;
 }
 
+app-statistics {
+  width: 100%;
+}
+
 .sample-wrapper {
   width: inherit;
   position: relative;
   height: 100%;
-  margin: 15px auto;
+  padding: 20px;
   background: transparent;
+}
+
+#lockIcon {
+  width: 9.5rem;
+  height: 9.5rem;
+  font-size: 9.5rem;
+  color: #E29C45;
+  margin: 0.2em auto 0 auto;
+  display: block;
+
+  @media only screen and (max-width: 786px) {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+  }
 }
 
 .sample-content {
@@ -57,7 +70,7 @@ app-portfolio {
 .sample-column {
   display: flex;
   flex-flow: column nowrap;
-  flex: 1 0 25%;
+  flex: 1 0 0%;
   align-content: flex-start;
   margin: 16px;
   min-width: 280px;
@@ -78,75 +91,159 @@ app-portfolio {
   color: #717171;
 }
 
-.igx-card
-{
+.igx-card {
   flex-flow: row;
 }
 
 .igx-card igx-card-content {
-  padding: 0em;
-}
-
-.percent-style-up {
-  color: green;
-}
-
-.percent-style-down {
-  color: red;
+  padding: 0;
 }
 
 .form-container {
-  background:white;
-  padding-top:1.5em;
-  width:100%;
-  // position:fixed;
-  // left:50%;
-  // margin-left:-250px;
+  height: calc(100vh - 56px);
+  display: flex;
+  align-items: center;
+}
+
+igx-grid {
+  .percent-style-up,
+  .percent-style-down {
+    position: relative;
+    padding-right: 10px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 4px;
+
+      border-radius: 5px;
+    }
+  }
+}
+
+.percent-style-up {
+  color: #3f9a47;
+  &:after {
+    background: #3f9a47;
+  }
+}
+
+.percent-style-down {
+  color: #aa2222;
+  &:after {
+    background: #aa2222;
+  }
+}
+
+.igx-grid__td--selected.negative {
+  background: #aa2222 !important;
+
+  .percent-style-down {
+    color: #fff !important;
+  }
+
+  .daily-change-negative {
+    color: #fff !important;
+  }
+}
+
+.igx-grid__td--selected.positive {
+  background: #3f9a47 !important;
+
+  .percent-style-up {
+    color: #fff !important;
+  }
+
+  .daily-change-positive {
+    color: #fff !important;
+  }
 }
 
 .button {
-  padding:1em;
-  width:100%;
-  cursor:pointer;
-  margin-bottom:15px;
-  font-size:1em;
+  padding: 1em;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 15px;
+  font-size: 1em;
   height: 50px;
 }
 
+
+.signup-form-actions {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.alc {
+  text-align: center;
+  display: block;
+  margin: 15px 0;
+  text-decoration: underline;
+  color: #8049ff
+}
+
+
 @-webkit-keyframes color-change-2x {
   0% {
-      background: #fdf8f0;
+    background: #fdf8f0;
   }
   100% {
-      background: #f6e7ec;
+    background: #f6e7ec;
   }
 }
 
 @keyframes color-change-2x {
   0% {
-      background: #fdf8f0;
+    background: #fdf8f0;
   }
   100% {
-      background: #f6e7ec;
+    background: #f6e7ec;
   }
 }
 
 @-webkit-keyframes fade-in {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 @keyframes fade-in {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
+@media screen and (max-width: 650px) {
+
+  [class*=sample-content] {
+    width: 600px;
+  }
+
+  [class*=user-name] {
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 639px) {
+  .igx-navbar__title {
+    max-width: 144px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 
