@@ -25,9 +25,9 @@ export class DataService {
           for (const key of fetchedData) {
 
             if (result['data'][key].quotes['USD']['percent_change_24h'] >= 0) {
-              result['data'][key]['Positive Daily Scale'] = true;
+              result['data'][key]['daily_scale'] = true;
             } else {
-              result['data'][key]['Positive Daily Scale'] = false;
+              result['data'][key]['daily_scale'] = false;
             }
 
             newData.push(this.flattenObject(result['data'][key]));

@@ -11,8 +11,16 @@
             </button>
         </ng-template>
         <igx-grid #grid1 [data]="remoteData" width="100%" height="555px">
-            <!-- <igx-column field='rank' header='#'></igx-column> -->
-            <igx-column field='name' header='Name' [filterable]="true" [groupable]="true" >
+            <ng-template igxGroupByRow let-groupRow>
+                <div class="igx-group-label">
+                    <igx-icon fontSet="material" class="igx-group-label__icon">group_work</igx-icon>
+                    <span class="igx-group-label__column-name" >
+                    {{ groupRow.value ? 'Positive Daily Scale' : 'Negative Daily Scale' }}:
+                    </span>
+                    <igx-badge [value]="groupRow.records ? groupRow.records.length : 0" class='igx-group-label__count-badge'></igx-badge>
+                </div>
+            </ng-template>
+            <igx-column field='name' header='Name' [filterable]="true">
                 <ng-template igxCell let-cell="cell" let-item>
                     <span class="coin-logo">
                       <img  src="https://s2.coinmarketcap.com/static/img/coins/16x16/{{ cell.row.rowData.id }}.png" />
@@ -20,7 +28,7 @@
                     <span class="coin-title">{{ item }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.price' filterable="true" dataType="number" [groupable]="true">
+            <igx-column field='quotes.USD.price' filterable="true" dataType="number">
                 <ng-template igxHeader let-column="column">
                     Price
                 </ng-template>
@@ -28,7 +36,7 @@
                     $ {{ item | number:'0.0-2' }}
                 </ng-template>
             </igx-column>
-            <igx-column field='total_supply' sortable="true" filterable="true" dataType="number" [hidden]="hideColumn" [groupable]="true">
+            <igx-column field='total_supply' sortable="true" filterable="true" dataType="number" [hidden]="hideColumn">
                 <ng-template igxHeader let-column="column">
                     Total supply
                 </ng-template>
@@ -52,7 +60,7 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='quotes.USD.percent_change_7d' dataType="number" sortable="true" [groupable]="true" [cellClasses]="changes7d">
+            <igx-column field='quotes.USD.percent_change_7d' dataType="number" sortable="true" [cellClasses]="changes7d">
                 <ng-template igxHeader let-column="column">
                     (7d) %
                 </ng-template>
@@ -60,10 +68,7 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='Positive Daily Scale' [groupable]="true" dataType="boolean" [cellClasses]="changes24h">
-                <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-                    <span class="daily-change-{{ item ? 'positive' : 'negative'}}"> {{ item }}</span>
-                </ng-template>
+            <igx-column field='daily_scale' header='Daily Scale' dataType="boolean" [groupable]="true" [hidden]="true">
             </igx-column>
         </igx-grid>
     </div>
