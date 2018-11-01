@@ -171,6 +171,22 @@ igx-grid {
   height: 50px;
 }
 
+
+.signup-form-actions {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.alc {
+  text-align: center;
+  display: block;
+  margin: 15px 0;
+  text-decoration: underline;
+  color: #8049ff
+}
+
+
 @-webkit-keyframes color-change-2x {
   0% {
     background: #fdf8f0;
