@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, HostListener} from '@angular/core';
 import { Http } from '@angular/http';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs';
 import { IgxGridComponent } from 'igniteui-angular';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-block-grid',
   templateUrl: './block-grid.component.html',
   styleUrls: ['./block-grid.component.scss']
 })
-export class BlockGridComponent implements OnInit, AfterViewInit {
+export class BlockGridComponent implements OnInit, AfterViewInit{
   public remoteData: any[];
   @ViewChild('grid1') public grid1: IgxGridComponent;
   private windowWidth: any;
@@ -32,7 +33,20 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    this.grid1.groupBy({fieldName: 'Positive Daily Scale', dir: 2});
+
+    this.grid1.groupBy({fieldName: 'daily_scale', dir: 2});
+
+    this.grid1.onGroupingDone.subscribe( (value) => {
+
+      if (value.expressions.length === 0) {
+          return;
+      }
+
+      this.grid1.clearGrouping('quotes.USD.percent_change_24h');
+      this.grid1.groupBy({fieldName: 'daily_scale', dir: 2});
+      this.grid1.reflow();
+    });
+
     setTimeout(() => {
       this.refreshGrid();
     }, 100);
