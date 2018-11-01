@@ -39,12 +39,9 @@
   justify-content: flex-start;
   align-items: center;
 
-  >* {
-    margin-right: 8px;
-
-    &:last-of-type {
-      margin-right: 0;
-    }
+  @media only screen and (max-width: 639px) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
@@ -52,8 +49,33 @@
   margin-right: 8px;
 }
 
-.crypto__price,
-.crypto__name {
-  flex: 1;
+.crypto__name,
+.crypto__details {
+  display: flex;
+  align-items: center;
+  flex: 1 0 0%;
 }
 
+.crypto__details {
+  justify-content: space-between;
+  .crypto__price {
+    margin-right: 16px;
+  }
+}
+
+.percent-style-down {
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 639px) {
+  .crypto__details {
+    min-width: 100%;
+  }
+
+  .igx-navbar__title {
+    max-width: 144px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

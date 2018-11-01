@@ -4,20 +4,7 @@
   display: block;
 }
 
-#lockIcon {
-  width: 9.5rem;
-  height: 9.5rem;
-  font-size: 9.5rem;
-  color: #E29C45;
-  margin: 0.2em auto 0.1em auto;
-  display: block;
 
-  @media only screen and (max-width: 786px) {
-    width: 50px;
-    height: 50px;
-    font-size: 50px;
-  }
-}
 
 .button {
   display: flex;
@@ -33,6 +20,7 @@
 #fb {
   background: #3B5998;
   color: #fff;
+  margin-top:10px;
 }
 
 #google {

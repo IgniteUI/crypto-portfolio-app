@@ -1,8 +1,7 @@
 @import "~igniteui-angular/lib/core/styles/themes/index";
-
 @import 'app/app-themes/themes.scss';
 
-html,body,app-root {
+html, body, app-root {
   height: 100%;
 }
 
@@ -42,6 +41,21 @@ app-statistics {
   background: transparent;
 }
 
+#lockIcon {
+  width: 9.5rem;
+  height: 9.5rem;
+  font-size: 9.5rem;
+  color: #E29C45;
+  margin: 0.2em auto 0 auto;
+  display: block;
+
+  @media only screen and (max-width: 786px) {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+  }
+}
+
 .sample-content {
   display: flex;
   flex-grow: 1;
@@ -77,8 +91,7 @@ app-statistics {
   color: #717171;
 }
 
-.igx-card
-{
+.igx-card {
   flex-flow: row;
 }
 
@@ -92,17 +105,16 @@ app-statistics {
   align-items: center;
 }
 
-
 igx-grid {
   .percent-style-up,
   .percent-style-down {
     position: relative;
-    padding-right:10px;
+    padding-right: 10px;
 
     &:after {
-      content:'';
+      content: '';
       position: absolute;
-      top:0;
+      top: 0;
       right: 0;
       height: 100%;
       width: 4px;
@@ -127,17 +139,16 @@ igx-grid {
 }
 
 .igx-grid__td--selected.negative {
-  background: #aa2222!important;
+  background: #aa2222 !important;
 
   .percent-style-down {
     color: #fff !important;
   }
 
-  .daily-change-negative{
+  .daily-change-negative {
     color: #fff !important;
   }
 }
-
 
 .igx-grid__td--selected.positive {
   background: #3f9a47 !important;
@@ -146,69 +157,77 @@ igx-grid {
     color: #fff !important;
   }
 
-  .daily-change-positive{
+  .daily-change-positive {
     color: #fff !important;
   }
 }
 
 .button {
-  padding:1em;
-  width:100%;
-  cursor:pointer;
-  margin-bottom:15px;
-  font-size:1em;
+  padding: 1em;
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 15px;
+  font-size: 1em;
   height: 50px;
 }
 
 @-webkit-keyframes color-change-2x {
   0% {
-      background: #fdf8f0;
+    background: #fdf8f0;
   }
   100% {
-      background: #f6e7ec;
+    background: #f6e7ec;
   }
 }
 
 @keyframes color-change-2x {
   0% {
-      background: #fdf8f0;
+    background: #fdf8f0;
   }
   100% {
-      background: #f6e7ec;
+    background: #f6e7ec;
   }
 }
 
 @-webkit-keyframes fade-in {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 @keyframes fade-in {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 @media screen and (max-width: 650px) {
 
-  [class*=sample-content]{
-      width: 600px;
+  [class*=sample-content] {
+    width: 600px;
   }
 
-  [class*=user-name]{
-    float:left;
+  [class*=user-name] {
+    float: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 50%;
   }
- }
+}
 
+@media only screen and (max-width: 639px) {
+  .igx-navbar__title {
+    max-width: 144px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 

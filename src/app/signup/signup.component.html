@@ -1,26 +1,26 @@
 <div class="form-container">
-  <h2 id="register-header">Register</h2>
-
-  <span class="error" *ngIf="error" [@fallIn]='state'>{{ error }}</span>
-
-  <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-    <igx-input-group>
-      <label igxLabel for="email">Email address</label>
-      <input igxInput name="email" type="email" [(ngModel)]="email" required />
-      <igx-suffix>
-        <igx-icon name="email"></igx-icon>
-      </igx-suffix>
-    </igx-input-group>
-    <igx-input-group>
-      <label igxLabel for="password">Password</label>
-      <input igxInput name="password" type="password" [(ngModel)]="password" required />
-      <igx-suffix>
-        <igx-icon name="lock"></igx-icon>
-      </igx-suffix>
-    </igx-input-group>
-    <div class="signup-form-actions">
-      <a igxButton="flat" igxRipple routerLink="/login" id="goback">Go back</a>
-      <button igxButton="raised" igxRipple type="submit" [disabled]="!formData.valid" class="basic-btn">Create my account</button>
-    </div>
-  </form>
+  <div>
+    <igx-icon id="lockIcon" name="person"></igx-icon>
+    <span class="error" *ngIf="error" [@fallIn]='state'>{{ error }}</span>
+    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+      <igx-input-group>
+        <label igxLabel for="email">Email address</label>
+        <input igxInput name="email" type="email" [(ngModel)]="email" required />
+        <igx-suffix>
+          <igx-icon name="email"></igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <igx-input-group>
+        <label igxLabel for="password">Password</label>
+        <input igxInput name="password" type="password" [(ngModel)]="password" required />
+        <igx-suffix>
+          <igx-icon name="lock"></igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <div class="signup-form-actions">
+        <a igxButton="flat" igxRipple routerLink="/login" id="goback">Go back</a>
+        <button igxButton="raised" igxRipple type="submit" [disabled]="!formData.valid" class="basic-btn">Create my account</button>
+      </div>
+    </form>
+  </div>
 </div>
