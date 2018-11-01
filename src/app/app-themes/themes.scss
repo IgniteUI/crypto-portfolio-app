@@ -33,7 +33,11 @@ $light-cell-selection: igx-grid-theme(
     }
   }
   .chart-wrapper {
-    background: #DCDCDC;
+    background: transparent;
+  }
+
+  .list-sample {
+    background: #424242;
   }
 }
 
@@ -51,6 +55,10 @@ $light-cell-selection: igx-grid-theme(
     #register-header {
       color: #000;
     }
+  }
+
+  .list-sample {
+    background: #fff;
   }
 }
 
