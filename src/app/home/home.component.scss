@@ -15,7 +15,7 @@ a {
 
 
 .card-wrapper {
-  max-width: 286px;
+  max-width: 279px;
   min-width: 260px;
 }
 
@@ -28,7 +28,7 @@ a {
 .sample-content {
   display:flex;
   margin: 0 auto;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .igx-card-header,
