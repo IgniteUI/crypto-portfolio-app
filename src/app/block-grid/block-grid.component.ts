@@ -44,7 +44,6 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
 
       this.grid1.clearGrouping('quotes.USD.percent_change_24h');
       this.grid1.groupBy({fieldName: 'daily_scale', dir: 2});
-      this.grid1.reflow();
     });
 
     setTimeout(() => {

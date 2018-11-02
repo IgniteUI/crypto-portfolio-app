@@ -44,7 +44,7 @@
                     <span> $ {{ item | number:'3.0-5' }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column width="160" field='quotes.USD.percent_change_1h' dataType="number" sortable="true" dataType="number" [hidden]="hideColumn" [groupable]="true" [cellClasses]="changes1h">
+            <igx-column width="160" field='quotes.USD.percent_change_1h' dataType="number" sortable="true" dataType="number" [hidden]="hideColumn" [cellClasses]="changes1h">
                 <ng-template igxHeader let-column="column">
                     (1 h) %
                 </ng-template>
