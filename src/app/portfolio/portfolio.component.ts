@@ -5,8 +5,8 @@ import { IgxFilterOptions, IgxListItemComponent, IgxSnackbarComponent, IgxDialog
 import { moveIn, fallIn, moveInLeft } from '../router.animations';
 import { BlockItem, ItemService } from '../block-item.service';
 import { Observable } from 'rxjs/Observable';
-import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireList } from 'angularfire2/database';
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireList } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
