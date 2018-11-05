@@ -5,7 +5,7 @@ import 'rxjs/add/operator/filter';
 import { routes } from './app-routing.module';
 
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
