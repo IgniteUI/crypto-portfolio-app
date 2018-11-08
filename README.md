@@ -13,6 +13,14 @@ Mobile app available [here](https://drive.google.com/drive/folders/1ooju9wTa-ttd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.
 
+## Start using the app
+1. Run `npm install`
+2. Run `ng serve -o`
+
+## Create a production bundle
+1. Run `ng build --prod --aot`
+2. Go to `dist folder` and host with IIS or any other provider (example [lite-server](https://github.com/johnpapa/lite-server#global-installation))
+
 ## dist and docs folders
 
 `docs` folder is used for the [GitHub Pages](https://igniteui.github.io/crypto-portfolio-app/) site. Related to [`Publishing your GitHub Pages site from a /docs folder on your `master` branch`](https://igniteui.github.io/crypto-portfolio-app/)
