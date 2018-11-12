@@ -4,7 +4,7 @@ import 'rxjs/add/operator/filter';
 
 import { routes } from './app-routing.module';
 
-import { IgxNavigationDrawerComponent } from 'igniteui-angular';
+import { IgxNavigationDrawerComponent, IgxLayoutDirective } from 'igniteui-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -14,6 +14,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
+  public isIE;
   name: any;
   public innerWidth: any;
   public darkTheme = false;
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
     subItem: boolean
   }> = [];
   @ViewChild(IgxNavigationDrawerComponent) public navdrawer: IgxNavigationDrawerComponent;
+  @ViewChild(IgxLayoutDirective, {read: IgxLayoutDirective}) public layout: IgxLayoutDirective;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -31,7 +33,8 @@ export class AppComponent implements OnInit {
   }
 
   constructor(private router: Router, public afAuth: AngularFireAuth) {
-    for (const route of routes) {
+    this.isIE = /trident\//i.test(window.navigator.userAgent);
+      for (const route of routes) {
       if (route.path && route.data && route.path.indexOf('*') === -1) {
         this.topNavLinks.push({
           name: route.data.text,
@@ -50,6 +53,9 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    if (this.isIE) {
+      this.layout.display = '';
+    }
     document.body.classList.add('light-theme');
     document.body.style.background = '#eee';
     this.router.events
