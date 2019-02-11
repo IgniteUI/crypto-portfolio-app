@@ -75,7 +75,7 @@ export const firebaseConfig = {
     IgxSnackbarModule,
     IgxDialogModule,
     IgxToggleModule,
-    IgxGridModule.forRoot(),
+    IgxGridModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,

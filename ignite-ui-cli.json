@@ -3,7 +3,7 @@
     "customTemplates": [],
     "skipGit": false,
     "skipAnalytic": false,
-    "version": "",
+    "version": "3.0.0",
     "project": {
         "framework": "angular",
         "projectType": "igx-ts",
@@ -15,7 +15,8 @@
         "components": [],
         "sourceFiles": [],
         "isShowcase": false,
-        "version": ""
+        "version": "",
+        "projectTemplate": "side-nav"
     },
     "build": {},
     "packagesInstalled": true

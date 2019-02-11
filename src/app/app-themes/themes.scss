@@ -1,10 +1,18 @@
-@import '~igniteui-angular/lib/core/styles/themes/presets/dark-green/index';
-@import "~igniteui-angular/lib/core/styles/themes/utilities";
+// Import the theme utilities first
+@import '~igniteui-angular/lib/core/styles/themes/utilities';
+@import '~igniteui-angular/lib/core/styles/themes/index';
+@include igx-core();
+@include igx-theme($default-palette);
+
 $primary: #8049ff !default;
 $secondary: #E29C45 !default;
+$primary-dark: green !default;
+$secondary-dark: black !default;
+
 $app-palette: igx-palette($primary, $secondary);
-@include igx-core();
-$dark-green-navbar: igx-navbar-theme( $palette: $dark-green-palette, $background: $dark-green-background-black);
+$dark-green-palette: igx-palette($primary-dark, $secondary-dark);
+
+$dark-green-navbar: igx-navbar-theme( $background: black);
 $light-cell-selection: igx-grid-theme( $palette: $app-palette, $cell-selected-background: igx-color($app-palette, 'primary', 200));
 
 $icon-button-light: igx-button-theme(
@@ -24,7 +32,7 @@ $icon-button-dark: igx-button-theme(
 .dark-theme {
   background: #333 !important;
   display: block;
-  @include igx-theme($default-palette, $preset: $dark-green-theme);
+  // @include igx-theme($default-palette, $preset: $dark-green-theme);
   @include igx-navbar($dark-green-navbar);
   .igx-card {
     @include igx-button($icon-button-dark);

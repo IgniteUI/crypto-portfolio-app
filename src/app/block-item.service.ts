@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireObject, AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
