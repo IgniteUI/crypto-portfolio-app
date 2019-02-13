@@ -1,20 +1,20 @@
 <div class="form-container">
   <div>
-    <igx-icon id="lockIcon" name="email"></igx-icon>
+    <igx-icon id="lockIcon">email</igx-icon>
     <span class="error" *ngIf="error" [@fallIn]='state'>{{ error }}</span>
     <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
       <igx-input-group>
         <label igxLabel for="email">Email address</label>
         <input igxInput name="email" type="email" [(ngModel)]="email" required />
         <igx-suffix>
-          <igx-icon name="email"></igx-icon>
+          <igx-icon>email</igx-icon>
         </igx-suffix>
       </igx-input-group>
       <igx-input-group>
         <label igxLabel for="password">Password</label>
         <input igxInput name="password" type="password" [(ngModel)]="password" required />
         <igx-suffix>
-          <igx-icon name="lock"></igx-icon>
+          <igx-icon>lock</igx-icon>
         </igx-suffix>
       </igx-input-group>
 

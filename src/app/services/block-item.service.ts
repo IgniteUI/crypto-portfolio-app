@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { BlockItem } from '../core/interfaces';
 
 @Injectable()
 export class ItemService {
@@ -44,19 +44,4 @@ export class ItemService {
   deleteItem(key: string): void {
     this.items.remove(key).catch(error => console.log(error));
   }
-}
-
-
-export class BlockItem {
-    key: string;
-    coinName: string;
-    holdings: number;
-    cryptoId: number;
-    coinSymbol: string;
-    rank: number;
-    totalSupply: number;
-    usdPrice: number;
-    oneHourPercentChange: number;
-    oneDayPercentChange: number;
-    sevenDaysPercentChange: number;
 }

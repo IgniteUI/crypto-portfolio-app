@@ -1,11 +1,9 @@
-import { Component, OnInit, NgModule, ViewChild } from '@angular/core';
-
-
-import { DataService } from '../data.service';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
 import { IgxFilterOptions } from 'igniteui-angular';
-import { resolveDefinition } from '@angular/core/src/view/util';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
+import { sortDataByKey } from '../core/utils';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   get filterOptions() {
     const fo = new IgxFilterOptions();
-    fo.key = 'name';
+    fo.key = 'CoinInfo.Name';
     fo.inputValue = this.search1 ? this.search1 : '';
     return fo;
   }
@@ -34,7 +32,7 @@ export class HomeComponent implements OnInit {
   private getData() {
     this.data.getData()
       .subscribe(res => {
-        this.cryptos = this.data.sortDataByKey(res, 'rank');
+        this.cryptos = sortDataByKey(res, 'CoinInfo.Rank');
       });
   }
 

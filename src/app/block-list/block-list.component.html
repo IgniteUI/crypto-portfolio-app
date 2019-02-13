@@ -18,25 +18,24 @@
                         <span class="crypto__item">
 
                             <div class="crypto__name">
-                              <igx-avatar size="small" class="crypto__avatar" src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto['id'] }}.png" roundShape="true"></igx-avatar>
+                              <igx-avatar size="small" class="crypto__avatar" src="https://www.cryptocompare.com{{ crypto['RAW.USD.IMAGEURL'] }}" roundShape="true"></igx-avatar>
                               <span>
-                                  {{ crypto.name }}
-                                <!--({{crypto.symbol }})-->
+                                  {{ crypto['CoinInfo.FullName'] }}
                               </span>
                             </div>
 
                             <div class="crypto__details">
-                              <span class="crypto__price">${{ crypto['quotes.USD.price'] }}</span>
+                              <span class="crypto__price">${{ crypto['RAW.USD.PRICE'] | number: '1.0-3' }}</span>
 
-                              <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}">
-                                  {{ crypto['quotes.USD.percent_change_7d'] }} %
+                              <span class="percent-style-{{ crypto['RAW.USD.CHANGEPCTDAY'] >= 0 ? 'up' : 'down'}}">
+                                  {{ crypto['RAW.USD.CHANGEPCTDAY'] | number: '0.0-2' }} %
                               </span>
 
-                              <igx-icon [color]="crypto['quotes.USD.percent_change_7d'] >= 0 ? 'green' : 'red'">
-                                    {{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                              <igx-icon [color]="crypto['RAW.USD.CHANGEPCTDAY'] >= 0 ? 'green' : 'red'">
+                                    {{ crypto['RAW.USD.CHANGEPCTDAY'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}
                               </igx-icon>
 
-                              <span class="li_item">(7d)</span>
+                              <span class="li_item">(24h)</span>
                             </div>
                         </span>
                     </div>

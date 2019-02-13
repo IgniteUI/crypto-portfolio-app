@@ -1,24 +1,20 @@
 import {
-  Component, OnInit, ViewEncapsulation, ViewChild, OnDestroy, AfterViewInit, ChangeDetectionStrategy,
+  Component, ViewEncapsulation, ViewChild, AfterViewInit, ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import {
-  IgxLabelDirective, IgxFilterOptions,
+  IgxFilterOptions,
   HorizontalAlignment,
   VerticalAlignment,
   ConnectedPositioningStrategy,
   CloseScrollStrategy,
   IgxDropDownComponent
 } from 'igniteui-angular';
-import { ItemService } from '../block-item.service';
-class CryptoCoin {
-  name: string;
-  symbol: string;
-}
+import { CryptoCoin } from '../core/interfaces';
+
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
@@ -27,12 +23,13 @@ class CryptoCoin {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticsComponent implements AfterViewInit {
+  @ViewChild('dropDown', { read: IgxDropDownComponent }) public dropDown: IgxDropDownComponent;
   public coins: CryptoCoin[];
   public cryptoName;
-  public daysCount;
+  public daysCount: Number;
   data: any;
-  @ViewChild('dropDown', { read: IgxDropDownComponent }) public dropDown: IgxDropDownComponent;
   public int = 0;
+
   constructor(private dataService: DataService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
 
     this.route
@@ -75,7 +72,7 @@ export class StatisticsComponent implements AfterViewInit {
       coin = this.coins.find(c => c.name === name || c.symbol === symbol.replace('[', '').replace(']', ''));
       this.cryptoName = coin.symbol;
     }
-    this.dataService.getLastSevenDaysPrices(this.cryptoName, this.daysCount)
+    this.dataService.getBetweenDaysPrices(this.cryptoName, this.daysCount)
       .subscribe(res => {
         this.data = Object.assign(res).Data.map(item => {
           // multiply by 1000 because Date() requires miliseconds
@@ -93,8 +90,8 @@ export class StatisticsComponent implements AfterViewInit {
     this.dataService.getData().map((data: any[]) => {
       const obj = [];
       for (let index = 0; index < data.length; index++) {
-        const name = data[index]['name'];
-        const symbol = data[index]['symbol'];
+        const name = data[index]['CoinInfo.FullName'];
+        const symbol = data[index]['CoinInfo.Name'];
         obj.push({ name: name, symbol: symbol });
       }
       return obj;

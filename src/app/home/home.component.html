@@ -16,23 +16,24 @@
                 <igx-card>
                     <igx-card-header class="igx-card-header">
                         <h3 class="igx-card-header__title">
-                            <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ crypto.id }}.png" />
-                            <span>{{ crypto.name }} ({{ crypto.symbol }})</span>
-                            <button igxButton="icon" igxRipple (click)="openChart($event, crypto.symbol)">
+                            <img src="https://www.cryptocompare.com{{ crypto['RAW.USD.IMAGEURL'] }}" />
+                            <span>{{ crypto['CoinInfo.FullName'] }} ({{ crypto['CoinInfo.Name'] }})</span>
+                            <button igxButton="icon" igxRipple (click)="openChart($event, crypto['CoinInfo.Name'])">
                             <igx-icon fontSet="material">trending_up</igx-icon>
                             </button>
                         </h3>
                     </igx-card-header>
 
                     <igx-card-content class="igx-card-content">
-                        <p class="igx-card-content__text"><strong>{{ crypto['quotes.USD.price'] }}</strong> USD
-                            <span class="percent-style-{{ crypto['quotes.USD.percent_change_24h'] >= 0 ? 'up' : 'down'}}"><strong>({{ crypto['quotes.USD.percent_change_24h'] }})</strong>%</span>
+                        <p class="igx-card-content__text"><strong>Price: ${{ crypto['RAW.USD.PRICE']  }} </strong>
+                            <span class="percent-style-{{ crypto['RAW.USD.CHANGEPCTDAY'] >= 0 ? 'up' : 'down'}}">({{ crypto['RAW.USD.CHANGEPCTDAY'] | number: '0.0-2' }})</span> 24h %
                         </p>
-                        <p class="igx-card-content__text">Rank: <strong>{{ crypto.rank }}</strong></p>
-                        <p class="igx-card-content__text">Market Cap: <strong>{{ crypto['quotes.USD.market_cap'] | number:'3.0-5' }}</strong></p>
-                        <p class="igx-card-content__text">7d change:
+                        <p class="igx-card-content__text">Rank: <strong>{{ crypto['CoinInfo.Rank'] }}</strong></p>
+                        <p class="igx-card-content__text">Proof type: <strong>{{ crypto['CoinInfo.ProofType'] }}</strong></p>
+                        <p class="igx-card-content__text">Market Cap: <strong>${{ crypto['RAW.USD.MKTCAP'] | number:'3.0-2' }}</strong></p>
+                        <!-- <p class="igx-card-content__text">24h % change:
                             <span class="percent-style-{{ crypto['quotes.USD.percent_change_7d'] >= 0 ? 'up' : 'down'}}"><strong>({{ crypto['quotes.USD.percent_change_7d'] }})</strong>%</span>
-                        </p>
+                        </p> -->
                     </igx-card-content>
                 </igx-card>
             </article>

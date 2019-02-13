@@ -1,10 +1,8 @@
-import { Component, OnInit, HostBinding, AfterViewInit } from '@angular/core';
-// import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn } from '../router.animations';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-login',

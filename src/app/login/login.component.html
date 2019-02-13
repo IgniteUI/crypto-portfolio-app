@@ -1,6 +1,6 @@
 <div class="form-container">
   <div *ngIf="!showSpinner; else elseBlock">
-    <igx-icon id="lockIcon" name="lock_open"></igx-icon>
+    <igx-icon id="lockIcon">lock_open</igx-icon>
     <span class="error" *ngIf="error">{{ error }}</span>
 
     <button class="button" igxButton="raised" igxRipple (click)="loginFb()" id="fb">

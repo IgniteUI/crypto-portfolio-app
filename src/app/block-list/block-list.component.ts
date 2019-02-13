@@ -1,11 +1,8 @@
-import {
-  Component,
-  OnInit,
-  NgModule,
-  ViewChild } from '@angular/core';
-import { DataService } from '../data.service';
-import { IgxFilterOptions, IgxListItemComponent } from 'igniteui-angular';
-import { trigger, transition, style, animate, query, stagger, group, keyframes} from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { IgxFilterOptions } from 'igniteui-angular';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import { sortDataByKey } from '../core/utils';
 
 @Component({
   selector: 'app-block-list',
@@ -51,13 +48,13 @@ export class BlockListComponent implements OnInit {
   private loadData() {
     this.data.getData()
       .subscribe(res => {
-        this.remoteData = this.data.sortDataByKey(res, 'rank');
+        this.remoteData = sortDataByKey(res, 'CoinInfo.Rank');
       });
   }
 
   get filterCryptos() {
     const fo = new IgxFilterOptions();
-    fo.key = 'name';
+    fo.key = 'CoinInfo.FullName';
     fo.inputValue = this.searchCrypto;
     return fo;
   }
