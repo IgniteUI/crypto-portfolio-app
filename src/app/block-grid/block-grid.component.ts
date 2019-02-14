@@ -19,7 +19,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
     this.windowWidth = event.target.innerWidth;
   }
 
-  constructor(private data: DataService) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.loadData();
@@ -53,7 +53,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
   };
 
   private loadData() {
-    this.data.getData().subscribe(res => {
+    this.dataService.getData().subscribe(res => {
         this.remoteData = sortDataByKey(res, 'CoinInfo.Rank');
       });
   }

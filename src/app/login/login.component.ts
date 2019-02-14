@@ -66,4 +66,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.error = err;
         });
   }
+
+  loginEmail() {
+    this.router.navigate(['/email'], {
+      queryParams: {
+        return: this.return
+      }
+    });
+  }
 }

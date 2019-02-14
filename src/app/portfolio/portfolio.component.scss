@@ -40,18 +40,6 @@ igx-icon {
     margin-top: 5px;
     margin-left: 10px;
 }
-.sbPosition {
-    z-index: 1;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    @media only screen and (min-width: 786px) {
-     display: flex;
-    }
-}
-
 
 igx-grid {
     margin: 20px;

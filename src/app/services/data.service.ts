@@ -7,7 +7,6 @@ import { flattenObject } from '../core/utils';
 @Injectable()
 export class DataService {
 
-  public cachedData: any;
   private baseUrl: string;
   private histoDataUrl: string;
   private priceMultiFullUrl: string;
@@ -22,21 +21,17 @@ export class DataService {
   }
 
   public getData() {
-    if (!this.cachedData) {
-      this.cachedData = this.http.get(this.baseUrl)
-        .map(result => {
-          let data = [];
+    return this.http.get(this.baseUrl)
+      .map(result => {
+        let data = [];
 
-          if (result["Message"] === "Success") {
-            data = this.transformData(data, result);
-          } else {
-            data = offlineData;
-          }
-          return data;
-        });
-    }
-
-    return this.cachedData;
+        if (result["Message"] === "Success") {
+          data = this.transformData(data, result);
+        } else {
+          data = offlineData;
+        }
+        return data;
+      });
   }
 
   public getBetweenDaysPrices(symbol: String, forDays: Number) {
@@ -60,7 +55,7 @@ export class DataService {
         return crypto;
       });
   }
-  
+
   private transformData(transformedData, data) {
     const indexes = Object.keys(data['Data']);
 

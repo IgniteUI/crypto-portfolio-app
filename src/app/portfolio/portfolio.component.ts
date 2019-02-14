@@ -95,11 +95,7 @@ export class PortfolioComponent implements OnInit {
     this.grid1.reflow();
   }
 
-  public addItem(event) {
-    if (!this.dataService.cachedData) {
-      this.dataService.getData();
-    }    
-    
+  public addItem(event) {    
     // Check whether the coin is already in your portfolio
     this.checkCoinExistence(this.newItem.coinSymbol);
     event.dialog.close();
@@ -173,7 +169,8 @@ export class PortfolioComponent implements OnInit {
           this.snackExists.message = 'Coin Added!';
           this.snackExists.show();
         }, err => {
-          console.log(err);
+          this.snackExists.message = err;
+          this.snackExists.show();
         });
       } else {
         this.snackExists.message = 'Coin does not exist!';

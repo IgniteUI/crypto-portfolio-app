@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
+import { IgxSnackbarComponent } from 'igniteui-angular';
 
 @Component({
   selector: 'app-signup',
@@ -16,19 +17,18 @@ export class SignupComponent implements OnInit {
   error: any;
   email: any;
   password: any;
+  @ViewChild('snack') public snack: IgxSnackbarComponent;
 
   constructor(public afAuth: AngularFireAuth, private router: Router) { }
 
   onSubmit(formData) {
     if (formData.valid) {
-      console.log(formData.value);
       this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (success) => {
-          console.log(success);
           this.router.navigate(['/login']);
         }).catch(
           (err) => {
-            console.log(err);
+            this.snack.show();
             this.error = err;
           });
     }
