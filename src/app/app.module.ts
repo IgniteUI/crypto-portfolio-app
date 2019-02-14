@@ -14,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { IgxFinancialChartModule } from 'igniteui-angular-charts/ES5/igx-financial-chart-module';
 
-import { DataService } from './data.service';
+import { DataService } from './services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BlockGridComponent } from './block-grid/block-grid.component';
 import { AngularFireModule } from '@angular/fire';
@@ -25,10 +25,10 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { LoginComponent } from './login/login.component';
 import { EmailComponent } from './email/email.component';
 import { SignupComponent } from './signup/signup.component';
-import { AuthGuard } from './auth.service';
+import { AuthGuard } from './services/auth.service';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { BlockListComponent } from './block-list/block-list.component';
-import { ItemService } from './block-item.service';
+import { ItemService } from './services/block-item.service';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 export const firebaseConfig = {
@@ -75,7 +75,7 @@ export const firebaseConfig = {
     IgxSnackbarModule,
     IgxDialogModule,
     IgxToggleModule,
-    IgxGridModule.forRoot(),
+    IgxGridModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,

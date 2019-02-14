@@ -1,24 +1,20 @@
 import {
-  Component, OnInit, ViewEncapsulation, ViewChild, OnDestroy, AfterViewInit, ChangeDetectionStrategy,
+  Component, ViewEncapsulation, ViewChild, AfterViewInit, ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import {
-  IgxLabelDirective, IgxFilterOptions,
+  IgxFilterOptions,
   HorizontalAlignment,
   VerticalAlignment,
   ConnectedPositioningStrategy,
   CloseScrollStrategy,
   IgxDropDownComponent
 } from 'igniteui-angular';
-import { ItemService } from '../block-item.service';
-class CryptoCoin {
-  name: string;
-  symbol: string;
-}
+import { CryptoCoin } from '../core/interfaces';
+
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
@@ -27,12 +23,13 @@ class CryptoCoin {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticsComponent implements AfterViewInit {
+  @ViewChild('dropDown', { read: IgxDropDownComponent }) public dropDown: IgxDropDownComponent;
   public coins: CryptoCoin[];
   public cryptoName;
-  public daysCount;
-  data: any;
-  @ViewChild('dropDown', { read: IgxDropDownComponent }) public dropDown: IgxDropDownComponent;
+  public daysCount: Number;
   public int = 0;
+  public data: any;
+
   constructor(private dataService: DataService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
 
     this.route
@@ -42,6 +39,11 @@ export class StatisticsComponent implements AfterViewInit {
     this.route
       .paramMap
       .pipe(map(params => params.get('daysCount') || route.routeConfig.data.daysCount)).subscribe(res => this.daysCount = res);
+  }
+  
+  ngAfterViewInit() {
+    this.getData();
+    this.getAndTransformData();
   }
 
   private _dropdownPositionSettings = {
@@ -62,23 +64,21 @@ export class StatisticsComponent implements AfterViewInit {
     dropDown.toggle(this._dropDownOverlaySettings);
   }
 
-  ngAfterViewInit() {
-    this.getData();
-    this.getAllData();
-  }
-
-  getData(event?: any) {
+  public getData(event?: any) {
     let coin: any;
+
     if (event) {
-      const name = event.event.target.innerText.substring(0, event.event.target.innerText.search('[[]')).trim();
-      const symbol = event.event.target.innerText.substring(event.event.target.innerText.search('[[]'));
-      coin = this.coins.find(c => c.name === name || c.symbol === symbol.replace('[', '').replace(']', ''));
+      const name = event.item.elementRef.nativeElement.innerText;
+      const symbol = name.substring(name.search('[[]') + 1, name.length - 1);
+
+      coin = this.coins.find(c => c.name === name || c.symbol === symbol);
       this.cryptoName = coin.symbol;
+      this.dropDown.close();
     }
-    this.dataService.getLastSevenDaysPrices(this.cryptoName, this.daysCount)
+    this.dataService.getBetweenDaysPrices(this.cryptoName, this.daysCount)
       .subscribe(res => {
         this.data = Object.assign(res).Data.map(item => {
-          // multiply by 1000 because Date() requires miliseconds
+          // Transform data for the Chart. Multiply by 1000 because Date() requires miliseconds
           const dateObject = new Date(item.time * 1000);
           item.time = dateObject;
 
@@ -89,12 +89,13 @@ export class StatisticsComponent implements AfterViewInit {
 
   }
 
-  public getAllData() {
+  // Fill coins collection
+  public getAndTransformData() {
     this.dataService.getData().map((data: any[]) => {
       const obj = [];
       for (let index = 0; index < data.length; index++) {
-        const name = data[index]['name'];
-        const symbol = data[index]['symbol'];
+        const name = data[index]['CoinInfo.FullName'];
+        const symbol = data[index]['CoinInfo.Name'];
         obj.push({ name: name, symbol: symbol });
       }
       return obj;

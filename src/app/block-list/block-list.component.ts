@@ -1,39 +1,14 @@
-import {
-  Component,
-  OnInit,
-  NgModule,
-  ViewChild } from '@angular/core';
-import { DataService } from '../data.service';
-import { IgxFilterOptions, IgxListItemComponent } from 'igniteui-angular';
-import { trigger, transition, style, animate, query, stagger, group, keyframes} from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { IgxFilterOptions } from 'igniteui-angular';
+import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
+import { Animations } from '../core/animations';
 
 @Component({
   selector: 'app-block-list',
   templateUrl: './block-list.component.html',
   styleUrls: ['./block-list.component.scss'],
-  animations: [
-    trigger('listAnimation', [
-      transition('* <=> *', [ // each time the binding value changes
-        query(
-          ':enter',
-          [
-            style({ opacity: 0, transform: 'translateY(-15px)' }),
-            stagger(
-              '50ms',
-              animate(
-                '550ms ease-out',
-                style({ opacity: 1, transform: 'translateY(0px)' })
-              )
-            )
-          ],
-          { optional: true }
-        ),
-        query(':leave', animate('50ms', style({ opacity: 0 })), {
-          optional: true
-        })
-      ])
-    ])
-  ]
+  animations: [ Animations.listItemLoadAnimation ]
 })
 export class BlockListComponent implements OnInit {
 
@@ -51,19 +26,18 @@ export class BlockListComponent implements OnInit {
   private loadData() {
     this.data.getData()
       .subscribe(res => {
-        this.remoteData = this.data.sortDataByKey(res, 'rank');
+        this.remoteData = sortDataByKey(res, 'CoinInfo.Rank');
       });
   }
 
   get filterCryptos() {
     const fo = new IgxFilterOptions();
-    fo.key = 'name';
+    fo.key = 'CoinInfo.FullName';
     fo.inputValue = this.searchCrypto;
     return fo;
   }
 
-  private toggleFavorite(crypto: any) {
-    crypto.isFavorite = !crypto.isFavorite;
+  public getCoinImage(imageUrl: string) {
+    return transformCoinImgUrl(imageUrl);
   }
-
 }

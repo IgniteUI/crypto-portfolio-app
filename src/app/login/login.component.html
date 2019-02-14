@@ -1,6 +1,6 @@
 <div class="form-container">
   <div *ngIf="!showSpinner; else elseBlock">
-    <igx-icon id="lockIcon" name="lock_open"></igx-icon>
+    <igx-icon id="lockIcon">lock_open</igx-icon>
     <span class="error" *ngIf="error">{{ error }}</span>
 
     <button class="button" igxButton="raised" igxRipple (click)="loginFb()" id="fb">
@@ -13,7 +13,7 @@
       <span>Login With Google</span>
     </button>
 
-    <button class="button" igxButton="raised" igxRipple routerLink="/email" id="email">
+    <button class="button" igxButton="raised" igxRipple (click)="loginEmail()" id="email">
       <igx-icon class="s-logo">email</igx-icon>
       <span>Email</span>
     </button>

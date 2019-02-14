@@ -27,26 +27,19 @@ igx-icon {
 
 .positionTop {
     width: 100%;
-    margin-top: -7px;
+    // margin-top: -7px;
+}
+
+.positionTop > img {
+    width: 24px;
+    height: 24px;
 }
 
 .symbolPosition {
     position: absolute;
-    margin-top: 10px;
+    margin-top: 5px;
     margin-left: 10px;
 }
-.sbPosition {
-    z-index: 1;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    justify-content: center;
-    @media only screen and (min-width: 786px) {
-     display: flex;
-    }
-}
-
 
 igx-grid {
     margin: 20px;

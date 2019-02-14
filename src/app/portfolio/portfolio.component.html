@@ -9,10 +9,10 @@
         <igx-grid #grid1 [data]="blockItems" width="100%" height="500px" (onEditDone)="updateRow($event)" (onSelection)="selectCell($event)"
             [showToolbar]="true" toolbarTitle="My portfolio" [columnHiding]="true" [columnPinning]="true">
             <igx-column field="coinSymbol" header="Coin symbol" field="coinSymbol" sortable="true" >
-                <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                     <a (click)="openChart($event, cell.row.rowData.coinSymbol)">
                         <div class="positionTop">
-                            <img src="https://s2.coinmarketcap.com/static/img/coins/32x32/{{ cell.row.rowData.cryptoId }}.png" />
+                            <img src="{{ getCoinImage(cell.row.rowData.imageUrl) }}" />
                             <span class="symbolPosition">
                                 {{ cell.row.rowData.coinSymbol }}</span>
                         </div>
@@ -20,30 +20,36 @@
                 </ng-template>
             </igx-column>
             <igx-column field="holdings" header="Holdings" editable="true" sortable="true">
-                <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                     <div class="positionTop">
                         ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.usdPrice) |
                         number:'0.2-2' }}
                         <br />
-                        <b>{{ cell.row.rowData.holdings | number:'1.0-5'}}</b>
+                        <b>{{ cell.row.rowData.holdings | number:'1.0-7' }}</b>
                     </div>
                 </ng-template>
             </igx-column>
             <igx-column header="Price" field="usdPrice" sortable="true" [cellClasses]= "dailyChanges">
-                <ng-template igxCell let-cell="cell" let-item let-ri="rowIndex" let-column="column">
+                <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                     <div class="positionTop">
                         ${{ cell.row.rowData.usdPrice | number:'0.2-2' }}
                         <br />
-                        <span class="percent-style-{{ cell.row.rowData.oneDayPercentChange >= 0 ? 'up' : 'down'}}">
-                            {{ cell.row.rowData.oneDayPercentChange }} % </span>
+                        <span class="percent-style-{{ cell.row.rowData.oneDayPercentChange >= 0 ? 'up' : 'down'}}">{{ cell.row.rowData.oneDayPercentChange | number:'0.2-2' }} % </span>
                     </div>
-
+                </ng-template>
+            </igx-column>
+            <igx-column field="totalSupply" header="Total supply" sortable="true">
+                <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
+                    <div class="positionTop">
+                        {{ item |  number:'3.0-2' }}
+                    </div>
                 </ng-template>
             </igx-column>
             <igx-column header="Actions">
-                <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-                    <span igxButton="icon" igxRipple (click)='deleteRow(item)' style="margin-top: -9px;">
-                        <igx-icon name="highlight_off"></igx-icon>
+                <ng-template igxCell let-ri="rowIndex" let-column="column">
+                    <span igxButton="icon" igxRipple (click)='deleteRow()'>
+                        <!-- <igx-icon name="highlight_off"></igx-icon> -->
+                        <igx-icon>highlight_off</igx-icon>
                     </span>
                 </ng-template>
             </igx-column>
@@ -58,7 +64,7 @@
         </div>
     </div>
 
-    <igx-dialog #form title="Add coin" leftButtonLabel="Cancel" (onLeftButtonSelect)="form.close()"
+    <igx-dialog #modal title="Add coin" leftButtonLabel="Cancel" (onLeftButtonSelect)="modal.close()"
         (onRightButtonSelect)="addItem($event)" rightButtonLabel="Add coin" [closeOnOutsideSelect]="true">
         <form class="addCoinForm">
             <igx-input-group type="border">

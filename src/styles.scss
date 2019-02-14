@@ -186,6 +186,17 @@ igx-grid {
   color: #8049ff
 }
 
+.sbPosition {
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  @media only screen and (min-width: 786px) {
+   display: flex;
+  }
+}
 
 @-webkit-keyframes color-change-2x {
   0% {

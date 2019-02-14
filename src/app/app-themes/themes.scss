@@ -1,34 +1,44 @@
-@import '~igniteui-angular/lib/core/styles/themes/presets/dark-green/index';
-@import "~igniteui-angular/lib/core/styles/themes/utilities";
-$primary: #8049ff !default;
-$secondary: #E29C45 !default;
-$app-palette: igx-palette($primary, $secondary);
+// Import the theme utilities first
+@import '~igniteui-angular/lib/core/styles/themes/utilities';
+@import '~igniteui-angular/lib/core/styles/themes/index';
 @include igx-core();
-$dark-green-navbar: igx-navbar-theme( $palette: $dark-green-palette, $background: $dark-green-background-black);
-$light-cell-selection: igx-grid-theme( $palette: $app-palette, $cell-selected-background: igx-color($app-palette, 'primary', 200));
+@include igx-theme($default-palette);
 
-$icon-button-light: igx-button-theme(
+@import 'mixins';
+
+$dark-green-palette: igx-palette(#222, #72da67, $grays: #fff);
+$app-palette: igx-palette(#8049ff, #E29C45);
+
+// Background of selected cell 
+$light-cell-selection: igx-grid-theme(
+  $palette: $app-palette, 
+  $cell-selected-background: igx-color($app-palette, 'primary', 200)
+);
+
+// Card button style
+$new-icon-button-theme: igx-button-theme(
   $palette: $app-palette,
   $icon-color: #E29C45,
   $icon-hover-background: igx-color($app-palette, 'secondary', 100),
   $icon-hover-color: #E29C45
 );
 
-$icon-button-dark: igx-button-theme(
-  $palette: $dark-green-palette,
-  $flat-text-color: igx-color($dark-green-palette, 'secondary'),
-  $icon-color: igx-color($dark-green-palette, 'secondary'),
-  $icon-hover-background: igx-color($dark-green-palette, 'grays', 300),
-  $icon-hover-color: igx-color($dark-green-palette, 'secondary')
+// Navigation drawer theme
+$new-navdrawer-theme: igx-navdrawer-theme(
+  $item-active-text-color: igx-color($dark-green-palette, 'secondary'),
+  $item-active-icon-color: igx-color($dark-green-palette, 'secondary'),
+  $schema: $dark-schema,
+  $palette: $dark-green-palette
 );
+
 .dark-theme {
   background: #333 !important;
   display: block;
-  @include igx-theme($default-palette, $preset: $dark-green-theme);
-  @include igx-navbar($dark-green-navbar);
-  .igx-card {
-    @include igx-button($icon-button-dark);
-  }
+
+  @include igx-dark-theme($dark-green-palette);
+  // Pass the theme to a to the `igx-navdrawer` mixin
+  @include igx-navdrawer($new-navdrawer-theme);
+  @include scrollbar-love(igx-color($dark-green-palette, 'primary'));
 
   .igx-grid__group-row--active {
     background: rgba(114, 218, 103, 0.19);
@@ -60,10 +70,13 @@ $icon-button-dark: igx-button-theme(
     display: block;
     @include igx-theme($app-palette);
     @include igx-grid($light-cell-selection);
+    @include scrollbar-love();
+
     .igx-card {
-    @include igx-button($icon-button-light);
-  }
-  .sample-wrapper {
+      // Pass the theme to a to the `igx-button` mixin
+      @include igx-button($new-icon-button-theme);
+    }
+    .sample-wrapper {
         #sText {
             color: #000;
         }
