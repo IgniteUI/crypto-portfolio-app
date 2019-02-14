@@ -8,7 +8,7 @@ export class BlockItem {
     coinName: string;
     holdings: number;
     cryptoId: number;
-    coinSymbol: string;
+    coinSymbol: string = '';
     rank: number;
     totalSupply: number;
     usdPrice: number;

@@ -18,7 +18,7 @@
                         <span class="crypto__item">
 
                             <div class="crypto__name">
-                              <igx-avatar size="small" class="crypto__avatar" src="https://www.cryptocompare.com{{ crypto['RAW.USD.IMAGEURL'] }}" roundShape="true"></igx-avatar>
+                              <igx-avatar size="small" class="crypto__avatar" src="{{ getCoinImage(crypto['RAW.USD.IMAGEURL']) }}" roundShape="true"></igx-avatar>
                               <span>
                                   {{ crypto['CoinInfo.FullName'] }}
                               </span>

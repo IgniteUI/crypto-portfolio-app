@@ -8,12 +8,22 @@ import { flattenObject } from '../core/utils';
 export class DataService {
 
   public cachedData: any;
+  private baseUrl: string;
+  private histoDataUrl: string;
+  private priceMultiFullUrl: string;
+  private allCoinsDataUrl: string;
+  private apiKey: string = 'c1f530907ddda7f8da258a43988a86e852dedabef797f7e97c4b35688b9d27bd';
 
-  constructor(private _http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.baseUrl = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=100&tsym=USD&api_key=${this.apiKey}`;
+    this.allCoinsDataUrl = `https://min-api.cryptocompare.com/data/all/coinlist?api_key=${this.apiKey}`;
+    this.histoDataUrl = 'https://min-api.cryptocompare.com/data/histoday?fsym=';
+    this.priceMultiFullUrl = 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=';
+  }
 
   public getData() {
     if (!this.cachedData) {
-      this.cachedData = this._http.get('https://min-api.cryptocompare.com/data/top/mktcapfull?limit=100&tsym=USD&api_key=c1f530907ddda7f8da258a43988a86e852dedabef797f7e97c4b35688b9d27bd')
+      this.cachedData = this.http.get(this.baseUrl)
         .map(result => {
           let data = [];
 
@@ -30,22 +40,21 @@ export class DataService {
   }
 
   public getBetweenDaysPrices(symbol: String, forDays: Number) {
-    return this._http.get('https://min-api.cryptocompare.com/data/histoday?fsym=' + symbol + '&tsym=USD&limit=' + forDays)
+    return this.http.get(this.histoDataUrl + symbol + '&tsym=USD&limit=' + forDays + '&api_key=' + this.apiKey)
       .map(result => {
         return result;
       });
   }
 
   public getSpecificCoinData(symbol) {
-    return this._http.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=' + symbol +
-      '&tsyms=USD&api_key=c1f530907ddda7f8da258a43988a86e852dedabef797f7e97c4b35688b9d27bd')
+    return this.http.get(this.priceMultiFullUrl + symbol + '&tsyms=USD&api_key=' + this.apiKey)
       .map(result => {
         return flattenObject(result["RAW"][symbol]);
       });
   }
 
   public getCryptoIdFromSymbol(symbol) {
-    return this._http.get('https://min-api.cryptocompare.com/data/all/coinlist?api_key=c1f530907ddda7f8da258a43988a86e852dedabef797f7e97c4b35688b9d27bd')
+    return this.http.get(this.allCoinsDataUrl)
       .map(result => {
         const crypto = result["Data"][symbol];
         return crypto;

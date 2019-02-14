@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
 
@@ -43,5 +42,4 @@ export class EmailComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

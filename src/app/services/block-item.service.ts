@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BlockItem } from '../core/interfaces';
 

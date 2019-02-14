@@ -1,4 +1,6 @@
 
+const baseUrl: string = 'https://www.cryptocompare.com';
+
 export function sortDataByKey(array, keyToSortBy) {
     function sortByKey(a, b) {
         const x = a[keyToSortBy];
@@ -7,7 +9,7 @@ export function sortDataByKey(array, keyToSortBy) {
     }
 
     return array.sort(sortByKey);
-}
+};
 
 export function flattenObject(ob) {
     const toReturn = {};
@@ -28,3 +30,6 @@ export function flattenObject(ob) {
     return toReturn;
 };
 
+export function transformCoinImgUrl(imgUrl: string) {
+    return baseUrl + imgUrl;
+};

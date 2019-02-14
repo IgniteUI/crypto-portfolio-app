@@ -12,7 +12,7 @@
                 <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                     <a (click)="openChart($event, cell.row.rowData.coinSymbol)">
                         <div class="positionTop">
-                            <img src="https://www.cryptocompare.com{{ cell.row.rowData.imageUrl }}" />
+                            <img src="{{ getCoinImage(cell.row.rowData.imageUrl) }}" />
                             <span class="symbolPosition">
                                 {{ cell.row.rowData.coinSymbol }}</span>
                         </div>
@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <igx-dialog #form title="Add coin" leftButtonLabel="Cancel" (onLeftButtonSelect)="form.close()"
+    <igx-dialog #modal title="Add coin" leftButtonLabel="Cancel" (onLeftButtonSelect)="modal.close()"
         (onRightButtonSelect)="addItem($event)" rightButtonLabel="Add coin" [closeOnOutsideSelect]="true">
         <form class="addCoinForm">
             <igx-input-group type="border">

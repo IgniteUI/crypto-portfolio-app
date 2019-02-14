@@ -3,7 +3,7 @@ import { DataService } from '../services/data.service';
 import { IgxFilterOptions } from 'igniteui-angular';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
-import { sortDataByKey } from '../core/utils';
+import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
 
 @Component({
   selector: 'app-home',
@@ -43,5 +43,9 @@ export class HomeComponent implements OnInit {
 
   public openChart(evt, symbol) {
     this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
+  }
+
+  public getCoinImage(imageUrl: string) {
+    return transformCoinImgUrl(imageUrl);
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from 'igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
@@ -9,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from 'igniteui-angular';
+import { transformCoinImgUrl } from '../core/utils';
 
 @Component({
   selector: 'app-portfolio',
@@ -30,7 +30,7 @@ export class PortfolioComponent implements OnInit {
   @ViewChild('snack') public snack: IgxSnackbarComponent;
   @ViewChild('snackExists') public snackExists: IgxSnackbarComponent;
   @ViewChild('grid1') public grid1: IgxGridComponent;
-  @ViewChild('form') public dialog: IgxDialogComponent;
+  @ViewChild('modal') public dialog: IgxDialogComponent;
 
   constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
     private readonly afs: AngularFirestore, private cdr: ChangeDetectorRef) { }
@@ -146,6 +146,10 @@ export class PortfolioComponent implements OnInit {
     }
 
     return total;
+  }
+
+  public getCoinImage(imageUrl: string) {
+    return transformCoinImgUrl(imageUrl);
   }
 
   private calculateHoldings(holdings: number, price: number) {

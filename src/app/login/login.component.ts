@@ -9,13 +9,13 @@ import * as firebase from 'firebase/app';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   animations: [moveIn()],
-  host: {'[@moveIn]': ''}
+  host: { '[@moveIn]': '' }
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   return = '';
+  error: any;
   googleAuthProvider = new firebase.auth.GoogleAuthProvider();
   facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-  error: any;
 
   showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 
@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // Get the query params
     this.route.queryParams
       .subscribe(params => this.return = params['return'] || '/home');
-
   }
 
   ngAfterViewInit() {
@@ -50,7 +49,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         localStorage.setItem('showSpinner', 'true');
         this.router.navigate([this.return]);
       }
-    }).catch(function(error) {
+    }).catch(function (error) {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -61,11 +60,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   loginGoogle() {
     this.afAuth.auth.signInWithRedirect(this.googleAuthProvider).then(
       (success) => {
-      this.router.navigate([this.return]);
-    }).catch(
-      (err) => {
-      this.error = err;
-    });
+        this.router.navigate([this.return]);
+      }).catch(
+        (err) => {
+          this.error = err;
+        });
   }
-
 }

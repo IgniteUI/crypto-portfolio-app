@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, HostListener} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, HostListener} from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxGridComponent, SortingDirection } from 'igniteui-angular';
-import { Router } from '@angular/router';
+import { IgxGridComponent, SortingDirection,  } from 'igniteui-angular';
 import { sortDataByKey } from '../core/utils';
+import { transformCoinImgUrl } from '../core/utils';
 
 @Component({
   selector: 'app-block-grid',
@@ -11,15 +11,15 @@ import { sortDataByKey } from '../core/utils';
 })
 export class BlockGridComponent implements OnInit, AfterViewInit{
   public remoteData: any[];
-  @ViewChild('grid1') public grid1: IgxGridComponent;
   private windowWidth: any;
+  @ViewChild('grid1') public grid1: IgxGridComponent;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.windowWidth = event.target.innerWidth;
   }
 
-  constructor(private data: DataService, private router: Router) {  }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
     this.loadData();
@@ -28,7 +28,6 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-
     this.grid1.groupBy({fieldName: 'RAW.USD.DAILYSCALE', dir: SortingDirection.Asc});
 
     setTimeout(() => {
@@ -57,6 +56,10 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
     this.data.getData().subscribe(res => {
         this.remoteData = sortDataByKey(res, 'CoinInfo.Rank');
       });
+  }
+
+  public getCoinImage(imageUrl: string) {
+    return transformCoinImgUrl(imageUrl);
   }
 
   public refreshGrid() {

@@ -16,7 +16,7 @@
                 <igx-card>
                     <igx-card-header class="igx-card-header">
                         <h3 class="igx-card-header__title">
-                            <img src="https://www.cryptocompare.com{{ crypto['RAW.USD.IMAGEURL'] }}" />
+                            <img src="{{ getCoinImage(crypto['RAW.USD.IMAGEURL']) }}" />
                             <span>{{ crypto['CoinInfo.FullName'] }} ({{ crypto['CoinInfo.Name'] }})</span>
                             <button igxButton="icon" igxRipple (click)="openChart($event, crypto['CoinInfo.Name'])">
                             <igx-icon fontSet="material">trending_up</igx-icon>
