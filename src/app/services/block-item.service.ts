@@ -11,7 +11,7 @@ import { BlockItem } from '../core/interfaces';
 export class ItemService {
 
   userId: string;
-  items: AngularFireList<BlockItem> = null; //  list of objects
+  items: AngularFireList<BlockItem> = null;
 
   constructor(private db: AngularFireDatabase, private auth: AngularFireAuth, private afs: AngularFirestore) {
     this.auth.authState.subscribe(user => {
@@ -21,8 +21,7 @@ export class ItemService {
     });
   }
 
-  // Return an observable list with optional query
-  // You will usually call this from OnInit in a component
+  // Return an observable list with optional query. You will usually call this from OnInit in a component
   public getItemsList(): AngularFireList<BlockItem> {
     if (!this.userId) { return; }
     this.items = this.db.list(`items/${this.userId}`);

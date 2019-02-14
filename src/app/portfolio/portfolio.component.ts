@@ -181,7 +181,6 @@ export class PortfolioComponent implements OnInit {
   private deleteRow() {
     this.selectedRow = Object.assign({}, this.selectedCell.row);
     this.deleteItem(this.selectedCell.cell.row.rowData);
-    // store deleted data
     this.deletedItem.coinName = this.selectedCell.cell.row.rowData.coinName;
     this.deletedItem.holdings = this.selectedCell.cell.row.rowData.holdings;
     this.deletedItem.coinSymbol = this.selectedCell.cell.row.rowData.coinSymbol;

@@ -4,6 +4,8 @@
 @include igx-core();
 @include igx-theme($default-palette);
 
+@import 'mixins';
+
 $dark-green-palette: igx-palette(#222, #72da67, $grays: #fff);
 $app-palette: igx-palette(#8049ff, #E29C45);
 
@@ -29,6 +31,7 @@ $new-navdrawer-theme: igx-navdrawer-theme(
 
   @include igx-dark-theme($dark-green-palette);
   @include igx-navdrawer($new-navdrawer-theme);
+  @include scrollbar-love(igx-color($dark-green-palette, 'primary'));
 
   .igx-grid__group-row--active {
     background: rgba(114, 218, 103, 0.19);
@@ -60,10 +63,12 @@ $new-navdrawer-theme: igx-navdrawer-theme(
     display: block;
     @include igx-theme($app-palette);
     @include igx-grid($light-cell-selection);
+    @include scrollbar-love();
+
     .igx-card {
       @include igx-button($icon-button-light);
     }
-  .sample-wrapper {
+    .sample-wrapper {
         #sText {
             color: #000;
         }
