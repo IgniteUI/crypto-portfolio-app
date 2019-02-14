@@ -47,7 +47,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
   }
 
   // tslint:disable-next-line:member-ordering
-  private changes24h = {
+  public changes24h = {
     positive: this.positive24h,
     negative: this.negative24h
   };

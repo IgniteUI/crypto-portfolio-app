@@ -152,7 +152,7 @@ export class PortfolioComponent implements OnInit {
     return holdings * price;
   }
 
-  private addRow(symbol) {
+  public addRow(symbol) {
     this.dataService.getCryptoIdFromSymbol(symbol).subscribe(filteredItem => {
       if (filteredItem) {
         this.dataService.getSpecificCoinData(filteredItem['Name']).subscribe(result => {
@@ -179,7 +179,7 @@ export class PortfolioComponent implements OnInit {
     });
   }
 
-  private deleteRow() {
+  public deleteRow() {
     this.selectedRow = Object.assign({}, this.selectedCell.row);
     this.deleteItem(this.selectedCell.cell.row.rowData);
     this.deletedItem.coinName = this.selectedCell.cell.row.rowData.coinName;
@@ -194,7 +194,7 @@ export class PortfolioComponent implements OnInit {
     this.snack.show();
   }
 
-  private updateRow(obj) {
+  public updateRow(obj) {
     const updatedItem = obj.row.rowData;
     updatedItem.holdings = obj.newValue;
 

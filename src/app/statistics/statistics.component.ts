@@ -64,7 +64,7 @@ export class StatisticsComponent implements AfterViewInit {
     dropDown.toggle(this._dropDownOverlaySettings);
   }
 
-  private getData(event?: any) {
+  public getData(event?: any) {
     let coin: any;
 
     if (event) {
