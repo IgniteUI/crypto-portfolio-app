@@ -21,15 +21,15 @@
                         class='igx-group-label__count-badge'></igx-badge>
                 </div>
             </ng-template>
-            <igx-column field='CoinInfo.FullName' header='Name' [filterable]="true">
+            <igx-column field="fullName" header="Name" [filterable]="true">
                 <ng-template igxCell let-cell="cell" let-item>
                     <span class="coin-logo">
-                        <img src="{{ getCoinImage(cell.row.rowData['RAW.USD.IMAGEURL']) }}" />
+                        <img src="{{ getCoinImage(cell.row.rowData['imageUrl']) }}" />
                     </span>
                     <span class="coin-title">{{ item }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='RAW.USD.PRICE' filterable="true" dataType="number">
+            <igx-column field="price" filterable="true" dataType="number">
                 <ng-template igxHeader let-column="column">
                     Price
                 </ng-template>
@@ -37,7 +37,7 @@
                     $ {{ item | number:'0.0-2' }}
                 </ng-template>
             </igx-column>
-            <igx-column field='RAW.USD.SUPPLY' sortable="true" filterable="true" dataType="number"
+            <igx-column field="supply" sortable="true" filterable="true" dataType="number"
                 [hidden]="hideColumn">
                 <ng-template igxHeader let-column="column">
                     Total supply
@@ -46,7 +46,7 @@
                     <span> {{ item | number:'3.0-2' }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='RAW.USD.CHANGEPCT24HOUR' dataType="number" sortable="true" [hidden]="hideColumn"
+            <igx-column field="changePct24Hour" dataType="number" sortable="true" [hidden]="hideColumn"
                 dataType="number" [groupable]="true" [cellClasses]="changes24h">
                 <ng-template igxHeader let-column="column">
                     (24 h) %
@@ -56,13 +56,13 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item | number:'0.0-2' }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field='RAW.USD.DAILYSCALE' header='Daily Scale' dataType="boolean" [groupable]="true"
+            <igx-column field="dailyScale" header="Daily Scale" dataType="boolean" [groupable]="true"
                 [hidden]="true">
             </igx-column>
-            <igx-column field='CoinInfo.ProofType' header='ProofType' dataType="string" [groupable]="true"
+            <igx-column field="proofType" header="ProofType" dataType="string" [groupable]="true"
                 [hidden]="false">
             </igx-column>
-            <igx-column field='CoinInfo.Algorithm' header='Algorithm' dataType="string" [groupable]="true"
+            <igx-column field="algorithm" header="Algorithm" dataType="string" [groupable]="true"
                 [hidden]="false">
             </igx-column>
         </igx-grid>

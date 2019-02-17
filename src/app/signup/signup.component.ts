@@ -5,36 +5,36 @@ import { moveIn, fallIn } from '../router.animations';
 import { IgxSnackbarComponent } from 'igniteui-angular';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
-  animations: [moveIn(), fallIn()],
-  host: { '[@moveIn]': '' }
+   selector: 'app-signup',
+   templateUrl: './signup.component.html',
+   styleUrls: ['./signup.component.scss'],
+   animations: [moveIn(), fallIn()],
+   host: { '[@moveIn]': '' }
 })
 export class SignupComponent implements OnInit {
 
-  state = '';
-  error: any;
-  email: any;
-  password: any;
-  @ViewChild('snack') public snack: IgxSnackbarComponent;
+   state = '';
+   error: any;
+   email: any;
+   password: any;
+   @ViewChild('snack') public snack: IgxSnackbarComponent;
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) { }
+   constructor(public afAuth: AngularFireAuth, private router: Router) { }
 
-  onSubmit(formData) {
-    if (formData.valid) {
-      this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
-        (success) => {
-          this.router.navigate(['/login']);
-        }).catch(
-          (err) => {
-            this.snack.show();
-            this.error = err;
-          });
-    }
-  }
+   onSubmit(formData) {
+      if (formData.valid) {
+         this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
+            (success) => {
+               this.router.navigate(['/login']);
+            }).catch(
+               (err) => {
+                  this.snack.show();
+                  this.error = err;
+               });
+      }
+   }
 
-  ngOnInit() {
-  }
+   ngOnInit() {
+   }
 
 }

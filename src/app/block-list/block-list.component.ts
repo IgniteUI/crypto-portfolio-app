@@ -8,10 +8,9 @@ import { Animations } from '../core/animations';
   selector: 'app-block-list',
   templateUrl: './block-list.component.html',
   styleUrls: ['./block-list.component.scss'],
-  animations: [ Animations.listItemLoadAnimation ]
+  animations: [Animations.listItemLoadAnimation]
 })
 export class BlockListComponent implements OnInit {
-
   public remoteData: any[];
   public searchCrypto: string;
 
@@ -26,13 +25,13 @@ export class BlockListComponent implements OnInit {
   private loadData() {
     this.data.getData()
       .subscribe(res => {
-        this.remoteData = sortDataByKey(res, 'CoinInfo.Rank');
+        this.remoteData = sortDataByKey(res, 'rank');
       });
   }
 
   get filterCryptos() {
     const fo = new IgxFilterOptions();
-    fo.key = 'CoinInfo.FullName';
+    fo.key = 'fullName';
     fo.inputValue = this.searchCrypto;
     return fo;
   }

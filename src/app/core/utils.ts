@@ -20,11 +20,11 @@ export function flattenObject(ob) {
         if ((typeof ob[i]) === 'object') {
             const flatObject = flattenObject(ob[i]);
             for (const x in flatObject) {
-                if (!flatObject.hasOwnProperty(x)) { continue; }
-                toReturn[i + '.' + x] = flatObject[x];
+                if (!flatObject.hasOwnProperty(x) || i === 'DISPLAY') { continue; }
+                toReturn[x] = flatObject[x];
             }
         } else {
-            toReturn[i] = ob[i];
+            toReturn[i.toUpperCase()] = ob[i];
         }
     }
     return toReturn;
@@ -33,3 +33,15 @@ export function flattenObject(ob) {
 export function transformCoinImgUrl(imgUrl: string) {
     return baseUrl + imgUrl;
 };
+
+
+export function fillFromJSON(obj, jsonObj) {
+    for (var propName in obj) {
+        if (propName === 'name' && jsonObj['FROMSYMBOL'] !== undefined) {
+            obj['name'] = jsonObj['FROMSYMBOL'];
+            obj['fullName'] = jsonObj['FROMSYMBOL'];
+        } else obj[propName] = jsonObj[propName.toUpperCase()];
+    }
+
+    return obj;
+}

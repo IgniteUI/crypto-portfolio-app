@@ -5,9 +5,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule,
-  IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
-  IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule
+import {
+   IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule,
+   IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
+   IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule
 } from 'igniteui-angular';
 
 import { HomeComponent } from './home/home.component';
@@ -32,58 +33,58 @@ import { ItemService } from './services/block-item.service';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
-  authDomain: 'crypto-portfolio-tracker.firebaseapp.com',
-  databaseURL: 'https://crypto-portfolio-tracker.firebaseio.com',
-  projectId: 'crypto-portfolio-tracker',
-  storageBucket: 'crypto-portfolio-tracker.appspot.com',
-  messagingSenderId: '1078645280256'
+   apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
+   authDomain: 'crypto-portfolio-tracker.firebaseapp.com',
+   databaseURL: 'https://crypto-portfolio-tracker.firebaseio.com',
+   projectId: 'crypto-portfolio-tracker',
+   storageBucket: 'crypto-portfolio-tracker.appspot.com',
+   messagingSenderId: '1078645280256'
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    StatisticsComponent,
-    BlockGridComponent,
-    LoginComponent,
-    EmailComponent,
-    SignupComponent,
-    PortfolioComponent,
-    BlockListComponent,
-    LoadingSpinnerComponent
-  ],
-  imports: [
-    FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    IgxNavigationDrawerModule,
-    IgxNavbarModule,
-    IgxLayoutModule,
-    IgxRippleModule,
-    IgxFinancialChartModule,
-    HttpClientModule,
-    IgxAvatarModule,
-    IgxButtonModule,
-    IgxIconModule,
-    IgxCardModule,
-    IgxInputGroupModule,
-    IgxListModule,
-    IgxFilterModule,
-    IgxTabsModule,
-    IgxSnackbarModule,
-    IgxDialogModule,
-    IgxToggleModule,
-    IgxGridModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, // imports firebase/storage only needed for storage features
-    AngularFireDatabaseModule
-  ],
-  providers: [DataService, AuthGuard, ItemService],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      HomeComponent,
+      StatisticsComponent,
+      BlockGridComponent,
+      LoginComponent,
+      EmailComponent,
+      SignupComponent,
+      PortfolioComponent,
+      BlockListComponent,
+      LoadingSpinnerComponent
+   ],
+   imports: [
+      FormsModule,
+      BrowserModule,
+      BrowserAnimationsModule,
+      AppRoutingModule,
+      IgxNavigationDrawerModule,
+      IgxNavbarModule,
+      IgxLayoutModule,
+      IgxRippleModule,
+      IgxFinancialChartModule,
+      HttpClientModule,
+      IgxAvatarModule,
+      IgxButtonModule,
+      IgxIconModule,
+      IgxCardModule,
+      IgxInputGroupModule,
+      IgxListModule,
+      IgxFilterModule,
+      IgxTabsModule,
+      IgxSnackbarModule,
+      IgxDialogModule,
+      IgxToggleModule,
+      IgxGridModule,
+      AngularFireModule.initializeApp(firebaseConfig),
+      AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+      AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+      AngularFireStorageModule, // imports firebase/storage only needed for storage features
+      AngularFireDatabaseModule
+   ],
+   providers: [DataService, AuthGuard, ItemService],
+   bootstrap: [AppComponent]
 })
 export class AppModule {
 }

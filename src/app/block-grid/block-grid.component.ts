@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, HostListener} from '@angular/core';
 import { DataService } from '../services/data.service';
 import { IgxGridComponent, SortingDirection,  } from 'igniteui-angular';
-import { sortDataByKey } from '../core/utils';
 import { transformCoinImgUrl } from '../core/utils';
 
 @Component({
@@ -22,13 +21,17 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    this.loadData();
     this.windowWidth = window.innerWidth;
   }
 
+  private loadData() {
+    this.dataService.getData().subscribe(res => {
+        this.remoteData = res;
+      });
+  }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    this.grid1.groupBy({fieldName: 'RAW.USD.DAILYSCALE', dir: SortingDirection.Asc});
+    this.grid1.groupBy({fieldName: 'dailyScale', dir: SortingDirection.Asc});
 
     setTimeout(() => {
       this.refreshGrid();
@@ -39,11 +42,15 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
     return this.windowWidth && this.windowWidth < 800;
   }
 
+  public getCoinImage(imageUrl: string) {
+    return transformCoinImgUrl(imageUrl);
+  }
+
   private positive24h = (rowData: any): boolean => {
-    return rowData['RAW.USD.CHANGEPCTDAY'] > 0;
+    return rowData['changePct24Hour'] > 0;
   }
   private negative24h = (rowData: any): boolean => {
-    return rowData['RAW.USD.CHANGEPCTDAY'] < 0;
+    return rowData['changePct24Hour'] < 0;
   }
 
   // tslint:disable-next-line:member-ordering
@@ -51,16 +58,6 @@ export class BlockGridComponent implements OnInit, AfterViewInit{
     positive: this.positive24h,
     negative: this.negative24h
   };
-
-  private loadData() {
-    this.dataService.getData().subscribe(res => {
-        this.remoteData = sortDataByKey(res, 'CoinInfo.Rank');
-      });
-  }
-
-  public getCoinImage(imageUrl: string) {
-    return transformCoinImgUrl(imageUrl);
-  }
 
   public refreshGrid() {
     this.grid1.reflow();
