@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-
 import { routes } from './app-routing.module';
-
 import { IgxNavigationDrawerComponent, IgxLayoutDirective } from 'igniteui-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 

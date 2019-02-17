@@ -23,7 +23,9 @@ export class DataService {
       return this.http.get(this.baseUrl)
          .map(result => {
             return this.transformData(result);
-         });
+         })
+         .publishReplay(1, 300000)
+         .refCount();
    }
    
    getSpecificCoinData(symbol): Observable<BlockItem> {

@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
          }).catch(
             (err) => {
                this.error = err;
-            });
+         });
    }
 
    loginEmail() {

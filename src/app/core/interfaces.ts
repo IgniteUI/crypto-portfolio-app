@@ -1,5 +1,3 @@
-import { extend } from "webdriver-js-extender";
-
 export interface CryptoCoin {
    name: string;
    symbol: string;

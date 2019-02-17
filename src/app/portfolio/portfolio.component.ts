@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from 'igniteui-angular';
 import { ItemService } from '../services/block-item.service';
-import { CoinItem, BlockItem } from '../core/interfaces';
+import { BlockItem } from '../core/interfaces';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireList } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
@@ -34,7 +34,7 @@ export class PortfolioComponent implements OnInit {
    @ViewChild('modal') public dialog: IgxDialogComponent;
 
    constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
-      private readonly afs: AngularFirestore, private cdr: ChangeDetectorRef) { }
+      private cdr: ChangeDetectorRef) { }
 
    ngAfterViewInit() {
       this.blockItemsCollection = this.blockItemService.getItemsList();
