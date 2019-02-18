@@ -1,7 +1,8 @@
 
-# cryptoApp
-
 ## Inspired by [Ignite UI for Angular](https://github.com/IgniteUI/igniteui-angular)
+
+
+![Application demo](https://cdn-images-1.medium.com/max/800/1*MmrZOLYrOjGRvluKv_AGIA.gif)
 
 Application that uses Ignite UI for Angular components along with Firebase data storage and a lot more ..
 
