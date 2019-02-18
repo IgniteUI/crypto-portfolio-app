@@ -47,6 +47,10 @@ $new-navdrawer-theme: igx-navdrawer-theme(
       background: rgba(114, 218, 103, 0.19);
     }
   }
+  
+  .igx-navbar {
+    position: fixed;
+  }
 
   .form-container {
     .alc {
@@ -76,6 +80,11 @@ $new-navdrawer-theme: igx-navdrawer-theme(
       // Pass the theme to a to the `igx-button` mixin
       @include igx-button($new-icon-button-theme);
     }
+
+    .igx-navbar {
+      position: fixed;
+    }
+
     .sample-wrapper {
         #sText {
             color: #000;
