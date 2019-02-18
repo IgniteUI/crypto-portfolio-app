@@ -18,21 +18,21 @@
                         <span class="crypto__item">
 
                             <div class="crypto__name">
-                              <igx-avatar size="small" class="crypto__avatar" src="{{ getCoinImage(crypto['RAW.USD.IMAGEURL']) }}" roundShape="true"></igx-avatar>
+                              <igx-avatar size="small" class="crypto__avatar" src="{{ getCoinImage(crypto['imageUrl']) }}" roundShape="true"></igx-avatar>
                               <span>
-                                  {{ crypto['CoinInfo.FullName'] }}
+                                  {{ crypto['fullName'] }}
                               </span>
                             </div>
 
                             <div class="crypto__details">
-                              <span class="crypto__price">${{ crypto['RAW.USD.PRICE'] | number: '1.0-3' }}</span>
+                              <span class="crypto__price">${{ crypto['price'] | number: '1.0-3' }}</span>
 
-                              <span class="percent-style-{{ crypto['RAW.USD.CHANGEPCTDAY'] >= 0 ? 'up' : 'down'}}">
-                                  {{ crypto['RAW.USD.CHANGEPCTDAY'] | number: '0.0-2' }} %
+                              <span class="percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}">
+                                  {{ crypto['changePct24Hour'] | number: '0.0-2' }} %
                               </span>
 
-                              <igx-icon [color]="crypto['RAW.USD.CHANGEPCTDAY'] >= 0 ? 'green' : 'red'">
-                                    {{ crypto['RAW.USD.CHANGEPCTDAY'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                              <igx-icon [color]="crypto['changePct24Hour'] >= 0 ? 'green' : 'red'">
+                                    {{ crypto['changePct24Hour'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}
                               </igx-icon>
 
                               <span class="li_item">(24h)</span>

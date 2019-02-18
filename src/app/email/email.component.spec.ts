@@ -3,23 +3,23 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EmailComponent } from './email.component';
 
 describe('EmailComponent', () => {
-  let component: EmailComponent;
-  let fixture: ComponentFixture<EmailComponent>;
+   let component: EmailComponent;
+   let fixture: ComponentFixture<EmailComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [EmailComponent]
-    })
-      .compileComponents();
-  }));
+   beforeEach(async(() => {
+      TestBed.configureTestingModule({
+         declarations: [EmailComponent]
+      })
+         .compileComponents();
+   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EmailComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+   beforeEach(() => {
+      fixture = TestBed.createComponent(EmailComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+   it('should create', () => {
+      expect(component).toBeTruthy();
+   });
 });

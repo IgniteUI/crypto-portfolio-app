@@ -1,6 +1,5 @@
 <div class="main" igxLayout>
-  <igx-nav-drawer #nav id="project-menu" [enableGestures]="'true'" width="280px" [pin]="'false'"
-    pinThreshold="5000">
+  <igx-nav-drawer #nav id="project-menu" [enableGestures]="true" width="280px" [pin]="false" pinThreshold="5000">
     <ng-template igxDrawer>
       <span igxDrawerItem [isHeader]="true">Menu</span>
       <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active"

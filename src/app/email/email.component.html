@@ -1,30 +1,31 @@
 <div class="form-container">
-  <div>
-    <igx-icon id="lockIcon">email</igx-icon>
-    <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-      <igx-input-group>
-        <label igxLabel for="email">Email address</label>
-        <input igxInput name="email" type="email" [(ngModel)]="email" required />
-        <igx-suffix>
-          <igx-icon>email</igx-icon>
-        </igx-suffix>
-      </igx-input-group>
-      <igx-input-group>
-        <label igxLabel for="password">Password</label>
-        <input igxInput name="password" type="password" [(ngModel)]="password" required />
-        <igx-suffix>
-          <igx-icon>lock</igx-icon>
-        </igx-suffix>
-      </igx-input-group>
+   <div>
+      <igx-icon id="lockIcon">email</igx-icon>
+      <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
+         <igx-input-group>
+            <label igxLabel for="email">Email address</label>
+            <input igxInput name="email" type="email" [(ngModel)]="email" required />
+            <igx-suffix>
+               <igx-icon>email</igx-icon>
+            </igx-suffix>
+         </igx-input-group>
+         <igx-input-group>
+            <label igxLabel for="password">Password</label>
+            <input igxInput name="password" type="password" [(ngModel)]="password" required />
+            <igx-suffix>
+               <igx-icon>lock</igx-icon>
+            </igx-suffix>
+         </igx-input-group>
 
-      <div class="signup-form-actions">
-        <a igxButton="flat" igxRipple routerLink="/login" id="goback">Go back</a>
-        <button id="loginBtn" igxButton="raised" igxRipple type="submit" [disabled]="!formData.valid" class="basic-btn">Log in</button>
-      </div>
-      <div class="sbPosition">
-          <igx-snackbar #snack [autoHide]="true" [message]="error"></igx-snackbar>
-      </div>
-    </form>
-    <a routerLink="/signup" class="alc">Don't have an account?</a>
-  </div>
+         <div class="signup-form-actions">
+            <a igxButton="flat" igxRipple routerLink="/login" id="goback">Go back</a>
+            <button id="loginBtn" igxButton="raised" igxRipple type="submit" [disabled]="!formData.valid"
+               class="basic-btn">Log in</button>
+         </div>
+         <div class="sbPosition">
+            <igx-snackbar #snack [autoHide]="true" [message]="error"></igx-snackbar>
+         </div>
+      </form>
+      <a routerLink="/signup" class="alc">Don't have an account?</a>
+   </div>
 </div>
