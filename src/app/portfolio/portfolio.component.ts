@@ -37,13 +37,12 @@ export class PortfolioComponent implements OnInit {
       private cdr: ChangeDetectorRef) { }
 
    ngAfterViewInit() {
-      this.blockItemsCollection = this.blockItemService.getItemsList();
-      this.blockItemsCollection.snapshotChanges().pipe(
-         map(actions => actions.map(a => ({
-            key: a.payload.key, ...a.payload.val()
-         })))
-      ).subscribe(res => {
-         this.blockItems = res;
+      this.blockItemService.getItemsList().snapshotChanges().pipe(
+         map(actions =>
+            actions.map(a => ({ key: a.payload.key, ...a.payload.val() }))
+         )
+      ).subscribe(items => {
+         this.blockItems = items;
       });
 
       setTimeout(() => {
