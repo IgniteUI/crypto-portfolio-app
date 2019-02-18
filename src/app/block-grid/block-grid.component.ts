@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, HostListener} from '@angul
 import { DataService } from '../services/data.service';
 import { IgxGridComponent, SortingDirection,  } from 'igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
+import { CoinItem } from '../core/interfaces';
 
 @Component({
   selector: 'app-block-grid',
@@ -9,7 +10,7 @@ import { transformCoinImgUrl } from '../core/utils';
   styleUrls: ['./block-grid.component.scss']
 })
 export class BlockGridComponent implements OnInit, AfterViewInit{
-  public remoteData: any[];
+  public remoteData: CoinItem[];
   private windowWidth: any;
   @ViewChild('grid1') public grid1: IgxGridComponent;
 
