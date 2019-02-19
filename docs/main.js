@@ -102,7 +102,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main\" igxLayout>\r\n  <igx-nav-drawer #nav id=\"project-menu\" [enableGestures]=\"true\" width=\"280px\" [pin]=\"false\" pinThreshold=\"5000\">\r\n    <ng-template igxDrawer>\r\n      <span igxDrawerItem [isHeader]=\"true\">Menu</span>\r\n      <span *ngFor=\"let route of topNavLinks\" igxDrawerItem igxRipple routerLinkActive=\"igx-nav-drawer__item--active\"\r\n        routerLink=\"{{route.path}}\">\r\n        <span *ngIf=\"route.subItem\">&nbsp;&nbsp;&nbsp;&nbsp;</span>\r\n        <igx-icon fontSet=\"material\">{{route.icon}}</igx-icon>\r\n        <span>{{route.name}}</span>\r\n      </span>\r\n    </ng-template>\r\n  </igx-nav-drawer>\r\n  <div igxFlex>\r\n    <igx-navbar title=\"Crypto Blockfolio App\" actionButtonIcon=\"menu\" (onAction)=\"nav.toggle()\" igxFlex>\r\n        <div class=\"theme-chooser\">\r\n            <div *ngIf =\"darkTheme\" class=\"theme-chooser__item--light\"\r\n            (click)=\"this.changeTheme()\" title = \"Light Theme\">\r\n            </div>\r\n            <div *ngIf =\"!darkTheme\" class=\"theme-chooser__item--dark\" title = \"Dark Theme\"\r\n            (click)=\"this.changeTheme(true)\">\r\n            </div>\r\n          </div>\r\n      <span>\r\n        <div class=\"account-container\" *ngIf=\"afAuth.authState | async as user; else showLogin\">\r\n          <span *ngIf=\"innerWidth > 650\">Hey {{ user.displayName}}!</span>\r\n          <span *ngIf=\"innerWidth < 650\">Hey {{ user.displayName.split(' ')[0] }}!</span>\r\n          <button igxButton=\"raised\" igxRipple (click)=\"logout()\">Logout</button>\r\n        </div>\r\n        <ng-template #showLogin>\r\n          <div><button igxButton=\"raised\" igxRipple (click)=\"login()\">Login</button></div>\r\n        </ng-template>\r\n      </span>\r\n    </igx-navbar>\r\n    <div class=\"content\" igxLayout igxLayoutJustify=\"center\">\r\n      <router-outlet></router-outlet>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"main\" igxLayout>\r\n  <igx-nav-drawer #nav id=\"project-menu\" [enableGestures]=\"true\" width=\"280px\" [pin]=\"false\" pinThreshold=\"5000\">\r\n    <ng-template igxDrawer>\r\n      <span igxDrawerItem [isHeader]=\"true\">Menu</span>\r\n      <span *ngFor=\"let route of topNavLinks\" igxDrawerItem igxRipple routerLinkActive=\"igx-nav-drawer__item--active\"\r\n        routerLink=\"{{route.path}}\">\r\n        <span *ngIf=\"route.subItem\">&nbsp;&nbsp;&nbsp;&nbsp;</span>\r\n        <igx-icon fontSet=\"material\">{{route.icon}}</igx-icon>\r\n        <span>{{route.name}}</span>\r\n      </span>\r\n    </ng-template>\r\n  </igx-nav-drawer>\r\n  <div igxFlex>\r\n    <igx-navbar title=\"Crypto Blockfolio App\" actionButtonIcon=\"menu\" (onAction)=\"nav.toggle()\" igxFlex>\r\n        <div class=\"theme-chooser\">\r\n            <div *ngIf =\"darkTheme\" class=\"theme-chooser__item--light\"\r\n            (click)=\"this.changeTheme()\" title = \"Light Theme\">\r\n            </div>\r\n            <div *ngIf =\"!darkTheme\" class=\"theme-chooser__item--dark\" title = \"Dark Theme\"\r\n            (click)=\"this.changeTheme(true)\">\r\n            </div>\r\n          </div>\r\n      <span>\r\n        <div class=\"account-container\" *ngIf=\"afAuth.authState | async as user; else showLogin\">\r\n          <span *ngIf=\"innerWidth > 650\">Hey {{ user.displayName !== null ? user.displayName : ''}}!</span>\r\n          <span *ngIf=\"innerWidth < 650\">Hey {{ user.displayName !== null ? user.displayName.split(' ')[0] : '' }}!</span>\r\n          <button igxButton=\"raised\" igxRipple (click)=\"logout()\">Logout</button>\r\n        </div>\r\n        <ng-template #showLogin>\r\n          <div><button igxButton=\"raised\" igxRipple (click)=\"login()\">Login</button></div>\r\n        </ng-template>\r\n      </span>\r\n    </igx-navbar>\r\n    <div class=\"content\" igxLayout igxLayoutJustify=\"center\">\r\n      <router-outlet></router-outlet>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -845,7 +845,7 @@ var EmailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n<div *ngIf=\"cryptos\">\r\n    <div class=\"sample-wrapper\">\r\n        <igx-input-group type=\"search\" class=\"searchBox\">\r\n            <input #input1 igxInput placeholder=\"Search by name\" [(ngModel)]=\"search1\" />\r\n            <igx-prefix>\r\n                <igx-icon>search</igx-icon>\r\n            </igx-prefix>\r\n            <igx-suffix *ngIf=\"input1.value.length > 0\" (click)=\"clear(input1)\">\r\n                <igx-icon>clear</igx-icon>\r\n            </igx-suffix>\r\n        </igx-input-group>\r\n        <div class=\"sample-content\">\r\n            <article class=\"sample-column card-wrapper\" *ngFor=\"let crypto of cryptos | igxFilter: filterOptions\" [@flyInOut]>\r\n                <igx-card>\r\n                    <igx-card-header class=\"igx-card-header\">\r\n                        <h3 class=\"igx-card-header__title\">\r\n                            <img src=\"{{ getCoinImage(crypto['imageUrl']) }}\" />\r\n                            <span>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>\r\n                            <button igxButton=\"icon\" igxRipple (click)=\"openChart($event, crypto['name'])\">\r\n                            <igx-icon fontSet=\"material\">trending_up</igx-icon>\r\n                            </button>\r\n                        </h3>\r\n                    </igx-card-header>\r\n\r\n                    <igx-card-content class=\"igx-card-content\">\r\n                        <p class=\"igx-card-content__text\"><strong>Price: ${{ crypto['price']  }} </strong>\r\n                            <span class=\"percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}\">({{ crypto['changePct24Hour'] | number: '0.0-2' }})</span> 24h %\r\n                        </p>\r\n                        <p class=\"igx-card-content__text\">Rank: <strong>{{ crypto['rank'] }}</strong></p>\r\n                        <p class=\"igx-card-content__text\">Proof type: <strong>{{ crypto['proofType'] }}</strong></p>\r\n                        <p class=\"igx-card-content__text\">Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>\r\n                    </igx-card-content>\r\n                </igx-card>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n<div *ngIf=\"cryptos\">\r\n    <div class=\"sample-wrapper\">\r\n        <igx-input-group type=\"search\" class=\"searchBox\">\r\n            <input #input1 igxInput placeholder=\"Search by name\" [(ngModel)]=\"searchValue\" />\r\n            <igx-prefix>\r\n                <igx-icon>search</igx-icon>\r\n            </igx-prefix>\r\n            <igx-suffix *ngIf=\"input1.value.length > 0\" (click)=\"clear(input1)\">\r\n                <igx-icon>clear</igx-icon>\r\n            </igx-suffix>\r\n        </igx-input-group>\r\n        <div class=\"sample-content\">\r\n            <article class=\"sample-column card-wrapper\" *ngFor=\"let crypto of cryptos | igxFilter: filterOptions\" [@flyInOut]>\r\n                <igx-card>\r\n                    <igx-card-header class=\"igx-card-header\">\r\n                        <h3 class=\"igx-card-header__title\">\r\n                            <img src=\"{{ getCoinImage(crypto['imageUrl']) }}\" />\r\n                            <span>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>\r\n                            <button igxButton=\"icon\" igxRipple (click)=\"openChart($event, crypto['name'])\">\r\n                            <igx-icon fontSet=\"material\">trending_up</igx-icon>\r\n                            </button>\r\n                        </h3>\r\n                    </igx-card-header>\r\n\r\n                    <igx-card-content class=\"igx-card-content\">\r\n                        <p class=\"igx-card-content__text\"><strong>Price: ${{ crypto['price']  }} </strong>\r\n                            <span class=\"percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}\">({{ crypto['changePct24Hour'] | number: '0.0-2' }})</span> 24h %\r\n                        </p>\r\n                        <p class=\"igx-card-content__text\">Rank: <strong>{{ crypto['rank'] }}</strong></p>\r\n                        <p class=\"igx-card-content__text\">Proof type: <strong>{{ crypto['proofType'] }}</strong></p>\r\n                        <p class=\"igx-card-content__text\">Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>\r\n                    </igx-card-content>\r\n                </igx-card>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -895,31 +895,30 @@ var HomeComponent = /** @class */ (function () {
     function HomeComponent(data, router) {
         this.data = data;
         this.router = router;
-        this.objectKeys = Object.keys;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.getData();
+        this.loadData();
     };
-    Object.defineProperty(HomeComponent.prototype, "filterOptions", {
-        get: function () {
-            var fo = new igniteui_angular__WEBPACK_IMPORTED_MODULE_2__["IgxFilterOptions"]();
-            fo.key = 'fullName';
-            fo.inputValue = this.search1 ? this.search1 : '';
-            return fo;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    HomeComponent.prototype.getData = function () {
+    HomeComponent.prototype.loadData = function () {
         var _this = this;
         this.data.getData()
             .subscribe(function (res) {
             _this.cryptos = Object(_core_utils__WEBPACK_IMPORTED_MODULE_5__["sortDataByKey"])(res, 'rank');
         });
     };
+    Object.defineProperty(HomeComponent.prototype, "filterOptions", {
+        get: function () {
+            var fo = new igniteui_angular__WEBPACK_IMPORTED_MODULE_2__["IgxFilterOptions"]();
+            fo.key = 'fullName';
+            fo.inputValue = this.searchValue ? this.searchValue : '';
+            return fo;
+        },
+        enumerable: true,
+        configurable: true
+    });
     HomeComponent.prototype.clear = function (input) {
         input.value = '';
-        this.getData();
+        this.loadData();
     };
     HomeComponent.prototype.openChart = function (evt, symbol) {
         this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
@@ -1140,7 +1139,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sample-wrapper\" igxOverlayOutlet>\r\n   <div class=\"sample-content\">\r\n      <button id=\"refreshBtn\" igxButton=\"raised\" igxRipple (click)=\"updatePortfolio()\">\r\n         <igx-icon>refresh</igx-icon> Total Portfolio Value: {{ calculateTotalPortfolio() | number:'0.2-2' }}\r\n      </button>\r\n      <button id=\"addBtn\" igxButton=\"raised\" igxRipple (click)=\"openDialog()\">\r\n         <igx-icon>playlist_add</igx-icon> Add coin\r\n      </button>\r\n      <igx-grid #grid1 [data]=\"blockItems\" width=\"100%\" height=\"500px\" toolbarTitle=\"My portfolio\"\r\n         (onEditDone)=\"updateRow($event)\" (onSelection)=\"selectCell($event)\" [showToolbar]=\"true\" \r\n         [columnHiding]=\"true\" [columnPinning]=\"true\">\r\n         <igx-column field=\"name\" header=\"Coin symbol\" field=\"name\" sortable=\"true\">\r\n            <ng-template igxCell let-cell=\"cell\" let-ri=\"rowIndex\" let-column=\"column\">\r\n               <a (click)=\"openChart($event, cell.row.rowData.name)\">\r\n                  <div class=\"positionTop\">\r\n                     <img src=\"{{ getCoinImage(cell.row.rowData.imageUrl) }}\" />\r\n                     <span class=\"symbolPosition\">\r\n                        {{ cell.row.rowData.name }}</span>\r\n                  </div>\r\n               </a>\r\n            </ng-template>\r\n         </igx-column>\r\n         <igx-column field=\"holdings\" header=\"Holdings\" editable=\"true\" sortable=\"true\">\r\n            <ng-template igxCell let-cell=\"cell\" let-ri=\"rowIndex\" let-column=\"column\">\r\n               <div class=\"positionTop\">\r\n                  ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.price) |\r\n                        number:'0.2-2' }}\r\n                  <br />\r\n                  <b>{{ cell.row.rowData.holdings | number:'1.0-7' }}</b>\r\n               </div>\r\n            </ng-template>\r\n         </igx-column>\r\n         <igx-column header=\"Price\" field=\"price\" sortable=\"true\" [cellClasses]=\"dailyChanges\">\r\n            <ng-template igxCell let-cell=\"cell\" let-ri=\"rowIndex\" let-column=\"column\">\r\n               <div class=\"positionTop\">\r\n                  ${{ cell.row.rowData.price | number:'0.2-2' }}\r\n                  <br />\r\n                  <span\r\n                     class=\"percent-style-{{ cell.row.rowData.changePct24Hour >= 0 ? 'up' : 'down'}}\">{{ cell.row.rowData.changePct24Hour | number:'0.2-2' }}\r\n                     % </span>\r\n               </div>\r\n            </ng-template>\r\n         </igx-column>\r\n         <igx-column field=\"supply\" header=\"Total supply\" sortable=\"true\">\r\n            <ng-template igxCell let-item let-ri=\"rowIndex\" let-column=\"column\">\r\n               <div class=\"positionTop\">\r\n                  {{ item |  number:'3.0-2' }}\r\n               </div>\r\n            </ng-template>\r\n         </igx-column>\r\n         <igx-column header=\"Actions\">\r\n            <ng-template igxCell let-ri=\"rowIndex\" let-column=\"column\">\r\n               <span igxButton=\"icon\" igxRipple (click)='deleteRow()'>\r\n                  <igx-icon>highlight_off</igx-icon>\r\n               </span>\r\n            </ng-template>\r\n         </igx-column>\r\n      </igx-grid>\r\n      <div class=\"sbPosition\">\r\n         <igx-snackbar #snack [autoHide]=\"true\" message=\"Record was deleted\" actionText=\"Undo\" (onAction)=\"restore()\">\r\n         </igx-snackbar>\r\n      </div>\r\n      <div class=\"sbPosition\">\r\n         <igx-snackbar #snackExists [autoHide]=\"true\">\r\n         </igx-snackbar>\r\n      </div>\r\n   </div>\r\n\r\n   <igx-dialog #modal title=\"Add coin\" leftButtonLabel=\"Cancel\" (onLeftButtonSelect)=\"modal.close()\"\r\n      (onRightButtonSelect)=\"addItem($event)\" rightButtonLabel=\"Add coin\" [closeOnOutsideSelect]=\"true\">\r\n      <form class=\"addCoinForm\">\r\n         <igx-input-group type=\"border\">\r\n            <label igxLabel for=\"coin\">Coin name</label>\r\n            <input id=\"coin\" igxInput name=\"coin\" type=\"text\" [(ngModel)]=\"coinName\" />\r\n         </igx-input-group>\r\n         <br />\r\n         <igx-input-group type=\"border\">\r\n            <label igxLabel for=\"holdings\">Holdings</label>\r\n            <input igxInput name=\"holdings\" type=\"number\" [(ngModel)]=\"holdings\" />\r\n         </igx-input-group>\r\n      </form>\r\n   </igx-dialog>\r\n</div>"
+module.exports = "<div class=\"sample-wrapper\" igxOverlayOutlet>\r\n   <div class=\"sample-content\">\r\n      <button id=\"refreshBtn\" igxButton=\"raised\" igxRipple (click)=\"updatePortfolio()\">\r\n         <igx-icon>refresh</igx-icon> Total Portfolio Value: {{ calculateTotalPortfolio() | number:'0.2-2' }}\r\n      </button>\r\n      <button id=\"addBtn\" igxButton=\"raised\" igxRipple (click)=\"openDialog()\">\r\n         <igx-icon>playlist_add</igx-icon> Add coin\r\n      </button>\r\n      <igx-grid #grid1 [data]=\"blockItems\" width=\"100%\" height=\"500px\" toolbarTitle=\"My portfolio\"\r\n         (onCellEdit)=\"updateRow($event)\" [showToolbar]=\"true\" \r\n         [columnHiding]=\"true\" [columnPinning]=\"true\">\r\n         <igx-column field=\"name\" header=\"Coin symbol\" field=\"name\" sortable=\"true\">\r\n            <ng-template igxCell let-cell=\"cell\" let-ri=\"rowIndex\" let-column=\"column\">\r\n               <a (click)=\"openChart($event, cell.row.rowData.name)\">\r\n                  <div class=\"positionTop\">\r\n                     <img src=\"{{ getCoinImage(cell.row.rowData.imageUrl) }}\" />\r\n                     <span class=\"symbolPosition\">\r\n                        {{ cell.row.rowData.name }}</span>\r\n                  </div>\r\n               </a>\r\n            </ng-template>\r\n         </igx-column>\r\n         <igx-column field=\"holdings\" header=\"Holdings\" editable=\"true\" sortable=\"true\">\r\n            <ng-template igxCell let-cell=\"cell\" let-ri=\"rowIndex\" let-column=\"column\">\r\n               <div class=\"positionTop\">\r\n                  ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.price) |\r\n                        number:'0.2-2' }}\r\n                  <br />\r\n                  <b>{{ cell.row.rowData.holdings | number:'1.0-7' }}</b>\r\n               </div>\r\n            </ng-template>\r\n         </igx-column>\r\n         <igx-column header=\"Price\" field=\"price\" sortable=\"true\" [cellClasses]=\"dailyChanges\">\r\n            <ng-template igxCell let-cell=\"cell\" let-ri=\"rowIndex\" let-column=\"column\">\r\n               <div class=\"positionTop\">\r\n                  ${{ cell.row.rowData.price | number:'0.2-2' }}\r\n                  <br />\r\n                  <span\r\n                     class=\"percent-style-{{ cell.row.rowData.changePct24Hour >= 0 ? 'up' : 'down'}}\">{{ cell.row.rowData.changePct24Hour | number:'0.2-2' }}\r\n                     % </span>\r\n               </div>\r\n            </ng-template>\r\n         </igx-column>\r\n         <igx-column header=\"Actions\">\r\n            <ng-template igxCell let-cell=\"cell\" let-column=\"column\">\r\n               <span igxButton=\"icon\" igxRipple (click)='deleteRow(cell)'>\r\n                  <igx-icon>highlight_off</igx-icon>\r\n               </span>\r\n            </ng-template>\r\n         </igx-column>\r\n      </igx-grid>\r\n      <div class=\"sbPosition\">\r\n         <igx-snackbar #snack [autoHide]=\"true\" message=\"Record was deleted\" actionText=\"Undo\" (onAction)=\"restore()\">\r\n         </igx-snackbar>\r\n      </div>\r\n      <div class=\"sbPosition\">\r\n         <igx-snackbar #snackExists [autoHide]=\"true\">\r\n         </igx-snackbar>\r\n      </div>\r\n   </div>\r\n\r\n   <igx-dialog #modal title=\"Add coin\" leftButtonLabel=\"Cancel\" (onLeftButtonSelect)=\"modal.close()\"\r\n      (onRightButtonSelect)=\"addItem($event)\" rightButtonLabel=\"Add coin\" [closeOnOutsideSelect]=\"true\">\r\n      <form class=\"addCoinForm\">\r\n         <igx-input-group type=\"border\">\r\n            <label igxLabel for=\"coin\">Coin name</label>\r\n            <input id=\"coin\" igxInput name=\"coin\" type=\"text\" [(ngModel)]=\"coinName\" />\r\n         </igx-input-group>\r\n         <br />\r\n         <igx-input-group type=\"border\">\r\n            <label igxLabel for=\"holdings\">Holdings</label>\r\n            <input igxInput name=\"holdings\" type=\"number\" [(ngModel)]=\"holdings\" />\r\n         </igx-input-group>\r\n      </form>\r\n   </igx-dialog>\r\n</div>"
 
 /***/ }),
 
@@ -1241,9 +1240,6 @@ var PortfolioComponent = /** @class */ (function () {
         this.cdr.detectChanges();
     };
     PortfolioComponent.prototype.ngOnInit = function () { };
-    PortfolioComponent.prototype.selectCell = function (event) {
-        this.selectedCell = event;
-    };
     PortfolioComponent.prototype.restore = function () {
         this.blockItemService.createItem(this.deletedItem);
         this.snack.hide();
@@ -1329,19 +1325,20 @@ var PortfolioComponent = /** @class */ (function () {
             }
         });
     };
-    PortfolioComponent.prototype.deleteRow = function () {
-        var selectedCell = this.selectedCell.cell.row.rowData;
-        this.deleteItem(selectedCell);
+    PortfolioComponent.prototype.deleteRow = function (cell) {
+        var blockItem = cell.row.rowData;
+        // Detele item from AngularFireList
+        this.deleteItem(blockItem);
+        // Stores deleted item for the 'Restore' Snackbar logic
         this.deletedItem = new _core_interfaces__WEBPACK_IMPORTED_MODULE_3__["BlockItem"]();
-        Object.assign(this.deletedItem, selectedCell);
+        Object.assign(this.deletedItem, blockItem);
         delete this.deletedItem["key"];
-        this.selectedCell = null;
         this.snack.show();
     };
-    PortfolioComponent.prototype.updateRow = function (obj) {
-        var updatedItem = obj.row.rowData;
-        updatedItem.holdings = obj.newValue;
-        this.updateItem(updatedItem);
+    PortfolioComponent.prototype.updateRow = function (evt) {
+        var rowItem = evt.rowID;
+        rowItem.holdings = evt.newValue;
+        this.updateItem(rowItem);
     };
     PortfolioComponent.prototype.clearFormInputs = function () {
         this.coinName = '';

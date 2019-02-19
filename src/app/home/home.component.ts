@@ -4,6 +4,7 @@ import { IgxFilterOptions } from 'igniteui-angular';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
+import { CoinItem } from '../core/interfaces';
 
 @Component({
    selector: 'app-home',
@@ -12,33 +13,32 @@ import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
    animations: [flyInOut()]
 })
 export class HomeComponent implements OnInit {
-   objectKeys = Object.keys;
-   cryptos: any;
-   public search1: string;
+   cryptos: CoinItem[];
+   public searchValue: string;
 
    constructor(private data: DataService, private router: Router) { }
 
    ngOnInit() {
-      this.getData();
+      this.loadData();
    }
 
-   get filterOptions() {
-      const fo = new IgxFilterOptions();
-      fo.key = 'fullName';
-      fo.inputValue = this.search1 ? this.search1 : '';
-      return fo;
-   }
-
-   private getData() {
+   private loadData() {
       this.data.getData()
          .subscribe(res => {
             this.cryptos = sortDataByKey(res, 'rank');
          });
    }
 
+   get filterOptions() {
+      const fo = new IgxFilterOptions();
+      fo.key = 'fullName';
+      fo.inputValue = this.searchValue ? this.searchValue : '';
+      return fo;
+   }
+
    public clear(input) {
       input.value = '';
-      this.getData();
+      this.loadData();
    }
 
    public openChart(evt, symbol) {
