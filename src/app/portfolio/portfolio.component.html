@@ -7,7 +7,7 @@
          <igx-icon>playlist_add</igx-icon> Add coin
       </button>
       <igx-grid #grid1 [data]="blockItems" width="100%" height="500px" toolbarTitle="My portfolio"
-         (onEditDone)="updateRow($event)" (onSelection)="selectCell($event)" [showToolbar]="true" 
+         (onCellEdit)="updateRow($event)" [showToolbar]="true" 
          [columnHiding]="true" [columnPinning]="true">
          <igx-column field="name" header="Coin symbol" field="name" sortable="true">
             <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
@@ -41,16 +41,9 @@
                </div>
             </ng-template>
          </igx-column>
-         <igx-column field="supply" header="Total supply" sortable="true">
-            <ng-template igxCell let-item let-ri="rowIndex" let-column="column">
-               <div class="positionTop">
-                  {{ item |  number:'3.0-2' }}
-               </div>
-            </ng-template>
-         </igx-column>
          <igx-column header="Actions">
-            <ng-template igxCell let-ri="rowIndex" let-column="column">
-               <span igxButton="icon" igxRipple (click)='deleteRow()'>
+            <ng-template igxCell let-cell="cell" let-column="column">
+               <span igxButton="icon" igxRipple (click)='deleteRow(cell)'>
                   <igx-icon>highlight_off</igx-icon>
                </span>
             </ng-template>

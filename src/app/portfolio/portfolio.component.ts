@@ -21,7 +21,6 @@ export class PortfolioComponent implements OnInit {
    public searchCrypto: string;
    public blockItemsCollection: AngularFireList<BlockItem>;
    public blockItems: BlockItem[] = [];
-   public selectedCell;
    public newItem: BlockItem;
    public coinName;
    public holdings;
@@ -54,10 +53,6 @@ export class PortfolioComponent implements OnInit {
    }
 
    ngOnInit() { }
-
-   public selectCell(event) {
-      this.selectedCell = event;
-   }
 
    public restore() {
       this.blockItemService.createItem(this.deletedItem);
@@ -152,22 +147,25 @@ export class PortfolioComponent implements OnInit {
       });
    }
 
-   public deleteRow() {
-      let selectedCell = this.selectedCell.cell.row.rowData;
-      this.deleteItem(selectedCell);
+   public deleteRow(cell) {
+      let blockItem = cell.row.rowData;
+
+      // Detele item from AngularFireList
+      this.deleteItem(blockItem);
+
+      // Stores deleted item for the 'Restore' Snackbar logic
       this.deletedItem = new BlockItem()
-      Object.assign(this.deletedItem, selectedCell);
+      Object.assign(this.deletedItem, blockItem);
 
       delete this.deletedItem["key"];
-      this.selectedCell = null;
       this.snack.show();
    }
 
-   public updateRow(obj) {
-      const updatedItem = obj.row.rowData;
-      updatedItem.holdings = obj.newValue;
+   public updateRow(evt) {
+      const rowItem = evt.rowID;
+      rowItem.holdings = evt.newValue;
 
-      this.updateItem(updatedItem);
+      this.updateItem(rowItem);
    }
 
    private _dialogOverlaySettings = {
