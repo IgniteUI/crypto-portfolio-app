@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
 
-   private apiKey: string = 'c1f530907ddda7f8da258a43988a86e852dedabef797f7e97c4b35688b9d27bd';
+   private apiKey: string = '';
    private baseUrl: string = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=100&tsym=USD&api_key=${this.apiKey}`;
    private allCoinsDataUrl: string = `https://min-api.cryptocompare.com/data/all/coinlist?api_key=${this.apiKey}`;
    private histoDataUrl: string = 'https://min-api.cryptocompare.com/data/histoday?fsym=';
