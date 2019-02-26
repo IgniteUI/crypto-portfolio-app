@@ -33,12 +33,12 @@ import { ItemService } from './services/block-item.service';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 export const firebaseConfig = {
-   apiKey: '',
-   authDomain: '',
-   databaseURL: '',
-   projectId: '',
-   storageBucket: '',
-   messagingSenderId: ''
+   apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
+   authDomain: 'crypto-portfolio-tracker.firebaseapp.com',
+   databaseURL: 'https://crypto-portfolio-tracker.firebaseio.com',
+   projectId: 'crypto-portfolio-tracker',
+   storageBucket: 'crypto-portfolio-tracker.appspot.com',
+   messagingSenderId: '1078645280256'
 };
 
 @NgModule({
