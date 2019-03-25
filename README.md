@@ -1,4 +1,6 @@
 
+[![Build Status](https://travis-ci.org/IgniteUI/crypto-portfolio-app.svg?branch=master)](https://travis-ci.org/IgniteUI/crypto-portfolio-app)
+
 ## Inspired by [Ignite UI for Angular](https://github.com/IgniteUI/igniteui-angular)
 
 ![Application demo](https://cdn-images-1.medium.com/max/800/1*MmrZOLYrOjGRvluKv_AGIA.gif)
