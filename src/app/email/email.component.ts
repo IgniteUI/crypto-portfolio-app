@@ -9,6 +9,7 @@ import { IgxSnackbarComponent } from 'igniteui-angular';
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.scss'],
   animations: [moveIn(), fallIn()],
+// tslint:disable-next-line: use-host-property-decorator
   host: { '[@moveIn]': '' }
 })
 export class EmailComponent implements OnInit {
@@ -30,7 +31,7 @@ export class EmailComponent implements OnInit {
     this.route.queryParams
       .subscribe(params => this.return = params['return'] || '/home');
   }
-  
+
   onSubmit(formData) {
     if (formData.valid) {
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(

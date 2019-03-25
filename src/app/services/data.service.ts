@@ -10,11 +10,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
 
-   private apiKey: string = 'c1f530907ddda7f8da258a43988a86e852dedabef797f7e97c4b35688b9d27bd';
-   private baseUrl: string = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=100&tsym=USD&api_key=${this.apiKey}`;
-   private allCoinsDataUrl: string = `https://min-api.cryptocompare.com/data/all/coinlist?api_key=${this.apiKey}`;
-   private histoDataUrl: string = 'https://min-api.cryptocompare.com/data/histoday?fsym=';
-   private priceMultiFullUrl: string = 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=';
+   private apiKey = 'c1f530907ddda7f8da258a43988a86e852dedabef797f7e97c4b35688b9d27bd';
+   private baseUrl = `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=100&tsym=USD&api_key=${this.apiKey}`;
+   private allCoinsDataUrl = `https://min-api.cryptocompare.com/data/all/coinlist?api_key=${this.apiKey}`;
+   private histoDataUrl = 'https://min-api.cryptocompare.com/data/histoday?fsym=';
+   private priceMultiFullUrl = 'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=';
    coins: CoinItem[];
 
    constructor(private http: HttpClient) { }
@@ -27,12 +27,12 @@ export class DataService {
          .publishReplay(1, 300000)
          .refCount();
    }
-   
+
    getSpecificCoinData(symbol): Observable<BlockItem> {
       return this.http.get(this.priceMultiFullUrl + symbol + '&tsyms=USD&api_key=' + this.apiKey)
          .map(result => {
-            let returnedCoin = flattenObject(result["RAW"][symbol]["USD"]);
-            let coin = new BlockItem();
+            const returnedCoin = flattenObject(result['RAW'][symbol]['USD']);
+            const coin = new BlockItem();
             fillFromJSON(coin, returnedCoin);
             return coin;
          });
@@ -48,20 +48,20 @@ export class DataService {
    getCryptoIdFromSymbol(symbol): Observable<any[]> {
       return this.http.get(this.allCoinsDataUrl)
          .map(result => {
-            const crypto = result["Data"][symbol];
+            const crypto = result['Data'][symbol];
             return crypto;
          });
    }
 
    private transformData(data) {
-      let transformedData = [];
+      const transformedData = [];
       this.coins = [];
 
-      if (data["Message"] === "Success") {
+      if (data['Message'] === 'Success') {
          const indexes = Object.keys(data['Data']);
 
          for (const idx of indexes) {
-            let newCoin = new CoinItem();
+            const newCoin = new CoinItem();
             transformedData.push(flattenObject(data['Data'][idx]));
             fillFromJSON(newCoin, transformedData[idx]);
 
@@ -76,12 +76,12 @@ export class DataService {
          }
       } else {
          for (let i = 0; i < offlineData.length; i++) {
-            let coin = new CoinItem();
+            const coin = new CoinItem();
             fillFromJSON(coin, offlineData[i]);
             this.coins.push(coin);
          }
       }
 
-      return sortDataByKey(this.coins, "rank");
+      return sortDataByKey(this.coins, 'rank');
    }
 }

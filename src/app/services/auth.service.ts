@@ -1,6 +1,7 @@
 import { CanActivate, Router, ActivatedRoute, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
+// tslint:disable-next-line: import-blacklist
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';

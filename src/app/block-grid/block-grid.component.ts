@@ -9,7 +9,7 @@ import { CoinItem } from '../core/interfaces';
   templateUrl: './block-grid.component.html',
   styleUrls: ['./block-grid.component.scss']
 })
-export class BlockGridComponent implements OnInit, AfterViewInit{
+export class BlockGridComponent implements OnInit, AfterViewInit {
   public remoteData: CoinItem[];
   private windowWidth: any;
   @ViewChild('grid1') public grid1: IgxGridComponent;

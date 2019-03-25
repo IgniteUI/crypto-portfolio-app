@@ -1,5 +1,5 @@
 
-const baseUrl: string = 'https://www.cryptocompare.com';
+const baseUrl = 'https://www.cryptocompare.com';
 
 export function sortDataByKey(array, keyToSortBy) {
     function sortByKey(a, b) {
@@ -9,7 +9,7 @@ export function sortDataByKey(array, keyToSortBy) {
     }
 
     return array.sort(sortByKey);
-};
+}
 
 export function flattenObject(ob) {
     const toReturn = {};
@@ -28,19 +28,19 @@ export function flattenObject(ob) {
         }
     }
     return toReturn;
-};
+}
 
 export function transformCoinImgUrl(imgUrl: string) {
     return baseUrl + imgUrl;
-};
+}
 
 
 export function fillFromJSON(obj, jsonObj) {
-    for (var propName in obj) {
+    for (const propName in obj) {
         if (propName === 'name' && jsonObj['FROMSYMBOL'] !== undefined) {
             obj['name'] = jsonObj['FROMSYMBOL'];
             obj['fullName'] = jsonObj['FROMSYMBOL'];
-        } else obj[propName] = jsonObj[propName.toUpperCase()];
+        } else { obj[propName] = jsonObj[propName.toUpperCase()]; }
     }
 
     return obj;

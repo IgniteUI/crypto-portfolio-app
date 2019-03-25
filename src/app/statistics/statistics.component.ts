@@ -46,17 +46,21 @@ export class StatisticsComponent implements AfterViewInit {
       this.getAndTransformData();
    }
 
+   // tslint:disable-next-line: member-ordering
    private _dropdownPositionSettings = {
       horizontalStartPoint: HorizontalAlignment.Left,
       verticalStartPoint: VerticalAlignment.Bottom
    };
 
+   // tslint:disable-next-line: member-ordering
    private _dropDownOverlaySettings = {
       closeOnOutsideClick: true,
       modal: false,
       positionStrategy: new ConnectedPositioningStrategy(this._dropdownPositionSettings),
       scrollStrategy: new CloseScrollStrategy()
    };
+
+
 
    public toggleDropDown(eventArgs, selectedDropDown: IgxDropDownComponent) {
       const dropDown = selectedDropDown;

@@ -9,6 +9,7 @@ import { IgxSnackbarComponent } from 'igniteui-angular';
    templateUrl: './signup.component.html',
    styleUrls: ['./signup.component.scss'],
    animations: [moveIn(), fallIn()],
+// tslint:disable-next-line: use-host-property-decorator
    host: { '[@moveIn]': '' }
 })
 export class SignupComponent implements OnInit {

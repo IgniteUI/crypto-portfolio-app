@@ -35,6 +35,7 @@ export class PortfolioComponent implements OnInit {
    constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
       private cdr: ChangeDetectorRef) { }
 
+// tslint:disable-next-line: use-life-cycle-interface
    ngAfterViewInit() {
       this.blockItemService.getItemsList().snapshotChanges().pipe(
          map(actions =>
@@ -48,7 +49,7 @@ export class PortfolioComponent implements OnInit {
          this.refreshGrid();
       }, 100);
 
-      this.grid1.sort({ fieldName: "name", dir: SortingDirection.Asc, ignoreCase: false });
+      this.grid1.sort({ fieldName: 'name', dir: SortingDirection.Asc, ignoreCase: false });
       this.cdr.detectChanges();
    }
 
@@ -148,16 +149,16 @@ export class PortfolioComponent implements OnInit {
    }
 
    public deleteRow(cell) {
-      let blockItem = cell.row.rowData;
+      const blockItem = cell.row.rowData;
 
       // Detele item from AngularFireList
       this.deleteItem(blockItem);
 
       // Stores deleted item for the 'Restore' Snackbar logic
-      this.deletedItem = new BlockItem()
+      this.deletedItem = new BlockItem();
       Object.assign(this.deletedItem, blockItem);
 
-      delete this.deletedItem["key"];
+      delete this.deletedItem['key'];
       this.snack.show();
    }
 
@@ -168,6 +169,7 @@ export class PortfolioComponent implements OnInit {
       this.updateItem(rowItem);
    }
 
+// tslint:disable-next-line: member-ordering
    private _dialogOverlaySettings = {
       closeOnOutsideClick: true,
       modal: true,
