@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxFilterOptions } from 'igniteui-angular';
+import { IgxFilterOptions, IgxExpansionPanelComponent } from 'igniteui-angular';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
@@ -15,6 +15,8 @@ import { CoinItem } from '../core/interfaces';
 export class HomeComponent implements OnInit {
    cryptos: CoinItem[];
    public searchValue: string;
+   @ViewChild(IgxExpansionPanelComponent)
+   public panel: IgxExpansionPanelComponent;
 
    constructor(private data: DataService, private router: Router) { }
 
@@ -47,5 +49,9 @@ export class HomeComponent implements OnInit {
 
    public getCoinImage(imageUrl: string) {
       return transformCoinImgUrl(imageUrl);
+   }
+
+   public toggleDetails() {
+      this.panel.toggle();
    }
 }
