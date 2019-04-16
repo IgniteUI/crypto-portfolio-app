@@ -407,7 +407,7 @@ B. The SOFTWARE may also include third party components ("Other Components") lic
 C. Note: To the best of our knowledge, Microsoft� doesn't forbid third-party companies from developing a product for the XPS document generation. However, according to the XML Paper Specification Patent License, we need to provide the following notice for your information: 
               This product may incorporate intellectual property owned by Microsoft Corporation. The terms and conditions upon which Microsoft is licensing such intellectual property can be found at http://www.microsoft.com/whdc/XPS/XpsLicense.mspx.
 
-igniteui-angular@7.2.4
+igniteui-angular@7.2.5
 Apache-2.0
 Apache-2.0
 

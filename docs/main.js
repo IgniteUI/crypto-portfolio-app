@@ -365,7 +365,9 @@ var AppModule = /** @class */ (function () {
                 _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__["AngularFirestoreModule"],
                 _angular_fire_auth__WEBPACK_IMPORTED_MODULE_16__["AngularFireAuthModule"],
                 _angular_fire_storage__WEBPACK_IMPORTED_MODULE_15__["AngularFireStorageModule"],
-                _angular_fire_database__WEBPACK_IMPORTED_MODULE_17__["AngularFireDatabaseModule"]
+                _angular_fire_database__WEBPACK_IMPORTED_MODULE_17__["AngularFireDatabaseModule"],
+                igniteui_angular__WEBPACK_IMPORTED_MODULE_6__["IgxDividerModule"],
+                igniteui_angular__WEBPACK_IMPORTED_MODULE_6__["IgxExpansionPanelModule"]
             ],
             providers: [_services_data_service__WEBPACK_IMPORTED_MODULE_10__["DataService"], _services_auth_service__WEBPACK_IMPORTED_MODULE_21__["AuthGuard"], _services_block_item_service__WEBPACK_IMPORTED_MODULE_24__["ItemService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
@@ -844,7 +846,7 @@ var EmailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n<div *ngIf=\"cryptos\">\r\n    <div class=\"sample-wrapper\">\r\n        <igx-input-group type=\"search\" class=\"searchBox\">\r\n            <input #input1 igxInput placeholder=\"Search by name\" [(ngModel)]=\"searchValue\" />\r\n            <igx-prefix>\r\n                <igx-icon>search</igx-icon>\r\n            </igx-prefix>\r\n            <igx-suffix *ngIf=\"input1.value.length > 0\" (click)=\"clear(input1)\">\r\n                <igx-icon>clear</igx-icon>\r\n            </igx-suffix>\r\n        </igx-input-group>\r\n        <div class=\"sample-content\">\r\n            <article class=\"sample-column card-wrapper\" *ngFor=\"let crypto of cryptos | igxFilter: filterOptions\" [@flyInOut]>\r\n                <igx-card>\r\n                    <igx-card-header class=\"igx-card-header\">\r\n                        <h3 class=\"igx-card-header__title\">\r\n                            <img src=\"{{ getCoinImage(crypto['imageUrl']) }}\" />\r\n                            <span>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>\r\n                            <button igxButton=\"icon\" igxRipple (click)=\"openChart($event, crypto['name'])\">\r\n                            <igx-icon fontSet=\"material\">trending_up</igx-icon>\r\n                            </button>\r\n                        </h3>\r\n                    </igx-card-header>\r\n\r\n                    <igx-card-content class=\"igx-card-content\">\r\n                        <p class=\"igx-card-content__text\"><strong>Price: ${{ crypto['price']  }} </strong>\r\n                            <span class=\"percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}\">({{ crypto['changePct24Hour'] | number: '0.0-2' }})</span> 24h %\r\n                        </p>\r\n                        <p class=\"igx-card-content__text\">Rank: <strong>{{ crypto['rank'] }}</strong></p>\r\n                        <p class=\"igx-card-content__text\">Proof type: <strong>{{ crypto['proofType'] }}</strong></p>\r\n                        <p class=\"igx-card-content__text\">Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>\r\n                    </igx-card-content>\r\n                </igx-card>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n<div *ngIf=\"cryptos\">\r\n    <div class=\"sample-wrapper\">\r\n        <igx-input-group type=\"search\" class=\"searchBox\">\r\n            <input #input1 igxInput placeholder=\"Search by name\" [(ngModel)]=\"searchValue\" />\r\n            <igx-prefix>\r\n                <igx-icon>search</igx-icon>\r\n            </igx-prefix>\r\n            <igx-suffix *ngIf=\"input1.value.length > 0\" (click)=\"clear(input1)\">\r\n                <igx-icon>clear</igx-icon>\r\n            </igx-suffix>\r\n        </igx-input-group>\r\n        <div class=\"sample-content\">\r\n            <article class=\"sample-column card-wrapper\" *ngFor=\"let crypto of cryptos | igxFilter: filterOptions\" [@flyInOut]>\r\n                <igx-card>\r\n                    <igx-card-header vertical=\"true\">\r\n                        <igx-card-media height=\"32px\">\r\n                            <img src=\"{{ getCoinImage(crypto['imageUrl']) }}\" />\r\n                        </igx-card-media>\r\n                        <span igxCardHeaderTitle>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>\r\n                    </igx-card-header>\r\n                    <igx-card-content>\r\n                        <p><strong>Price: ${{ crypto['price']  }} </strong>\r\n                            <span class=\"percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}\">({{ crypto['changePct24Hour'] | number: '0.0-2' }})%</span> 24h\r\n                        </p>\r\n                        <p>Rank: <strong>{{ crypto['rank'] }}</strong></p>\r\n                        <p>Proof type: <strong>{{ crypto['proofType'] }}</strong></p>\r\n                        <p>Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>\r\n                    </igx-card-content>\r\n                    <igx-divider></igx-divider>\r\n                    <igx-card-actions>\r\n                        <button igxButton igxRipple (click)=\"openChart($event, crypto['name'])\">\r\n                            View chart\r\n                        </button>\r\n                    </igx-card-actions>\r\n                </igx-card>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -855,7 +857,7 @@ module.exports = "<!--The content below is only a placeholder and can be replace
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "a {\n  color: #731963; }\n\n.links {\n  text-align: center;\n  padding: 0 35px; }\n\n#linksContainer {\n  flex-flow: row wrap;\n  display: flex;\n  justify-content: center; }\n\n.card-wrapper {\n  max-width: 279px;\n  min-width: 260px; }\n\n.searchBox {\n  width: 100%;\n  padding-left: 15px;\n  padding-right: 15px; }\n\n.sample-content {\n  display: flex;\n  margin: 0 auto;\n  justify-content: flex-start; }\n\n.igx-card-header,\n.igx-card-header__title {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n.igx-card-content {\n  text-align: left; }\n\n.igx-card-header {\n  padding-bottom: 0 !important; }\n\n.igx-card-header__title {\n  font-size: 18px; }\n\n.igx-card-header__title img {\n    width: 32px;\n    height: 32px;\n    margin-bottom: 8px; }\n"
+module.exports = "a {\n  color: #731963; }\n\n.links {\n  text-align: center;\n  padding: 0 35px; }\n\n#linksContainer {\n  flex-flow: row wrap;\n  display: flex;\n  justify-content: center; }\n\n.card-wrapper {\n  max-width: 279px;\n  min-width: 260px; }\n\n.searchBox {\n  width: 100%;\n  padding-left: 15px;\n  padding-right: 15px; }\n\n.sample-content {\n  display: flex;\n  margin: 0 auto;\n  justify-content: flex-start; }\n\n.igx-card-header,\n.igx-card-header__title {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n.igx-card-content {\n  text-align: left; }\n\n.igx-card-header {\n  padding-bottom: 0 !important; }\n\n.igx-card-header {\n  font-size: 18px; }\n\n.igx-card-header img {\n    width: 32px;\n    height: 32px;\n    margin-bottom: 8px; }\n"
 
 /***/ }),
 
@@ -925,6 +927,13 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.getCoinImage = function (imageUrl) {
         return Object(_core_utils__WEBPACK_IMPORTED_MODULE_5__["transformCoinImgUrl"])(imageUrl);
     };
+    HomeComponent.prototype.toggleDetails = function () {
+        this.panel.toggle();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(igniteui_angular__WEBPACK_IMPORTED_MODULE_2__["IgxExpansionPanelComponent"]),
+        __metadata("design:type", igniteui_angular__WEBPACK_IMPORTED_MODULE_2__["IgxExpansionPanelComponent"])
+    ], HomeComponent.prototype, "panel", void 0);
     HomeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-home',
