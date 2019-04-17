@@ -8,7 +8,8 @@ import { AppComponent } from './app.component';
 import {
    IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule,
    IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
-   IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule
+   IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule,
+   IgxDialogModule, IgxToggleModule, IgxDividerModule, IgxExpansionPanelModule
 } from 'igniteui-angular';
 
 import { HomeComponent } from './home/home.component';
@@ -81,7 +82,9 @@ export const firebaseConfig = {
       AngularFirestoreModule, // imports firebase/firestore, only needed for database features
       AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
       AngularFireStorageModule, // imports firebase/storage only needed for storage features
-      AngularFireDatabaseModule
+      AngularFireDatabaseModule,
+      IgxDividerModule,
+      IgxExpansionPanelModule
    ],
    providers: [DataService, AuthGuard, ItemService],
    bootstrap: [AppComponent]

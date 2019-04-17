@@ -14,24 +14,26 @@
         <div class="sample-content">
             <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: filterOptions" [@flyInOut]>
                 <igx-card>
-                    <igx-card-header class="igx-card-header">
-                        <h3 class="igx-card-header__title">
+                    <igx-card-header vertical="true">
+                        <igx-card-media height="32px">
                             <img src="{{ getCoinImage(crypto['imageUrl']) }}" />
-                            <span>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>
-                            <button igxButton="icon" igxRipple (click)="openChart($event, crypto['name'])">
-                            <igx-icon fontSet="material">trending_up</igx-icon>
-                            </button>
-                        </h3>
+                        </igx-card-media>
+                        <span igxCardHeaderTitle>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>
                     </igx-card-header>
-
-                    <igx-card-content class="igx-card-content">
-                        <p class="igx-card-content__text"><strong>Price: ${{ crypto['price']  }} </strong>
-                            <span class="percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}">({{ crypto['changePct24Hour'] | number: '0.0-2' }})</span> 24h %
+                    <igx-card-content>
+                        <p><strong>Price: ${{ crypto['price']  }} </strong>
+                            <span class="percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}">({{ crypto['changePct24Hour'] | number: '0.0-2' }})%</span> 24h
                         </p>
-                        <p class="igx-card-content__text">Rank: <strong>{{ crypto['rank'] }}</strong></p>
-                        <p class="igx-card-content__text">Proof type: <strong>{{ crypto['proofType'] }}</strong></p>
-                        <p class="igx-card-content__text">Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>
+                        <p>Rank: <strong>{{ crypto['rank'] }}</strong></p>
+                        <p>Proof type: <strong>{{ crypto['proofType'] }}</strong></p>
+                        <p>Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>
                     </igx-card-content>
+                    <igx-divider></igx-divider>
+                    <igx-card-actions>
+                        <button igxButton igxRipple (click)="openChart($event, crypto['name'])">
+                            View chart
+                        </button>
+                    </igx-card-actions>
                 </igx-card>
             </article>
         </div>
