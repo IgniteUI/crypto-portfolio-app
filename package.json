@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve --aot",
     "build": "ng build --prod --aot --optimization=false",
+    "build:web": "ng build && gulp build-site",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -33,6 +34,7 @@
     "igniteui-angular-core": "^6.2.2",
     "lite-server": "^2.4.0",
     "minireset.css": "~0.0.4",
+    "natives": "^1.1.6",
     "node-sass": "^4.11.0",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.1.0",
