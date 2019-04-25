@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit, HostListener} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxGridComponent, SortingDirection,  } from 'igniteui-angular';
+import { IgxGridComponent, SortingDirection, } from 'igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-block-grid',
@@ -26,17 +27,19 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
   }
 
   private loadData() {
-    this.dataService.getData().subscribe(res => {
+    interval(15000)
+      .startWith(0)
+      .subscribe(() => {
+        this.dataService.getData().subscribe(res => {
         this.remoteData = res;
       });
+    });
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    this.grid1.groupBy({fieldName: 'dailyScale', dir: SortingDirection.Asc});
+    this.grid1.groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
 
-    setTimeout(() => {
-      this.refreshGrid();
-    }, 100);
+    this.refreshGrid();
   }
 
   get hideColumn() {
