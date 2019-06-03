@@ -39,7 +39,9 @@ export const firebaseConfig = {
 1. Run `ng build --prod --aot`
 2. Go to `dist folder` and host with IIS or any other provider (example [lite-server](https://github.com/johnpapa/lite-server#global-installation))
 
-## Create simple web bundle
+## Create web bundle
+Use the command `npm run build:web` or:
+
 1. Run `ng build`
 2. Go to `dist folder` and copy paste the content in the `docs` folder. Change the base href url to be `<base href="https://igniteui.github.io/crypto-portfolio-app/">`
 
