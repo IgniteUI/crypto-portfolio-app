@@ -23,7 +23,7 @@ import { CryptoCoin } from '../core/interfaces';
    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatisticsComponent implements AfterViewInit {
-   @ViewChild('dropDown', { read: IgxDropDownComponent }) public dropDown: IgxDropDownComponent;
+   @ViewChild('dropDown', { read: IgxDropDownComponent, static: true }) public dropDown: IgxDropDownComponent;
    public coins: CryptoCoin[];
    public cryptoName;
    public daysCount: Number;

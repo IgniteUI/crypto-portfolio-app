@@ -17,7 +17,7 @@ export class EmailComponent implements OnInit {
   error: any;
   email: any;
   password: any;
-  @ViewChild('snack') public snack: IgxSnackbarComponent;
+  @ViewChild('snack', { static: true }) public snack: IgxSnackbarComponent;
 
   constructor(public afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute) {
     this.afAuth.authState.subscribe(auth => {
