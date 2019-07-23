@@ -1,46 +1,50 @@
-
 #refreshBtn {
-    margin-bottom: 21px;
+  margin-bottom: 21px;
 }
 
-igx-icon {
-    cursor: pointer;
-}
 
-.addCoinForm {
-    padding: 12px 24px 24px;
-
-    igx-input-group + igx-input-group {
-        margin-top: 24px;
-    }
-}
 #addBtn {
-    margin-left: 10px;
-    margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .sample-content {
-    padding-left: 10px;
-    justify-content: center;
-    display:flex;
+  padding-left: 10px;
+  justify-content: center;
+  display: flex;
 }
 
 .positionTop {
-    width: 100%;
-    // margin-top: -7px;
+  width: 100%;
+  // margin-top: -7px;
 }
 
-.positionTop > img {
-    width: 24px;
-    height: 24px;
+.positionTop>img {
+  width: 24px;
+  height: 24px;
 }
 
 .symbolPosition {
-    position: absolute;
-    margin-top: 5px;
-    margin-left: 10px;
+  position: absolute;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
-igx-grid {
+
+:host ::ng-deep {
+  igx-icon {
+    cursor: pointer;
+  }
+
+  .addCoinForm {
+    padding: 12px 24px 24px;
+
+    igx-input-group+igx-input-group {
+      margin-top: 24px;
+    }
+  }
+
+  igx-grid {
     margin: 20px;
+  }
 }

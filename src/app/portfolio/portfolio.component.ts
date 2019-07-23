@@ -13,8 +13,7 @@ import { transformCoinImgUrl } from '../core/utils';
 @Component({
    selector: 'app-portfolio',
    templateUrl: './portfolio.component.html',
-   styleUrls: ['./portfolio.component.scss'],
-   encapsulation: ViewEncapsulation.None
+   styleUrls: ['./portfolio.component.scss']
 })
 export class PortfolioComponent implements OnInit {
 
