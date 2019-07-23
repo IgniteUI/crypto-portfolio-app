@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from 'igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
@@ -16,7 +16,7 @@ import { transformCoinImgUrl } from '../core/utils';
    styleUrls: ['./portfolio.component.scss'],
    encapsulation: ViewEncapsulation.None
 })
-export class PortfolioComponent implements OnInit {
+export class PortfolioComponent implements OnInit, AfterViewInit {
 
    public searchCrypto: string;
    public blockItemsCollection: AngularFireList<BlockItem>;
@@ -35,7 +35,6 @@ export class PortfolioComponent implements OnInit {
    constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
       private cdr: ChangeDetectorRef) { }
 
-// tslint:disable-next-line: use-life-cycle-interface
    ngAfterViewInit() {
       this.blockItemService.getItemsList().snapshotChanges().pipe(
          map(actions =>
