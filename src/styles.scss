@@ -8,7 +8,14 @@ html, body, app-root {
 }
 
 body {
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 786px) {
+  body{
+    overflow-x: auto;
+  }
 }
 
 .content p {
@@ -61,6 +68,7 @@ app-statistics {
 .sample-content {
   display: flex;
   flex-grow: 1;
+  height: 100%;
   flex-flow: row wrap;
   justify-content: flex-start;
   padding: 0;
