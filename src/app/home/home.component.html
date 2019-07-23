@@ -21,7 +21,7 @@
                         <span igxCardHeaderTitle>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>
                     </igx-card-header>
                     <igx-card-content>
-                        <p><strong>Price: ${{ crypto['price']  }} </strong>
+                        <p><strong>Price: ${{ crypto['price'] | number: '1.0-8'  }} </strong>
                             <span class="percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}">({{ crypto['changePct24Hour'] | number: '0.0-2' }})%</span> 24h
                         </p>
                         <p>Rank: <strong>{{ crypto['rank'] }}</strong></p>
