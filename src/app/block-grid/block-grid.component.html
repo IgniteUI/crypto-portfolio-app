@@ -1,8 +1,11 @@
 <div class="sample-wrapper">
     <div class="sample-content">
-        <div *ngIf="!hideColumn; else elseBlock">
-            <button id="refreshBtn" igxButton="raised" igxRipple (click)="refreshGrid()">
+        <div class="buttons-container" *ngIf="!hideColumn; else elseBlock">
+            <button id="refresh" igxButton="raised" igxRipple (click)="refreshGrid()">
                 <igx-icon>refresh</igx-icon>
+            </button>
+            <button [igxTooltipTarget]="tooltipRef" id="exportButton" igxButton="raised" igxRipple (click)="exportGrid()">
+                <img src="https://img.icons8.com/material/24/000000/ms-excel.png">
             </button>
         </div>
         <ng-template #elseBlock>
@@ -10,8 +13,12 @@
                 <igx-icon>refresh</igx-icon>
             </button>
         </ng-template>
-        <igx-grid #grid1 [data]="remoteData" width="calc(100% - 18px)" height="555px" [allowFiltering]="true">
+        <div #tooltipRef="tooltip" igxTooltip>
+            Export to Excel
+        </div>
+        <igx-grid #grid1 [data]="remoteData" width="calc(100% - 18px)" height="100%" [allowFiltering]="true">
             <ng-template igxGroupByRow let-groupRow>
+              <div *ngIf="groupRow.expression.fieldName === 'dailyScale'; else defaultGroupByTemplate">
                 <div class="igx-group-label">
                     <igx-icon fontSet="material" class="igx-group-label__icon">group_work</igx-icon>
                     <span class="igx-group-label__column-name">
@@ -20,8 +27,23 @@
                     <igx-badge [value]="groupRow.records ? groupRow.records.length : 0"
                         class='igx-group-label__count-badge'></igx-badge>
                 </div>
+              </div>
+              <ng-template #defaultGroupByTemplate>
+                  <div class="igx-group-label">
+                      <igx-icon fontSet="material" class="igx-group-label__icon">group_work</igx-icon>
+                      <span class="igx-group-label__column-name">
+                      {{ groupRow.expression ? groupRow.expression.fieldName : '' }}:
+                      </span>
+
+                      <ng-container>
+                          <span class="igx-group-label__text">{{ groupRow.value }}</span>
+                      </ng-container>
+
+                      <igx-badge [value]="groupRow.records ? groupRow.records.length : 0" class='igx-group-label__count-badge'></igx-badge>
+                  </div>
+              </ng-template>
             </ng-template>
-            <igx-column field="fullName" header="Name" [filterable]="true">
+            <igx-column [width]="setWidth()" field="fullName" header="Name" [filterable]="true">
                 <ng-template igxCell let-cell="cell" let-item>
                     <span class="coin-logo">
                         <img src="{{ getCoinImage(cell.row.rowData['imageUrl']) }}" />
@@ -29,7 +51,7 @@
                     <span class="coin-title">{{ item }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field="price" filterable="true" dataType="number">
+            <igx-column [width]="setWidth()" field="price" filterable="true" dataType="number">
                 <ng-template igxHeader let-column="column">
                     Price
                 </ng-template>
@@ -37,7 +59,7 @@
                     $ {{ item | number:'0.0-2' }}
                 </ng-template>
             </igx-column>
-            <igx-column field="supply" sortable="true" filterable="true" dataType="number"
+            <igx-column #supplyCol width="15%" field="supply" sortable="true" filterable="true" dataType="number"
                 [hidden]="hideColumn">
                 <ng-template igxHeader let-column="column">
                     Total supply
@@ -46,7 +68,7 @@
                     <span> {{ item | number:'3.0-2' }}</span>
                 </ng-template>
             </igx-column>
-            <igx-column field="changePct24Hour" dataType="number" sortable="true" [hidden]="hideColumn"
+            <igx-column #changeCol width="15%" field="changePct24Hour" dataType="number" sortable="true" [hidden]="hideColumn"
                 dataType="number" [groupable]="true" [cellClasses]="changes24h">
                 <ng-template igxHeader let-column="column">
                     (24 h) %
@@ -56,13 +78,13 @@
                     <span class="percent-style-{{ item >= 0 ? 'up' : 'down'}}"> {{ item | number:'0.0-2' }} %</span>
                 </ng-template>
             </igx-column>
-            <igx-column field="dailyScale" header="Daily Scale" dataType="boolean" [groupable]="true"
+            <igx-column  field="dailyScale" header="Daily Scale" dataType="boolean" [groupable]="true"
                 [hidden]="true">
             </igx-column>
-            <igx-column field="proofType" header="ProofType" dataType="string" [groupable]="true"
+            <igx-column width="20%" field="proofType" header="ProofType" dataType="string" [groupable]="true"
                 [hidden]="false">
             </igx-column>
-            <igx-column field="algorithm" header="Algorithm" dataType="string" [groupable]="true"
+            <igx-column width="20%" field="algorithm" header="Algorithm" dataType="string" [groupable]="true"
                 [hidden]="false">
             </igx-column>
         </igx-grid>
