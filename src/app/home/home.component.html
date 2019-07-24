@@ -3,7 +3,7 @@
 <div *ngIf="cryptos">
     <div class="sample-wrapper">
         <igx-input-group type="search" class="searchBox">
-            <input #input1 igxInput placeholder="Search by name" [(ngModel)]="searchValue" />
+            <input #input1 igxInput placeholder="Search by name or symbol" [(ngModel)]="searchValue" />
             <igx-prefix>
                 <igx-icon>search</igx-icon>
             </igx-prefix>
@@ -18,7 +18,7 @@
                         <igx-card-media height="32px">
                             <img src="{{ getCoinImage(crypto['imageUrl']) }}" />
                         </igx-card-media>
-                        <span igxCardHeaderTitle>{{ crypto['fullName'] }} ({{ crypto['name'] }})</span>
+                        <span igxCardHeaderTitle>{{ crypto['fullName'] }}</span><span>({{ crypto['name'] }})</span>
                     </igx-card-header>
                     <igx-card-content>
                         <p><strong>Price: ${{ crypto['price'] | number: '1.0-8'  }} </strong>

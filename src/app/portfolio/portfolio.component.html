@@ -17,13 +17,11 @@
          [columnHiding]="true" [columnPinning]="true">
          <igx-column field="name" header="Coin symbol" field="name" sortable="true">
             <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
-               <a (click)="openChart($event, cell.row.rowData.name)">
-                  <div class="positionTop">
-                     <img src="{{ getCoinImage(cell.row.rowData.imageUrl) }}" />
-                     <span class="symbolPosition">
-                        {{ cell.row.rowData.name }}</span>
-                  </div>
-               </a>
+               <div class="positionTop">
+                  <img src="{{ getCoinImage(cell.row.rowData.imageUrl) }}" />
+                  <span class="symbolPosition">
+                     {{ cell.row.rowData.name }}</span>
+               </div>
             </ng-template>
          </igx-column>
          <igx-column field="holdings" header="Holdings" editable="true" sortable="true">
@@ -51,6 +49,9 @@
             <ng-template igxCell let-cell="cell" let-column="column">
                <span igxButton="icon" igxRipple (click)='deleteRow(cell)'>
                   <igx-icon>highlight_off</igx-icon>
+               </span>
+               <span igxButton="icon" igxRipple (click)='openChart($event, cell.row.rowData.name)'>
+                  <igx-icon>insert_chart</igx-icon>
                </span>
             </ng-template>
          </igx-column>

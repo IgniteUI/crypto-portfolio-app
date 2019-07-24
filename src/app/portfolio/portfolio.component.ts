@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from 'igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
@@ -15,7 +15,7 @@ import { transformCoinImgUrl } from '../core/utils';
    templateUrl: './portfolio.component.html',
    styleUrls: ['./portfolio.component.scss']
 })
-export class PortfolioComponent implements OnInit {
+export class PortfolioComponent implements OnInit, AfterViewInit {
 
    public searchCrypto: string;
    public blockItemsCollection: AngularFireList<BlockItem>;

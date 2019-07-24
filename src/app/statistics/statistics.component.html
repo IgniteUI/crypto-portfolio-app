@@ -1,31 +1,42 @@
 <div class="sample-wrapper">
-    <div class="chart-wrapper">
-        <span id="sText">Cryptocurrency: </span>
-        <span style="width: 80px; display: inline-block;">
-            <igx-input-group style="width: 100%">
-                <input #input1 igxInput [(ngModel)]="cryptoName" (click)="toggleDropDown($event,dropDown)" [title]="dropDown.collapsed? 'Click to open' : 'Click to close'" />
-            </igx-input-group>
-        </span>
-        <igx-drop-down #dropDown>
-            <igx-list style="height:auto; overflow-y: auto; max-height: 300px;" (onItemClicked)="getData($event)">
-                <div>
-                    <igx-list-item *ngFor="let coin of coins | igxFilter: filterNames" style="width: 150px">
-                        {{coin.name}} [{{coin.symbol}}]
-                    </igx-list-item>
-                </div>
-            </igx-list>
-        </igx-drop-down>
-        <span id="sText">to see all price changes for the past </span>
-        <span style="width: 75px; display: inline-block;">
-            <igx-input-group style="width: 100%">
-                <input #input1 igxInput [(ngModel)]="daysCount" (input)="this.getData()" />
-                <igx-suffix>
-                    days.
-                </igx-suffix>
-            </igx-input-group>
-        </span>
-        <igx-financial-chart [dataSource]="data" height="100%" width="100%" style="margin-top: 20px;"
-            [isToolbarVisible]="false" chartType="candle">
-        </igx-financial-chart>
-    </div>
+  <div class="chart-wrapper">
+    <span id="sText">Cryptocurrency: </span>
+    <span style="width: 80px; display: inline-block;">
+      <igx-input-group style="width: 100%">
+        <input #input1 igxInput [(ngModel)]="cryptoName" (click)="toggleDropDown($event,dropDown)"
+          [title]="dropDown.collapsed? 'Click to open' : 'Click to close'" />
+      </igx-input-group>
+    </span>
+    <igx-drop-down #dropDown>
+      <igx-list style="height:auto; overflow-y: auto; max-height: 300px;" (onItemClicked)="getData($event)">
+        <div>
+          <igx-list-item *ngFor="let coin of coins | igxFilter: filterNames" style="width: 150px">
+            {{coin.name}} [{{coin.symbol}}]
+          </igx-list-item>
+        </div>
+      </igx-list>
+    </igx-drop-down>
+    <span id="sText">to see all price changes for the past </span>
+    <span style="width: 75px; display: inline-block;">
+      <igx-input-group style="width: 100%">
+        <input #input1 igxInput [(ngModel)]="daysCount" (input)="this.getData()" />
+        <igx-suffix>
+          days.
+        </igx-suffix>
+      </igx-input-group>
+    </span>
+    <igx-financial-chart [dataSource]="data"
+                         height="100%"
+                         width="100%"
+                         style="margin-top: 20px;"
+                         crosshairsDisplayMode="Horizontal"
+                         crosshairsSnapToData="true"
+                         [isToolbarVisible]="false"
+                         chartType="candle"
+                         trendLineType="ExponentialFit"
+                         indicatorTypes="StochRSI"
+                         [crosshairsAnnotationEnabled]="true"
+                         finalValueAnnotationsVisible="true">
+    </igx-financial-chart>
+  </div>
 </div>
