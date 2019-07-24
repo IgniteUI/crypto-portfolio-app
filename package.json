@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --aot",
-    "build": "ng build --prod --aot --optimization=false",
+    "build": "ng build --prod --aot --optimization=false && gulp overwrite-package-json",
     "build:web": "ng build && gulp build-site",
     "test": "ng test",
     "lint": "ng lint",
