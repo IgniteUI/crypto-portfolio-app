@@ -7,9 +7,6 @@
             </igx-input-group>
         </span>
         <igx-drop-down #dropDown>
-            <!-- <igx-drop-down-item *ngFor="let coin of coins | igxFilter: filterNames" [value]="item.field">
-                {{ item.field }}
-            </igx-drop-down-item> -->
             <igx-list style="height:auto; overflow-y: auto; max-height: 300px;" (onItemClicked)="getData($event)">
                 <div>
                     <igx-list-item *ngFor="let coin of coins | igxFilter: filterNames" style="width: 150px">

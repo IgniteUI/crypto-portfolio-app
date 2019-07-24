@@ -15,7 +15,7 @@ import { CoinItem } from '../core/interfaces';
 export class HomeComponent implements OnInit {
    cryptos: CoinItem[];
    public searchValue: string;
-   @ViewChild(IgxExpansionPanelComponent)
+   @ViewChild(IgxExpansionPanelComponent, { static: false })
    public panel: IgxExpansionPanelComponent;
 
    constructor(private data: DataService, private router: Router) { }

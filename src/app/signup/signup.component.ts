@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
    error: any;
    email: any;
    password: any;
-   @ViewChild('snack') public snack: IgxSnackbarComponent;
+   @ViewChild('snack', { static: true }) public snack: IgxSnackbarComponent;
 
    constructor(public afAuth: AngularFireAuth, private router: Router) { }
 

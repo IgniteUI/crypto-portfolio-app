@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from 'igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
@@ -16,7 +16,7 @@ import { transformCoinImgUrl } from '../core/utils';
    styleUrls: ['./portfolio.component.scss'],
    encapsulation: ViewEncapsulation.None
 })
-export class PortfolioComponent implements OnInit {
+export class PortfolioComponent implements OnInit, AfterViewInit {
 
    public searchCrypto: string;
    public blockItemsCollection: AngularFireList<BlockItem>;
@@ -26,16 +26,15 @@ export class PortfolioComponent implements OnInit {
    public holdings;
    public deletedItem: BlockItem;
 
-   @ViewChild(IgxOverlayOutletDirective) public outlet: IgxOverlayOutletDirective;
-   @ViewChild('snack') public snack: IgxSnackbarComponent;
-   @ViewChild('snackExists') public snackExists: IgxSnackbarComponent;
-   @ViewChild('grid1') public grid1: IgxGridComponent;
-   @ViewChild('modal') public dialog: IgxDialogComponent;
+   @ViewChild(IgxOverlayOutletDirective, { static: true }) public outlet: IgxOverlayOutletDirective;
+   @ViewChild('snack', { static: true }) public snack: IgxSnackbarComponent;
+   @ViewChild('snackExists', { static: true }) public snackExists: IgxSnackbarComponent;
+   @ViewChild('grid1', { static: true }) public grid1: IgxGridComponent;
+   @ViewChild('modal', { static: true }) public dialog: IgxDialogComponent;
 
    constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
       private cdr: ChangeDetectorRef) { }
 
-// tslint:disable-next-line: use-life-cycle-interface
    ngAfterViewInit() {
       this.blockItemService.getItemsList().snapshotChanges().pipe(
          map(actions =>

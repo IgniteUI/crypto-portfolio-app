@@ -13,7 +13,7 @@ import { interval } from 'rxjs';
 export class BlockGridComponent implements OnInit, AfterViewInit {
   public remoteData: CoinItem[];
   private windowWidth: any;
-  @ViewChild('grid1') public grid1: IgxGridComponent;
+  @ViewChild('grid1', { static: true }) public grid1: IgxGridComponent;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

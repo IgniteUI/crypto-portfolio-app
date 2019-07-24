@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
       icon: string,
       subItem: boolean
    }> = [];
-   @ViewChild(IgxNavigationDrawerComponent) public navdrawer: IgxNavigationDrawerComponent;
-   @ViewChild(IgxLayoutDirective, { read: IgxLayoutDirective }) public layout: IgxLayoutDirective;
+   @ViewChild(IgxNavigationDrawerComponent, { static: true }) public navdrawer: IgxNavigationDrawerComponent;
+   @ViewChild(IgxLayoutDirective, { read: IgxLayoutDirective, static: true }) public layout: IgxLayoutDirective;
 
    @HostListener('window:resize', ['$event'])
    onResize(event) {
