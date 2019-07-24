@@ -1,5 +1,5 @@
 import {
-   Component, ViewEncapsulation, ViewChild, AfterViewInit, ChangeDetectionStrategy,
+   Component, ViewChild, AfterViewInit, ChangeDetectionStrategy,
    ChangeDetectorRef
 } from '@angular/core';
 import { DataService } from '../services/data.service';
@@ -14,16 +14,19 @@ import {
    IgxDropDownComponent
 } from 'igniteui-angular';
 import { CryptoCoin } from '../core/interfaces';
+import { IgxFinancialChartComponent } from 'igniteui-angular-charts/ES5/igx-financial-chart-component';
+import { FinancialOverlayType } from 'igniteui-angular-charts/ES5/FinancialOverlayType';
 
 @Component({
    selector: 'app-statistics',
    templateUrl: './statistics.component.html',
    styleUrls: ['./statistics.component.scss'],
-   encapsulation: ViewEncapsulation.None,
    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticsComponent implements AfterViewInit {
+export class StatisticsComponent implements  AfterViewInit {
    @ViewChild('dropDown', { read: IgxDropDownComponent, static: true }) public dropDown: IgxDropDownComponent;
+   @ViewChild(IgxFinancialChartComponent, { static: true }) public chart: IgxFinancialChartComponent;
+
    public coins: CryptoCoin[];
    public cryptoName;
    public daysCount: Number;
@@ -44,6 +47,7 @@ export class StatisticsComponent implements AfterViewInit {
    ngAfterViewInit() {
       this.getData();
       this.getAndTransformData();
+      this.chart.overlayTypes.add(FinancialOverlayType.PriceChannel);
    }
 
    // tslint:disable-next-line: member-ordering

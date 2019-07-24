@@ -57,7 +57,7 @@ export class DataService {
       const transformedData = [];
       this.coins = [];
 
-      if (data['Message'] === 'Success') {
+      if (data['Message'] === 'Success' && data['HasWarning'] === false && data['Data'].length !== 0) {
          const indexes = Object.keys(data['Data']);
 
          for (const idx of indexes) {

@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxGridComponent, SortingDirection, } from 'igniteui-angular';
+import { IgxGridComponent, SortingDirection, IgxExcelExporterOptions,
+        IgxExcelExporterService,  IGroupingDoneEventArgs, IgxColumnComponent } from 'igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
 import { interval } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-block-grid',
@@ -20,7 +22,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
     this.windowWidth = event.target.innerWidth;
   }
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private excelExportService: IgxExcelExporterService, private router: Router) { }
 
   ngOnInit() {
     this.windowWidth = window.innerWidth;
@@ -37,6 +39,22 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
+    this.grid1.onGroupingDone.subscribe((args: IGroupingDoneEventArgs) => {
+      if (args.groupedColumns instanceof Array && args.groupedColumns.length !== 0) {
+        const colNotForGroup = (args.groupedColumns as IgxColumnComponent[]).find(col => col.field === 'changePct24Hour');
+        if ( colNotForGroup ) {
+          this.grid1.clearGrouping('changePct24Hour');
+          if ((args.groupedColumns as IgxColumnComponent[]).find(col => col.field === 'dailyScale') === undefined) {
+            this.grid1.groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
+          }
+        }
+      } else if (args.groupedColumns instanceof IgxColumnComponent) {
+          if (args.groupedColumns.field === 'changePct24Hour') {
+            this.grid1.clearGrouping('changePct24Hour');
+            this.grid1.groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
+          }
+      }
+    });
     this.grid1.groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
 
     this.refreshGrid();
@@ -46,15 +64,26 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
     return this.windowWidth && this.windowWidth < 800;
   }
 
+  public setWidth (withHideColumns: string, withoutHideColumns: string)  {
+   return this.hideColumn ? withHideColumns : withoutHideColumns;
+  }
+
   public getCoinImage(imageUrl: string) {
     return transformCoinImgUrl(imageUrl);
   }
 
   private positive24h = (rowData: any): boolean => {
-    return rowData['changePct24Hour'] > 0;
+    return rowData['changePct24Hour'] >= 0;
   }
+
   private negative24h = (rowData: any): boolean => {
     return rowData['changePct24Hour'] < 0;
+  }
+
+  public exportGrid() {
+    const options =  new IgxExcelExporterOptions('ExportFileFromGrid');
+    options.ignoreColumnsVisibility = true;
+    this.excelExportService.export(this.grid1, options);
   }
 
   // tslint:disable-next-line:member-ordering
@@ -67,4 +96,12 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
     this.grid1.reflow();
     this.loadData();
   }
+
+  public getHeader(fieldName: string): string {
+    return this.grid1.getColumnByName(fieldName).header;
+  }
+
+  public openChart(evt, symbol) {
+    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'insert_chart', cryptoName: symbol, daysCount: 100 }]);
+ }
 }

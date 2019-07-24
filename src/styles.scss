@@ -8,7 +8,14 @@ html, body, app-root {
 }
 
 body {
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 786px) {
+  body{
+    overflow-x: auto;
+  }
 }
 
 .content p {
@@ -61,6 +68,7 @@ app-statistics {
 .sample-content {
   display: flex;
   flex-grow: 1;
+  height: 100%;
   flex-flow: row wrap;
   justify-content: flex-start;
   padding: 0;
@@ -72,7 +80,7 @@ app-statistics {
 .sample-column {
   display: flex;
   flex-flow: column nowrap;
-  flex: 1 0 0%;
+  flex: 1 1 auto;
   align-content: flex-start;
   margin: 16px;
   min-width: 280px;
@@ -237,10 +245,6 @@ igx-grid {
 }
 
 @media screen and (max-width: 650px) {
-
-  [class*=sample-content] {
-    width: 600px;
-  }
 
   [class*=user-name] {
     float: left;

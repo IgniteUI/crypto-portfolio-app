@@ -1,8 +1,11 @@
 :host {
-	width: 100%;
-	padding: 0 24px;
+  width: 100%;
 }
 
-.ui-tooltip-container {
-	color: black;
+::ng-deep .dark-theme .main {
+  igx-financial-chart {
+    .ig-tooltip-container-background {
+      background: black
+    }
+  }
 }

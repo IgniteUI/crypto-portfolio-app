@@ -1,6 +1,4 @@
-#refreshBtn {
-  margin-bottom: 20px;
-}
+
 
 #refreshFabBtn {
     position: fixed;
@@ -27,3 +25,15 @@
   width: 24px;
   height: 24px;
 }
+
+ #exportButton{
+   margin-left: 5px;
+   background-color: #72da67;
+   padding: 0;
+   cursor: pointer;
+ }
+
+ .buttons-container{
+  margin-bottom: 20px;
+  display: flex;
+ }
