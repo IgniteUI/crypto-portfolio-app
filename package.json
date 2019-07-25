@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --aot",
+    "start": "ng serve --configuration es5 --aot",
     "build": "gulp overwrite-package-json && ng build --prod --aot --optimization=false",
     "build:web": "ng build && gulp build-site",
     "test": "ng test",

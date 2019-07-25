@@ -51,9 +51,6 @@ export class AppComponent implements OnInit {
    }
 
    public ngOnInit(): void {
-      if (this.isIE) {
-         this.layout.display = '';
-      }
       document.body.classList.add('light-theme');
       document.body.style.background = '#eee';
       this.router.events
