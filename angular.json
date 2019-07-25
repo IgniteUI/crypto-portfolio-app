@@ -25,7 +25,8 @@
             ],
             "scripts": [
               "node_modules/hammerjs/hammer.min.js"
-            ]
+            ],
+            "es5BrowserSupport": true
           },
           "configurations": {
             "production": {
@@ -44,6 +45,9 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "es5": {
+              "tsConfig": "src/tsconfig-es5.app.json"
             }
           }
         },
@@ -55,6 +59,9 @@
           "configurations": {
             "production": {
               "browserTarget": "cryptoapp:build:production"
+            },
+            "es5": {
+              "browserTarget": "cryptoapp:build:es5"
             }
           }
         },

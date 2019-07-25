@@ -7,7 +7,7 @@
             <igx-prefix>
                 <igx-icon>search</igx-icon>
             </igx-prefix>
-            <igx-suffix *ngIf="input1.value.length > 0" (click)="clear(input1)">
+            <igx-suffix *ngIf="input1.value.length > 0" (click)="input1.value = ''; clear()">
                 <igx-icon>clear</igx-icon>
             </igx-suffix>
         </igx-input-group>

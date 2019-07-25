@@ -47,9 +47,8 @@ export class HomeComponent implements OnInit {
     return fo;
   }
 
-  public clear(input) {
-    input.value = '';
-    this.loadData();
+  public clear() {
+    this.searchValue = '';
   }
 
   public openChart(evt, symbol) {

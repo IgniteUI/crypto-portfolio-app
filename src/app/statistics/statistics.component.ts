@@ -76,7 +76,7 @@ export class StatisticsComponent implements  AfterViewInit {
       let coin: any;
 
       if (event) {
-         const name = event.item.elementRef.nativeElement.innerText;
+         const name = event.item.elementRef.nativeElement.innerText.trim();
          const symbol = name.substring(name.search('[[]') + 1, name.length - 1);
 
          coin = this.coins.find(c => c.name === name || c.symbol === symbol);
