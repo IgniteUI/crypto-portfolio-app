@@ -21167,17 +21167,6 @@ __webpack_require__.r(__webpack_exports__);
 /***************************************************************************************************
 * BROWSER POLYFILLS
 */
-if (!Object.entries) {
-    Object.entries = function (obj) {
-        var ownProps = Object.keys(obj);
-        var i = ownProps.length;
-        var resArray = new Array(i); // preallocate the Array
-        while (i--) {
-            resArray[i] = [ownProps[i], obj[ownProps[i]]];
-        }
-        return resArray;
-    };
-}
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
 /** IE10 and IE11 requires the following for the Reflect API. */
