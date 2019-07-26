@@ -21,7 +21,7 @@ export const routes: Routes = [
    { path: 'block-list', component: BlockListComponent, data: { text: 'List view', iconName: 'list_alt', subItem: true } },
    {
       path: 'statistics', component: StatisticsComponent,
-      data: { text: 'Volatility', iconName: 'insert_chart_outlined', cryptoName: 'BTC', daysCount: 100 }
+      data: { text: 'Volatility', iconName: 'insert_chart_outlined', cryptoName: 'ETH', daysCount: 100 }
    },
    { path: 'login', component: LoginComponent },
    { path: 'email', component: EmailComponent },

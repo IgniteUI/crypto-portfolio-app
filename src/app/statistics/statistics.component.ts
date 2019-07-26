@@ -1,21 +1,19 @@
 import {
    Component, ViewChild, AfterViewInit, ChangeDetectionStrategy,
-   ChangeDetectorRef
+   ChangeDetectorRef,
+   OnInit
 } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import {
-   IgxFilterOptions,
-   HorizontalAlignment,
-   VerticalAlignment,
-   ConnectedPositioningStrategy,
-   CloseScrollStrategy,
-   IgxDropDownComponent
+   IgxComboComponent,
+   IComboSelectionChangeEventArgs
 } from 'igniteui-angular';
 import { CryptoCoin } from '../core/interfaces';
 import { IgxFinancialChartComponent } from 'igniteui-angular-charts/ES5/igx-financial-chart-component';
 import { FinancialOverlayType } from 'igniteui-angular-charts/ES5/FinancialOverlayType';
+import { Thickness } from 'igniteui-angular-core/ES5/Thickness';
 
 @Component({
    selector: 'app-statistics',
@@ -23,21 +21,23 @@ import { FinancialOverlayType } from 'igniteui-angular-charts/ES5/FinancialOverl
    styleUrls: ['./statistics.component.scss'],
    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticsComponent implements  AfterViewInit {
-   @ViewChild('dropDown', { read: IgxDropDownComponent, static: true }) public dropDown: IgxDropDownComponent;
+export class StatisticsComponent implements OnInit, AfterViewInit {
+   @ViewChild('combo', { read: IgxComboComponent, static: true }) public combo: IgxComboComponent;
    @ViewChild(IgxFinancialChartComponent, { static: true }) public chart: IgxFinancialChartComponent;
 
    public coins: CryptoCoin[];
-   public cryptoName;
+   public cryptoName: CryptoCoin;
    public daysCount: Number;
    public int = 0;
-   public data: any;
+   public data: any = [];
 
    constructor(private dataService: DataService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
 
       this.route
          .paramMap
-         .pipe(map(params => params.get('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => this.cryptoName = res);
+         .pipe(map(params => params.get('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => {
+            this.cryptoName = { name: '', symbol: res };
+         });
 
       this.route
          .paramMap
@@ -45,56 +45,32 @@ export class StatisticsComponent implements  AfterViewInit {
    }
 
    ngAfterViewInit() {
-      this.getData();
       this.getAndTransformData();
       this.chart.overlayTypes.add(FinancialOverlayType.PriceChannel);
    }
 
-   // tslint:disable-next-line: member-ordering
-   private _dropdownPositionSettings = {
-      horizontalStartPoint: HorizontalAlignment.Left,
-      verticalStartPoint: VerticalAlignment.Bottom
-   };
-
-   // tslint:disable-next-line: member-ordering
-   private _dropDownOverlaySettings = {
-      closeOnOutsideClick: true,
-      modal: false,
-      positionStrategy: new ConnectedPositioningStrategy(this._dropdownPositionSettings),
-      scrollStrategy: new CloseScrollStrategy()
-   };
-
-
-
-   public toggleDropDown(eventArgs, selectedDropDown: IgxDropDownComponent) {
-      const dropDown = selectedDropDown;
-      this._dropDownOverlaySettings.positionStrategy.settings.target = eventArgs.target;
-      dropDown.toggle(this._dropDownOverlaySettings);
+   ngOnInit() {
+      this.combo.onSelectionChange.subscribe((evt: IComboSelectionChangeEventArgs) => {
+         debugger;
+         if (this.coins) {
+            evt.newSelection.length === 0 ? this.clearChartData() : this.getData(evt.newSelection[evt.newSelection.length - 1]);
+         }
+      });
    }
 
-   public getData(event?: any) {
-      let coin: any;
-
-      if (event) {
-         const name = event.item.elementRef.nativeElement.innerText.trim();
-         const symbol = name.substring(name.search('[[]') + 1, name.length - 1);
-
-         coin = this.coins.find(c => c.name === name || c.symbol === symbol);
-         this.cryptoName = coin.symbol;
-         this.dropDown.close();
-      }
-      this.dataService.getBetweenDaysPrices(this.cryptoName, this.daysCount)
+   public getData(obj: CryptoCoin) {
+      this.dataService.getHistoricalData(obj.symbol)
          .subscribe(res => {
-            this.data = Object.assign(res).Data.map(item => {
+            const returnedData: any = Object.assign(res.data).Data.map(item => {
                // Transform data for the Chart. Multiply by 1000 because Date() requires miliseconds
                const dateObject = new Date(item.time * 1000);
                item.time = dateObject;
-
                return item;
             });
-            this.cdr.detectChanges();
-         });
 
+            this.data.push([returnedData, returnedData.title = res.symbol + ' value: ']);
+            this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = 'Value:']);
+         });
    }
 
    // Fill coins collection
@@ -107,22 +83,19 @@ export class StatisticsComponent implements  AfterViewInit {
             obj.push({ name: name, symbol: symbol });
          }
          return obj;
-      }).subscribe(res => this.coins = res);
+      }).subscribe(res => {
+         this.coins = res;
+
+         this.coins.forEach(element => {
+            if (this.cryptoName.symbol === element.symbol) {
+               this.combo.selectItems([element]);
+               this.combo.triggerCheck();
+            }
+         });
+      });
    }
 
-   get filterNames() {
-      const fo = new IgxFilterOptions();
-      fo.items = this.coins;
-      fo.key = 'symbol';
-      fo.inputValue = this.cryptoName;
-      if (fo.items) {
-         const fI = fo.items.find(item => {
-            return item.name.toUpperCase().includes(fo.inputValue.toUpperCase());
-         });
-         if (fI) {
-            fo.key = 'name';
-         }
-      }
-      return fo;
+   private clearChartData() {
+      this.data = [];
    }
 }
