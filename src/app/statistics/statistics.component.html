@@ -1,23 +1,14 @@
 <div class="sample-wrapper">
   <div class="chart-wrapper">
     <span style="width: 80px; display: inline-block;">
-      <igx-combo #combo [itemsMaxHeight]="255" width="250px"
-        [data]="coins" [displayKey]="'name'" [valueKey]="'symbol'"
+      <igx-combo #combo [itemsMaxHeight]="255" width="250px" [data]="coins" [displayKey]="'name'" [valueKey]="'symbol'"
         placeholder="Cryptocurrencies" searchPlaceholder="Search...">
       </igx-combo>
     </span>
-    <igx-financial-chart [dataSource]="data"
-                         height="100%"
-                         width="100%"
-                         style="margin-top: 20px;"
-                         crosshairsDisplayMode="Horizontal"
-                         crosshairsSnapToData="true"
-                         [isToolbarVisible]="true"
-                         chartType="candle"
-                         trendLineType="ExponentialFit"
-                         indicatorTypes="StochRSI"
-                         [crosshairsAnnotationEnabled]="true"
-                         finalValueAnnotationsVisible="true">
+    <igx-financial-chart [dataSource]="data" [isToolbarVisible]="true" [crosshairsAnnotationEnabled]="true"
+      height="100%" width="100%" style="margin-top: 20px;" crosshairsDisplayMode="Horizontal"
+      crosshairsSnapToData="true" chartType="candle" trendLineType="ExponentialFit" indicatorTypes="StochRSI"
+      finalValueAnnotationsVisible="true" >
     </igx-financial-chart>
   </div>
 </div>

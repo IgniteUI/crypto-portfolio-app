@@ -51,8 +51,9 @@ export class HomeComponent implements OnInit {
     this.searchValue = '';
   }
 
-  public openChart(evt, symbol) {
-    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
+  public openChart(evt, crypto) {
+    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart',
+      cryptoName: [crypto['name'], crypto['fullName']], daysCount: 100 }]);
   }
 
   public getCoinImage(imageUrl: string) {

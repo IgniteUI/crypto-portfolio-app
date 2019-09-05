@@ -35,8 +35,8 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
 
       this.route
          .paramMap
-         .pipe(map(params => params.get('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => {
-            this.cryptoName = { name: '', symbol: res };
+         .pipe(map(params => params.getAll('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => {
+            this.cryptoName = { name: res[0].split(',')[1], symbol: res[0].split(',')[0] };
          });
 
       this.route
@@ -45,21 +45,27 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    }
 
    ngAfterViewInit() {
-      this.getAndTransformData();
+      // this.getAndTransformData();
       this.chart.overlayTypes.add(FinancialOverlayType.PriceChannel);
    }
 
    ngOnInit() {
+      this.getAndTransformData();
       this.combo.onSelectionChange.subscribe((evt: IComboSelectionChangeEventArgs) => {
-         debugger;
          if (this.coins) {
-            evt.newSelection.length === 0 ? this.clearChartData() : this.getData(evt.newSelection[evt.newSelection.length - 1]);
+            if (evt.newSelection.length === 0) {
+               this.clearChartData();
+            } else {
+               const coin = evt.added.length !== 0 ? evt.added : evt.removed;
+               const removeRecord = evt.added.length !== 0 ? false : true;
+               this.fillChart(coin, removeRecord);
+            }
          }
       });
    }
 
-   public getData(obj: CryptoCoin) {
-      this.dataService.getHistoricalData(obj.symbol)
+   public fillChart(obj, removeRecord) {
+      this.dataService.getHistoricalData(obj)
          .subscribe(res => {
             const returnedData: any = Object.assign(res.data).Data.map(item => {
                // Transform data for the Chart. Multiply by 1000 because Date() requires miliseconds
@@ -68,14 +74,40 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
                return item;
             });
 
-            this.data.push([returnedData, returnedData.title = res.symbol + ' value: ']);
-            this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = 'Value:']);
+            if (removeRecord) {
+               debugger;
+               // const item = this.itemTobeRemoved(this.data, obj[0]);
+               // // this.data = this.arrayRemove(this.data, obj[0]);
+               // this.chart.notifyRemoveItem(this.data, item, [returnedData, returnedData.title = obj[0]]);
+
+               // // this.chart.notifyInsertItem(this.data, null, null);
+
+               // not working
+               this.data = this.arrayRemove(this.data, obj[0]);
+               this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0]]);
+            } else {
+               debugger;
+               this.data.push([returnedData, returnedData.title = obj[0]]);
+               this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0]]);
+            }
          });
+   }
+
+   private arrayRemove(arr, value) {
+      return arr.filter(function(item) {
+          return item[1] !== value;
+      });
+   }
+
+   private itemTobeRemoved(arr, value) {
+      return arr.filter(function(item) {
+          return item[1] === value;
+      });
    }
 
    // Fill coins collection
    public getAndTransformData() {
-      this.dataService.getData().map((data: any[]) => {
+      this.dataService.getData().pipe(map((data: any[]) => {
          const obj = [];
          for (let index = 0; index < data.length; index++) {
             const name = data[index]['fullName'];
@@ -83,15 +115,15 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
             obj.push({ name: name, symbol: symbol });
          }
          return obj;
-      }).subscribe(res => {
-         this.coins = res;
+      })).subscribe(res => {
+         // set combo datasource
+         this.coins = [...res];
+         debugger;
 
-         this.coins.forEach(element => {
-            if (this.cryptoName.symbol === element.symbol) {
-               this.combo.selectItems([element]);
-               this.combo.triggerCheck();
-            }
-         });
+         // setTimeout(() => {
+            this.combo.selectItems([this.cryptoName.symbol]);
+         // }, 500);
+         // this.combo.triggerCheck();
       });
    }
 
