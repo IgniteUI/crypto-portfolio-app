@@ -1,11 +1,12 @@
 import {
    Component, ViewChild, AfterViewInit, ChangeDetectionStrategy,
    ChangeDetectorRef,
-   OnInit
+   OnInit,
+   NgZone
 } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 import {
    IgxComboComponent,
    IComboSelectionChangeEventArgs
@@ -19,7 +20,7 @@ import { Thickness } from 'igniteui-angular-core/ES5/Thickness';
    selector: 'app-statistics',
    templateUrl: './statistics.component.html',
    styleUrls: ['./statistics.component.scss'],
-   changeDetection: ChangeDetectionStrategy.OnPush
+   changeDetection: ChangeDetectionStrategy.Default
 })
 export class StatisticsComponent implements OnInit, AfterViewInit {
    @ViewChild('combo', { read: IgxComboComponent, static: true }) public combo: IgxComboComponent;
@@ -31,12 +32,13 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    public int = 0;
    public data: any = [];
 
-   constructor(private dataService: DataService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+   constructor(private dataService: DataService, private route: ActivatedRoute, private zone: NgZone) {
 
       this.route
          .paramMap
          .pipe(map(params => params.getAll('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => {
-            this.cryptoName = { name: res[0].split(',')[1], symbol: res[0].split(',')[0] };
+            this.cryptoName = res.length === 0 ? { name: 'Bitcoin', symbol: 'BTC'} :
+               { name: res[0].split(',')[1], symbol: res[0].split(',')[0] };
          });
 
       this.route
@@ -45,7 +47,6 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    }
 
    ngAfterViewInit() {
-      // this.getAndTransformData();
       this.chart.overlayTypes.add(FinancialOverlayType.PriceChannel);
    }
 
@@ -75,18 +76,11 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
             });
 
             if (removeRecord) {
-               debugger;
-               // const item = this.itemTobeRemoved(this.data, obj[0]);
-               // // this.data = this.arrayRemove(this.data, obj[0]);
-               // this.chart.notifyRemoveItem(this.data, item, [returnedData, returnedData.title = obj[0]]);
-
-               // // this.chart.notifyInsertItem(this.data, null, null);
-
-               // not working
+               // Removing data item
                this.data = this.arrayRemove(this.data, obj[0]);
                this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0]]);
             } else {
-               debugger;
+               // Adding data item
                this.data.push([returnedData, returnedData.title = obj[0]]);
                this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0]]);
             }
@@ -94,14 +88,8 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    }
 
    private arrayRemove(arr, value) {
-      return arr.filter(function(item) {
-          return item[1] !== value;
-      });
-   }
-
-   private itemTobeRemoved(arr, value) {
-      return arr.filter(function(item) {
-          return item[1] === value;
+      return arr.filter(function (item) {
+         return item[1] !== value;
       });
    }
 
@@ -116,14 +104,12 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
          }
          return obj;
       })).subscribe(res => {
-         // set combo datasource
+         // Set combo datasource
          this.coins = [...res];
-         debugger;
-
-         // setTimeout(() => {
+         // Select the requested item
+         this.zone.onStable.pipe(first()).subscribe(() => {
             this.combo.selectItems([this.cryptoName.symbol]);
-         // }, 500);
-         // this.combo.triggerCheck();
+         });
       });
    }
 
