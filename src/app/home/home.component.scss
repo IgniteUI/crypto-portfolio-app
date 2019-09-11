@@ -13,6 +13,11 @@ a {
   justify-content: center;
 }
 
+// .card-wrapper {
+//   max-width: 279px;
+//   min-width: 260px;
+// }
+
 .searchBox {
   width:100%;
   padding-left:15px;
@@ -21,6 +26,7 @@ a {
 
 .sample-content {
   display:flex;
+  margin: 0 auto;
   justify-content: flex-start;
 }
 
@@ -46,4 +52,11 @@ a {
     height: 32px;
     margin-bottom: 8px;
   }
+}
+
+.content-span {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch
 }

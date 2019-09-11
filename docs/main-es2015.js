@@ -51,7 +51,7 @@ module.exports = "<div class=\"form-container\">\r\n   <div>\r\n      <igx-icon 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n<div *ngIf=\"cryptos\">\r\n    <div class=\"sample-wrapper\">\r\n        <igx-input-group type=\"search\" class=\"searchBox\">\r\n            <input #input1 igxInput placeholder=\"Search by name or symbol\" [(ngModel)]=\"searchValue\" />\r\n            <igx-prefix>\r\n                <igx-icon>search</igx-icon>\r\n            </igx-prefix>\r\n            <igx-suffix *ngIf=\"input1.value.length > 0\" (click)=\"clear(input1)\">\r\n                <igx-icon>clear</igx-icon>\r\n            </igx-suffix>\r\n        </igx-input-group>\r\n        <div class=\"sample-content\">\r\n            <article class=\"sample-column card-wrapper\" *ngFor=\"let crypto of cryptos | igxFilter: filterOptions\" [@flyInOut]>\r\n                <igx-card>\r\n                    <igx-card-header vertical=\"true\">\r\n                        <igx-card-media height=\"32px\">\r\n                            <img src=\"{{ getCoinImage(crypto['imageUrl']) }}\" />\r\n                        </igx-card-media>\r\n                        <span igxCardHeaderTitle>{{ crypto['fullName'] }}</span><span>({{ crypto['name'] }})</span>\r\n                    </igx-card-header>\r\n                    <igx-card-content>\r\n                        <p><strong>Price: ${{ crypto['price'] | number: '1.0-8'  }} </strong>\r\n                            <span class=\"percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}\">({{ crypto['changePct24Hour'] | number: '0.0-2' }})%</span> 24h\r\n                        </p>\r\n                        <p>Rank: <strong>{{ crypto['rank'] }}</strong></p>\r\n                        <p>Proof type: <strong>{{ crypto['proofType'] }}</strong></p>\r\n                        <p>Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>\r\n                    </igx-card-content>\r\n                    <igx-divider></igx-divider>\r\n                    <igx-card-actions>\r\n                        <button igxButton igxRipple (click)=\"openChart($event, crypto['name'])\">\r\n                            View chart\r\n                        </button>\r\n                    </igx-card-actions>\r\n                </igx-card>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\r\n\r\n<div *ngIf=\"cryptos\">\r\n    <div class=\"sample-wrapper\">\r\n        <igx-input-group type=\"search\" class=\"searchBox\">\r\n            <input #input1 igxInput placeholder=\"Search by name or symbol\" [(ngModel)]=\"searchValue\" />\r\n            <igx-prefix>\r\n                <igx-icon>search</igx-icon>\r\n            </igx-prefix>\r\n            <igx-suffix *ngIf=\"input1.value.length > 0\" (click)=\"input1.value = ''; clear()\">\r\n                <igx-icon>clear</igx-icon>\r\n            </igx-suffix>\r\n        </igx-input-group>\r\n        <div class=\"sample-content\">\r\n            <article class=\"sample-column card-wrapper\" *ngFor=\"let crypto of cryptos | igxFilter: filterOptions\" [@flyInOut]>\r\n                <igx-card>\r\n                    <igx-card-header vertical=\"true\">\r\n                        <igx-card-media height=\"32px\">\r\n                            <img src=\"{{ getCoinImage(crypto['imageUrl']) }}\" />\r\n                        </igx-card-media>\r\n                        <span igxCardHeaderTitle>{{ crypto['fullName'] }}</span><span>({{ crypto['name'] }})</span>\r\n                    </igx-card-header>\r\n                    <igx-card-content>\r\n                        <p><strong>Price: ${{ crypto['price'] | number: '1.0-8'  }} </strong>\r\n                            <span class=\"percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}\">({{ crypto['changePct24Hour'] | number: '0.0-2' }})%</span> 24h\r\n                        </p>\r\n                        <p>Rank: <strong>{{ crypto['rank'] }}</strong></p>\r\n                        <p>Proof type: <strong>{{ crypto['proofType'] }}</strong></p>\r\n                        <p>Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>\r\n                    </igx-card-content>\r\n                    <igx-divider></igx-divider>\r\n                    <igx-card-actions>\r\n                        <button igxButton igxRipple (click)=\"openChart($event, crypto)\">\r\n                            View chart\r\n                        </button>\r\n                    </igx-card-actions>\r\n                </igx-card>\r\n            </article>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -106,7 +106,7 @@ module.exports = "<div class=\"form-container\">\r\n  <div>\r\n    <igx-icon id=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sample-wrapper\">\r\n  <div class=\"chart-wrapper\">\r\n    <span id=\"sText\">Cryptocurrency: </span>\r\n    <span style=\"width: 80px; display: inline-block;\">\r\n      <igx-input-group style=\"width: 100%\">\r\n        <input #input1 igxInput [(ngModel)]=\"cryptoName\" (click)=\"toggleDropDown($event,dropDown)\"\r\n          [title]=\"dropDown.collapsed? 'Click to open' : 'Click to close'\" />\r\n      </igx-input-group>\r\n    </span>\r\n    <igx-drop-down #dropDown>\r\n      <igx-list style=\"height:auto; overflow-y: auto; max-height: 300px;\" (onItemClicked)=\"getData($event)\">\r\n        <div>\r\n          <igx-list-item *ngFor=\"let coin of coins | igxFilter: filterNames\" style=\"width: 150px\">\r\n            {{coin.name}} [{{coin.symbol}}]\r\n          </igx-list-item>\r\n        </div>\r\n      </igx-list>\r\n    </igx-drop-down>\r\n    <span id=\"sText\">to see all price changes for the past </span>\r\n    <span style=\"width: 75px; display: inline-block;\">\r\n      <igx-input-group style=\"width: 100%\">\r\n        <input #input1 igxInput [(ngModel)]=\"daysCount\" (input)=\"this.getData()\" />\r\n        <igx-suffix>\r\n          days.\r\n        </igx-suffix>\r\n      </igx-input-group>\r\n    </span>\r\n    <igx-financial-chart [dataSource]=\"data\"\r\n                         height=\"100%\"\r\n                         width=\"100%\"\r\n                         style=\"margin-top: 20px;\"\r\n                         crosshairsDisplayMode=\"Horizontal\"\r\n                         crosshairsSnapToData=\"true\"\r\n                         [isToolbarVisible]=\"false\"\r\n                         chartType=\"candle\"\r\n                         trendLineType=\"ExponentialFit\"\r\n                         indicatorTypes=\"StochRSI\"\r\n                         [crosshairsAnnotationEnabled]=\"true\"\r\n                         finalValueAnnotationsVisible=\"true\">\r\n    </igx-financial-chart>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"sample-wrapper\">\r\n  <div class=\"chart-wrapper\">\r\n    <span class=\"content-span\">\r\n      <igx-combo #combo [itemsMaxHeight]=\"255\"\r\n        [data]=\"coins\" [displayKey]=\"'name'\" [valueKey]=\"'symbol'\"\r\n        placeholder=\"Cryptocurrencies\" searchPlaceholder=\"Search...\">\r\n      </igx-combo>\r\n    </span>\r\n    <igx-financial-chart [dataSource]=\"data\" [isToolbarVisible]=\"true\" [crosshairsAnnotationEnabled]=\"true\"\r\n      height=\"100%\" width=\"100%\" style=\"margin-top: 20px;\" crosshairsDisplayMode=\"Horizontal\"\r\n      crosshairsSnapToData=\"true\" chartType=\"candle\" trendLineType=\"ExponentialFit\" indicatorTypes=\"StochRSI\"\r\n      finalValueAnnotationsVisible=\"true\" >\r\n    </igx-financial-chart>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -183,7 +183,7 @@ const routes = [
     { path: 'block-list', component: _block_list_block_list_component__WEBPACK_IMPORTED_MODULE_10__["BlockListComponent"], data: { text: 'List view', iconName: 'list_alt', subItem: true } },
     {
         path: 'statistics', component: _statistics_statistics_component__WEBPACK_IMPORTED_MODULE_3__["StatisticsComponent"],
-        data: { text: 'Volatility', iconName: 'insert_chart_outlined', cryptoName: 'BTC', daysCount: 100 }
+        data: { text: 'Volatility', iconName: 'insert_chart_outlined', cryptoName: 'ETH', daysCount: 100 }
     },
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"] },
     { path: 'email', component: _email_email_component__WEBPACK_IMPORTED_MODULE_7__["EmailComponent"] },
@@ -271,9 +271,6 @@ let AppComponent = class AppComponent {
         this.innerWidth = window.innerWidth;
     }
     ngOnInit() {
-        if (this.isIE) {
-            this.layout.display = '';
-        }
         document.body.classList.add('light-theme');
         document.body.style.background = '#eee';
         this.router.events
@@ -456,6 +453,7 @@ AppModule = __decorate([
             igniteui_angular__WEBPACK_IMPORTED_MODULE_6__["IgxDialogModule"],
             igniteui_angular__WEBPACK_IMPORTED_MODULE_6__["IgxToggleModule"],
             igniteui_angular__WEBPACK_IMPORTED_MODULE_6__["IgxGridModule"],
+            igniteui_angular__WEBPACK_IMPORTED_MODULE_6__["IgxComboModule"],
             _angular_fire__WEBPACK_IMPORTED_MODULE_13__["AngularFireModule"].initializeApp(firebaseConfig),
             _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__["AngularFirestoreModule"],
             _angular_fire_auth__WEBPACK_IMPORTED_MODULE_16__["AngularFireAuthModule"],
@@ -938,7 +936,7 @@ EmailComponent = __decorate([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "a {\n  color: #731963; }\n\n.links {\n  text-align: center;\n  padding: 0 35px; }\n\n#linksContainer {\n  flex-flow: row wrap;\n  display: flex;\n  justify-content: center; }\n\n.searchBox {\n  width: 100%;\n  padding-left: 15px;\n  padding-right: 15px; }\n\n.sample-content {\n  display: flex;\n  justify-content: flex-start; }\n\n.igx-card-header,\n.igx-card-header__title {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n.igx-card-content {\n  text-align: left; }\n\n.igx-card-header {\n  padding-bottom: 0 !important; }\n\n.igx-card-header {\n  font-size: 18px; }\n\n.igx-card-header img {\n    width: 32px;\n    height: 32px;\n    margin-bottom: 8px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9EOlxcRGV2XFxjcnlwdG8tcG9ydGZvbGlvLWFwcC9zcmNcXGFwcFxcaG9tZVxcaG9tZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxrQkFBa0I7RUFDbEIsZUFBZSxFQUFBOztBQUdqQjtFQUNFLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsdUJBQXVCLEVBQUE7O0FBR3pCO0VBQ0UsV0FBVTtFQUNWLGtCQUFpQjtFQUNqQixtQkFBbUIsRUFBQTs7QUFHckI7RUFDRSxhQUFZO0VBQ1osMkJBQTJCLEVBQUE7O0FBRzdCOztFQUVFLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsbUJBQW1CLEVBQUE7O0FBR3JCO0VBQ0UsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsNEJBQTJCLEVBQUE7O0FBRzdCO0VBQ0UsZUFBZSxFQUFBOztBQURqQjtJQUdJLFdBQVc7SUFDWCxZQUFZO0lBQ1osa0JBQWtCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJhIHtcclxuICBjb2xvcjogIzczMTk2MztcclxufVxyXG5cclxuLmxpbmtze1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBwYWRkaW5nOiAwIDM1cHg7XHJcbn1cclxuXHJcbiNsaW5rc0NvbnRhaW5lciB7XHJcbiAgZmxleC1mbG93OiByb3cgd3JhcDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG59XHJcblxyXG4uc2VhcmNoQm94IHtcclxuICB3aWR0aDoxMDAlO1xyXG4gIHBhZGRpbmctbGVmdDoxNXB4O1xyXG4gIHBhZGRpbmctcmlnaHQ6IDE1cHg7XHJcbn1cclxuXHJcbi5zYW1wbGUtY29udGVudCB7XHJcbiAgZGlzcGxheTpmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogZmxleC1zdGFydDtcclxufVxyXG5cclxuLmlneC1jYXJkLWhlYWRlcixcclxuLmlneC1jYXJkLWhlYWRlcl9fdGl0bGUge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG59XHJcblxyXG4uaWd4LWNhcmQtY29udGVudCB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxufVxyXG5cclxuLmlneC1jYXJkLWhlYWRlcntcclxuICBwYWRkaW5nLWJvdHRvbTogMCFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbi5pZ3gtY2FyZC1oZWFkZXIge1xyXG4gIGZvbnQtc2l6ZTogMThweDtcclxuICBpbWcge1xyXG4gICAgd2lkdGg6IDMycHg7XHJcbiAgICBoZWlnaHQ6IDMycHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiA4cHg7XHJcbiAgfVxyXG59XHJcbiJdfQ== */"
+module.exports = "a {\n  color: #731963; }\n\n.links {\n  text-align: center;\n  padding: 0 35px; }\n\n#linksContainer {\n  flex-flow: row wrap;\n  display: flex;\n  justify-content: center; }\n\n.searchBox {\n  width: 100%;\n  padding-left: 15px;\n  padding-right: 15px; }\n\n.sample-content {\n  display: flex;\n  margin: 0 auto;\n  justify-content: flex-start; }\n\n.igx-card-header,\n.igx-card-header__title {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n.igx-card-content {\n  text-align: left; }\n\n.igx-card-header {\n  padding-bottom: 0 !important; }\n\n.igx-card-header {\n  font-size: 18px; }\n\n.igx-card-header img {\n    width: 32px;\n    height: 32px;\n    margin-bottom: 8px; }\n\n.content-span {\n  display: flex;\n  flex-flow: column nowrap;\n  justify-content: center;\n  align-items: stretch; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9EOlxcRGV2XFxjcnlwdG8tcG9ydGZvbGlvLWFwcC9zcmNcXGFwcFxcaG9tZVxcaG9tZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxrQkFBa0I7RUFDbEIsZUFBZSxFQUFBOztBQUdqQjtFQUNFLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsdUJBQXVCLEVBQUE7O0FBUXpCO0VBQ0UsV0FBVTtFQUNWLGtCQUFpQjtFQUNqQixtQkFBbUIsRUFBQTs7QUFHckI7RUFDRSxhQUFZO0VBQ1osY0FBYztFQUNkLDJCQUEyQixFQUFBOztBQUc3Qjs7RUFFRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLG1CQUFtQixFQUFBOztBQUdyQjtFQUNFLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLDRCQUEyQixFQUFBOztBQUc3QjtFQUNFLGVBQWUsRUFBQTs7QUFEakI7SUFHSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGtCQUFrQixFQUFBOztBQUl0QjtFQUNFLGFBQWE7RUFDYix3QkFBd0I7RUFDeEIsdUJBQXVCO0VBQ3ZCLG9CQUNGLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJhIHtcclxuICBjb2xvcjogIzczMTk2MztcclxufVxyXG5cclxuLmxpbmtze1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBwYWRkaW5nOiAwIDM1cHg7XHJcbn1cclxuXHJcbiNsaW5rc0NvbnRhaW5lciB7XHJcbiAgZmxleC1mbG93OiByb3cgd3JhcDtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG59XHJcblxyXG4vLyAuY2FyZC13cmFwcGVyIHtcclxuLy8gICBtYXgtd2lkdGg6IDI3OXB4O1xyXG4vLyAgIG1pbi13aWR0aDogMjYwcHg7XHJcbi8vIH1cclxuXHJcbi5zZWFyY2hCb3gge1xyXG4gIHdpZHRoOjEwMCU7XHJcbiAgcGFkZGluZy1sZWZ0OjE1cHg7XHJcbiAgcGFkZGluZy1yaWdodDogMTVweDtcclxufVxyXG5cclxuLnNhbXBsZS1jb250ZW50IHtcclxuICBkaXNwbGF5OmZsZXg7XHJcbiAgbWFyZ2luOiAwIGF1dG87XHJcbiAganVzdGlmeS1jb250ZW50OiBmbGV4LXN0YXJ0O1xyXG59XHJcblxyXG4uaWd4LWNhcmQtaGVhZGVyLFxyXG4uaWd4LWNhcmQtaGVhZGVyX190aXRsZSB7XHJcbiAgZGlzcGxheTogZmxleDtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pZ3gtY2FyZC1jb250ZW50IHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG59XHJcblxyXG4uaWd4LWNhcmQtaGVhZGVye1xyXG4gIHBhZGRpbmctYm90dG9tOiAwIWltcG9ydGFudDtcclxufVxyXG5cclxuLmlneC1jYXJkLWhlYWRlciB7XHJcbiAgZm9udC1zaXplOiAxOHB4O1xyXG4gIGltZyB7XHJcbiAgICB3aWR0aDogMzJweDtcclxuICAgIGhlaWdodDogMzJweDtcclxuICAgIG1hcmdpbi1ib3R0b206IDhweDtcclxuICB9XHJcbn1cclxuXHJcbi5jb250ZW50LXNwYW4ge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgZmxleC1mbG93OiBjb2x1bW4gbm93cmFwO1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGFsaWduLWl0ZW1zOiBzdHJldGNoXHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1002,12 +1000,12 @@ let HomeComponent = class HomeComponent {
         }
         return fo;
     }
-    clear(input) {
-        input.value = '';
-        this.loadData();
+    clear() {
+        this.searchValue = '';
     }
-    openChart(evt, symbol) {
-        this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
+    openChart(evt, crypto) {
+        this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart',
+                cryptoName: [crypto['name'], crypto['fullName']], daysCount: 100 }]);
     }
     getCoinImage(imageUrl) {
         return Object(_core_utils__WEBPACK_IMPORTED_MODULE_5__["transformCoinImgUrl"])(imageUrl);
@@ -1277,7 +1275,6 @@ let PortfolioComponent = class PortfolioComponent {
             negative: this.negative24h
         };
     }
-    // tslint:disable-next-line: use-life-cycle-interface
     ngAfterViewInit() {
         this.blockItemService.getItemsList().snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(actions => actions.map(a => (Object.assign({ key: a.payload.key }, a.payload.val()))))).subscribe(items => {
             this.blockItems = items;
@@ -1710,6 +1707,12 @@ let DataService = class DataService {
             return result;
         });
     }
+    getHistoricalData(symbol) {
+        return this.http.get(this.histoDataUrl + symbol + '&tsym=USD&limit=730&api_key=' + this.apiKey)
+            .map(result => {
+            return { data: result, symbol: symbol };
+        });
+    }
     getCryptoIdFromSymbol(symbol) {
         return this.http.get(this.allCoinsDataUrl)
             .map(result => {
@@ -1886,63 +1889,71 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 let StatisticsComponent = class StatisticsComponent {
-    constructor(dataService, route, cdr) {
+    constructor(dataService, route, cdr, zone) {
         this.dataService = dataService;
         this.route = route;
         this.cdr = cdr;
+        this.zone = zone;
         this.int = 0;
-        // tslint:disable-next-line: member-ordering
-        this._dropdownPositionSettings = {
-            horizontalStartPoint: igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["HorizontalAlignment"].Left,
-            verticalStartPoint: igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["VerticalAlignment"].Bottom
-        };
-        // tslint:disable-next-line: member-ordering
-        this._dropDownOverlaySettings = {
-            closeOnOutsideClick: true,
-            modal: false,
-            positionStrategy: new igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["ConnectedPositioningStrategy"](this._dropdownPositionSettings),
-            scrollStrategy: new igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["CloseScrollStrategy"]()
-        };
+        this.data = [];
         this.route
             .paramMap
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(params => params.get('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => this.cryptoName = res);
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(params => params.getAll('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => {
+            this.cryptoName = res.length === 0 ? { name: 'Bitcoin', symbol: 'BTC' } :
+                { name: res[0].split(',')[1], symbol: res[0].split(',')[0] };
+        });
         this.route
             .paramMap
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(params => params.get('daysCount') || route.routeConfig.data.daysCount)).subscribe(res => this.daysCount = res);
     }
     ngAfterViewInit() {
-        this.getData();
-        this.getAndTransformData();
+        // this.getAndTransformData();
         this.chart.overlayTypes.add(igniteui_angular_charts_ES5_FinancialOverlayType__WEBPACK_IMPORTED_MODULE_6__["FinancialOverlayType"].PriceChannel);
     }
-    toggleDropDown(eventArgs, selectedDropDown) {
-        const dropDown = selectedDropDown;
-        this._dropDownOverlaySettings.positionStrategy.settings.target = eventArgs.target;
-        dropDown.toggle(this._dropDownOverlaySettings);
+    ngOnInit() {
+        this.getAndTransformData();
+        this.combo.onSelectionChange.subscribe((evt) => {
+            if (this.coins) {
+                if (evt.newSelection.length === 0) {
+                    this.clearChartData();
+                }
+                else {
+                    const coin = evt.added.length !== 0 ? evt.added : evt.removed;
+                    const removeRecord = evt.added.length !== 0 ? false : true;
+                    this.fillChart(coin, removeRecord);
+                }
+            }
+        });
     }
-    getData(event) {
-        let coin;
-        if (event) {
-            const name = event.item.elementRef.nativeElement.innerText;
-            const symbol = name.substring(name.search('[[]') + 1, name.length - 1);
-            coin = this.coins.find(c => c.name === name || c.symbol === symbol);
-            this.cryptoName = coin.symbol;
-            this.dropDown.close();
-        }
-        this.dataService.getBetweenDaysPrices(this.cryptoName, this.daysCount)
+    fillChart(obj, removeRecord) {
+        this.dataService.getHistoricalData(obj)
             .subscribe(res => {
-            this.data = Object.assign(res).Data.map(item => {
+            const returnedData = Object.assign(res.data).Data.map(item => {
                 // Transform data for the Chart. Multiply by 1000 because Date() requires miliseconds
                 const dateObject = new Date(item.time * 1000);
                 item.time = dateObject;
                 return item;
             });
-            this.cdr.detectChanges();
+            if (removeRecord) {
+                // Removing data item
+                this.data = this.arrayRemove(this.data, obj[0]);
+                this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0]]);
+            }
+            else {
+                // Adding data item
+                this.data.push([returnedData, returnedData.title = obj[0]]);
+                this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0]]);
+            }
+        });
+    }
+    arrayRemove(arr, value) {
+        return arr.filter(function (item) {
+            return item[1] !== value;
         });
     }
     // Fill coins collection
     getAndTransformData() {
-        this.dataService.getData().map((data) => {
+        this.dataService.getData().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((data) => {
             const obj = [];
             for (let index = 0; index < data.length; index++) {
                 const name = data[index]['fullName'];
@@ -1950,33 +1961,30 @@ let StatisticsComponent = class StatisticsComponent {
                 obj.push({ name: name, symbol: symbol });
             }
             return obj;
-        }).subscribe(res => this.coins = res);
-    }
-    get filterNames() {
-        const fo = new igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["IgxFilterOptions"]();
-        fo.items = this.coins;
-        fo.key = 'symbol';
-        fo.inputValue = this.cryptoName;
-        if (fo.items) {
-            const fI = fo.items.find(item => {
-                return item.name.toUpperCase().includes(fo.inputValue.toUpperCase());
+        })).subscribe(res => {
+            // set combo datasource
+            this.coins = res;
+            // Or use
+            // this.cdr.detectChanges();
+            this.zone.onStable.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["first"])()).subscribe(() => {
+                this.combo.selectItems([this.cryptoName.symbol]);
             });
-            if (fI) {
-                fo.key = 'name';
-            }
-        }
-        return fo;
+        });
+    }
+    clearChartData() {
+        this.data = [];
     }
 };
 StatisticsComponent.ctorParameters = () => [
     { type: _services_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] }
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"] }
 ];
 __decorate([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('dropDown', { read: igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["IgxDropDownComponent"], static: true }),
-    __metadata("design:type", igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["IgxDropDownComponent"])
-], StatisticsComponent.prototype, "dropDown", void 0);
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('combo', { read: igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["IgxComboComponent"], static: true }),
+    __metadata("design:type", igniteui_angular__WEBPACK_IMPORTED_MODULE_4__["IgxComboComponent"])
+], StatisticsComponent.prototype, "combo", void 0);
 __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(igniteui_angular_charts_ES5_igx_financial_chart_component__WEBPACK_IMPORTED_MODULE_5__["IgxFinancialChartComponent"], { static: true }),
     __metadata("design:type", igniteui_angular_charts_ES5_igx_financial_chart_component__WEBPACK_IMPORTED_MODULE_5__["IgxFinancialChartComponent"])
@@ -1985,10 +1993,10 @@ StatisticsComponent = __decorate([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
         selector: 'app-statistics',
         template: __webpack_require__(/*! raw-loader!./statistics.component.html */ "./node_modules/raw-loader/index.js!./src/app/statistics/statistics.component.html"),
-        changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].OnPush,
+        changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectionStrategy"].Default,
         styles: [__webpack_require__(/*! ./statistics.component.scss */ "./src/app/statistics/statistics.component.scss")]
     }),
-    __metadata("design:paramtypes", [_services_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"]])
+    __metadata("design:paramtypes", [_services_data_service__WEBPACK_IMPORTED_MODULE_1__["DataService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]])
 ], StatisticsComponent);
 
 

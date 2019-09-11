@@ -3,6 +3,7 @@
 @import "~igniteui-angular/lib/core/styles/themes/index";
 @import 'app/app-themes/themes.scss';
 
+/* autoprefixer grid: on */
 html, body, app-root {
   height: 100%;
 }
@@ -83,7 +84,7 @@ app-statistics {
   flex: 1 1 auto;
   align-content: flex-start;
   margin: 16px;
-  min-width: 280px;
+  min-width: 240px;
 }
 
 .sample-title {

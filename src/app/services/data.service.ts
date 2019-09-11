@@ -45,6 +45,13 @@ export class DataService {
          });
    }
 
+   getHistoricalData(symbol: String): Observable<any> {
+      return this.http.get(this.histoDataUrl + symbol + '&tsym=USD&limit=730&api_key=' + this.apiKey)
+         .map(result => {
+            return { data: result, symbol: symbol };
+         });
+   }
+
    getCryptoIdFromSymbol(symbol): Observable<any[]> {
       return this.http.get(this.allCoinsDataUrl)
          .map(result => {
