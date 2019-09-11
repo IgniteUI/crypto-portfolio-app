@@ -14,7 +14,6 @@ import {
 import { CryptoCoin } from '../core/interfaces';
 import { IgxFinancialChartComponent } from 'igniteui-angular-charts/ES5/igx-financial-chart-component';
 import { FinancialOverlayType } from 'igniteui-angular-charts/ES5/FinancialOverlayType';
-import { Thickness } from 'igniteui-angular-core/ES5/Thickness';
 
 @Component({
    selector: 'app-statistics',
@@ -32,7 +31,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    public int = 0;
    public data: any = [];
 
-   constructor(private dataService: DataService, private route: ActivatedRoute, private zone: NgZone) {
+   constructor(private dataService: DataService, private route: ActivatedRoute, private cdr: ChangeDetectorRef, private zone: NgZone) {
 
       this.route
          .paramMap
@@ -47,6 +46,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    }
 
    ngAfterViewInit() {
+      // this.getAndTransformData();
       this.chart.overlayTypes.add(FinancialOverlayType.PriceChannel);
    }
 
@@ -88,8 +88,8 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    }
 
    private arrayRemove(arr, value) {
-      return arr.filter(function (item) {
-         return item[1] !== value;
+      return arr.filter(function(item) {
+          return item[1] !== value;
       });
    }
 
@@ -104,9 +104,11 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
          }
          return obj;
       })).subscribe(res => {
-         // Set combo datasource
-         this.coins = [...res];
-         // Select the requested item
+         // set combo datasource
+         this.coins = res;
+
+         // Or use
+         // this.cdr.detectChanges();
          this.zone.onStable.pipe(first()).subscribe(() => {
             this.combo.selectItems([this.cryptoName.symbol]);
          });

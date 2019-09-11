@@ -13,10 +13,10 @@ a {
   justify-content: center;
 }
 
-.card-wrapper {
-  max-width: 279px;
-  min-width: 260px;
-}
+// .card-wrapper {
+//   max-width: 279px;
+//   min-width: 260px;
+// }
 
 .searchBox {
   width:100%;
@@ -52,4 +52,11 @@ a {
     height: 32px;
     margin-bottom: 8px;
   }
+}
+
+.content-span {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch
 }
