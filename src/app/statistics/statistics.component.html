@@ -6,9 +6,18 @@
         placeholder="Cryptocurrencies" searchPlaceholder="Search...">
       </igx-combo>
     </span>
-    <igx-financial-chart [dataSource]="data" [isToolbarVisible]="true" [crosshairsAnnotationEnabled]="true"
-      height="100%" width="100%" style="margin-top: 20px;" crosshairsDisplayMode="Horizontal"
-      crosshairsSnapToData="true" chartType="candle" trendLineType="ExponentialFit" indicatorTypes="StochRSI"
+    <igx-financial-chart
+      [dataSource]="data"
+      [isToolbarVisible]="true"
+      [crosshairsAnnotationEnabled]="true"
+      height="100%"
+      width="100%"
+      style="margin-top: 20px;"
+      crosshairsDisplayMode="both"
+      crosshairsAnnotationEnabled="true"
+      chartType="candle"
+      trendLineType="ExponentialFit"
+      indicatorTypes="StochRSI"
       finalValueAnnotationsVisible="true" >
     </igx-financial-chart>
   </div>
