@@ -17,7 +17,7 @@ import {
 
 import { HomeComponent } from './home/home.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { IgxFinancialChartModule } from 'igniteui-angular-charts/ES5/igx-financial-chart-module';
+import { IgxFinancialChartModule } from 'igniteui-angular-charts';
 
 import { DataService } from './services/data.service';
 import { HttpClientModule } from '@angular/common/http';
