@@ -37,10 +37,10 @@
     "node-sass": "^4.11.0",
     "rxjs": "^6.6.3",
     "rxjs-compat": "^6.1.0",
-    "tslib": "^1.9.3",
+    "tslib": "^1.10.0",
     "typescript": "3.8.3",
-    "web-animations-js": "2.3.2",
-    "zone.js": "~0.10.3"
+    "web-animations-js": "^2.3.2",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.12",
@@ -50,8 +50,8 @@
     "@types/hammerjs": "^2.0.35",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
-    "@types/node": "~6.0.60",
-    "codelyzer": "^5.0.1",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
     "gulp-gh-pages": "^0.5.4",
     "igniteui-cli": "^4.1.4",
     "jasmine-core": "~2.8.0",
