@@ -53,6 +53,14 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
    ngOnInit() { }
 
+   // tslint:disable-next-line: member-ordering
+   private _dialogOverlaySettings = {
+      closeOnOutsideClick: true,
+      modal: true,
+      outlet: null,
+      scrollStrategy: new CloseScrollStrategy()
+   };
+
    public restore() {
       this.blockItemService.createItem(this.deletedItem);
       this.snack.hide();
@@ -166,15 +174,6 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
       this.updateItem(rowItem);
    }
-
-// tslint:disable-next-line: member-ordering
-   private _dialogOverlaySettings = {
-      closeOnOutsideClick: true,
-      modal: true,
-      outlet: this.outlet,
-      scrollStrategy: new CloseScrollStrategy()
-   };
-
 
    private positive24h = (rowData: any): boolean => {
       return rowData.changePct24Hour > 0;
