@@ -18,9 +18,9 @@
     </div>
     <igx-grid #grid1 [data]="remoteData" width="calc(100% - 18px)" height="100%" [allowFiltering]="true"
       [filterMode]="'excelStyleFilter'">
-      <ng-template igxExcelStyleHidingTemplate></ng-template>
-      <ng-template igxExcelStyleMovingTemplate></ng-template>
-      <ng-template igxExcelStylePinningTemplate></ng-template>
+      <ng-template igxExcelStyleHiding></ng-template>
+      <ng-template igxExcelStyleMoving></ng-template>
+      <ng-template igxExcelStylePinning></ng-template>
       <ng-template igxGroupByRow let-groupRow>
         <div *ngIf="groupRow.expression.fieldName === 'dailyScale'; else defaultGroupByTemplate">
           <div class="igx-group-label">
