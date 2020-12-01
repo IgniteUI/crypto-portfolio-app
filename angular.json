@@ -12,7 +12,8 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist",
+            "outputPath": "docs",
+            "baseHref": "https://igniteui.github.io/crypto-portfolio-app/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",

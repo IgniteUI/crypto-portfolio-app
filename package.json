@@ -7,6 +7,7 @@
     "start": "node --max_old_space_size=12192 node_modules/@angular/cli/bin/ng serve --configuration es5",
     "build": "gulp overwrite-package-json && node --max_old_space_size=12192 node_modules/@angular/cli/bin/ng build --prod --optimization=false",
     "build:web": "node --max_old_space_size=12192 node_modules/@angular/cli/bin/ng build && gulp build-site",
+    "build:and:deploy": "ng build --prod --output-path docs --base-href https://igniteui.github.io/crypto-portfolio-app/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -58,8 +59,9 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "lite-server": "^2.6.1",
     "protractor": "~7.0.0",
+    "rxjs-compat": "^6.6.3",
     "ts-node": "~4.1.0",
     "tslint": "~6.1.0",
-    "typescript": "^4.1.2"
+    "typescript": "^4.0.5"
   }
 }
