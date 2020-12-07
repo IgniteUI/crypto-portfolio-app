@@ -6,8 +6,8 @@
     "ng": "ng",
     "start": "node --max_old_space_size=12192 node_modules/@angular/cli/bin/ng serve --configuration es5",
     "build": "gulp overwrite-package-json && node --max_old_space_size=12192 node_modules/@angular/cli/bin/ng build --prod --optimization=false",
-    "build:web": "node --max_old_space_size=12192 node_modules/@angular/cli/bin/ng build && gulp build-site",
-    "build:and:deploy": "ng build --prod --output-path docs --base-href https://igniteui.github.io/crypto-portfolio-app/",
+    "build:web:old": "node --max_old_space_size=12192 node_modules/@angular/cli/bin/ng build && gulp build-site",
+    "build:web": "ng build --prod --output-path docs --base-href https://igniteui.github.io/crypto-portfolio-app/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
