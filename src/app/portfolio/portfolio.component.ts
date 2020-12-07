@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from 'igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireList } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from 'igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
    selector: 'app-portfolio',
@@ -32,23 +32,22 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
    @ViewChild('modal', { static: true }) public dialog: IgxDialogComponent;
 
    constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
-      private cdr: ChangeDetectorRef) { }
+      public afAuth: AngularFireAuth) { }
 
    ngAfterViewInit() {
-      this.blockItemService.getItemsList().snapshotChanges().pipe(
-         map(actions =>
-            actions.map(a => ({ key: a.payload.key, ...a.payload.val() }))
-         )
-      ).subscribe(items => {
-         this.blockItems = items;
+      this.afAuth.authState.subscribe(res => {
+         if (res && res.uid) {
+            this.blockItemService.getItemsList().snapshotChanges().pipe(
+               map(actions =>
+                  actions.map(a => ({ key: a.payload.key, ...a.payload.val() }))
+               )
+            ).subscribe(items => {
+               this.blockItems = items;
+            });
+
+            this.grid1.sort({ fieldName: 'name', dir: SortingDirection.Asc, ignoreCase: false });
+         }
       });
-
-      setTimeout(() => {
-         this.refreshGrid();
-      }, 100);
-
-      this.grid1.sort({ fieldName: 'name', dir: SortingDirection.Asc, ignoreCase: false });
-      this.cdr.detectChanges();
    }
 
    ngOnInit() { }
@@ -70,10 +69,6 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
    public openDialog() {
       this._dialogOverlaySettings.outlet = this.outlet;
       this.dialog.open(this._dialogOverlaySettings);
-   }
-
-   private refreshGrid() {
-      this.grid1.reflow();
    }
 
    public addItem(event) {
