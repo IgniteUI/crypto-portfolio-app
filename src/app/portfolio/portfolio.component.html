@@ -12,9 +12,13 @@
            </button>
       </span>
 
-      <igx-grid #grid1 [data]="blockItems" width="100%" height="500px" toolbarTitle="My portfolio"
-         (onCellEdit)="updateRow($event)" [showToolbar]="true"
+      <igx-grid #grid1 [data]="blockItems" width="100%" height="500px"
+         (cellEdit)="updateRow($event)"
          [columnHiding]="true" [columnPinning]="true">
+         <igx-grid-toolbar>
+            <igx-grid-toolbar-title><b>My personalized portfolio</b></igx-grid-toolbar-title>
+         </igx-grid-toolbar>
+
          <igx-column field="name" header="Coin symbol" field="name" sortable="true">
             <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                <div class="positionTop">

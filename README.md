@@ -19,6 +19,7 @@ This project is generated with [Angular CLI](https://github.com/angular/angular-
 1. [Generate CryptoCompare API key](https://min-api.cryptocompare.com/pricing?utm_source=homepage&utm_medium=banner&utm_campaign=home_banner_cta) (Used by data services)
 2. [Generate Firebase configuration](https://firebase.google.com/docs/web/setup) (Used for firebase auth and data storing).
 1. Run `npm install`
+Note: Use node version 10.18.1
 2. Run `ng serve -o`
 
 Note: Once you generate CryptoCompare API key, put it in the [`data.service.ts`](https://github.com/IgniteUI/crypto-portfolio-app/blob/master/src/app/services/data.service.ts#L13) as `private apiKey: string = '<your-api-key>'`.

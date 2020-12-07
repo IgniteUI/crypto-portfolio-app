@@ -6,6 +6,7 @@ import { transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
 import { interval } from 'rxjs';
 import { Router } from '@angular/router';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-block-grid',
@@ -30,7 +31,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
 
   private loadData() {
     interval(15000)
-      .startWith(0)
+      .pipe(startWith(0))
       .subscribe(() => {
         this.dataService.getData().subscribe(res => {
         this.remoteData = res;

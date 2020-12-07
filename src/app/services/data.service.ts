@@ -5,7 +5,7 @@ import { flattenObject } from '../core/utils';
 import { Observable } from 'rxjs';
 import { sortDataByKey, fillFromJSON } from '../core/utils';
 import { CoinItem, BlockItem } from '../core/interfaces';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DataService {
@@ -21,43 +21,41 @@ export class DataService {
 
    getData(): Observable<CoinItem[]> {
       return this.http.get(this.baseUrl)
-         .map(result => {
+         .pipe(map(result => {
             return this.transformData(result);
-         })
-         .publishReplay(1, 300000)
-         .refCount();
+         }));
    }
 
    getSpecificCoinData(symbol): Observable<BlockItem> {
       return this.http.get(this.priceMultiFullUrl + symbol + '&tsyms=USD&api_key=' + this.apiKey)
-         .map(result => {
+         .pipe(map(result => {
             const returnedCoin = flattenObject(result['RAW'][symbol]['USD']);
             const coin = new BlockItem();
             fillFromJSON(coin, returnedCoin);
             return coin;
-         });
+         }));
    }
 
    getBetweenDaysPrices(symbol: String, forDays: Number): Observable<any> {
       return this.http.get(this.histoDataUrl + symbol + '&tsym=USD&limit=' + forDays + '&api_key=' + this.apiKey)
-         .map(result => {
+         .pipe(map(result => {
             return result;
-         });
+         }));
    }
 
    getHistoricalData(symbol: String): Observable<any> {
       return this.http.get(this.histoDataUrl + symbol + '&tsym=USD&limit=730&api_key=' + this.apiKey)
-         .map(result => {
+         .pipe(map(result => {
             return { data: result, symbol: symbol };
-         });
+         }));
    }
 
    getCryptoIdFromSymbol(symbol): Observable<any[]> {
       return this.http.get(this.allCoinsDataUrl)
-         .map(result => {
+         .pipe(map(result => {
             const crypto = result['Data'][symbol];
             return crypto;
-         });
+         }));
    }
 
    private transformData(data) {

@@ -12,8 +12,8 @@ import {
    IComboSelectionChangeEventArgs
 } from 'igniteui-angular';
 import { CryptoCoin } from '../core/interfaces';
-import { IgxFinancialChartComponent } from 'igniteui-angular-charts/ES5/igx-financial-chart-component';
-import { FinancialOverlayType } from 'igniteui-angular-charts/ES5/FinancialOverlayType';
+import { IgxFinancialChartComponent } from 'igniteui-angular-charts';
+import { FinancialOverlayType } from 'igniteui-angular-charts';
 
 @Component({
    selector: 'app-statistics',

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BlockListComponent } from './block-list.component';
 
@@ -6,7 +6,7 @@ describe('BlockListComponent', () => {
   let component: BlockListComponent;
   let fixture: ComponentFixture<BlockListComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BlockListComponent ]
     })
