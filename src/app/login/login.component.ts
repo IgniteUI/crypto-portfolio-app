@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn } from '../router.animations';
 import * as firebase from 'firebase/app';
+import { facebook, google } from '@igniteui/material-icons-extended';
+import { IgxIconService } from '@infragistics/igniteui-angular';
 
 @Component({
    selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
    showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 
-   constructor(public afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute) {
+   constructor(public afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute,
+      private iconService: IgxIconService) {
 
       this.afAuth.authState.subscribe(auth => {
          localStorage.setItem('showSpinner', 'false');
@@ -34,6 +37,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
       // Get the query params
       this.route.queryParams
          .subscribe(params => this.return = params['return'] || '/home');
+
+      // Register a single icon
+      this.iconService.addSvgIconFromText(facebook.name, facebook.value, 'imx-icons');
+      this.iconService.addSvgIconFromText(google.name, google.value, 'imx-icons');
    }
 
    ngAfterViewInit() {
