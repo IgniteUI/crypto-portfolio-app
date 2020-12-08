@@ -65,7 +65,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
     return this.windowWidth && this.windowWidth < 800;
   }
 
-  public setWidth (withHideColumns: string, withoutHideColumns: string)  {
+  public setWidth(withHideColumns: string, withoutHideColumns: string)  {
    return this.hideColumn ? withHideColumns : withoutHideColumns;
   }
 
@@ -94,7 +94,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
   };
 
   public refreshGrid() {
-    this.grid1.reflow();
+    // this.grid1.reflow();
     this.loadData();
   }
 

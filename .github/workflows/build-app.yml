@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [12.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,4 +35,4 @@ jobs:
       - name: 'Build the app'
         run: npm run build
         env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
+          NODE_OPTIONS: "--max_old_space_size=12192"

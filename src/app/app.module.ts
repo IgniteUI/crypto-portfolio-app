@@ -10,8 +10,7 @@ import {
    IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
    IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule,
    IgxDialogModule, IgxToggleModule, IgxDividerModule, IgxExpansionPanelModule, IgxExcelExporterService,
-   IgxTooltipModule,
-   IgxGridCommonModule,
+   IgxTooltipModule,IgxActionStripModule, IgxFocusModule,
    IgxComboModule
 } from 'igniteui-angular';
 
@@ -82,6 +81,8 @@ export const firebaseConfig = {
       IgxToggleModule,
       IgxGridModule,
       IgxComboModule,
+      IgxActionStripModule,
+      IgxFocusModule,
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFirestoreModule, // imports firebase/firestore, only needed for database features
       AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
