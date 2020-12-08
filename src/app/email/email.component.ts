@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
-import { IgxSnackbarComponent } from 'igniteui-angular';
+import { IgxSnackbarComponent } from '@infragistics/igniteui-angular';
 
 @Component({
   selector: 'app-email',

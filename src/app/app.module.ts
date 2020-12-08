@@ -12,7 +12,7 @@ import {
    IgxDialogModule, IgxToggleModule, IgxDividerModule, IgxExpansionPanelModule, IgxExcelExporterService,
    IgxTooltipModule,IgxActionStripModule, IgxFocusModule,
    IgxComboModule
-} from 'igniteui-angular';
+} from '@infragistics/igniteui-angular';
 
 import { HomeComponent } from './home/home.component';
 import { StatisticsComponent } from './statistics/statistics.component';
