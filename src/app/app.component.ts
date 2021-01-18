@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
    }
 
    private logout() {
-      this.afAuth.auth.signOut();
+      this.afAuth.signOut();
       this.router.navigateByUrl('/home');
    }
 
