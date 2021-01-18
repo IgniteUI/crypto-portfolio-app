@@ -16,8 +16,8 @@ import { IgxIconService } from '@infragistics/igniteui-angular';
 export class LoginComponent implements OnInit, AfterViewInit {
    return = '';
    error: any;
-   googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-   facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+   googleAuthProvider = new firebase.default.auth.GoogleAuthProvider();
+   facebookAuthProvider = new firebase.default.auth.FacebookAuthProvider();
 
    showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 
@@ -49,8 +49,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
    loginFb() {
       this.showSpinner = true;
       localStorage.setItem('showSpinner', 'true');
-      this.afAuth.auth.signInWithRedirect(this.facebookAuthProvider);
-      this.afAuth.auth.getRedirectResult().then(result => {
+      this.afAuth.signInWithRedirect(this.facebookAuthProvider);
+      this.afAuth.getRedirectResult().then(result => {
          if (result.user) {
             this.showSpinner = true;
             localStorage.setItem('showSpinner', 'true');
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
    }
 
    loginGoogle() {
-      this.afAuth.auth.signInWithRedirect(this.googleAuthProvider).then(
+      this.afAuth.signInWithRedirect(this.googleAuthProvider).then(
          (success) => {
             this.router.navigate([this.return]);
          }).catch(
