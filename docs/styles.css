@@ -2234,7 +2234,7 @@ igx-nav-drawer {
   color: var(--igx-calendar-content-text-color);
   outline: none;
 }
-.igx-calendar__date:hover .igx-calendar__date-content::after, .igx-calendar__date:focus .igx-calendar__date-content::after {
+.igx-calendar__date:hover .igx-calendar__date-content::after, .igx-calendar__date:focus .igx-calendar__date-content::after, .igx-calendar__date--weekend:hover .igx-calendar__date-content::after, .igx-calendar__date--weekend:focus .igx-calendar__date-content::after {
   background: var(--igx-calendar-date-hover-background);
 }
 .igx-calendar__date--selected:hover .igx-calendar__date-content ::after, .igx-calendar__date--selected:focus .igx-calendar__date-content ::after {
@@ -4027,10 +4027,10 @@ igx-nav-drawer {
 .igx-date-picker .igx-calendar__date--current {
   color: var(--igx-calendar-date-current-text-color);
 }
-.igx-date-picker .igx-calendar__date:hover .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date:focus .igx-calendar__date-content::after {
+.igx-date-picker .igx-calendar__date:hover .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date:focus .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date--weekend:hover .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date--weekend:focus .igx-calendar__date-content::after {
   background: var(--igx-calendar-date-hover-background);
 }
-.igx-date-picker .igx-calendar__date.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:focus .igx-calendar__date-content::after {
+.igx-date-picker .igx-calendar__date.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:focus .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date--weekend.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .igx-date-picker .igx-calendar__date--weekend.igx-calendar__date--selected:focus .igx-calendar__date-content::after {
   background: rgba(0, 0, 0, 0.18);
 }
 .igx-date-picker--vertical {
@@ -8092,6 +8092,18 @@ igx-excel-style-filter-operations,
   line-height: normal !important;
   /* resets typography styles */
 }
+.igx-input-group--disabled .igx-input-group__textarea, .igx-input-group--disabled.igx-input-group--required .igx-input-group__textarea {
+  color: var(--igx-input-group-disabled-text-color) !important;
+}
+.igx-input-group--disabled .igx-input-group__textarea::-moz-placeholder, .igx-input-group--disabled.igx-input-group--required .igx-input-group__textarea::-moz-placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
+.igx-input-group--disabled .igx-input-group__textarea:-ms-input-placeholder, .igx-input-group--disabled.igx-input-group--required .igx-input-group__textarea:-ms-input-placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
+.igx-input-group--disabled .igx-input-group__textarea::placeholder, .igx-input-group--disabled.igx-input-group--required .igx-input-group__textarea::placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
 .igx-input-group--cosy .igx-input-group__textarea {
   min-height: 4.3157894737rem;
   margin-right: -0.8421052632rem;
@@ -9852,8 +9864,14 @@ igx-excel-style-filter-operations,
   /* 32 / 40 */
   transform: scale(0.8);
 }
+.igx-slider__thumb-from:focus .dot::before, .igx-slider__thumb-to:focus .dot::before {
+  box-shadow: 0 0 0 0.1875rem var(--igx-slider-thumb-focus-color);
+}
 .igx-slider--disabled .igx-slider__thumb-from:hover .igx-slider__label-from .label, .igx-slider__label-from .igx-slider--disabled .igx-slider__thumb-from:hover .label, .igx-slider--disabled .igx-slider__thumb-to:hover .igx-slider__label-from .label, .igx-slider__label-from .igx-slider--disabled .igx-slider__thumb-to:hover .label, .igx-slider--disabled .igx-slider__thumb-from:hover .igx-slider__label-to .label, .igx-slider__label-to .igx-slider--disabled .igx-slider__thumb-from:hover .label, .igx-slider--disabled .igx-slider__thumb-to:hover .igx-slider__label-to .label, .igx-slider__label-to .igx-slider--disabled .igx-slider__thumb-to:hover .label {
   opacity: 0;
+}
+.igx-slider--disabled .igx-slider__thumb-from:focus .dot::before, .igx-slider--disabled .igx-slider__thumb-to:focus .dot::before {
+  box-shadow: none;
 }
 .igx-slider__label-from, .igx-slider__label-to {
   position: absolute;
@@ -11782,7 +11800,7 @@ igx-excel-style-filter-operations,
   color: var(--igx-calendar-content-text-color);
   outline: none;
 }
-.dark-theme .igx-calendar__date:hover .igx-calendar__date-content::after, .dark-theme .igx-calendar__date:focus .igx-calendar__date-content::after {
+.dark-theme .igx-calendar__date:hover .igx-calendar__date-content::after, .dark-theme .igx-calendar__date:focus .igx-calendar__date-content::after, .dark-theme .igx-calendar__date--weekend:hover .igx-calendar__date-content::after, .dark-theme .igx-calendar__date--weekend:focus .igx-calendar__date-content::after {
   background: var(--igx-calendar-date-hover-background);
 }
 .dark-theme .igx-calendar__date--selected:hover .igx-calendar__date-content ::after, .dark-theme .igx-calendar__date--selected:focus .igx-calendar__date-content ::after {
@@ -13675,10 +13693,10 @@ igx-excel-style-filter-operations,
 .dark-theme .igx-date-picker .igx-calendar__date--current {
   color: var(--igx-calendar-date-current-text-color);
 }
-.dark-theme .igx-date-picker .igx-calendar__date:hover .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date:focus .igx-calendar__date-content::after {
+.dark-theme .igx-date-picker .igx-calendar__date:hover .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date:focus .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date--weekend:hover .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date--weekend:focus .igx-calendar__date-content::after {
   background: var(--igx-calendar-date-hover-background);
 }
-.dark-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:focus .igx-calendar__date-content::after {
+.dark-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:focus .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date--weekend.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .dark-theme .igx-date-picker .igx-calendar__date--weekend.igx-calendar__date--selected:focus .igx-calendar__date-content::after {
   background: rgba(0, 0, 0, 0.18);
 }
 .dark-theme .igx-date-picker--vertical {
@@ -17719,6 +17737,18 @@ igx-excel-style-filter-operations,
   line-height: normal !important;
   /* resets typography styles */
 }
+.dark-theme .igx-input-group--disabled .igx-input-group__textarea, .igx-input-group--disabled .dark-theme .igx-input-group__textarea {
+  color: var(--igx-input-group-disabled-text-color) !important;
+}
+.dark-theme .igx-input-group--disabled .igx-input-group__textarea::-moz-placeholder, .igx-input-group--disabled .dark-theme .igx-input-group__textarea::-moz-placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
+.dark-theme .igx-input-group--disabled .igx-input-group__textarea:-ms-input-placeholder, .igx-input-group--disabled .dark-theme .igx-input-group__textarea:-ms-input-placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
+.dark-theme .igx-input-group--disabled .igx-input-group__textarea::placeholder, .igx-input-group--disabled .dark-theme .igx-input-group__textarea::placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
 .dark-theme .igx-input-group--cosy .igx-input-group__textarea, .igx-input-group--cosy .dark-theme .igx-input-group__textarea {
   min-height: 4.3157894737rem;
   margin-right: -0.8421052632rem;
@@ -19409,8 +19439,14 @@ igx-excel-style-filter-operations,
   /* 32 / 40 */
   transform: scale(0.8);
 }
+.dark-theme .igx-slider__thumb-from:focus .dot::before, .dark-theme .igx-slider__thumb-to:focus .dot::before {
+  box-shadow: 0 0 0 0.1875rem var(--igx-slider-thumb-focus-color);
+}
 .dark-theme .igx-slider--disabled .igx-slider__thumb-from:hover .igx-slider__label-from .label, .igx-slider__label-from .dark-theme .igx-slider--disabled .igx-slider__thumb-from:hover .label, .igx-slider--disabled .dark-theme .igx-slider__thumb-from:hover .igx-slider__label-from .label, .igx-slider__label-from .igx-slider--disabled .dark-theme .igx-slider__thumb-from:hover .label, .dark-theme .igx-slider--disabled .igx-slider__thumb-to:hover .igx-slider__label-from .label, .igx-slider__label-from .dark-theme .igx-slider--disabled .igx-slider__thumb-to:hover .label, .igx-slider--disabled .dark-theme .igx-slider__thumb-to:hover .igx-slider__label-from .label, .igx-slider__label-from .igx-slider--disabled .dark-theme .igx-slider__thumb-to:hover .label, .dark-theme .igx-slider--disabled .igx-slider__thumb-from:hover .igx-slider__label-to .label, .igx-slider__label-to .dark-theme .igx-slider--disabled .igx-slider__thumb-from:hover .label, .igx-slider--disabled .dark-theme .igx-slider__thumb-from:hover .igx-slider__label-to .label, .igx-slider__label-to .igx-slider--disabled .dark-theme .igx-slider__thumb-from:hover .label, .dark-theme .igx-slider--disabled .igx-slider__thumb-to:hover .igx-slider__label-to .label, .igx-slider__label-to .dark-theme .igx-slider--disabled .igx-slider__thumb-to:hover .label, .igx-slider--disabled .dark-theme .igx-slider__thumb-to:hover .igx-slider__label-to .label, .igx-slider__label-to .igx-slider--disabled .dark-theme .igx-slider__thumb-to:hover .label {
   opacity: 0;
+}
+.dark-theme .igx-slider--disabled .igx-slider__thumb-from:focus .dot::before, .igx-slider--disabled .dark-theme .igx-slider__thumb-from:focus .dot::before, .dark-theme .igx-slider--disabled .igx-slider__thumb-to:focus .dot::before, .igx-slider--disabled .dark-theme .igx-slider__thumb-to:focus .dot::before {
+  box-shadow: none;
 }
 .dark-theme .igx-slider__label-from, .dark-theme .igx-slider__label-to {
   position: absolute;
@@ -21591,7 +21627,7 @@ igx-excel-style-filter-operations,
   color: var(--igx-calendar-content-text-color);
   outline: none;
 }
-.light-theme .igx-calendar__date:hover .igx-calendar__date-content::after, .light-theme .igx-calendar__date:focus .igx-calendar__date-content::after {
+.light-theme .igx-calendar__date:hover .igx-calendar__date-content::after, .light-theme .igx-calendar__date:focus .igx-calendar__date-content::after, .light-theme .igx-calendar__date--weekend:hover .igx-calendar__date-content::after, .light-theme .igx-calendar__date--weekend:focus .igx-calendar__date-content::after {
   background: var(--igx-calendar-date-hover-background);
 }
 .light-theme .igx-calendar__date--selected:hover .igx-calendar__date-content ::after, .light-theme .igx-calendar__date--selected:focus .igx-calendar__date-content ::after {
@@ -23556,10 +23592,10 @@ igx-excel-style-filter-operations,
 .light-theme .igx-date-picker .igx-calendar__date--current {
   color: var(--igx-calendar-date-current-text-color);
 }
-.light-theme .igx-date-picker .igx-calendar__date:hover .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date:focus .igx-calendar__date-content::after {
+.light-theme .igx-date-picker .igx-calendar__date:hover .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date:focus .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date--weekend:hover .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date--weekend:focus .igx-calendar__date-content::after {
   background: var(--igx-calendar-date-hover-background);
 }
-.light-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:focus .igx-calendar__date-content::after {
+.light-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date.igx-calendar__date--selected:focus .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date--weekend.igx-calendar__date--selected:hover .igx-calendar__date-content::after, .light-theme .igx-date-picker .igx-calendar__date--weekend.igx-calendar__date--selected:focus .igx-calendar__date-content::after {
   background: rgba(0, 0, 0, 0.18);
 }
 .light-theme .igx-date-picker--vertical {
@@ -27597,6 +27633,18 @@ igx-excel-style-filter-operations,
   line-height: normal !important;
   /* resets typography styles */
 }
+.light-theme .igx-input-group--disabled .igx-input-group__textarea, .igx-input-group--disabled .light-theme .igx-input-group__textarea {
+  color: var(--igx-input-group-disabled-text-color) !important;
+}
+.light-theme .igx-input-group--disabled .igx-input-group__textarea::-moz-placeholder, .igx-input-group--disabled .light-theme .igx-input-group__textarea::-moz-placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
+.light-theme .igx-input-group--disabled .igx-input-group__textarea:-ms-input-placeholder, .igx-input-group--disabled .light-theme .igx-input-group__textarea:-ms-input-placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
+.light-theme .igx-input-group--disabled .igx-input-group__textarea::placeholder, .igx-input-group--disabled .light-theme .igx-input-group__textarea::placeholder {
+  color: var(--igx-input-group-disabled-placeholder-color);
+}
 .light-theme .igx-input-group--cosy .igx-input-group__textarea, .igx-input-group--cosy .light-theme .igx-input-group__textarea {
   min-height: 4.3157894737rem;
   margin-right: -0.8421052632rem;
@@ -29299,8 +29347,14 @@ igx-excel-style-filter-operations,
   /* 32 / 40 */
   transform: scale(0.8);
 }
+.light-theme .igx-slider__thumb-from:focus .dot::before, .light-theme .igx-slider__thumb-to:focus .dot::before {
+  box-shadow: 0 0 0 0.1875rem var(--igx-slider-thumb-focus-color);
+}
 .light-theme .igx-slider--disabled .igx-slider__thumb-from:hover .igx-slider__label-from .label, .igx-slider__label-from .light-theme .igx-slider--disabled .igx-slider__thumb-from:hover .label, .igx-slider--disabled .light-theme .igx-slider__thumb-from:hover .igx-slider__label-from .label, .igx-slider__label-from .igx-slider--disabled .light-theme .igx-slider__thumb-from:hover .label, .light-theme .igx-slider--disabled .igx-slider__thumb-to:hover .igx-slider__label-from .label, .igx-slider__label-from .light-theme .igx-slider--disabled .igx-slider__thumb-to:hover .label, .igx-slider--disabled .light-theme .igx-slider__thumb-to:hover .igx-slider__label-from .label, .igx-slider__label-from .igx-slider--disabled .light-theme .igx-slider__thumb-to:hover .label, .light-theme .igx-slider--disabled .igx-slider__thumb-from:hover .igx-slider__label-to .label, .igx-slider__label-to .light-theme .igx-slider--disabled .igx-slider__thumb-from:hover .label, .igx-slider--disabled .light-theme .igx-slider__thumb-from:hover .igx-slider__label-to .label, .igx-slider__label-to .igx-slider--disabled .light-theme .igx-slider__thumb-from:hover .label, .light-theme .igx-slider--disabled .igx-slider__thumb-to:hover .igx-slider__label-to .label, .igx-slider__label-to .light-theme .igx-slider--disabled .igx-slider__thumb-to:hover .label, .igx-slider--disabled .light-theme .igx-slider__thumb-to:hover .igx-slider__label-to .label, .igx-slider__label-to .igx-slider--disabled .light-theme .igx-slider__thumb-to:hover .label {
   opacity: 0;
+}
+.light-theme .igx-slider--disabled .igx-slider__thumb-from:focus .dot::before, .igx-slider--disabled .light-theme .igx-slider__thumb-from:focus .dot::before, .light-theme .igx-slider--disabled .igx-slider__thumb-to:focus .dot::before, .igx-slider--disabled .light-theme .igx-slider__thumb-to:focus .dot::before {
+  box-shadow: none;
 }
 .light-theme .igx-slider__label-from, .light-theme .igx-slider__label-to {
   position: absolute;
