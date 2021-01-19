@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/IgniteUI/crypto-portfolio-app.svg?branch=master)](https://travis-ci.org/IgniteUI/crypto-portfolio-app)
+![CI](https://github.com/IgniteUI/crypto-portfolio-app/workflows/CI/badge.svg?branch=master)
 
 ## Inspired by [Ignite UI for Angular](https://github.com/IgniteUI/igniteui-angular)
 
