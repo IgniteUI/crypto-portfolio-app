@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn } from '../router.animations';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { facebook, google } from '@igniteui/material-icons-extended';
 import { IgxIconService } from '@infragistics/igniteui-angular';
 
@@ -16,8 +16,8 @@ import { IgxIconService } from '@infragistics/igniteui-angular';
 export class LoginComponent implements OnInit, AfterViewInit {
    return = '';
    error: any;
-   googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-   facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+   googleAuthProvider: any;
+   facebookAuthProvider: any;
 
    showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 
@@ -49,8 +49,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
    loginFb() {
       this.showSpinner = true;
       localStorage.setItem('showSpinner', 'true');
-      this.afAuth.auth.signInWithRedirect(this.facebookAuthProvider);
-      this.afAuth.auth.getRedirectResult().then(result => {
+      this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+
+      this.afAuth.signInWithRedirect(this.facebookAuthProvider);
+      this.afAuth.getRedirectResult().then(result => {
          if (result.user) {
             this.showSpinner = true;
             localStorage.setItem('showSpinner', 'true');
@@ -65,7 +67,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
    }
 
    loginGoogle() {
-      this.afAuth.auth.signInWithRedirect(this.googleAuthProvider).then(
+      this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+      this.afAuth.signInWithRedirect(this.googleAuthProvider).then(
          (success) => {
             this.router.navigate([this.return]);
          }).catch(

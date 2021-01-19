@@ -3,7 +3,7 @@
     <igx-icon id="lockIcon">lock_open</igx-icon>
     <span class="error" *ngIf="error">{{ error }}</span>
 
-    <button class="button" igxButton="raised" igxRipple (click)="loginFb()" id="fb">
+    <button class="button" igxButton="raised" igxRipple (click)="loginFb()" id="fb" [disabled]="true" >
       <igx-icon class="s-logo" fontSet="imx-icons" name="facebook"></igx-icon>
       <span>Login With Facebook</span>
     </button>

@@ -2967,7 +2967,7 @@
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
       /* harmony import */
 
 
@@ -3240,7 +3240,7 @@
         }, {
           key: "logout",
           value: function logout() {
-            this.afAuth.auth.signOut();
+            this.afAuth.signOut();
             this.router.navigateByUrl('/home');
           }
         }, {
@@ -3435,13 +3435,13 @@
 
       var _angular_fire_database__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/fire/database */
-      "36mX");
+      "sSZD");
       /* harmony import */
 
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
 
       var ItemService = /*#__PURE__*/function () {
         function ItemService(db, auth) {
@@ -4442,31 +4442,31 @@
 
       var _angular_fire__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @angular/fire */
-      "05qF");
+      "spgP");
       /* harmony import */
 
 
       var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! @angular/fire/firestore */
-      "mrps");
+      "I/3d");
       /* harmony import */
 
 
       var _angular_fire_storage__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! @angular/fire/storage */
-      "g1va");
+      "Vaw3");
       /* harmony import */
 
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
       /* harmony import */
 
 
       var _angular_fire_database__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! @angular/fire/database */
-      "36mX");
+      "sSZD");
       /* harmony import */
 
 
@@ -4803,7 +4803,7 @@
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
       /* harmony import */
 
 
@@ -4940,7 +4940,7 @@
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
       /* harmony import */
 
 
@@ -5000,7 +5000,7 @@
             var _this16 = this;
 
             if (formData.valid) {
-              this.afAuth.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(function (success) {
+              this.afAuth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(function (success) {
                 _this16.router.navigate([_this16["return"]]);
               })["catch"](function (err) {
                 _this16.snack.show();
@@ -5248,7 +5248,7 @@
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
       /* harmony import */
 
 
@@ -5291,7 +5291,7 @@
             var _this17 = this;
 
             if (formData.valid) {
-              this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(function (success) {
+              this.afAuth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(function (success) {
                 _this17.router.navigate(['/login']);
               })["catch"](function (err) {
                 _this17.snack.show();
@@ -5711,7 +5711,7 @@
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
       /* harmony import */
 
 
@@ -5729,11 +5729,7 @@
 
       var firebase_app__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! firebase/app */
-      "Wcq6");
-      /* harmony import */
-
-
-      var firebase_app__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(firebase_app__WEBPACK_IMPORTED_MODULE_4__);
+      "Jgta");
       /* harmony import */
 
 
@@ -5880,6 +5876,10 @@
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r0.error);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("disabled", true);
         }
       }
 
@@ -5912,8 +5912,6 @@
           this.route = route;
           this.iconService = iconService;
           this["return"] = '';
-          this.googleAuthProvider = new firebase_app__WEBPACK_IMPORTED_MODULE_4__["auth"].GoogleAuthProvider();
-          this.facebookAuthProvider = new firebase_app__WEBPACK_IMPORTED_MODULE_4__["auth"].FacebookAuthProvider();
           this.showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
           this.afAuth.authState.subscribe(function (auth) {
             localStorage.setItem('showSpinner', 'false');
@@ -5947,8 +5945,9 @@
 
             this.showSpinner = true;
             localStorage.setItem('showSpinner', 'true');
-            this.afAuth.auth.signInWithRedirect(this.facebookAuthProvider);
-            this.afAuth.auth.getRedirectResult().then(function (result) {
+            this.facebookAuthProvider = new firebase_app__WEBPACK_IMPORTED_MODULE_4__["default"].auth.FacebookAuthProvider();
+            this.afAuth.signInWithRedirect(this.facebookAuthProvider);
+            this.afAuth.getRedirectResult().then(function (result) {
               if (result.user) {
                 _this20.showSpinner = true;
                 localStorage.setItem('showSpinner', 'true');
@@ -5967,7 +5966,8 @@
           value: function loginGoogle() {
             var _this21 = this;
 
-            this.afAuth.auth.signInWithRedirect(this.googleAuthProvider).then(function (success) {
+            this.googleAuthProvider = new firebase_app__WEBPACK_IMPORTED_MODULE_4__["default"].auth.GoogleAuthProvider();
+            this.afAuth.signInWithRedirect(this.googleAuthProvider).then(function (success) {
               _this21.router.navigate([_this21["return"]]);
             })["catch"](function (err) {
               _this21.error = err;
@@ -6002,12 +6002,12 @@
         },
         decls: 4,
         vars: 2,
-        consts: [[1, "form-container"], [4, "ngIf", "ngIfElse"], ["elseBlock", ""], ["id", "lockIcon"], ["class", "error", 4, "ngIf"], ["igxButton", "raised", "igxRipple", "", "id", "fb", 1, "button", 3, "click"], ["fontSet", "imx-icons", "name", "facebook", 1, "s-logo"], ["igxButton", "raised", "igxRipple", "", "id", "google", 1, "button", 3, "click"], ["fontSet", "imx-icons", "name", "google", 1, "s-logo"], ["igxButton", "raised", "igxRipple", "", "id", "email", 1, "button", 3, "click"], [1, "s-logo"], ["routerLink", "/signup", "routerLinkActive", "active", 1, "alc"], [1, "error"], [4, "ngIf"]],
+        consts: [[1, "form-container"], [4, "ngIf", "ngIfElse"], ["elseBlock", ""], ["id", "lockIcon"], ["class", "error", 4, "ngIf"], ["igxButton", "raised", "igxRipple", "", "id", "fb", 1, "button", 3, "disabled", "click"], ["fontSet", "imx-icons", "name", "facebook", 1, "s-logo"], ["igxButton", "raised", "igxRipple", "", "id", "google", 1, "button", 3, "click"], ["fontSet", "imx-icons", "name", "google", 1, "s-logo"], ["igxButton", "raised", "igxRipple", "", "id", "email", 1, "button", 3, "click"], [1, "s-logo"], ["routerLink", "/signup", "routerLinkActive", "active", 1, "alc"], [1, "error"], [4, "ngIf"]],
         template: function LoginComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, LoginComponent_div_1_Template, 21, 1, "div", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, LoginComponent_div_1_Template, 21, 2, "div", 1);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, LoginComponent_ng_template_2_Template, 1, 1, "ng-template", null, 2, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
 
@@ -6179,7 +6179,7 @@
 
       var _angular_fire_auth__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/fire/auth */
-      "KDZV");
+      "UbJi");
       /* harmony import */
 
 

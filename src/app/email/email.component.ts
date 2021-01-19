@@ -34,7 +34,7 @@ export class EmailComponent implements OnInit {
 
   onSubmit(formData) {
     if (formData.valid) {
-      this.afAuth.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
+      this.afAuth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (success) => {
           this.router.navigate([this.return]);
         }).catch(

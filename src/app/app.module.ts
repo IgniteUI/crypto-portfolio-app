@@ -10,7 +10,7 @@ import {
    IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule,
    IgxInputGroupModule, IgxFilterModule, IgxGridModule, IgxListModule, IgxTabsModule, IgxSnackbarModule,
    IgxDialogModule, IgxToggleModule, IgxDividerModule, IgxExpansionPanelModule, IgxExcelExporterService,
-   IgxTooltipModule,IgxActionStripModule, IgxFocusModule,
+   IgxTooltipModule, IgxActionStripModule, IgxFocusModule,
    IgxComboModule
 } from '@infragistics/igniteui-angular';
 
