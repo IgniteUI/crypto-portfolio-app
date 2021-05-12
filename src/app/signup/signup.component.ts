@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
                this.router.navigate(['/login']);
             }).catch(
                (err) => {
-                  this.snack.show();
+                  this.snack.open();
                   this.error = err;
             });
       }
