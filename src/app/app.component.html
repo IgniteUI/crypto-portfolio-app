@@ -11,7 +11,7 @@
     </ng-template>
   </igx-nav-drawer>
   <div igxFlex>
-    <igx-navbar title="Crypto Blockfolio App" actionButtonIcon="menu" (onAction)="nav.toggle()" igxFlex>
+    <igx-navbar title="Crypto Blockfolio App" actionButtonIcon="menu" (action)="nav.toggle()" igxFlex>
         <div class="theme-chooser">
             <div *ngIf ="darkTheme" class="theme-chooser__item--light"
             (click)="this.changeTheme()" title = "Light Theme">
