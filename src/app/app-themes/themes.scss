@@ -2,6 +2,7 @@
 @import '~@infragistics/igniteui-angular/lib/core/styles/themes/utilities';
 @import '~@infragistics/igniteui-angular/lib/core/styles/themes/index';
 @include igx-core();
+@include igx-typography();
 @include igx-theme($default-palette);
 
 @import 'mixins';
@@ -82,7 +83,7 @@ $new-navdrawer-theme: igx-navdrawer-theme(
     @include igx-grid($light-cell-selection);
     @include scrollbar-love();
 
-    .igx-card {
+    .igx-card [igxButton="flat"] {
       // Pass the theme to a to the `igx-button` mixin
       @include igx-button($new-icon-button-theme);
     }
