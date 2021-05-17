@@ -16,15 +16,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "11.0.2",
-    "@angular/common": "11.0.2",
-    "@angular/compiler": "11.0.2",
-    "@angular/core": "^11.0.2",
+    "@angular/animations": "12.0.0",
+    "@angular/common": "12.0.0",
+    "@angular/compiler": "12.0.0",
+    "@angular/core": "^12.0.0",
     "@angular/fire": "^6.1.4",
-    "@angular/forms": "11.0.2",
-    "@angular/platform-browser": "11.0.2",
-    "@angular/platform-browser-dynamic": "11.0.2",
-    "@angular/router": "11.0.2",
+    "@angular/forms": "12.0.0",
+    "@angular/platform-browser": "12.0.0",
+    "@angular/platform-browser-dynamic": "12.0.0",
+    "@angular/router": "12.0.0",
     "@igniteui/angular-schematics": "^11.0.701",
     "@igniteui/material-icons-extended": "^2.6.0",
     "@infragistics/igniteui-angular": "^11.0.3",
@@ -37,13 +37,13 @@
     "rxjs": "^6.6.3",
     "tslib": "^2.0.0",
     "web-animations-js": "^2.3.2",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1100.2",
-    "@angular/cli": "11.0.2",
-    "@angular/compiler-cli": "11.0.2",
-    "@angular/language-service": "11.0.2",
+    "@angular-devkit/build-angular": "~12.0.0",
+    "@angular/cli": "12.0.0",
+    "@angular/compiler-cli": "12.0.0",
+    "@angular/language-service": "12.0.0",
     "@types/hammerjs": "^2.0.35",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.2",
@@ -55,7 +55,7 @@
     "igniteui-cli": "^4.1.4",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~5.0.0",
+    "karma": "~6.3.2",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
@@ -65,6 +65,6 @@
     "rxjs-compat": "^6.6.3",
     "ts-node": "~4.1.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.2"
+    "typescript": "~4.2.4"
   }
 }
