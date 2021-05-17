@@ -65,8 +65,7 @@
          </igx-action-strip> -->
       </igx-grid>
       <div class="sbPosition">
-         <igx-snackbar #snack [autoHide]="true" message="Record was deleted" actionText="Undo" (onAction)="restore()">
-         </igx-snackbar>
+         <igx-snackbar #snack [autoHide]="true" actionText="UNDO" (clicked)="restore()">Record was deleted</igx-snackbar>
       </div>
       <div class="sbPosition">
          <igx-snackbar #snackExists [autoHide]="true">
