@@ -39,7 +39,7 @@ export class EmailComponent implements OnInit {
           this.router.navigate([this.return]);
         }).catch(
           (err) => {
-            this.snack.show();
+            this.snack.open();
             this.error = err;
           });
     }

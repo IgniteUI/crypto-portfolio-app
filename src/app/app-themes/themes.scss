@@ -18,9 +18,9 @@ $light-cell-selection: igx-grid-theme(
 // Card button style
 $new-icon-button-theme: igx-button-theme(
   $palette: $app-palette,
-  $icon-color: #E29C45,
-  $icon-hover-background: igx-color($app-palette, 'secondary', 100),
-  $icon-hover-color: #E29C45
+  $foreground: #E29C45,
+  $hover-background: igx-color($app-palette, 'secondary', 100),
+  $hover-foreground: #E29C45
 );
 
 // Navigation drawer theme
