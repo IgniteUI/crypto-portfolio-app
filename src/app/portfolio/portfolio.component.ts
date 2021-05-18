@@ -62,7 +62,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
    public restore() {
       this.blockItemService.createItem(this.deletedItem);
-      this.snack.hide();
+      this.snack.close();
       this.deletedItem = new BlockItem();
    }
 
@@ -90,7 +90,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
       if (fCoin.length !== 0) {
          this.snackExists.message = 'Already added!';
-         this.snackExists.show();
+         this.snackExists.open();
       } else {
          // find coin and add it if exsist
          this.addRow(coin.toUpperCase());
@@ -136,15 +136,15 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
                this.blockItemService.createItem(blockItem);
 
                this.snackExists.message = 'Coin Added!';
-               this.snackExists.show();
+               this.snackExists.open();
                this.clearFormInputs();
             }, err => {
                this.snackExists.message = err;
-               this.snackExists.show();
+               this.snackExists.open();
             });
          } else {
             this.snackExists.message = 'Coin does not exist!';
-            this.snackExists.show();
+            this.snackExists.open();
          }
       });
    }
@@ -160,7 +160,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
       Object.assign(this.deletedItem, blockItem);
 
       delete this.deletedItem['key'];
-      this.snack.show();
+      this.snack.open();
    }
 
    public updateRow(evt) {
