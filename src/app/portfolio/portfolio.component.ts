@@ -89,8 +89,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
       const fCoin = this.blockItems.filter(item => item.name === coin.toUpperCase());
 
       if (fCoin.length !== 0) {
-         this.snackExists.message = 'Already added!';
-         this.snackExists.open();
+         this.snackExists.open('Already added!');
       } else {
          // find coin and add it if exsist
          this.addRow(coin.toUpperCase());
@@ -135,16 +134,13 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
                blockItem.holdings = this.holdings;
                this.blockItemService.createItem(blockItem);
 
-               this.snackExists.message = 'Coin Added!';
-               this.snackExists.open();
+               this.snackExists.open('Coin Added!');
                this.clearFormInputs();
             }, err => {
-               this.snackExists.message = err;
-               this.snackExists.open();
+               this.snackExists.open(err);
             });
          } else {
-            this.snackExists.message = 'Coin does not exist!';
-            this.snackExists.open();
+            this.snackExists.open('Coin does not exist!');
          }
       });
    }

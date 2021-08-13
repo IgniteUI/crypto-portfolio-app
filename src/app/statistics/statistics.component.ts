@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, first } from 'rxjs/operators';
 import {
    IgxComboComponent,
-   IComboSelectionChangeEventArgs
+   IComboSelectionChangingEventArgs
 } from '@infragistics/igniteui-angular';
 import { CryptoCoin } from '../core/interfaces';
 import { IgxFinancialChartComponent } from 'igniteui-angular-charts';
@@ -52,7 +52,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
 
    ngOnInit() {
       this.getAndTransformData();
-      this.combo.onSelectionChange.subscribe((evt: IComboSelectionChangeEventArgs) => {
+      this.combo.selectionChanging.subscribe((evt: IComboSelectionChangingEventArgs) => {
          if (this.coins) {
             if (evt.newSelection.length === 0) {
                this.clearChartData();
