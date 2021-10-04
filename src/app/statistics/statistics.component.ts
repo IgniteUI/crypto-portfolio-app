@@ -10,7 +10,7 @@ import { map, first } from 'rxjs/operators';
 import {
    IgxComboComponent,
    IComboSelectionChangingEventArgs
-} from '@infragistics/igniteui-angular';
+} from 'igniteui-angular';
 import { CryptoCoin } from '../core/interfaces';
 import { IgxFinancialChartComponent } from 'igniteui-angular-charts';
 import { FinancialOverlayType } from 'igniteui-angular-charts';
