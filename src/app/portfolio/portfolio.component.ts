@@ -6,7 +6,7 @@ import { AngularFireList } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
-import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from 'igniteui-angular';
+import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from '@infragistics/igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
 import { AngularFireAuth } from '@angular/fire/auth';
 
