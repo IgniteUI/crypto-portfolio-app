@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn } from '../router.animations';
 import firebase from 'firebase/app';
 import { facebook, google } from '@igniteui/material-icons-extended';
-import { IgxIconService } from '@infragistics/igniteui-angular';
+import { IgxIconService } from 'igniteui-angular';
 
 @Component({
    selector: 'app-login',
