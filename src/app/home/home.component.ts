@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxFilterOptions, IgxExpansionPanelComponent } from 'igniteui-angular';
+import { IgxFilterOptions, IgxExpansionPanelComponent } from '@infragistics/igniteui-angular';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';

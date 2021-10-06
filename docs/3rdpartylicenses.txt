@@ -119,6 +119,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+@infragistics/igniteui-angular
+SEE LICENSE IN LICENSE
+
 @juggle/resize-observer
 Apache-2.0
                                  Apache License
@@ -357,9 +360,6 @@ firebase/firestore
 
 firebase/storage
 
-igniteui-angular
-SEE LICENSE IN LICENSE
-
 igniteui-angular-charts
 Infragistics(R) Ultimate license (http://www.infragistics.com/legal/ultimate/license/)
 ==============================================================
@@ -421,9 +421,6 @@ B. The SOFTWARE may also include third party components ("Other Components") lic
 C. Note: To the best of our knowledge, Microsoft� doesn't forbid third-party companies from developing a product for the XPS document generation. However, according to the XML Paper Specification Patent License, we need to provide the following notice for your information: 
               This product may incorporate intellectual property owned by Microsoft Corporation. The terms and conditions upon which Microsoft is licensing such intellectual property can be found at http://www.microsoft.com/whdc/XPS/XpsLicense.mspx.
 
-
-igniteui-trial-watermark
-Apache-2.0
 
 jszip
 (MIT OR GPL-3.0)
