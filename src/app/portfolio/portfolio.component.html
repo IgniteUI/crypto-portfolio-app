@@ -13,7 +13,7 @@
       </span>
 
       <igx-grid #grid1 [data]="blockItems" width="100%" height="500px"
-         (cellEdit)="updateRow($event)" [rowEditable]="true"
+         (cellEdit)="updateRow($event)"
          [columnHiding]="true" [columnPinning]="true">
          <igx-grid-toolbar>
             <igx-grid-toolbar-title><b>My personalized portfolio</b></igx-grid-toolbar-title>
@@ -73,8 +73,8 @@
       </div>
    </div>
 
-   <igx-dialog #modal title="Add coin" leftButtonLabel="Cancel" (onLeftButtonSelect)="modal.close()"
-      (onRightButtonSelect)="addItem($event)" rightButtonLabel="Add coin" [closeOnOutsideSelect]="true">
+   <igx-dialog #modal title="Add coin" leftButtonLabel="Cancel" (leftButtonSelect)="modal.close()"
+      (rightButtonSelect)="addItem($event)" rightButtonLabel="Add coin" [closeOnOutsideSelect]="true">
       <form class="addCoinForm">
          <igx-input-group type="border">
             <label igxLabel for="coin">Coin name</label>
