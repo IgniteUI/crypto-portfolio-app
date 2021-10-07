@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
 // tslint:disable-next-line: import-blacklist
 import { Observable } from 'rxjs/Rx';
-import {of} from 'rxjs';
+import { of } from 'rxjs';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
