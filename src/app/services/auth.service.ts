@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
 // tslint:disable-next-line: import-blacklist
 import { Observable } from 'rxjs/Rx';
+import {of} from 'rxjs';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
@@ -13,7 +14,8 @@ export class AuthGuard implements CanActivate {
 	constructor(private auth: AngularFireAuth, private router: Router, private route: ActivatedRoute) { }
 
 	canActivate(route: ActivatedRouteSnapshot, routerState: RouterStateSnapshot): Observable<boolean> {
-		return Observable.from(this.auth.authState)
+    console.log(this.auth.authState);
+		return of(this.auth.authState)
 			.take(1)
 			.map(state => !!state)
 			.do(authenticated => {
