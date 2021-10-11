@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
             }).catch(
                (err) => {
                   this.snack.open(err.message);
-            });;
+            });
       }
    }
 

@@ -1,8 +1,8 @@
 import { Injectable, NgZone } from '@angular/core';
 import firebase from 'firebase/app';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class AuthServiceService {
         localStorage.setItem('user', null);
         JSON.parse(localStorage.getItem('user'));
       }
-    })
+    });
   }
 
   signIn(email, password) {
@@ -50,14 +50,14 @@ export class AuthServiceService {
     .then((result) => {
           this.router.navigate(['/home']);
     }).catch((error) => {
-      window.alert(error)
-    })
+      window.alert(error);
+    });
   }
 
   signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['/home']);
-    })
+    });
   }
 }

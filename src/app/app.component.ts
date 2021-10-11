@@ -46,9 +46,9 @@ export class AppComponent implements OnInit {
 
       this.afAuth.authState.subscribe(auth => {
          if (auth) {
-            if (auth.displayName){
+            if (auth.displayName) {
                this.name = auth.displayName;
-            }else {
+            } else {
                this.name = auth.email.split('@')[0];
             }
          }
