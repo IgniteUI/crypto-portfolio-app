@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
 import { IgxSnackbarComponent } from '@infragistics/igniteui-angular';
+import { AuthServiceService } from '../services/auth.service';
 
 @Component({
   selector: 'app-email',
@@ -19,13 +20,7 @@ export class EmailComponent implements OnInit {
   password: any;
   @ViewChild('snack', { static: true }) public snack: IgxSnackbarComponent;
 
-  constructor(public afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute) {
-    this.afAuth.authState.subscribe(auth => {
-      if (auth) {
-        this.router.navigateByUrl(this.return);
-      }
-    });
-  }
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthServiceService) {}
 
   ngOnInit() {
     this.route.queryParams
@@ -34,14 +29,11 @@ export class EmailComponent implements OnInit {
 
   onSubmit(formData) {
     if (formData.valid) {
-      this.afAuth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
-        (success) => {
-          this.router.navigate([this.return]);
-        }).catch(
-          (err) => {
-            this.snack.open();
-            this.error = err;
-          });
+      this.authService.signIn(formData.value.email, formData.value.password).then((result) => {
+          this.router.navigate(['/home']);
+      }).catch((err) => {
+        this.snack.open(err.message);
+      });
     }
   }
 }

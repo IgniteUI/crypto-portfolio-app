@@ -1,10 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn } from '../router.animations';
-import firebase from 'firebase/app';
 import { facebook, google } from '@igniteui/material-icons-extended';
 import { IgxIconService } from '@infragistics/igniteui-angular';
+import { AuthServiceService } from '../services/auth.service';
 
 @Component({
    selector: 'app-login',
@@ -21,16 +20,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
    showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 
-   constructor(public afAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute,
-      private iconService: IgxIconService) {
-
-      this.afAuth.authState.subscribe(auth => {
-         localStorage.setItem('showSpinner', 'false');
-         if (auth) {
-            this.router.navigateByUrl(this.return);
-         }
-      });
-
+   constructor(private router: Router, private route: ActivatedRoute,
+      private iconService: IgxIconService, private authService: AuthServiceService) {
    }
 
    ngOnInit() {
@@ -46,35 +37,28 @@ export class LoginComponent implements OnInit, AfterViewInit {
    ngAfterViewInit() {
    }
 
-   loginFb() {
-      this.showSpinner = true;
-      localStorage.setItem('showSpinner', 'true');
-      this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+   // loginFb() {
+   //    this.showSpinner = true;
+   //    localStorage.setItem('showSpinner', 'true');
+   //    this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
 
-      this.afAuth.signInWithRedirect(this.facebookAuthProvider);
-      this.afAuth.getRedirectResult().then(result => {
-         if (result.user) {
-            this.showSpinner = true;
-            localStorage.setItem('showSpinner', 'true');
-            this.router.navigate([this.return]);
-         }
-      }).catch(function (error) {
-         // Handle Errors here.
-         const errorCode = error.code;
-         const errorMessage = error.message;
-         this.error = errorMessage;
-      });
-   }
+   //    this.afAuth.signInWithRedirect(this.facebookAuthProvider);
+   //    this.afAuth.getRedirectResult().then(result => {
+   //       if (result.user) {
+   //          this.showSpinner = true;
+   //          localStorage.setItem('showSpinner', 'true');
+   //          this.router.navigate([this.return]);
+   //       }
+   //    }).catch(function (error) {
+   //       // Handle Errors here.
+   //       const errorCode = error.code;
+   //       const errorMessage = error.message;
+   //       this.error = errorMessage;
+   //    });
+   // }
 
    loginGoogle() {
-      this.googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-      this.afAuth.signInWithRedirect(this.googleAuthProvider).then(
-         (success) => {
-            this.router.navigate([this.return]);
-         }).catch(
-            (err) => {
-               this.error = err;
-         });
+      this.authService.googleAuth();
    }
 
    loginEmail() {

@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { routes } from './app-routing.module';
 import { IgxNavigationDrawerComponent, IgxLayoutDirective } from '@infragistics/igniteui-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthServiceService } from './services/auth.service';
 
 @Component({
    selector: 'app-root',
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
       this.innerWidth = window.innerWidth;
    }
 
-   constructor(private router: Router, public afAuth: AngularFireAuth) {
+   constructor(private router: Router, public afAuth: AngularFireAuth, private authService: AuthServiceService) {
       this.isIE = /trident\//i.test(window.navigator.userAgent);
       for (const route of routes) {
          if (route.path && route.data && route.path.indexOf('*') === -1) {
@@ -45,7 +46,11 @@ export class AppComponent implements OnInit {
 
       this.afAuth.authState.subscribe(auth => {
          if (auth) {
-            this.name = auth;
+            if (auth.displayName){
+               this.name = auth.displayName;
+            }else {
+               this.name = auth.email.split('@')[0];
+            }
          }
       });
    }
@@ -79,12 +84,11 @@ export class AppComponent implements OnInit {
       }
    }
 
-   private logout() {
-      this.afAuth.signOut();
-      this.router.navigateByUrl('/home');
+   public logout() {
+      this.authService.signOut();
    }
 
-   private login() {
+   public login() {
       this.router.navigate(['/login']);
    }
 
