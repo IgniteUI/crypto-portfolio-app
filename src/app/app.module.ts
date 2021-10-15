@@ -29,7 +29,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { LoginComponent } from './login/login.component';
 import { EmailComponent } from './email/email.component';
 import { SignupComponent } from './signup/signup.component';
-import { AuthGuard } from './services/auth.service';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { BlockListComponent } from './block-list/block-list.component';
 import { ItemService } from './services/block-item.service';
@@ -92,7 +91,7 @@ export const firebaseConfig = {
       IgxExpansionPanelModule,
       IgxTooltipModule
    ],
-   providers: [DataService, AuthGuard, ItemService, IgxExcelExporterService],
+   providers: [DataService, ItemService, IgxExcelExporterService],
    bootstrap: [AppComponent]
 })
 export class AppModule {
