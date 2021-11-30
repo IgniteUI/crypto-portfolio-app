@@ -15,7 +15,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
    templateUrl: './portfolio.component.html',
    styleUrls: ['./portfolio.component.scss']
 })
-export class PortfolioComponent implements OnInit, AfterViewInit {
+export class PortfolioComponent implements AfterViewInit {
 
    public searchCrypto: string;
    public blockItemsCollection: AngularFireList<BlockItem>;
@@ -49,8 +49,6 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
          }
       });
    }
-
-   ngOnInit() { }
 
    // tslint:disable-next-line: member-ordering
    private _dialogOverlaySettings = {

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { moveIn } from '../router.animations';
 import { facebook, google } from '@igniteui/material-icons-extended';
@@ -12,7 +12,7 @@ import { AuthServiceService } from '../services/auth.service';
    animations: [moveIn()],
    host: { '[@moveIn]': '' }
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
    return = '';
    error: any;
    googleAuthProvider: any;
@@ -32,9 +32,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       // Register a single icon
       this.iconService.addSvgIconFromText(facebook.name, facebook.value, 'imx-icons');
       this.iconService.addSvgIconFromText(google.name, google.value, 'imx-icons');
-   }
-
-   ngAfterViewInit() {
    }
 
    // loginFb() {
