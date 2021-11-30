@@ -1,5 +1,6 @@
 // Import the theme utilities first
-@import '~@infragistics/igniteui-angular/lib/core/styles/themes/utilities';
+@use '@infragistics/igniteui-angular/theming' as *;
+@forward '@infragistics/igniteui-angular/theming';
 @import '~@infragistics/igniteui-angular/lib/core/styles/themes/index';
 @include igx-core();
 @include igx-typography();

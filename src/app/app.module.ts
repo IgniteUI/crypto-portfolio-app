@@ -1,3 +1,4 @@
+// IgxExcelExporterService no longer need to be manually provided and can be safely removed.
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

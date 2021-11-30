@@ -146,7 +146,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
    }
 
    public deleteRow(cell) {
-      const blockItem = cell.row.rowData;
+      const blockItem = cell.row.data;
 
       // Detele item from AngularFireList
       this.deleteItem(blockItem);

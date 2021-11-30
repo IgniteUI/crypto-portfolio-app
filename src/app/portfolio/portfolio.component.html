@@ -13,38 +13,41 @@
       </span>
 
       <igx-grid #grid1 [data]="blockItems" width="100%" height="500px"
-         (cellEdit)="updateRow($event)"
-         [columnHiding]="true" [columnPinning]="true">
+         (cellEdit)="updateRow($event)">
          <igx-grid-toolbar>
             <igx-grid-toolbar-title><b>My personalized portfolio</b></igx-grid-toolbar-title>
+           <igx-grid-toolbar-actions>
+             <igx-grid-toolbar-hiding></igx-grid-toolbar-hiding>
+             <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
+           </igx-grid-toolbar-actions>
          </igx-grid-toolbar>
 
          <igx-column field="name" header="Coin symbol" field="name" sortable="true">
             <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                <div class="positionTop">
-                  <img src="{{ getCoinImage(cell.row.rowData.imageUrl) }}" />
+                  <img src="{{ getCoinImage(cell.row.data.imageUrl) }}" />
                   <span class="symbolPosition">
-                     {{ cell.row.rowData.name }}</span>
+                     {{ cell.row.data.name }}</span>
                </div>
             </ng-template>
          </igx-column>
          <igx-column field="holdings" header="Holdings" editable="true" sortable="true">
             <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                <div class="positionTop">
-                  ${{ calculateHoldings(cell.row.rowData.holdings, cell.row.rowData.price) |
+                  ${{ calculateHoldings(cell.row.data.holdings, cell.row.data.price) |
                         number:'0.2-2' }}
                   <br />
-                  <b>{{ cell.row.rowData.holdings | number:'1.0-7' }}</b>
+                  <b>{{ cell.row.data.holdings | number:'1.0-7' }}</b>
                </div>
             </ng-template>
          </igx-column>
          <igx-column header="Price" field="price" sortable="true" [cellClasses]="dailyChanges">
             <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
                <div class="positionTop">
-                  ${{ cell.row.rowData.price | number:'0.2-2' }}
+                  ${{ cell.row.data.price | number:'0.2-2' }}
                   <br />
                   <span
-                     class="percent-style-{{ cell.row.rowData.changePct24Hour >= 0 ? 'up' : 'down'}}">{{ cell.row.rowData.changePct24Hour | number:'0.2-2' }}
+                     class="percent-style-{{ cell.row.data.changePct24Hour >= 0 ? 'up' : 'down'}}">{{ cell.row.data.changePct24Hour | number:'0.2-2' }}
                      % </span>
                </div>
             </ng-template>
@@ -54,7 +57,7 @@
                <span igxButton="icon" igxRipple (click)='deleteRow(cell)'>
                   <igx-icon>highlight_off</igx-icon>
                </span>
-               <span igxButton="icon" igxRipple (click)='openChart($event, cell.row.rowData.name)'>
+               <span igxButton="icon" igxRipple (click)='openChart($event, cell.row.data.name)'>
                   <igx-icon>insert_chart</igx-icon>
                </span>
             </ng-template>

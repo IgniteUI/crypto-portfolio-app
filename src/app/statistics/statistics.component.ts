@@ -110,7 +110,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
          // Or use
          // this.cdr.detectChanges();
          this.zone.onStable.pipe(first()).subscribe(() => {
-            this.combo.selectItems([this.cryptoName.symbol]);
+            this.combo.select([this.cryptoName.symbol]);
          });
       });
    }

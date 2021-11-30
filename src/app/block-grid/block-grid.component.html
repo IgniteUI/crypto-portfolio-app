@@ -52,7 +52,7 @@
       <igx-column [width]="setWidth('20%', '20%')" field="fullName" header="Name" [filterable]="true">
         <ng-template igxCell let-cell="cell" let-item>
           <span *ngIf="hideColumn === false" class="coin-logo">
-            <img src="{{ getCoinImage(cell.row.rowData['imageUrl']) }}" />
+            <img src="{{ getCoinImage(cell.row.data['imageUrl']) }}" />
           </span>
           <span class="coin-title">{{ item }}</span>
         </ng-template>
@@ -60,7 +60,7 @@
 
       <igx-column [width]="setWidth('15%', '10%')" [header]="hideColumn ? 'Chart' : 'Volatility'" [filterable]="false" [hidden]="false">
         <ng-template igxCell let-cell="cell">
-          <span igxButton="icon" igxRipple (click)='openChart($event, cell.row.rowData.name)'>
+          <span igxButton="icon" igxRipple (click)='openChart($event, cell.row.data.name)'>
             <igx-icon>insert_chart</igx-icon>
           </span>
         </ng-template>
