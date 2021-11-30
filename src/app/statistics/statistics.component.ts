@@ -27,7 +27,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
 
    public coins: CryptoCoin[];
    public cryptoName: CryptoCoin;
-   public daysCount: Number;
+   public daysCount: number;
    public int = 0;
    public data: any = [];
 
