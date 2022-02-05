@@ -29,4 +29,5 @@ export class BlockItem {
    changePct24Hour = 0;
    price = 0;
    imageUrl = '';
+   total = 0;
 }

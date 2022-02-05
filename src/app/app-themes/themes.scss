@@ -4,7 +4,20 @@
 @import '~@infragistics/igniteui-angular/lib/core/styles/themes/index';
 @include igx-core();
 @include igx-typography();
-@include igx-theme($default-palette);
+@include igx-theme($default-palette,
+                    $exclude: (
+                      'bullet-graph',
+                      'linear-gauge',
+                      'radial-gauge',
+                      'category-chart',
+                      'data-chart',
+                      'doughnut-chart',
+                      'financial-chart',
+                      'funnel-chart',
+                      'geo-map',
+                      'pie-chart',
+                      'shape-chart',
+                      'sparkline'));
 
 @import 'mixins';
 
@@ -40,7 +53,6 @@ $new-navdrawer-theme: igx-navdrawer-theme(
   @include igx-dark-theme($dark-green-palette);
   // Pass the theme to a to the `igx-navdrawer` mixin
   @include igx-navdrawer($new-navdrawer-theme);
-  @include scrollbar-love(igx-color($dark-green-palette, 'primary'));
 
   .igx-group-label__icon.igx-icon, .igx-group-label__column-name{
     color: #fff;
@@ -82,7 +94,6 @@ $new-navdrawer-theme: igx-navdrawer-theme(
     display: block;
     @include igx-theme($app-palette);
     @include igx-grid($light-cell-selection);
-    @include scrollbar-love();
 
     .igx-card [igxButton="flat"] {
       // Pass the theme to a to the `igx-button` mixin
