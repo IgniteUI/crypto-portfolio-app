@@ -36,14 +36,14 @@ export class DataService {
          }));
    }
 
-   getBetweenDaysPrices(symbol: String, forDays: Number): Observable<any> {
+   getBetweenDaysPrices(symbol: string, forDays: number): Observable<any> {
       return this.http.get(this.histoDataUrl + symbol + '&tsym=USD&limit=' + forDays + '&api_key=' + this.apiKey)
          .pipe(map(result => {
             return result;
          }));
    }
 
-   getHistoricalData(symbol: String): Observable<any> {
+   getHistoricalData(symbol: string): Observable<any> {
       return this.http.get(this.histoDataUrl + symbol + '&tsym=USD&limit=730&api_key=' + this.apiKey)
          .pipe(map(result => {
             return { data: result, symbol: symbol };

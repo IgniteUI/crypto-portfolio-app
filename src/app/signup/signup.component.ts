@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
 import { IgxSnackbarComponent } from '@infragistics/igniteui-angular';
@@ -13,7 +12,7 @@ import { AuthServiceService } from '../services/auth.service';
 // tslint:disable-next-line: use-host-property-decorator
    host: { '[@moveIn]': '' }
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
 
    state = '';
    error: any;
@@ -33,8 +32,4 @@ export class SignupComponent implements OnInit {
             });
       }
    }
-
-   ngOnInit() {
-   }
-
 }

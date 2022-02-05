@@ -27,6 +27,7 @@ export class ItemService {
    // Creates a new record on the list, using the Realtime Database's push-ids.
    createItem(item: BlockItem) {
       this.items = this.getItemsList();
+      item.total = item.holdings * item.price;
       this.items.push(item);
 
       const listObservable = this.items.snapshotChanges();
