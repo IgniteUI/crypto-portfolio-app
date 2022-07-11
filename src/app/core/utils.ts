@@ -15,12 +15,12 @@ export function flattenObject(ob) {
     const toReturn = {};
 
     for (const i in ob) {
-        if (!ob.hasOwnProperty(i)) { continue; }
+        if (!Object.prototype.hasOwnProperty.call(ob, i)) { continue; }
 
         if ((typeof ob[i]) === 'object') {
             const flatObject = flattenObject(ob[i]);
             for (const x in flatObject) {
-                if (!flatObject.hasOwnProperty(x) || i === 'DISPLAY') { continue; }
+                if (!Object.prototype.hasOwnProperty.call(flatObject, x) || i === 'DISPLAY') { continue; }
                 toReturn[x] = flatObject[x];
             }
         } else {
