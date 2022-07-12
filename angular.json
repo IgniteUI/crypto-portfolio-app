@@ -135,7 +135,6 @@
       }
     }
   },
-  "defaultProject": "cryptoapp",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
