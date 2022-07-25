@@ -22,6 +22,7 @@ export class CoinItem {
 }
 
 export class BlockItem {
+   key ='';
    fullName = '';
    holdings = 0;
    name = '';

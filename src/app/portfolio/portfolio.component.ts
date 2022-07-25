@@ -3,13 +3,13 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from '@infragistics/igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
-import { AngularFireList } from '@angular/fire/database';
+import { AngularFireList } from '@angular/fire/compat/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from '@infragistics/igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { IgxPieChartComponent } from 'igniteui-angular-charts';
 
 @Component({
@@ -53,6 +53,7 @@ export class PortfolioComponent implements AfterViewInit {
             // actions.map(a => ({ key: a.payload.key, ...a.payload.val() }))
             actions.map(a => {
               const item: BlockItem = {
+                key: a.key,
                 fullName: a.payload.val().fullName,
                 holdings: a.payload.val().holdings,
                 name: a.payload.val().name,
@@ -68,15 +69,16 @@ export class PortfolioComponent implements AfterViewInit {
           )
         ).subscribe(items => {
           this.blockItems = items;
+          this.grid1.sort({ fieldName: 'total', dir: SortingDirection.Desc, ignoreCase: false });
+
+          // Update portfolio upon load
+          this.updatePortfolio();
+
+          // Explode the last slice
+          this.chart.explodedSlices.add(items.length - 1);
         });
-        this.grid1.sort({ fieldName: 'total', dir: SortingDirection.Desc, ignoreCase: false });
       }
-
-      this.chart.explodedSlices.add(2);
     });
-
-
-    this.updatePortfolio();
   }
 
   // tslint:disable-next-line: member-ordering
@@ -102,10 +104,6 @@ export class PortfolioComponent implements AfterViewInit {
     // Check whether the coin is already in your portfolio
     this.checkCoinExistence(this.coinName);
     event.dialog.close();
-  }
-
-  private updateItem(item) {
-    this.blockItemService.updateItem(item.key, item);
   }
 
   private deleteItem(item) {
@@ -160,6 +158,7 @@ export class PortfolioComponent implements AfterViewInit {
           this.snackExists.open('Coin Added!');
           this.clearFormInputs();
         }, err => {
+          this.clearFormInputs();
           this.snackExists.open(err);
         });
       } else {
@@ -186,7 +185,8 @@ export class PortfolioComponent implements AfterViewInit {
     const rowItem = evt.rowID;
     rowItem.holdings = evt.newValue;
 
-    this.updateItem(rowItem);
+    this.blockItemService.updateItem(rowItem.key, rowItem);
+
   }
 
   private positive24h = (rowData: any): boolean => {
@@ -226,7 +226,6 @@ export class PortfolioComponent implements AfterViewInit {
   public pieSliceClickEvent(e: any): void {
     e.args.isExploded = !e.args.isExploded;
   }
-
 }
 
 class Helper {

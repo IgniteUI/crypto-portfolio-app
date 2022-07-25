@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireList, AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { BlockItem } from '../core/interfaces';
 
 @Injectable()
@@ -28,6 +28,9 @@ export class ItemService {
    createItem(item: BlockItem) {
       this.items = this.getItemsList();
       item.total = item.holdings * item.price;
+      /* Fix: When you pass an object to Firebase, the values of the properties can be a value or null.
+      They can not be undefined */
+      item.key = null;
       this.items.push(item);
 
       const listObservable = this.items.snapshotChanges();

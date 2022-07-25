@@ -3,7 +3,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { routes } from './app-routing.module';
 import { IgxNavigationDrawerComponent, IgxLayoutDirective } from '@infragistics/igniteui-angular';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthServiceService } from './services/auth.service';
 
 @Component({
