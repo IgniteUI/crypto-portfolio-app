@@ -40,11 +40,13 @@ export const firebaseConfig = {
 1. Run `ng build --prod --aot`
 2. Go to `dist folder` and host with IIS or any other provider (example [lite-server](https://github.com/johnpapa/lite-server#global-installation))
 
-## Create web bundle
-Use the command `npm run build:web:noProd` (because of the 'ERROR Error: Uncaught (in promise): TypeError: Cannot read property 'from' of undefined. TypeError: Cannot read property 'from' of undefined'), `npm run build:web:prod` or:
+## Create web bundle (update the hosted website)
+Use the command `npm run build:web:prod` or you can manually build the project with:
 
 1. Run `ng build`
 2. Go to `dist folder` and copy paste the content in the `docs` folder. Change the base href url to be `<base href="https://igniteui.github.io/crypto-portfolio-app/">`
+
+> Note: If you receive 'ERROR Error: Uncaught (in promise): TypeError: Cannot read property 'from' of undefined. TypeError: Cannot read property 'from' of undefined'), use `npm run build:web:noProd`
 
 ## dist and docs folders
 
