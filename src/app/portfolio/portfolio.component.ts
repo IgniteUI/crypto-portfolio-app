@@ -3,13 +3,13 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from '@infragistics/igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
-import { AngularFireList } from '@angular/fire/database';
+import { AngularFireList } from '@angular/fire/compat/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from '@infragistics/igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { IgxPieChartComponent } from 'igniteui-angular-charts';
 
 @Component({
