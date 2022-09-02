@@ -100,27 +100,6 @@ export class PortfolioComponent implements AfterViewInit {
     this.dialog.open(this._dialogOverlaySettings);
   }
 
-  public addItem(event) {
-    // Check whether the coin is already in your portfolio
-    this.checkCoinExistence(this.coinName);
-    event.dialog.close();
-  }
-
-  private deleteItem(item) {
-    this.blockItemService.deleteItem(item.key);
-  }
-
-  private checkCoinExistence(coin) {
-    const fCoin = this.blockItems.filter(item => item.name === coin.toUpperCase());
-
-    if (fCoin.length !== 0) {
-      this.snackExists.open('Already added!');
-    } else {
-      // find coin and add it if exist
-      this.addRow(coin.toUpperCase());
-    }
-  }
-
   public updatePortfolio() {
     for (const coin of this.blockItems) {
       this.dataService.getSpecificCoinData(coin.name).subscribe(res => {
@@ -148,6 +127,23 @@ export class PortfolioComponent implements AfterViewInit {
     return total;
   }
 
+  public addItem(event) {
+    // Check whether the coin is already in your portfolio
+    this.checkCoinExistence(this.coinName);
+    event.dialog.close();
+  }
+
+  private checkCoinExistence(coin) {
+    const fCoin = this.blockItems.filter(item => item.name === coin.toUpperCase());
+
+    if (fCoin.length !== 0) {
+      this.snackExists.open('Already added!');
+    } else {
+      // find coin and add it if exist
+      this.addRow(coin.toUpperCase());
+    }
+  }
+
   public addRow(symbol) {
     this.dataService.getCryptoIdFromSymbol(symbol).subscribe(filteredItem => {
       if (filteredItem) {
@@ -170,8 +166,8 @@ export class PortfolioComponent implements AfterViewInit {
   public deleteRow(cell) {
     const blockItem = cell.row.data;
 
-    // Detele item from AngularFireList
-    this.deleteItem(blockItem);
+    // Delele item from AngularFireList
+    this.blockItemService.deleteItem(blockItem.key);
 
     // Stores deleted item for the 'Restore' Snackbar logic
     this.deletedItem = new BlockItem();
