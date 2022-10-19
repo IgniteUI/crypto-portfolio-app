@@ -100,27 +100,6 @@ export class PortfolioComponent implements AfterViewInit {
     this.dialog.open(this._dialogOverlaySettings);
   }
 
-  public addItem(event) {
-    // Check whether the coin is already in your portfolio
-    this.checkCoinExistence(this.coinName);
-    event.dialog.close();
-  }
-
-  private deleteItem(item) {
-    this.blockItemService.deleteItem(item.key);
-  }
-
-  private checkCoinExistence(coin) {
-    const fCoin = this.blockItems.filter(item => item.name === coin.toUpperCase());
-
-    if (fCoin.length !== 0) {
-      this.snackExists.open('Already added!');
-    } else {
-      // find coin and add it if exist
-      this.addRow(coin.toUpperCase());
-    }
-  }
-
   public updatePortfolio() {
     for (const coin of this.blockItems) {
       this.dataService.getSpecificCoinData(coin.name).subscribe(res => {
@@ -148,6 +127,23 @@ export class PortfolioComponent implements AfterViewInit {
     return total;
   }
 
+  public addItem(event) {
+    // Check whether the coin is already in your portfolio
+    this.checkCoinExistence(this.coinName);
+    event.dialog.close();
+  }
+
+  private checkCoinExistence(coin) {
+    const fCoin = this.blockItems.filter(item => item.name === coin.toUpperCase());
+
+    if (fCoin.length !== 0) {
+      this.snackExists.open('Already added!');
+    } else {
+      // find coin and add it if exist
+      this.addRow(coin.toUpperCase());
+    }
+  }
+
   public addRow(symbol) {
     this.dataService.getCryptoIdFromSymbol(symbol).subscribe(filteredItem => {
       if (filteredItem) {
@@ -170,15 +166,7 @@ export class PortfolioComponent implements AfterViewInit {
   public deleteRow(cell) {
     const blockItem = cell.row.data;
 
-    // Detele item from AngularFireList
-    this.deleteItem(blockItem);
-
-    // Stores deleted item for the 'Restore' Snackbar logic
-    this.deletedItem = new BlockItem();
-    Object.assign(this.deletedItem, blockItem);
-
-    delete this.deletedItem['key'];
-    this.snack.open();
+    this.delete(blockItem);
   }
 
   public updateRow(evt) {
@@ -188,7 +176,31 @@ export class PortfolioComponent implements AfterViewInit {
     this.blockItemService.updateItem(rowItem.key, rowItem);
 
   }
+  /*
+    Used by action strip grid
+  */
+  public updateCell(evt) {
+    const rowItem = evt.owner.getRowData(evt.rowID);
+    rowItem.holdings = evt.newValue;
 
+    this.blockItemService.updateItem(rowItem.key, rowItem);
+  }
+
+  public deleteRowFromActions(evt) {
+    this.delete(evt.data);
+  }
+
+  public delete(blockItem) {
+    // Delele item from AngularFireList
+    this.blockItemService.deleteItem(blockItem.key);
+
+    // Stores deleted item for the 'Restore' Snackbar logic
+    this.deletedItem = new BlockItem();
+    Object.assign(this.deletedItem, blockItem);
+
+    delete this.deletedItem['key'];
+    this.snack.open();
+  }
   private positive24h = (rowData: any): boolean => {
     return rowData.changePct24Hour > 0;
   }

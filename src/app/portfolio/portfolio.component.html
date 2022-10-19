@@ -15,17 +15,10 @@
       </button>
     </span>
 
-    <igx-grid #grid1 [data]="blockItems" width="100%" height="400px" (cellEdit)="updateRow($event)"
+    <!-- <igx-grid #grid1 [data]="blockItems" width="100%" height="400px" (cellEdit)="updateRow($event)"
       (onSortingDone)="removeSorting($event)">
-      <!-- <igx-grid-toolbar>
-        <igx-grid-toolbar-title><b>My personalized portfolio</b></igx-grid-toolbar-title>
-        <igx-grid-toolbar-actions>
-          <igx-grid-toolbar-hiding></igx-grid-toolbar-hiding>
-          <igx-grid-toolbar-pinning></igx-grid-toolbar-pinning>
-        </igx-grid-toolbar-actions>
-      </igx-grid-toolbar> -->
 
-      <igx-column field="name" header="Coin symbol" field="name" sortable="true">
+      <igx-column field="name" [editable]="false" header="Coin symbol" field="name" sortable="true">
         <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
           <div class="positionTop">
             <img src="{{ getCoinImage(cell.row.data.imageUrl) }}" />
@@ -43,9 +36,9 @@
           </div>
         </ng-template>
       </igx-column>
-      <igx-column header="Total" editable="false" field="total" sortable="true" [pipeArgs]="formatOptions" [dataType]="'currency'">
+      <igx-column header="Total" [editable]="false" field="total" sortable="true" [pipeArgs]="formatOptions" [dataType]="'currency'">
       </igx-column>
-      <igx-column header="Price" field="price" sortable="true" [cellClasses]="dailyChanges">
+      <igx-column header="Price" field="price" [editable]="false" sortable="true" [cellClasses]="dailyChanges">
         <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
           <div class="positionTop">
             ${{ cell.row.data.price | number:'0.2-2' }}
@@ -66,10 +59,47 @@
           </span>
         </ng-template>
       </igx-column>
+    </igx-grid> -->
 
-      <!-- <igx-action-strip #actionstrip>
-            <igx-grid-editing-actions [addRow]="true"></igx-grid-editing-actions>
-         </igx-action-strip> -->
+    <igx-grid #grid1 [primaryKey]="'key'" [data]="blockItems" width="100%" height="400px"
+      [rowEditable]="true"
+      (cellEdit)="updateCell($event)"
+      (rowDeleted)="deleteRowFromActions($event)">
+
+      <igx-column field="name" [editable]="false" header="Coin symbol" field="name" sortable="true">
+        <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
+          <div class="positionTop">
+            <img src="{{ getCoinImage(cell.row.data.imageUrl) }}" />
+            <span class="symbolPosition">
+              {{ cell.row.data.name }}</span>
+          </div>
+        </ng-template>
+      </igx-column>
+      <igx-column field="holdings" header="Holdings" editable="true" sortable="true" [dataType]="'number'">
+        <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
+          <div class="positionTop">
+            ${{ cell.row.data.total | number:'0.2-2' }}
+            <br />
+            <b>{{ cell.row.data.holdings | number:'1.0-7' }}</b>
+          </div>
+        </ng-template>
+      </igx-column>
+      <igx-column header="Total" [editable]="false" field="total" sortable="true" [pipeArgs]="formatOptions" [dataType]="'currency'">
+      </igx-column>
+      <igx-column header="Price" [editable]="false" field="price" sortable="true" [cellClasses]="dailyChanges">
+        <ng-template igxCell let-cell="cell" let-ri="rowIndex" let-column="column">
+          <div class="positionTop">
+            ${{ cell.row.data.price | number:'0.2-2' }}
+            <br />
+            <span class="percent-style-{{ cell.row.data.changePct24Hour >= 0 ? 'up' : 'down'}}">{{
+              cell.row.data.changePct24Hour | number:'0.2-2' }}
+              % </span>
+          </div>
+        </ng-template>
+      </igx-column>
+      <igx-action-strip #actionstrip>
+          <igx-grid-editing-actions [addRow]="false" [deleteRow]="true" [editRow]="true"></igx-grid-editing-actions>
+      </igx-action-strip>
     </igx-grid>
 
     <span id="legendTitle">Portfolio allocation: </span>
