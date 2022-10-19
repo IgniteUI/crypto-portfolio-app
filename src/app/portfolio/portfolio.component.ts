@@ -166,6 +166,31 @@ export class PortfolioComponent implements AfterViewInit {
   public deleteRow(cell) {
     const blockItem = cell.row.data;
 
+    this.delete(blockItem);
+  }
+
+  public updateRow(evt) {
+    const rowItem = evt.rowID;
+    rowItem.holdings = evt.newValue;
+
+    this.blockItemService.updateItem(rowItem.key, rowItem);
+
+  }
+  /*
+    Used by action strip grid
+  */
+  public updateCell(evt) {
+    const rowItem = evt.owner.getRowData(evt.rowID);
+    rowItem.holdings = evt.newValue;
+
+    this.blockItemService.updateItem(rowItem.key, rowItem);
+  }
+
+  public deleteRowFromActions(evt) {
+    this.delete(evt.data);
+  }
+
+  public delete(blockItem) {
     // Delele item from AngularFireList
     this.blockItemService.deleteItem(blockItem.key);
 
@@ -176,15 +201,6 @@ export class PortfolioComponent implements AfterViewInit {
     delete this.deletedItem['key'];
     this.snack.open();
   }
-
-  public updateRow(evt) {
-    const rowItem = evt.rowID;
-    rowItem.holdings = evt.newValue;
-
-    this.blockItemService.updateItem(rowItem.key, rowItem);
-
-  }
-
   private positive24h = (rowData: any): boolean => {
     return rowData.changePct24Hour > 0;
   }
