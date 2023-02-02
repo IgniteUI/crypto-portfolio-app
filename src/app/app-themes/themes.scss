@@ -5,6 +5,10 @@
 @include typography();
 @import 'mixins';
 
+:root {
+  --ig-typography: 'Titillium Web', sans-serif;
+}
+
 $dark-green-palette: palette($primary:#222, $secondary:#72da67, $surface: #fff, $gray: #fff);
 
 $app-palette: palette(
