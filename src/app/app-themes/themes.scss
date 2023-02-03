@@ -1,35 +1,29 @@
 // Import the theme utilities first
 @use '@infragistics/igniteui-angular/theming' as *;
 @forward '@infragistics/igniteui-angular/theming';
-@import '~@infragistics/igniteui-angular/lib/core/styles/themes/index';
 @include core();
 @include typography();
-@include theme($default-palette,
-                    $exclude: (
-                      'bullet-graph',
-                      'linear-gauge',
-                      'radial-gauge',
-                      'doughnut-chart',
-                      'funnel-chart',
-                      'geo-map',
-                      'pie-chart',
-                      'shape-chart',
-                      'sparkline'));
-
 @import 'mixins';
 
-$dark-green-palette: palette(#222, #72da67, $grays: #fff);
-$app-palette: palette(#8049ff, #E29C45);
+:root {
+  --ig-typography: 'Titillium Web', sans-serif;
+}
+
+$dark-green-palette: palette($primary:#222, $secondary:#72da67, $surface: #fff, $gray: #fff);
+
+$app-palette: palette(
+  $primary: #8049ff,
+  $secondary: #E29C45,
+  $surface: #fff
+);
 
 // Background of selected cell
 $light-cell-selection: grid-theme(
-  $palette: $app-palette,
   $cell-selected-background: color($app-palette, 'primary', 200)
 );
 
 // Card button style
 $new-icon-button-theme: button-theme(
-  $palette: $app-palette,
   $foreground: #E29C45,
   $hover-background: color($app-palette, 'secondary', 100),
   $hover-foreground: #E29C45
@@ -39,7 +33,6 @@ $new-icon-button-theme: button-theme(
 $new-navdrawer-theme: navdrawer-theme(
   $item-active-text-color: color($dark-green-palette, 'secondary'),
   $item-active-icon-color: color($dark-green-palette, 'secondary'),
-  $palette: $dark-green-palette,
   $background: color($dark-green-palette, 'primary', 500)
 );
 
