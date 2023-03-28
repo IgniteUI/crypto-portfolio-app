@@ -40,7 +40,7 @@ export class BlockGridComponent implements OnInit, AfterViewInit {
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewInit() {
-    this.grid1.onGroupingDone.subscribe((args: IGroupingDoneEventArgs) => {
+    this.grid1.groupingDone.subscribe((args: IGroupingDoneEventArgs) => {
       if (args.groupedColumns instanceof Array && args.groupedColumns.length !== 0) {
         const colNotForGroup = (args.groupedColumns as IgxColumnComponent[]).find(col => col.field === 'changePct24Hour');
         if ( colNotForGroup ) {
