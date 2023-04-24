@@ -6,9 +6,9 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master, vNext ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, vNext ]
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -44,21 +44,3 @@ jobs:
         run: npm run build
         env:
           NODE_OPTIONS: "--max_old_space_size=12192"
-
-  # Your GitHub workflow file under .github/workflows/
-  publish-docs:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-    - name: Chekout
-      uses: actions/checkout@v3
-
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs/_site
