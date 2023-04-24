@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -44,3 +44,21 @@ jobs:
         run: npm run build
         env:
           NODE_OPTIONS: "--max_old_space_size=12192"
+
+  # Your GitHub workflow file under .github/workflows/
+  publish-docs:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - name: Chekout
+      uses: actions/checkout@v3
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/_site
