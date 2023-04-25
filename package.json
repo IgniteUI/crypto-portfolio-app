@@ -57,7 +57,6 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "codelyzer": "^6.0.0",
-    "cordova": "^10.0.0",
     "eslint": "^8.28.0",
     "gulp": "^4.0.2",
     "gulp-gh-pages": "^0.5.4",

@@ -57,14 +57,6 @@ Use `ng build --prod --aot` to build the project, `copy -> paste` into `docs` fo
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Mobile app
-
-Use phonegap to build the mobile application, the aot build proccess will update the content of the dist folder. Use it to replace the content in mobile/www/...
-
-Keep in mind that the base href for the mobile app should be `<base href="./">`
-
-.zip the mobile folder and use [phonegap builder](https://build.phonegap.com/apps/) to generate .apk file/
-
 ## More
 
 Loading spinners in the app - [SpinKit](https://github.com/tobiasahlin/SpinKit)
