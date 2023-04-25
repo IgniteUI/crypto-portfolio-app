@@ -9,7 +9,6 @@
 node_modules/
 /mobile/node_modules
 /dist
-/docs
 
 # IDEs and editors
 /.idea
