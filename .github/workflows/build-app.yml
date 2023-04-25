@@ -7,6 +7,8 @@ name: Build app on PR
 on:
   pull_request:
     branches: [ master ]
+  push:
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,7 +40,5 @@ jobs:
       - name: Run lint
         run: npm run lint
 
-      - name: 'Build the app'
-        run: npm run build
-        env:
-          NODE_OPTIONS: "--max_old_space_size=12192"
+      - name: 'Build the app into docs folder'
+        run: npm run build:web:prod
