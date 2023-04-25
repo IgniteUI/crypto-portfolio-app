@@ -39,4 +39,4 @@ jobs:
         run: npm run lint
 
       - name: 'Build the app into docs folder'
-        run: build:web:prod
+        run: npm run build:web:prod
