@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection } from '@infragistics/igniteui-angular';
+import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxGridColumnModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from '@infragistics/igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
 import { AngularFireList } from '@angular/fire/compat/database';
@@ -10,12 +10,16 @@ import { Router } from '@angular/router';
 import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from '@infragistics/igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { IgxPieChartComponent } from 'igniteui-angular-charts';
+import { IgxPieChartComponent, IgxItemLegendModule, IgxPieChartCoreModule } from 'igniteui-angular-charts';
+import { DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-portfolio',
-  templateUrl: './portfolio.component.html',
-  styleUrls: ['./portfolio.component.scss']
+    selector: 'app-portfolio',
+    templateUrl: './portfolio.component.html',
+    styleUrls: ['./portfolio.component.scss'],
+    standalone: true,
+    imports: [IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxGridColumnModule, IgxActionStripModule, IgxItemLegendModule, IgxPieChartCoreModule, IgxSnackbarModule, IgxDialogModule, FormsModule, IgxInputGroupModule, DecimalPipe]
 })
 export class PortfolioComponent implements AfterViewInit {
 

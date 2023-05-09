@@ -9,9 +9,8 @@ describe('StatisticsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [StatisticsComponent],
-      imports: [IgxFinancialChartModule]
-    })
+    imports: [IgxFinancialChartModule, StatisticsComponent]
+})
       .compileComponents();
   }));
 

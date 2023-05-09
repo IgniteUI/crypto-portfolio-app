@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { moveIn } from '../router.animations';
 import { facebook, google } from '@igniteui/material-icons-extended';
-import { IgxIconService } from '@infragistics/igniteui-angular';
+import { IgxIconService, IgxIconModule, IgxButtonModule, IgxRippleModule } from '@infragistics/igniteui-angular';
 import { AuthServiceService } from '../services/auth.service';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-   selector: 'app-login',
-   templateUrl: './login.component.html',
-   styleUrls: ['./login.component.scss'],
-   animations: [moveIn()],
-   host: { '[@moveIn]': '' }
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    animations: [moveIn()],
+    host: { '[@moveIn]': '' },
+    standalone: true,
+    imports: [NgIf, IgxIconModule, IgxButtonModule, IgxRippleModule, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
 })
 export class LoginComponent implements OnInit {
    return = '';

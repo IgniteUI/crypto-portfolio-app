@@ -5,17 +5,15 @@ import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleM
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         RouterTestingModule,
         IgxNavigationDrawerModule,
         IgxNavbarModule,
         IgxLayoutModule,
-        IgxRippleModule
-      ],
-      declarations: [
+        IgxRippleModule,
         AppComponent
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
   it('should create the app', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
