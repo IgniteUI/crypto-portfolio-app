@@ -1,16 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxFilterOptions, IgxExpansionPanelComponent } from '@infragistics/igniteui-angular';
+import { IgxFilterOptions, IgxExpansionPanelComponent, IgxInputGroupModule, IgxPrefixModule, IgxIconModule, IgxSuffixModule, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, IgxFilterModule } from '@infragistics/igniteui-angular';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  animations: [flyInOut()]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    animations: [flyInOut()],
+    standalone: true,
+    imports: [NgIf, IgxInputGroupModule, FormsModule, IgxPrefixModule, IgxIconModule, IgxSuffixModule, NgFor, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, DecimalPipe, IgxFilterModule]
 })
 export class HomeComponent implements OnInit {
   cryptos: CoinItem[];

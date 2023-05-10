@@ -7,19 +7,18 @@ import {
 import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, first } from 'rxjs/operators';
-import {
-   IgxComboComponent,
-   IComboSelectionChangingEventArgs
-} from '@infragistics/igniteui-angular';
+import { IgxComboComponent, IComboSelectionChangingEventArgs, IgxComboModule } from '@infragistics/igniteui-angular';
 import { CryptoCoin } from '../core/interfaces';
-import { IgxFinancialChartComponent } from 'igniteui-angular-charts';
+import { IgxFinancialChartComponent, IgxFinancialChartCoreModule } from 'igniteui-angular-charts';
 import { FinancialOverlayType } from 'igniteui-angular-charts';
 
 @Component({
-   selector: 'app-statistics',
-   templateUrl: './statistics.component.html',
-   styleUrls: ['./statistics.component.scss'],
-   changeDetection: ChangeDetectionStrategy.Default
+    selector: 'app-statistics',
+    templateUrl: './statistics.component.html',
+    styleUrls: ['./statistics.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: true,
+    imports: [IgxComboModule, IgxFinancialChartCoreModule]
 })
 export class StatisticsComponent implements OnInit, AfterViewInit {
    @ViewChild('combo', { read: IgxComboComponent, static: true }) public combo: IgxComboComponent;

@@ -1,16 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
-import { IgxSnackbarComponent } from '@infragistics/igniteui-angular';
+import { IgxSnackbarComponent, IgxIconModule, IgxInputGroupModule, IgxSuffixModule, IgxButtonModule, IgxRippleModule, IgxSnackbarModule } from '@infragistics/igniteui-angular';
 import { AuthServiceService } from '../services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-email',
-  templateUrl: './email.component.html',
-  styleUrls: ['./email.component.scss'],
-  animations: [moveIn(), fallIn()],
-// tslint:disable-next-line: use-host-property-decorator
-  host: { '[@moveIn]': '' }
+    selector: 'app-email',
+    templateUrl: './email.component.html',
+    styleUrls: ['./email.component.scss'],
+    animations: [moveIn(), fallIn()],
+    // tslint:disable-next-line: use-host-property-decorator
+    host: { '[@moveIn]': '' },
+    standalone: true,
+    imports: [IgxIconModule, FormsModule, IgxInputGroupModule, IgxSuffixModule, IgxButtonModule, IgxRippleModule, RouterLink, IgxSnackbarModule]
 })
 export class EmailComponent implements OnInit {
   return = '';

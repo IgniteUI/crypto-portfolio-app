@@ -1,16 +1,19 @@
 import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation } from '@angular/core';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationStart, Router, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { routes } from './app-routing.module';
-import { IgxNavigationDrawerComponent, IgxLayoutDirective } from '@infragistics/igniteui-angular';
+import { IgxNavigationDrawerComponent, IgxLayoutDirective, IgxLayoutModule, IgxNavigationDrawerModule, IgxRippleModule, IgxIconModule, IgxNavbarModule, IgxButtonModule } from '@infragistics/igniteui-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthServiceService } from './services/auth.service';
+import { NgFor, NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-   selector: 'app-root',
-   templateUrl: './app.component.html',
-   styleUrls: ['./app.component.scss'],
-   encapsulation: ViewEncapsulation.None
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [IgxLayoutModule, IgxNavigationDrawerModule, NgFor, IgxRippleModule, RouterLinkActive, RouterLink, NgIf, IgxIconModule, IgxNavbarModule, IgxButtonModule, RouterOutlet, AsyncPipe]
 })
 export class AppComponent implements OnInit {
    public isIE;

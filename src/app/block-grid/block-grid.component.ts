@@ -1,17 +1,19 @@
 import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxGridComponent, SortingDirection, IgxExcelExporterOptions,
-        IgxExcelExporterService,  IGroupingDoneEventArgs, IgxColumnComponent } from '@infragistics/igniteui-angular';
+import { IgxGridComponent, SortingDirection, IgxExcelExporterOptions, IgxExcelExporterService, IGroupingDoneEventArgs, IgxColumnComponent, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule, IgxGridColumnModule } from '@infragistics/igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
 import { interval } from 'rxjs';
 import { Router } from '@angular/router';
 import { startWith } from 'rxjs/operators';
+import { NgIf, DecimalPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-block-grid',
-  templateUrl: './block-grid.component.html',
-  styleUrls: ['./block-grid.component.scss']
+    selector: 'app-block-grid',
+    templateUrl: './block-grid.component.html',
+    styleUrls: ['./block-grid.component.scss'],
+    standalone: true,
+    imports: [NgIf, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule, IgxGridColumnModule, DecimalPipe]
 })
 export class BlockGridComponent implements OnInit, AfterViewInit {
   public remoteData: CoinItem[];

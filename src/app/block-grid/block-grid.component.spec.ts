@@ -9,9 +9,8 @@ describe('BlockGridComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlockGridComponent ],
-      imports: [ IgxGridModule ]
-    })
+    imports: [IgxGridModule, BlockGridComponent]
+})
     .compileComponents();
   }));
 
