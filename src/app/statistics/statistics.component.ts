@@ -53,7 +53,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
       this.getAndTransformData();
       this.combo.selectionChanging.subscribe((evt: IComboSelectionChangingEventArgs) => {
          if (this.coins) {
-            if (evt.newSelection.length === 0) {
+            if (evt.newValue.length === 0) {
                this.clearChartData();
             } else {
                const coin = evt.added.length !== 0 ? evt.added : evt.removed;

@@ -13,7 +13,7 @@
         </igx-input-group>
         <div class="sample-content">
             <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: filterOptions" [@flyInOut]>
-                <igx-card>
+                <igx-card elevated>
                     <igx-card-header vertical="true">
                         <igx-card-media height="32px">
                             <img src="{{ getCoinImage(crypto['imageUrl']) }}" />

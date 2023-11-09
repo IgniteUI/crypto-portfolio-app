@@ -80,21 +80,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cryptoapp:build"
+            "buildTarget": "cryptoapp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "cryptoapp:build:production"
+              "buildTarget": "cryptoapp:build:production"
             },
             "es5": {
-              "browserTarget": "cryptoapp:build:es5"
+              "buildTarget": "cryptoapp:build:es5"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cryptoapp:build"
+            "buildTarget": "cryptoapp:build"
           }
         },
         "test": {
