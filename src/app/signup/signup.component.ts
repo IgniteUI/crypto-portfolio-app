@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
-import { IgxSnackbarComponent, IgxIconModule, IgxInputGroupModule, IgxSuffixModule, IgxButtonModule, IgxRippleModule, IgxSnackbarModule } from '@infragistics/igniteui-angular';
+import { IgxSnackbarComponent, IgxIconModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, IgxSnackbarModule } from '@infragistics/igniteui-angular';
 import { AuthServiceService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
-
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
@@ -13,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     // tslint:disable-next-line: use-host-property-decorator
     host: { '[@moveIn]': '' },
     standalone: true,
-    imports: [IgxIconModule, FormsModule, IgxInputGroupModule, IgxSuffixModule, IgxButtonModule, IgxRippleModule, RouterLink, IgxSnackbarModule]
+    imports: [IgxIconModule, FormsModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, RouterLink, IgxSnackbarModule]
 })
 export class SignupComponent {
 

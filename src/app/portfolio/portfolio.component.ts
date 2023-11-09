@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxGridColumnModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from '@infragistics/igniteui-angular';
+import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from '@infragistics/igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
 import { AngularFireList } from '@angular/fire/compat/database';
@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './portfolio.component.html',
     styleUrls: ['./portfolio.component.scss'],
     standalone: true,
-    imports: [IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxGridColumnModule, IgxActionStripModule, IgxItemLegendModule, IgxPieChartCoreModule, IgxSnackbarModule, IgxDialogModule, FormsModule, IgxInputGroupModule, DecimalPipe]
+    imports: [IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxItemLegendModule, IgxPieChartCoreModule, IgxSnackbarModule, IgxDialogModule, FormsModule, IgxInputGroupModule, DecimalPipe]
 })
 export class PortfolioComponent implements AfterViewInit {
 
