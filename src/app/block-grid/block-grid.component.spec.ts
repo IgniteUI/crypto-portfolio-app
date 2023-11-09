@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BlockGridComponent } from './block-grid.component';
-import { IgxGridModule } from '@infragistics/igniteui-angular';
+import { IgxGridModule } from 'igniteui-angular';
 
 describe('BlockGridComponent', () => {
   let component: BlockGridComponent;

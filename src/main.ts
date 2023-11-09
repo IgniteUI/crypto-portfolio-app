@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { IgxExcelExporterService, IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule, IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule, IgxInputGroupModule, IgxListModule, IgxFilterModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule, IgxGridModule, IgxComboModule, IgxActionStripModule, IgxFocusModule, IgxDividerModule, IgxExpansionPanelModule, IgxTooltipModule } from '@infragistics/igniteui-angular';
+import { IgxExcelExporterService, IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule, IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule, IgxInputGroupModule, IgxListModule, IgxFilterModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule, IgxGridModule, IgxComboModule, IgxActionStripModule, IgxFocusModule, IgxDividerModule, IgxExpansionPanelModule, IgxTooltipModule } from 'igniteui-angular';
 import { ItemService } from './app/services/block-item.service';
 import { DataService } from './app/services/data.service';
 

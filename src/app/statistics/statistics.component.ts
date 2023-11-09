@@ -7,7 +7,7 @@ import {
 import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, first } from 'rxjs/operators';
-import { IgxComboComponent, IComboSelectionChangingEventArgs, IgxComboModule } from '@infragistics/igniteui-angular';
+import { IgxComboComponent, IComboSelectionChangingEventArgs, IgxComboModule } from 'igniteui-angular';
 import { CryptoCoin } from '../core/interfaces';
 import { IgxFinancialChartComponent, IgxFinancialChartCoreModule } from 'igniteui-angular-charts';
 import { FinancialOverlayType } from 'igniteui-angular-charts';
