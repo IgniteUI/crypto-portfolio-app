@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { GoogleAuthProvider } from  '@angular/fire/auth';
+import { FacebookAuthProvider, GoogleAuthProvider } from  '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 
@@ -42,7 +42,12 @@ export class AuthServiceService {
   }
 
   googleAuth() {
-    return this.authLogin(new  GoogleAuthProvider());
+    return this.authLogin(new GoogleAuthProvider());
+  }
+
+  
+  facebookAuth() {
+    return this.authLogin(new FacebookAuthProvider());
   }
 
   authLogin(provider) {

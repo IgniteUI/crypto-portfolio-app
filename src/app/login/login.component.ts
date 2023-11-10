@@ -38,25 +38,9 @@ export class LoginComponent implements OnInit {
       this.iconService.addSvgIconFromText(google.name, google.value, 'imx-icons');
    }
 
-   // loginFb() {
-   //    this.showSpinner = true;
-   //    localStorage.setItem('showSpinner', 'true');
-   //    this.facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
-
-   //    this.afAuth.signInWithRedirect(this.facebookAuthProvider);
-   //    this.afAuth.getRedirectResult().then(result => {
-   //       if (result.user) {
-   //          this.showSpinner = true;
-   //          localStorage.setItem('showSpinner', 'true');
-   //          this.router.navigate([this.return]);
-   //       }
-   //    }).catch(function (error) {
-   //       // Handle Errors here.
-   //       const errorCode = error.code;
-   //       const errorMessage = error.message;
-   //       this.error = errorMessage;
-   //    });
-   // }
+   loginFb() {
+      this.authService.facebookAuth();
+   }
 
    loginGoogle() {
       this.authService.googleAuth();
