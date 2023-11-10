@@ -31,7 +31,7 @@ export class EmailComponent implements OnInit {
 
   onSubmit(formData) {
     if (formData.valid) {
-      this.authService.signIn(formData.value.email, formData.value.password).then((result) => {
+      this.authService.signIn(formData.value.email, formData.value.password).then(() => {
           this.router.navigate(['/home']);
       }).catch((err) => {
         this.snack.open(err.message);

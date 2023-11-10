@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
 import { IgxSnackbarComponent, IgxIconModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, IgxSnackbarModule } from '@infragistics/igniteui-angular';
