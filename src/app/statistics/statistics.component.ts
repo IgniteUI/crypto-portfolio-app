@@ -65,7 +65,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
    }
 
    public fillChart(obj, removeRecord) {
-      this.dataService.getHistoricalData(obj)
+      this.dataService.getHistoricalData(obj[0].symbol)
          .subscribe(res => {
             const returnedData: any = Object.assign(res.data).Data.map(item => {
                // Transform data for the Chart. Multiply by 1000 because Date() requires miliseconds
