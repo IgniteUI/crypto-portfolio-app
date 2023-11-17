@@ -45,13 +45,7 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-@firebase/analytics
-Apache-2.0
-
 @firebase/app
-Apache-2.0
-
-@firebase/app-check
 Apache-2.0
 
 @firebase/app-compat
@@ -78,16 +72,7 @@ Apache-2.0
 @firebase/firestore-compat
 Apache-2.0
 
-@firebase/installations
-Apache-2.0
-
 @firebase/logger
-Apache-2.0
-
-@firebase/messaging
-Apache-2.0
-
-@firebase/remote-config
 Apache-2.0
 
 @firebase/storage
@@ -177,11 +162,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-firebase/analytics
-
 firebase/app
 
-firebase/app-check
+firebase/auth
 
 firebase/compat/app
 
@@ -192,10 +175,6 @@ firebase/compat/database
 firebase/compat/firestore
 
 firebase/compat/storage
-
-firebase/messaging
-
-firebase/remote-config
 
 idb
 ISC
@@ -210,7 +189,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 igniteui-angular-charts
 Infragistics(R) Ultimate license (http://www.infragistics.com/legal/ultimate/license/)
 ==============================================================
-====       Ignite UI(R) for Angular 2018 Volume 2         ====
+====       Ignite UI(R) for Angular 2023 Volume 2         ====
 ==============================================================
 
 ==============================================================
@@ -228,20 +207,20 @@ You can find getting started information related to this product here:
 
 http://igniteui.com/
 
-THIRD PARTY COMPONENTS, USAGE & RESTRICTIONS. 
- A. The SOFTWARE may include certain third party components ("MS-PL Components") licensed under the Microsoft Permissive License ("MS-PL"). A list of included MS-PL Components and their respective licenses shall be provided upon request. 
-              To the extent required by the MS-PL, the terms of such license will apply in lieu of the terms of this Agreement, and Infragistics, Inc. hereby represents and warrants that the license granted to such MS-PL Components will be no less broad than the license granted in this Agreement. To the extent the terms of the license applicable to MS-PL Components prohibit any of the restrictions in this agreement with respect to such MS-PL Components, such restrictions will not apply to such MS-PL Components. The MS-PL Components are provided "as is" by the third party licensors who disclaim all liabilities, damages, (even if they have been advised of the possibility of such damages), warranties, indemnities and other obligations of any kind, express or implied, with regard to the MS-PL Components. The MS-PL Components are excluded from any indemnity provided by Infragistics Inc. in this license. Nothing in the foregoing affects any performance warranty provided by Infragistics Inc. with regard to the SOFTWARE as a whole. 
+THIRD PARTY COMPONENTS, USAGE & RESTRICTIONS.
+ A. The SOFTWARE may include certain third party components ("MS-PL Components") licensed under the Microsoft Permissive License ("MS-PL"). A list of included MS-PL Components and their respective licenses shall be provided upon request.
+              To the extent required by the MS-PL, the terms of such license will apply in lieu of the terms of this Agreement, and Infragistics, Inc. hereby represents and warrants that the license granted to such MS-PL Components will be no less broad than the license granted in this Agreement. To the extent the terms of the license applicable to MS-PL Components prohibit any of the restrictions in this agreement with respect to such MS-PL Components, such restrictions will not apply to such MS-PL Components. The MS-PL Components are provided "as is" by the third party licensors who disclaim all liabilities, damages, (even if they have been advised of the possibility of such damages), warranties, indemnities and other obligations of any kind, express or implied, with regard to the MS-PL Components. The MS-PL Components are excluded from any indemnity provided by Infragistics Inc. in this license. Nothing in the foregoing affects any performance warranty provided by Infragistics Inc. with regard to the SOFTWARE as a whole.
 
-B. The SOFTWARE may also include third party components ("Other Components") licensed under, and subject to the permission of the MIT License found at https://opensource.org/licenses/MIT. The Other Components are provided "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE OTHER COMPONENTS OR THE USE OF OTHER DEALINGS IN THE OTHER COMPONENTS. 
+B. The SOFTWARE may also include third party components ("Other Components") licensed under, and subject to the permission of the MIT License found at https://opensource.org/licenses/MIT. The Other Components are provided "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE OTHER COMPONENTS OR THE USE OF OTHER DEALINGS IN THE OTHER COMPONENTS.
 
-C. Note: To the best of our knowledge, Microsoft� doesn't forbid third-party companies from developing a product for the XPS document generation. However, according to the XML Paper Specification Patent License, we need to provide the following notice for your information: 
+C. Note: To the best of our knowledge, Microsoft� doesn't forbid third-party companies from developing a product for the XPS document generation. However, according to the XML Paper Specification Patent License, we need to provide the following notice for your information:
               This product may incorporate intellectual property owned by Microsoft Corporation. The terms and conditions upon which Microsoft is licensing such intellectual property can be found at http://www.microsoft.com/whdc/XPS/XpsLicense.mspx.
 
 
 igniteui-angular-core
 Infragistics(R) Ultimate license (http://www.infragistics.com/legal/ultimate/license/)
 ==============================================================
-====       Ignite UI(R) for Angular 2018 Volume 2         ====
+====       Ignite UI(R) for Angular 2023 Volume 2         ====
 ==============================================================
 
 ==============================================================
@@ -259,18 +238,15 @@ You can find getting started information related to this product here:
 
 http://igniteui.com/
 
-THIRD PARTY COMPONENTS, USAGE & RESTRICTIONS. 
- A. The SOFTWARE may include certain third party components ("MS-PL Components") licensed under the Microsoft Permissive License ("MS-PL"). A list of included MS-PL Components and their respective licenses shall be provided upon request. 
-              To the extent required by the MS-PL, the terms of such license will apply in lieu of the terms of this Agreement, and Infragistics, Inc. hereby represents and warrants that the license granted to such MS-PL Components will be no less broad than the license granted in this Agreement. To the extent the terms of the license applicable to MS-PL Components prohibit any of the restrictions in this agreement with respect to such MS-PL Components, such restrictions will not apply to such MS-PL Components. The MS-PL Components are provided "as is" by the third party licensors who disclaim all liabilities, damages, (even if they have been advised of the possibility of such damages), warranties, indemnities and other obligations of any kind, express or implied, with regard to the MS-PL Components. The MS-PL Components are excluded from any indemnity provided by Infragistics Inc. in this license. Nothing in the foregoing affects any performance warranty provided by Infragistics Inc. with regard to the SOFTWARE as a whole. 
+THIRD PARTY COMPONENTS, USAGE & RESTRICTIONS.
+ A. The SOFTWARE may include certain third party components ("MS-PL Components") licensed under the Microsoft Permissive License ("MS-PL"). A list of included MS-PL Components and their respective licenses shall be provided upon request.
+              To the extent required by the MS-PL, the terms of such license will apply in lieu of the terms of this Agreement, and Infragistics, Inc. hereby represents and warrants that the license granted to such MS-PL Components will be no less broad than the license granted in this Agreement. To the extent the terms of the license applicable to MS-PL Components prohibit any of the restrictions in this agreement with respect to such MS-PL Components, such restrictions will not apply to such MS-PL Components. The MS-PL Components are provided "as is" by the third party licensors who disclaim all liabilities, damages, (even if they have been advised of the possibility of such damages), warranties, indemnities and other obligations of any kind, express or implied, with regard to the MS-PL Components. The MS-PL Components are excluded from any indemnity provided by Infragistics Inc. in this license. Nothing in the foregoing affects any performance warranty provided by Infragistics Inc. with regard to the SOFTWARE as a whole.
 
-B. The SOFTWARE may also include third party components ("Other Components") licensed under, and subject to the permission of the MIT License found at https://opensource.org/licenses/MIT. The Other Components are provided "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE OTHER COMPONENTS OR THE USE OF OTHER DEALINGS IN THE OTHER COMPONENTS. 
+B. The SOFTWARE may also include third party components ("Other Components") licensed under, and subject to the permission of the MIT License found at https://opensource.org/licenses/MIT. The Other Components are provided "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE OTHER COMPONENTS OR THE USE OF OTHER DEALINGS IN THE OTHER COMPONENTS.
 
-C. Note: To the best of our knowledge, Microsoft� doesn't forbid third-party companies from developing a product for the XPS document generation. However, according to the XML Paper Specification Patent License, we need to provide the following notice for your information: 
+C. Note: To the best of our knowledge, Microsoft� doesn't forbid third-party companies from developing a product for the XPS document generation. However, according to the XML Paper Specification Patent License, we need to provide the following notice for your information:
               This product may incorporate intellectual property owned by Microsoft Corporation. The terms and conditions upon which Microsoft is licensing such intellectual property can be found at http://www.microsoft.com/whdc/XPS/XpsLicense.mspx.
 
-
-igniteui-trial-watermark
-Apache-2.0
 
 lodash-es
 MIT
@@ -561,7 +537,7 @@ zone.js
 MIT
 The MIT License
 
-Copyright (c) 2010-2022 Google LLC. https://angular.io/license
+Copyright (c) 2010-2023 Google LLC. https://angular.io/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

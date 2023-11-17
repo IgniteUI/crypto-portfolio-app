@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
    @ViewChild(IgxLayoutDirective, { read: IgxLayoutDirective, static: true }) public layout: IgxLayoutDirective;
 
    @HostListener('window:resize', ['$event'])
-   onResize(event) {
+   onResize() {
       this.innerWidth = window.innerWidth;
    }
 

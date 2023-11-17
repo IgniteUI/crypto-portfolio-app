@@ -1,4 +1,4 @@
-import { trigger, transition, style, animate, query, stagger, group, keyframes, state } from '@angular/animations';
+import { trigger, transition, style, animate, group, state } from '@angular/animations';
 
 export function moveIn() {
    return trigger('moveIn', [
