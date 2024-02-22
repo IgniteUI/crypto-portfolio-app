@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation } from '@
 import { NavigationStart, Router, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { routes } from './app-routing.module';
-import { IgxNavigationDrawerComponent, IgxLayoutDirective, IgxLayoutModule, IgxNavigationDrawerModule, IgxRippleModule, IgxIconModule, IgxNavbarModule, IgxButtonModule } from '@infragistics/igniteui-angular';
+import { IgxNavigationDrawerComponent, IgxLayoutDirective, IgxLayoutModule, IgxNavigationDrawerModule, IgxRippleModule, IgxIconModule, IgxNavbarModule, IgxButtonModule } from 'igniteui-angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthServiceService } from './services/auth.service';
 import { NgFor, NgIf, AsyncPipe } from '@angular/common';

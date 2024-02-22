@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from '@infragistics/igniteui-angular';
+import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from 'igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
 import { AngularFireList } from '@angular/fire/compat/database';
 import { map } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
-import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from '@infragistics/igniteui-angular';
+import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from 'igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { IgxPieChartComponent, IgxItemLegendModule, IgxPieChartCoreModule } from 'igniteui-angular-charts';

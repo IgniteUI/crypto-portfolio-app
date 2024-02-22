@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxFilterOptions, IgxInputGroupModule, IgxIconModule, IgxListModule, IgxAvatarModule, IgxFilterModule } from '@infragistics/igniteui-angular';
+import { IgxFilterOptions, IgxInputGroupModule, IgxIconModule, IgxListModule, IgxAvatarModule, IgxFilterModule } from 'igniteui-angular';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
 import { Animations } from '../core/animations';
 import { NgIf, NgFor, DecimalPipe } from '@angular/common';

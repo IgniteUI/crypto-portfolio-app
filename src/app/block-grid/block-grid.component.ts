@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { IgxGridComponent, SortingDirection, IgxExcelExporterOptions, IgxExcelExporterService, IGroupingDoneEventArgs, IgxColumnComponent, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule } from '@infragistics/igniteui-angular';
+import { IgxGridComponent, SortingDirection, IgxExcelExporterOptions, IgxExcelExporterService, IGroupingDoneEventArgs, IgxColumnComponent, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule } from 'igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
 import { interval } from 'rxjs';

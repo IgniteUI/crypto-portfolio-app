@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { moveIn } from '../router.animations';
 import { facebook, google } from '@igniteui/material-icons-extended';
-import { IgxIconService, IgxIconModule, IgxButtonModule, IgxRippleModule } from '@infragistics/igniteui-angular';
+import { IgxIconService, IgxIconModule, IgxButtonModule, IgxRippleModule } from 'igniteui-angular';
 import { AuthServiceService } from '../services/auth.service';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { NgIf } from '@angular/common';

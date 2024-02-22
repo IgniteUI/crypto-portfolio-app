@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
-import { IgxSnackbarComponent, IgxIconModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, IgxSnackbarModule } from '@infragistics/igniteui-angular';
+import { IgxSnackbarComponent, IgxIconModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, IgxSnackbarModule } from 'igniteui-angular';
 import { AuthServiceService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 

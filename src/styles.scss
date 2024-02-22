@@ -2,8 +2,8 @@
 @use "minireset.css/minireset" as *;
 @forward "minireset.css/minireset";
 
-@use '@infragistics/igniteui-angular/theming' as *;
-@forward '@infragistics/igniteui-angular/theming';
+@use 'igniteui-angular/theming' as *;
+@forward 'igniteui-angular/theming';
 
 @import 'app/app-themes/themes.scss';
 

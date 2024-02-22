@@ -1,6 +1,6 @@
 // Import the theme utilities first
-@use '@infragistics/igniteui-angular/theming' as *;
-@forward '@infragistics/igniteui-angular/theming';
+@use 'igniteui-angular/theming' as *;
+@forward 'igniteui-angular/theming';
 @include core();
 @include typography();
 @import 'mixins';
