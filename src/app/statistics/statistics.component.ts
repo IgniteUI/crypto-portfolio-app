@@ -76,11 +76,11 @@ export class StatisticsComponent implements OnInit, AfterViewInit {
 
             if (removeRecord) {
                // Removing data item
-               this.data = this.arrayRemove(this.data, obj[0]);
+               this.data = this.arrayRemove(this.data, obj[0].name);
                this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0].name]);
             } else {
                // Adding data item
-               this.data.push([returnedData, returnedData.title = obj[0]]);
+               this.data.push([returnedData, returnedData.title = obj[0].name]);
                this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0].name]);
             }
          });
