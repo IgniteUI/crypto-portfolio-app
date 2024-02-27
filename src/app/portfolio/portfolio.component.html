@@ -1,7 +1,7 @@
 <div class="sample-wrapper" igxOverlayOutlet>
   <div class="sample-content">
     <span>
-      <button id="refreshBtn" igxButton="raised" igxRipple (click)="updatePortfolio()">
+      <button id="refreshBtn" igxButton="contained" igxRipple (click)="updatePortfolio()">
         <igx-icon>refresh</igx-icon>
         <span>Total Portfolio Value: {{ calculateTotalPortfolio() | number:'0.2-2' }}
         </span>
@@ -9,7 +9,7 @@
     </span>
 
     <span>
-      <button id="addBtn" igxButton="raised" igxRipple (click)="openDialog()">
+      <button id="addBtn" igxButton="contained" igxRipple (click)="openDialog()">
         <igx-icon>playlist_add</igx-icon>
         <span>Add coin</span>
       </button>

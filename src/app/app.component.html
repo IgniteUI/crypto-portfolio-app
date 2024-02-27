@@ -23,10 +23,10 @@
       <span>
         <div class="account-container" *ngIf="afAuth.authState | async as user; else showLogin">
           <span *ngIf="innerWidth > 650">{{ name !== null ? 'Hey ' + name : '' }}</span>
-          <button igxButton="raised" igxRipple (click)="logout()">Logout</button>
+          <button igxButton="contained" igxRipple (click)="logout()">Logout</button>
         </div>
         <ng-template #showLogin>
-          <div><button igxButton="raised" igxRipple (click)="login()">Login</button></div>
+          <div><button igxButton="contained" igxRipple (click)="login()">Login</button></div>
         </ng-template>
       </span>
     </igx-navbar>
