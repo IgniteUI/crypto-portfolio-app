@@ -1,10 +1,10 @@
 <div class="sample-wrapper">
   <div class="sample-content">
     <div class="buttons-container" *ngIf="!hideColumn; else elseBlock">
-      <button id="refresh" igxButton="raised" igxRipple (click)="refreshGrid()">
+      <button id="refresh" igxButton="contained" igxRipple (click)="refreshGrid()">
         <igx-icon>refresh</igx-icon>
       </button>
-      <button [igxTooltipTarget]="tooltipRef" id="exportButton" igxButton="raised" igxRipple (click)="exportGrid()">
+      <button [igxTooltipTarget]="tooltipRef" id="exportButton" igxButton="contained" igxRipple (click)="exportGrid()">
         <img src="https://img.icons8.com/material/24/000000/ms-excel.png">
       </button>
     </div>
@@ -60,7 +60,7 @@
 
       <igx-column [width]="setWidth('15%', '10%')" [header]="hideColumn ? 'Chart' : 'Volatility'" [filterable]="false" [hidden]="false">
         <ng-template igxCell let-cell="cell">
-          <span igxButton="icon" igxRipple (click)='openChart($event, cell.row.data.name)'>
+          <span igxIconButton="flat" igxRipple (click)='openChart($event, cell.row.data.name)'>
             <igx-icon>insert_chart</igx-icon>
           </span>
         </ng-template>
