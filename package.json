@@ -19,7 +19,7 @@
     "@angular/animations": "^17.2.2",
     "@angular/common": "^17.2.2",
     "@angular/compiler": "^17.2.2",
-    "@angular/core": "^17.2.2",
+    "@angular/core": "^17.2.3",
     "@angular/fire": "^17.0.0-next.0",
     "@angular/forms": "^17.2.2",
     "@angular/platform-browser": "^17.2.2",
@@ -40,7 +40,7 @@
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.2.1",
+    "@angular-devkit/build-angular": "^20.3.5",
     "@angular-eslint/builder": "17.0.1",
     "@angular-eslint/eslint-plugin": "17.0.1",
     "@angular-eslint/eslint-plugin-template": "17.0.1",
@@ -57,7 +57,7 @@
     "@typescript-eslint/parser": "^6.10.0",
     "codelyzer": "^6.0.0",
     "eslint": "^8.53.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "gulp-gh-pages": "^0.5.4",
     "igniteui-cli": "^11.1.0",
     "jasmine-core": "~3.8.0",
