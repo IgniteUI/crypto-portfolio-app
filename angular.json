@@ -66,6 +66,14 @@
                 }
               ]
             },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
             "es5": {
               "budgets": [
                 {
@@ -85,6 +93,9 @@
           "configurations": {
             "production": {
               "buildTarget": "cryptoapp:build:production"
+            },
+            "local": {
+              "buildTarget": "cryptoapp:build:local"
             },
             "es5": {
               "buildTarget": "cryptoapp:build:es5"
