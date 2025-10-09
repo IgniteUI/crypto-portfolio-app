@@ -17,13 +17,22 @@ import { IgxExcelExporterService, IgxNavigationDrawerModule, IgxNavbarModule, Ig
 import { ItemService } from './app/services/block-item.service';
 import { DataService } from './app/services/data.service';
 
+const firebaseConfig = {
+    apiKey: 'AIzaSyASqXec1QsPpOZ6Pbgk5YuYOnmiewOOvhc',
+    authDomain: 'crypto-portfolio-tracker.firebaseapp.com',
+    databaseURL: 'https://crypto-portfolio-tracker.firebaseio.com',
+    projectId: 'crypto-portfolio-tracker',
+    storageBucket: 'crypto-portfolio-tracker.appspot.com',
+    messagingSenderId: '1078645280256'
+  };
+
  if (environment.production) {
   enableProdMode();
  }
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(FormsModule, BrowserModule, AppRoutingModule, IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule, IgxFinancialChartModule, IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule, IgxInputGroupModule, IgxListModule, IgxFilterModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule, IgxGridModule, IgxComboModule, IgxActionStripModule, IgxFocusModule, AngularFireModule.initializeApp(environment.firebaseConfig), AngularFirestoreModule, AngularFireAuthModule, AngularFireStorageModule, AngularFireDatabaseModule, IgxDividerModule, IgxExpansionPanelModule, IgxTooltipModule, IgxPieChartModule, IgxLegendModule, IgxItemLegendModule),
+        importProvidersFrom(FormsModule, BrowserModule, AppRoutingModule, IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule, IgxFinancialChartModule, IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule, IgxInputGroupModule, IgxListModule, IgxFilterModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule, IgxGridModule, IgxComboModule, IgxActionStripModule, IgxFocusModule, AngularFireModule.initializeApp(firebaseConfig), AngularFirestoreModule, AngularFireAuthModule, AngularFireStorageModule, AngularFireDatabaseModule, IgxDividerModule, IgxExpansionPanelModule, IgxTooltipModule, IgxPieChartModule, IgxLegendModule, IgxItemLegendModule),
         DataService, ItemService, IgxExcelExporterService,
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi())

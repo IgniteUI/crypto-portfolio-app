@@ -46,7 +46,3 @@ testem.log
 Thumbs.db
 
 .publish
-
-# Local environment files with secrets (never commit these)
-src/environments/environment.local.ts
-src/environments/environment.*.local.ts
