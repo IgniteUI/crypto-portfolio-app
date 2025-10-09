@@ -20,9 +20,42 @@ This project is generated with [Angular CLI](https://github.com/angular/angular-
 3. **Firebase Project** (applicable when the project is forked): [Create a Firebase project](https://firebase.google.com/docs/web/setup) (Used for authentication and data storage)
 
 
-## Create a production bundle
-1. Run `ng build --prod --aot`
-2. Go to `dist folder` and host with IIS or any other provider (example [lite-server](https://github.com/johnpapa/lite-server#global-installation))
+## Build Commands
+
+### Local Development Builds
+For testing and local development with actual Firebase configuration:
+
+```bash
+# Development build with local config
+ng build -c local
+
+# Production build with local config (optimized, but uses actual Firebase secrets)
+npm run build:local
+# or
+ng build -c production-local
+```
+
+### Production Builds
+For deployment (uses placeholder variables that get replaced during CI/CD):
+
+```bash
+# Standard production build (for CI/CD)
+npm run build
+# or 
+ng build -c production
+
+# Web bundle for GitHub Pages
+npm run build:web:prod
+```
+
+### Available npm Scripts Summary
+
+| Command | Purpose | Firebase Config | Optimization |
+|---------|---------|----------------|--------------|
+| `npm run start:local` | Development server | Local secrets | None |
+| `npm run build:local` | Local production testing | Local secrets | Full |
+| `npm run build` | CI/CD production | Placeholders | Full |
+| `npm run build:web:prod` | GitHub Pages | Placeholders | Full |
 
 ## Create web bundle (update the hosted website)
 Use the command `npm run build:web:prod` or you can manually build the project with:
@@ -35,7 +68,7 @@ Use the command `npm run build:web:prod` or you can manually build the project w
 ## dist and docs folders
 
 `docs` folder is used for the [GitHub Pages](https://igniteui.github.io/crypto-portfolio-app/) site. Related to [`Publishing your GitHub Pages site from a /docs folder on your `master` branch`](https://igniteui.github.io/crypto-portfolio-app/)
-Use `ng build --prod --aot` to build the project, `copy -> paste` into `docs` folder the generated content in `dist` folder, and replace the `base href`.
+Use `npm run build:local` for local testing or `npm run build` for CI/CD deployment.
 
 ## Development server
 
@@ -84,50 +117,69 @@ const firebaseConfig = {
 
 ### Local Development Setup
 
-#### Option 1: Local Environment File (Recommended)
-1. Create `src/environments/environment.local.ts`:
-```typescript
-export const environment = {
-  production: false,
-  firebaseConfig: {
-    apiKey: 'your-actual-api-key-here',
-    authDomain: 'your-project.firebaseapp.com',
-    databaseURL: 'https://your-project-default-rtdb.firebaseio.com/',
-    projectId: 'your-project-id',
-    storageBucket: 'your-project.appspot.com',
-    messagingSenderId: 'your-sender-id'
-  }
-};
-```
+#### Option 1: Local Environment Files (Recommended)
+This approach keeps your Firebase secrets separate and secure:
 
-2. Add to `angular.json` configurations (if not already present):
-```json
-"serve-local": {
-  "builder": "@angular-devkit/build-angular:dev-server",
-  "options": {
-    "buildTarget": "crypto-portfolio-app:build-local"
-  }
-},
-"build-local": {
-  "builder": "@angular-devkit/build-angular:browser",
-  "options": {
-    "fileReplacements": [
-      {
-        "replace": "src/environments/environment.ts",
-        "with": "src/environments/environment.local.ts"
-      }
-    ]
-  }
-}
-```
+1. **Create local environment files**:
 
-3. Run locally:
-```bash
-npm install
-ng serve -c local
-```
+   **For development**: Create `src/environments/environment.local.ts`:
+   ```typescript
+   export const environment = {
+     production: false,
+     firebaseConfig: {
+       apiKey: 'your-actual-api-key-here',
+       authDomain: 'your-project.firebaseapp.com',
+       databaseURL: 'https://your-project-default-rtdb.firebaseio.com/',
+       projectId: 'your-project-id',
+       storageBucket: 'your-project.appspot.com',
+       messagingSenderId: 'your-sender-id'
+     }
+   };
+   ```
+
+   **For production builds**: Create `src/environments/environment.prod.local.ts`:
+   ```typescript
+   export const environment = {
+     production: true,
+     firebaseConfig: {
+       apiKey: 'your-actual-api-key-here',
+       authDomain: 'your-project.firebaseapp.com',
+       databaseURL: 'https://your-project-default-rtdb.firebaseio.com/',
+       projectId: 'your-project-id',
+       storageBucket: 'your-project.appspot.com',
+       messagingSenderId: 'your-sender-id'
+     }
+   };
+   ```
+
+2. **Available npm scripts**:
+   ```bash
+   # Development server with local Firebase config
+   npm run start:local
+   
+   # Production build with local Firebase config (for local testing)
+   npm run build:local
+   
+   # Regular production build (for CI/CD - uses placeholder variables)
+   npm run build
+   ```
+
+3. **Angular CLI commands**:
+   ```bash
+   # Development
+   ng serve -c local              # Serve with local config
+   ng build -c local              # Build with local config (dev mode)
+   
+   # Production (local testing)
+   ng build -c production-local   # Production build with local config
+   
+   # Production (CI/CD)
+   ng build -c production         # Production build with placeholders
+   ```
 
 #### Option 2: Direct Configuration (Quick Setup)
+⚠️ **Warning**: This method exposes secrets in tracked files. Remember to revert changes before committing!
+
 Replace the placeholder values in `src/environments/environment.ts` with your actual Firebase config for local development:
 
 ```typescript
@@ -156,6 +208,79 @@ export const environment = {
 
 ### Production Deployment
 For production deployment to GitHub Pages, the Firebase configuration will be automatically injected from GitHub secrets during the CI/CD process. See [DEPLOYMENT.md](DEPLOYMENT.md) for details.
+
+## Environment Files Overview
+
+This project uses multiple environment files for different scenarios:
+
+| File | Purpose | Firebase Config | Git Tracking |
+|------|---------|----------------|-------------|
+| `environment.ts` | Development (default) | Placeholders | ✅ Tracked |
+| `environment.prod.ts` | Production (CI/CD) | Placeholders | ✅ Tracked |
+| `environment.local.ts` | Local development | **Real secrets** | ❌ Ignored |
+| `environment.prod.local.ts` | Local production testing | **Real secrets** | ❌ Ignored |
+
+### Why This Structure?
+- **Security**: Real Firebase secrets never get committed to Git
+- **Flexibility**: Different configs for different scenarios
+- **CI/CD**: Automated deployment replaces placeholders with actual secrets
+- **Local Testing**: You can test production builds locally with real Firebase data
+
+## Troubleshooting
+
+### "apiKey not found" Error in Production Builds
+**Problem**: Running `ng build --configuration production` creates a build that doesn't work locally because it uses placeholder variables like `${FIREBASE_API_KEY}`.
+
+**Solution**: Use the local production build instead:
+```bash
+# Instead of this (uses placeholders):
+npm run build
+
+# Use this (uses actual Firebase config):
+npm run build:local
+```
+
+### Firebase Configuration Issues
+
+#### "Firebase: No Firebase App '[DEFAULT]' has been created"
+- Ensure your Firebase configuration is properly set in the environment file
+- Check that all required fields are filled with actual values (not placeholders)
+- Verify you're using the correct build configuration (`-c local` for local development)
+
+#### "Firebase: Error (auth/unauthorized-domain)"
+- Add `localhost` to authorized domains in Firebase Console → Authentication → Settings → Authorized domains
+- Add your GitHub Pages domain if deploying there
+
+#### "Firebase: Error (auth/operation-not-allowed)"
+- Enable the authentication method you're trying to use in Firebase Console → Authentication → Sign-in method
+
+#### "Cannot read property 'from' of undefined"
+- This usually indicates a missing or incorrect Firebase configuration
+- Verify all Firebase config values are correctly set in your local environment files
+- Try using `npm run build:web:noProd` for development builds
+
+### Build Command Quick Reference
+
+| What you want to do | Command to use |
+|-------------------|----------------|
+| 🔧 **Local development** | `npm run start:local` |
+| 🧪 **Test production build locally** | `npm run build:local` |
+| 🚀 **Deploy to GitHub Pages** | `npm run build` (CI/CD handles this) |
+| 📦 **Manual GitHub Pages build** | `npm run build:web:prod` |
+
+### Getting Firebase Configuration Values
+
+You can find your Firebase configuration in:
+1. **Firebase Console** → Project Settings → General → Your apps → Web app
+2. Or click "Add app" → Web → Copy the config object
+
+Example of where to find each value:
+- `apiKey`: Found in Firebase config object
+- `authDomain`: Usually `your-project-id.firebaseapp.com`
+- `databaseURL`: Found in Realtime Database section (if using)
+- `projectId`: Your Firebase project ID
+- `storageBucket`: Usually `your-project-id.appspot.com`
+- `messagingSenderId`: Found in Firebase config object
 
 ## More
 
