@@ -1,10 +1,19 @@
-# Runs on every pull request targeting master
-# Ensures build, lint, and Firebase env replacement all work correctly
-name: Build App
+# Build & Deploy Angular App to GitHub Pages
+name: Build and Deploy App
 
 on:
-  pull_request:
-    branches: [ master ]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -28,8 +37,10 @@ jobs:
           echo "//packages.infragistics.com/npm/js-licensed/:_auth=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
           echo "//packages.infragistics.com/npm/js-licensed/:always-auth=true" >> ~/.npmrc
 
-      - name: Clean build folders
-        run: rm -rf dist docs
+      - name: Clean dist and docs
+        run: |
+          rm -rf dist
+          rm -rf docs
 
       - name: Install dependencies
         run: npm ci
@@ -52,5 +63,20 @@ jobs:
         run: npm run lint
 
       - name: Build Angular app
-        run: npm run build   # Build only for validation (no deployment)
+        run: npm run build   # produces dist/ folder
 
+      - name: Upload build artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
