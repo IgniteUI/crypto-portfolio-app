@@ -34,6 +34,10 @@ jobs:
       - run: echo "@infragistics:registry=https://packages.infragistics.com/npm/js-licensed/" >> ~/.npmrc
       - run: echo "//packages.infragistics.com/npm/js-licensed/:_auth=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
       - run: echo "//packages.infragistics.com/npm/js-licensed/:always-auth=true" >> ~/.npmrc
+      - name: Clean dist and docs
+        run: |
+          rm -rf dist
+          rm -rf docs
 
       - name: Install dependencies
         run: npm ci
