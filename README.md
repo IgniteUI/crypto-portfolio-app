@@ -1,5 +1,5 @@
 
-![CI](https://github.com/IgniteUI/crypto-portfolio-app/workflows/CI/badge.svg?branch=master)
+[![pages-build-deployment](https://github.com/IgniteUI/crypto-portfolio-app/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/IgniteUI/crypto-portfolio-app/actions/workflows/pages/pages-build-deployment)
 
 ## Inspired by [Ignite UI for Angular](https://github.com/IgniteUI/igniteui-angular)
 
