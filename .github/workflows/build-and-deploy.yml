@@ -63,7 +63,7 @@ jobs:
         run: npm run lint
 
       - name: Build Angular app
-        run: npm run build   # produces dist/ folder
+        run: npm run build:gh-pages   # produces dist/ folder
 
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
