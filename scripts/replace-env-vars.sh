@@ -18,12 +18,12 @@ for var in "${required_vars[@]}"; do
 done
 
 # Create a temporary file with replaced values
-sed "s|\${FIREBASE_API_KEY}|${FIREBASE_API_KEY}|g; \
-     s|\${FIREBASE_AUTH_DOMAIN}|${FIREBASE_AUTH_DOMAIN}|g; \
-     s|\${FIREBASE_DATABASE_URL}|${FIREBASE_DATABASE_URL}|g; \
-     s|\${FIREBASE_PROJECT_ID}|${FIREBASE_PROJECT_ID}|g; \
-     s|\${FIREBASE_STORAGE_BUCKET}|${FIREBASE_STORAGE_BUCKET}|g; \
-     s|\${FIREBASE_MESSAGING_SENDER_ID}|${FIREBASE_MESSAGING_SENDER_ID}|g" \
+sed "s@\${FIREBASE_API_KEY}@${FIREBASE_API_KEY}@g; \
+     s@\${FIREBASE_AUTH_DOMAIN}@${FIREBASE_AUTH_DOMAIN}@g; \
+     s@\${FIREBASE_DATABASE_URL}@${FIREBASE_DATABASE_URL}@g; \
+     s@\${FIREBASE_PROJECT_ID}@${FIREBASE_PROJECT_ID}@g; \
+     s@\${FIREBASE_STORAGE_BUCKET}@${FIREBASE_STORAGE_BUCKET}@g; \
+     s@\${FIREBASE_MESSAGING_SENDER_ID}@${FIREBASE_MESSAGING_SENDER_ID}@g" \
      src/environments/environment.prod.ts > src/environments/environment.prod.ts.tmp
 
 # Replace the original file
