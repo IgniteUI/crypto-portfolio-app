@@ -29,7 +29,7 @@
     "@angular/platform-browser-dynamic": "^19.2.15",
     "@angular/router": "^19.2.15",
     "@igniteui/angular-schematics": "^20.1.1463",
-    "@igniteui/material-icons-extended": "^3.0.2",
+    "@igniteui/material-icons-extended": "^3.1.0",
     "@infragistics/igniteui-angular": "^17.1.0",
     "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
