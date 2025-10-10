@@ -61,6 +61,8 @@ jobs:
           echo "FIREBASE_MESSAGING_SENDER_ID: $FIREBASE_MESSAGING_SENDER_ID"
           echo "==============================================================="
           ./scripts/replace-env-vars.sh
+          echo "=== AFTER REPLACEMENT ==="
+          cat src/environments/environment.prod.ts
 
       - name: Debug env file contents
         run: |
