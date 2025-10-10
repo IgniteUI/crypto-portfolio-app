@@ -4,8 +4,6 @@ name: Build and Deploy App
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
   workflow_dispatch:
 
 permissions:
