@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     animations: [flyInOut()],
-    standalone: true,
     imports: [NgIf, IgxInputGroupModule, FormsModule, IgxIconModule, NgFor, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, DecimalPipe, IgxFilterModule]
 })
 export class HomeComponent implements OnInit {

@@ -12,7 +12,6 @@ import { NgIf, DecimalPipe } from '@angular/common';
     selector: 'app-block-grid',
     templateUrl: './block-grid.component.html',
     styleUrls: ['./block-grid.component.scss'],
-    standalone: true,
     imports: [NgIf, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule, DecimalPipe, IgxIconButtonDirective]
 })
 export class BlockGridComponent implements OnInit, AfterViewInit {

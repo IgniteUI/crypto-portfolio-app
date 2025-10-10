@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-portfolio',
     templateUrl: './portfolio.component.html',
     styleUrls: ['./portfolio.component.scss'],
-    standalone: true,
     imports: [IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxItemLegendModule, IgxPieChartCoreModule, IgxSnackbarModule, IgxDialogModule, FormsModule, IgxInputGroupModule, DecimalPipe]
 })
 export class PortfolioComponent implements AfterViewInit {

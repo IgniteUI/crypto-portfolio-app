@@ -12,7 +12,6 @@ import { NgFor, NgIf, AsyncPipe } from '@angular/common';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [IgxLayoutModule, IgxNavigationDrawerModule, NgFor, IgxRippleModule, RouterLinkActive, RouterLink, NgIf, IgxIconModule, IgxNavbarModule, IgxButtonModule, RouterOutlet, AsyncPipe]
 })
 export class AppComponent implements OnInit {
