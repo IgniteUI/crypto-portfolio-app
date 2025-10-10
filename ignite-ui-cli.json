@@ -1,23 +1,23 @@
 {
-    "igPackageRegistry": "https://packages.infragistics.com/npm/js-licensed/",
-    "customTemplates": [],
-    "skipGit": false,
-    "skipAnalytic": false,
-    "version": "3.0.0",
-    "project": {
-        "framework": "angular",
-        "projectType": "igx-ts",
-        "theme": "zero-blocks",
-        "themePath": "$(themePath)",
-        "isBundle": false,
-        "bundleFilePath": "",
-        "igniteuiSource": "",
-        "components": [],
-        "sourceFiles": [],
-        "isShowcase": false,
-        "version": "",
-        "projectTemplate": "side-nav"
-    },
-    "build": {},
-    "packagesInstalled": true
+  "igPackageRegistry": "https://packages.infragistics.com/npm/js-licensed/",
+  "customTemplates": [],
+  "skipGit": false,
+  "skipAnalytic": false,
+  "version": "3.0.0",
+  "project": {
+    "framework": "angular",
+    "projectType": "igx-ts-legacy",
+    "theme": "zero-blocks",
+    "themePath": "$(themePath)",
+    "isBundle": false,
+    "bundleFilePath": "",
+    "igniteuiSource": "",
+    "components": [],
+    "sourceFiles": [],
+    "isShowcase": false,
+    "version": "",
+    "projectTemplate": "side-nav"
+  },
+  "build": {},
+  "packagesInstalled": true
 }
