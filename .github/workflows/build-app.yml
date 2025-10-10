@@ -1,0 +1,56 @@
+# Runs on every pull request targeting master
+# Ensures build, lint, and Firebase env replacement all work correctly
+name: Build App
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Configure private npm registry
+        run: |
+          echo "@infragistics:registry=https://packages.infragistics.com/npm/js-licensed/" >> ~/.npmrc
+          echo "//packages.infragistics.com/npm/js-licensed/:_auth=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+          echo "//packages.infragistics.com/npm/js-licensed/:always-auth=true" >> ~/.npmrc
+
+      - name: Clean build folders
+        run: rm -rf dist docs
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Replace Firebase environment variables
+        env:
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
+        run: |
+          chmod +x scripts/replace-env-vars.sh
+          ./scripts/replace-env-vars.sh
+          echo "=== AFTER REPLACEMENT ==="
+          cat src/environments/environment.prod.ts
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Build Angular app
+        run: npm run build   # Build only for validation (no deployment)
+
