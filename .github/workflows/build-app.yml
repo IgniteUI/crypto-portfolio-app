@@ -48,7 +48,21 @@ jobs:
           FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}
         run: |
           chmod +x scripts/replace-env-vars.sh
+          echo "=== DEBUG: Printing environment variables before replacement ==="
+          echo "FIREBASE_API_KEY: $FIREBASE_API_KEY"
+          echo "FIREBASE_AUTH_DOMAIN: $FIREBASE_AUTH_DOMAIN"
+          echo "FIREBASE_DATABASE_URL: $FIREBASE_DATABASE_URL"
+          echo "FIREBASE_PROJECT_ID: $FIREBASE_PROJECT_ID"
+          echo "FIREBASE_STORAGE_BUCKET: $FIREBASE_STORAGE_BUCKET"
+          echo "FIREBASE_MESSAGING_SENDER_ID: $FIREBASE_MESSAGING_SENDER_ID"
+          echo "==============================================================="
           ./scripts/replace-env-vars.sh
+
+      - name: Debug env file contents
+        run: |
+          echo "=== DEBUG: Contents of environment.prod.ts after replacement ==="
+          cat src/environments/environment.prod.ts
+          echo "================================================================"
 
       - name: Run lint
         run: npm run lint
