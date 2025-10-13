@@ -13,7 +13,20 @@ import { NgFor, NgIf, AsyncPipe } from '@angular/common';
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [IgxLayoutModule, IgxNavigationDrawerModule, NgFor, IgxRippleModule, RouterLinkActive, RouterLink, NgIf, IgxIconModule, IgxNavbarModule, IgxButtonModule, RouterOutlet, AsyncPipe]
+    imports: [
+        IgxLayoutModule, 
+        IgxNavigationDrawerModule, 
+        NgFor, 
+        NgIf,
+        IgxRippleModule, 
+        RouterLinkActive, 
+        RouterLink, 
+        IgxIconModule, 
+        IgxNavbarModule, 
+        IgxButtonModule, 
+        RouterOutlet, 
+        AsyncPipe
+    ]
 })
 export class AppComponent implements OnInit {
    public isIE;

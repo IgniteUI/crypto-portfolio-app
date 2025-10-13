@@ -8,6 +8,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { IgxFinancialChartModule, IgxPieChartModule, IgxLegendModule, IgxItemLegendModule } from 'igniteui-angular-charts';
 import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
@@ -22,6 +23,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
+        provideAnimations(),
         importProvidersFrom(FormsModule, BrowserModule, AppRoutingModule, IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule, IgxFinancialChartModule, IgxAvatarModule, IgxButtonModule, IgxIconModule, IgxCardModule, IgxInputGroupModule, IgxListModule, IgxFilterModule, IgxTabsModule, IgxSnackbarModule, IgxDialogModule, IgxToggleModule, IgxGridModule, IgxComboModule, IgxActionStripModule, IgxFocusModule,
         IgxDividerModule, IgxExpansionPanelModule, IgxTooltipModule, IgxPieChartModule, IgxLegendModule, IgxItemLegendModule),
         provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),

@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
     animations: [moveIn(), fallIn()],
     // tslint:disable-next-line: use-host-property-decorator
     host: { '[@moveIn]': '' },
+    standalone: true,
     imports: [IgxIconModule, FormsModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, RouterLink, IgxSnackbarModule]
 })
 export class EmailComponent implements OnInit {

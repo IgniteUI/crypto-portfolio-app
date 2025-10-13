@@ -13,6 +13,7 @@ import { NgIf } from '@angular/common';
     styleUrls: ['./login.component.scss'],
     animations: [moveIn()],
     host: { '[@moveIn]': '' },
+    standalone: true,
     imports: [NgIf, IgxIconModule, IgxButtonModule, IgxRippleModule, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
 })
 export class LoginComponent implements OnInit {

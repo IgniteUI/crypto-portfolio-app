@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './block-list.component.html',
     styleUrls: ['./block-list.component.scss'],
     animations: [Animations.listItemLoadAnimation],
+    standalone: true,
     imports: [IgxInputGroupModule, IgxIconModule, FormsModule, NgIf, IgxListModule, NgFor, IgxAvatarModule, DecimalPipe, IgxFilterModule]
 })
 export class BlockListComponent implements OnInit {

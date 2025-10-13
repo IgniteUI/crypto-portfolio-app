@@ -9,7 +9,7 @@ import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from
 import { transformCoinImgUrl } from '../core/utils';
 import { Auth, authState } from '@angular/fire/auth';
 import { IgxPieChartComponent, IgxItemLegendModule, IgxPieChartCoreModule } from 'igniteui-angular-charts';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,21 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './portfolio.component.html',
     styleUrls: ['./portfolio.component.scss'],
     standalone: true,
-    imports: [IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxItemLegendModule, IgxPieChartCoreModule, IgxSnackbarModule, IgxDialogModule, FormsModule, IgxInputGroupModule, DecimalPipe]
+    imports: [
+        IgxToggleModule,
+        IgxButtonModule,
+        IgxRippleModule,
+        IgxIconModule,
+        IgxGridModule,
+        IgxActionStripModule,
+        IgxItemLegendModule,
+        IgxPieChartCoreModule,
+        IgxSnackbarModule,
+        IgxDialogModule,
+        FormsModule,
+        IgxInputGroupModule,
+        DecimalPipe
+    ]
 })
 export class PortfolioComponent implements AfterViewInit {
 

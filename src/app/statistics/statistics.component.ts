@@ -17,6 +17,7 @@ import { FinancialOverlayType } from 'igniteui-angular-charts';
     templateUrl: './statistics.component.html',
     styleUrls: ['./statistics.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
+    standalone: true,
     imports: [IgxComboModule, IgxFinancialChartCoreModule]
 })
 export class StatisticsComponent implements OnInit, AfterViewInit {

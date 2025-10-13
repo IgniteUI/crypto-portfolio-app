@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     animations: [flyInOut()],
-    imports: [NgIf, IgxInputGroupModule, FormsModule, IgxIconModule, NgFor, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, DecimalPipe, IgxFilterModule]
+    standalone: true,
+    imports: [NgIf, NgFor, DecimalPipe, FormsModule, IgxInputGroupModule, IgxIconModule, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, IgxFilterModule]
 })
 export class HomeComponent implements OnInit {
   cryptos: CoinItem[];
