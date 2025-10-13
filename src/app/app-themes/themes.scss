@@ -85,10 +85,10 @@ $new-navdrawer-theme: navdrawer-theme(
     @include theme($app-palette);
     @include grid($light-cell-selection);
 
-    .igx-card [igxButton="flat"] {
-      // Pass the theme to a to the `igx-button` mixin
-      @include button($new-icon-button-theme);
-    }
+    // .igx-card [igxButton="flat"] {
+    //   // Pass the theme to a to the `igx-button` mixin
+    //   @include button($new-icon-button-theme);
+    // }
 
     .igx-navbar {
       position: fixed;

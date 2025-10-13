@@ -1,49 +1,56 @@
-import { Injectable } from '@angular/core';
-import { AngularFireList, AngularFireDatabase } from '@angular/fire/compat/database';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Injectable, inject } from '@angular/core';
+import { Database, ref, push, update, remove, onValue } from '@angular/fire/database';
+import { Auth, authState } from '@angular/fire/auth';
 import { BlockItem } from '../core/interfaces';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ItemService {
-
    userId: string;
-   items: AngularFireList<BlockItem> = null;
+   private database = inject(Database);
+   private auth = inject(Auth);
 
-   constructor(private db: AngularFireDatabase, private auth: AngularFireAuth) {
-      this.auth.authState.subscribe(user => {
+   constructor() {
+      authState(this.auth).subscribe(user => {
          if (user) {
             this.userId = user.uid;
          }
       });
    }
 
-   // Return an observable list.
-   public getItemsList(): AngularFireList<BlockItem> {
-      if (!this.userId) { return; }
-      this.items = this.db.list(`items/${this.userId}`);
-      return this.items;
+   // Return an observable for the items list
+   public getItemsList(): Observable<BlockItem[]> {
+      if (!this.userId) { return new Observable(); }
+      const itemsRef = ref(this.database, `items/${this.userId}`);
+      return new Observable(observer => {
+         onValue(itemsRef, (snapshot) => {
+            const data = snapshot.val();
+            const items = data ? Object.keys(data).map(key => ({ ...data[key], key })) : [];
+            observer.next(items);
+         });
+      });
    }
 
-   // Creates a new record on the list, using the Realtime Database's push-ids.
+   // Creates a new record on the list
    createItem(item: BlockItem) {
-      this.items = this.getItemsList();
+      if (!this.userId) { return; }
       item.total = item.holdings * item.price;
-      /* Fix: When you pass an object to Firebase, the values of the properties can be a value or null.
-      They can not be undefined */
       item.key = null;
-      this.items.push(item);
-
-      const listObservable = this.items.snapshotChanges();
-      listObservable.subscribe();
+      const itemsRef = ref(this.database, `items/${this.userId}`);
+      push(itemsRef, item);
    }
 
    // Non-destructive update
    updateItem(key: string, item: BlockItem): void {
-      this.items.update(key, item).catch(error => console.log(error));
+      if (!this.userId) { return; }
+      const itemRef = ref(this.database, `items/${this.userId}/${key}`);
+      update(itemRef, item).catch(error => console.log(error));
    }
 
-   // Deletes the item by key. If no parameter is provided, the entire list will be deleted.
+   // Deletes the item by key
    deleteItem(key: string): void {
-      this.items.remove(key).catch(error => console.log(error));
+      if (!this.userId) { return; }
+      const itemRef = ref(this.database, `items/${this.userId}/${key}`);
+      remove(itemRef).catch(error => console.log(error));
    }
 }

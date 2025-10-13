@@ -1,7 +1,6 @@
-import { Injectable, NgZone } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { FacebookAuthProvider, GoogleAuthProvider } from  '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Injectable, NgZone, inject } from '@angular/core';
+import { Auth, authState, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, GoogleAuthProvider, FacebookAuthProvider } from '@angular/fire/auth';
+import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,14 +8,14 @@ import { Router } from '@angular/router';
 })
 export class AuthServiceService {
   userData: any;
+  private auth = inject(Auth);
+  private firestore = inject(Firestore);
 
   constructor(
-    public afs: AngularFirestore,
-    public afAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone
   ) {
-    this.afAuth.authState.subscribe(user => {
+    authState(this.auth).subscribe(user => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
@@ -29,11 +28,11 @@ export class AuthServiceService {
   }
 
   signIn(email, password) {
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
   signUp(email, password) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
   get isLoggedIn(): boolean {
@@ -51,7 +50,7 @@ export class AuthServiceService {
   }
 
   authLogin(provider) {
-    return this.afAuth.signInWithPopup(provider)
+    return signInWithPopup(this.auth, provider)
     .then(() => {
           this.router.navigate(['/home']);
     }).catch((error) => {
@@ -60,7 +59,7 @@ export class AuthServiceService {
   }
 
   signOut() {
-    return this.afAuth.signOut().then(() => {
+    return signOut(this.auth).then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['/home']);
     });
