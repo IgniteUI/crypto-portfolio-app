@@ -40,21 +40,45 @@ export class AuthServiceService {
     return (user !== null) ? true : false;
   }
 
-  googleAuth() {
-    return this.authLogin(new GoogleAuthProvider());
+  googleAuth(returnUrl?: string) {
+    return this.authLogin(new GoogleAuthProvider(), returnUrl);
   }
 
   
-  facebookAuth() {
-    return this.authLogin(new FacebookAuthProvider());
+  facebookAuth(returnUrl?: string) {
+    return this.authLogin(new FacebookAuthProvider(), returnUrl);
   }
 
-  authLogin(provider) {
+  authLogin(provider, returnUrl?: string) {
     return signInWithPopup(this.auth, provider)
-    .then(() => {
-          this.router.navigate(['/home']);
+    .then((result) => {
+          const targetUrl = returnUrl || '/home';
+          
+          // Retry navigation if it fails the first time
+          return this.router.navigate([targetUrl]).then((success) => {
+            if (!success) {
+              // If first navigation fails, try again after a short delay
+              return new Promise((resolve) => {
+                setTimeout(() => {
+                  this.router.navigate([targetUrl]).then(resolve);
+                }, 100);
+              });
+            }
+            return success;
+          });
     }).catch((error) => {
-      window.alert(error);
+      console.error('Social auth error:', error);
+      throw error;
+    });
+  }
+
+  signInAndRedirect(email: string, password: string, returnUrl?: string) {
+    console.log('signInAndRedirect called with returnUrl:', returnUrl);
+    return signInWithEmailAndPassword(this.auth, email, password)
+    .then(() => {
+      const targetUrl = returnUrl || '/home';
+      console.log('Email auth redirecting to:', targetUrl);
+      return this.router.navigate([targetUrl]);
     });
   }
 

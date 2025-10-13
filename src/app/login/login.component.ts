@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
    ngOnInit() {
       // Get the query params
       this.route.queryParams
-         .subscribe(params => this.return = params['return'] || '/home');
+         .subscribe(params => {
+            this.return = params['return'] ? decodeURIComponent(params['return']) : '/home';
+         });
 
       // Register a single icon
       this.iconService.addSvgIconFromText(facebook.name, facebook.value, 'imx-icons');
@@ -39,11 +41,15 @@ export class LoginComponent implements OnInit {
    }
 
    loginFb() {
-      this.authService.facebookAuth();
+      this.authService.facebookAuth(this.return).catch(error => {
+         console.error('Facebook auth error:', error);
+      });
    }
 
    loginGoogle() {
-      this.authService.googleAuth();
+      this.authService.googleAuth(this.return).catch(error => {
+         console.error('Google auth error:', error);
+      });
    }
 
    loginEmail() {
