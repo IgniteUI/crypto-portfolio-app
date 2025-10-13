@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, inject, OnDestroy } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from '@infragistics/igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
@@ -11,6 +11,8 @@ import { Auth, authState } from '@angular/fire/auth';
 import { IgxPieChartComponent, IgxItemLegendModule, IgxPieChartCoreModule } from 'igniteui-angular-charts';
 import { DecimalPipe, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { switchMap, filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-portfolio',
@@ -33,7 +35,7 @@ import { FormsModule } from '@angular/forms';
         DecimalPipe
     ]
 })
-export class PortfolioComponent implements AfterViewInit {
+export class PortfolioComponent implements AfterViewInit, OnDestroy {
 
   public searchCrypto: string;
   public blockItems: BlockItem[] = [];
@@ -44,6 +46,7 @@ export class PortfolioComponent implements AfterViewInit {
   public deletedItem = new BlockItem();
   public totalPortfolioValue = 0;
   private auth = inject(Auth);
+  private destroy$ = new Subject<void>();
 
   // Number options
   public options = {
@@ -63,19 +66,12 @@ export class PortfolioComponent implements AfterViewInit {
   constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService) { }
 
   ngAfterViewInit() {
-    // Wait for auth state to be available, then load data
-    authState(this.auth).subscribe(res => {
-      if (res && res.uid) {
-        // Small delay to ensure the service has processed the auth state
-        setTimeout(() => {
-          this.loadPortfolioData();
-        }, 100);
-      }
-    });
-  }
-
-  private loadPortfolioData() {
-    this.blockItemService.getItemsList().subscribe(items => {
+    // Use reactive approach: wait for authenticated user, then switch to data stream
+    authState(this.auth).pipe(
+      filter(user => !!user?.uid), // Only proceed when user is authenticated
+      switchMap(() => this.blockItemService.getItemsList()), // Switch to data stream
+      takeUntil(this.destroy$) // Clean up subscription on destroy
+    ).subscribe(items => {
       this.blockItems = items.map(item => ({
         ...item,
         total: item.holdings * item.price
@@ -93,6 +89,11 @@ export class PortfolioComponent implements AfterViewInit {
         this.chart.explodedSlices.add(items.length - 1);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // tslint:disable-next-line: member-ordering

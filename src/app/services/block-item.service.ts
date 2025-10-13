@@ -3,6 +3,7 @@ import { Database, ref, push, update, remove, onValue } from '@angular/fire/data
 import { Auth, authState } from '@angular/fire/auth';
 import { BlockItem } from '../core/interfaces';
 import { Observable } from 'rxjs';
+import { switchMap, filter } from 'rxjs/operators';
 
 @Injectable()
 export class ItemService {
@@ -18,25 +19,22 @@ export class ItemService {
       });
    }
 
-   // Return an observable for the items list
+   // Return an observable for the items list - uses reactive approach
    public getItemsList(): Observable<BlockItem[]> {
-      return new Observable(observer => {
-         // Wait for userId to be available if it's not set yet
-         const checkUserId = () => {
-            if (this.userId) {
-               const itemsRef = ref(this.database, `items/${this.userId}`);
+      return authState(this.auth).pipe(
+         filter(user => !!user?.uid), // Only proceed when user is authenticated
+         switchMap(user => {
+            // Create observable for Firebase data
+            return new Observable<BlockItem[]>(observer => {
+               const itemsRef = ref(this.database, `items/${user.uid}`);
                onValue(itemsRef, (snapshot) => {
                   const data = snapshot.val();
                   const items = data ? Object.keys(data).map(key => ({ ...data[key], key })) : [];
                   observer.next(items);
                });
-            } else {
-               // If userId is not available yet, wait a bit and try again
-               setTimeout(checkUserId, 100);
-            }
-         };
-         checkUserId();
-      });
+            });
+         })
+      );
    }
 
    // Creates a new record on the list
