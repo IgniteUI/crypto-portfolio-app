@@ -20,14 +20,22 @@ export class ItemService {
 
    // Return an observable for the items list
    public getItemsList(): Observable<BlockItem[]> {
-      if (!this.userId) { return new Observable(); }
-      const itemsRef = ref(this.database, `items/${this.userId}`);
       return new Observable(observer => {
-         onValue(itemsRef, (snapshot) => {
-            const data = snapshot.val();
-            const items = data ? Object.keys(data).map(key => ({ ...data[key], key })) : [];
-            observer.next(items);
-         });
+         // Wait for userId to be available if it's not set yet
+         const checkUserId = () => {
+            if (this.userId) {
+               const itemsRef = ref(this.database, `items/${this.userId}`);
+               onValue(itemsRef, (snapshot) => {
+                  const data = snapshot.val();
+                  const items = data ? Object.keys(data).map(key => ({ ...data[key], key })) : [];
+                  observer.next(items);
+               });
+            } else {
+               // If userId is not available yet, wait a bit and try again
+               setTimeout(checkUserId, 100);
+            }
+         };
+         checkUserId();
       });
    }
 

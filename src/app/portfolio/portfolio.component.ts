@@ -63,21 +63,34 @@ export class PortfolioComponent implements AfterViewInit {
   constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService) { }
 
   ngAfterViewInit() {
+    // Wait for auth state to be available, then load data
     authState(this.auth).subscribe(res => {
       if (res && res.uid) {
-        this.blockItemService.getItemsList().subscribe(items => {
-          this.blockItems = items.map(item => ({
-            ...item,
-            total: item.holdings * item.price
-          }));
-          this.grid1.sort({ fieldName: 'total', dir: SortingDirection.Desc, ignoreCase: false });
+        // Small delay to ensure the service has processed the auth state
+        setTimeout(() => {
+          this.loadPortfolioData();
+        }, 100);
+      }
+    });
+  }
 
-          // Update portfolio upon load
-          this.updatePortfolio();
+  private loadPortfolioData() {
+    this.blockItemService.getItemsList().subscribe(items => {
+      this.blockItems = items.map(item => ({
+        ...item,
+        total: item.holdings * item.price
+      }));
+      
+      if (this.grid1 && items.length > 0) {
+        this.grid1.sort({ fieldName: 'total', dir: SortingDirection.Desc, ignoreCase: false });
+      }
 
-          // Explode the last slice
-          this.chart.explodedSlices.add(items.length - 1);
-        });
+      // Update portfolio upon load
+      this.updatePortfolio();
+
+      // Explode the last slice
+      if (this.chart && items.length > 0) {
+        this.chart.explodedSlices.add(items.length - 1);
       }
     });
   }
