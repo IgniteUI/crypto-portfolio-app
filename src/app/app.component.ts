@@ -107,7 +107,9 @@ export class AppComponent implements OnInit {
    }
 
    public login() {
-      this.router.navigate(['/login']);
+      // Preserve current URL to redirect back after login
+      const currentUrl = this.router.url;
+      this.router.navigate(['/login'], { queryParams: { return: currentUrl } });
    }
 
 }
