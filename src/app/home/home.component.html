@@ -1,18 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div *ngIf="cryptos">
+@if (cryptos) {
     <div class="sample-wrapper">
         <igx-input-group type="search" class="searchBox">
             <input #input1 igxInput placeholder="Search by name or symbol" [(ngModel)]="searchValue" />
             <igx-prefix>
                 <igx-icon>search</igx-icon>
             </igx-prefix>
-            <igx-suffix *ngIf="input1.value.length > 0" (click)="input1.value = ''; clear()">
-                <igx-icon>clear</igx-icon>
-            </igx-suffix>
+            @if (input1.value.length > 0) {
+                <igx-suffix (click)="input1.value = ''; clear()">
+                    <igx-icon>clear</igx-icon>
+                </igx-suffix>
+            }
         </igx-input-group>
         <div class="sample-content">
-            <article class="sample-column card-wrapper" *ngFor="let crypto of cryptos | igxFilter: filterOptions" [@flyInOut]>
+            @for (crypto of cryptos | igxFilter: filterOptions; track crypto.id) {
+                <article class="sample-column card-wrapper" [@flyInOut]>
                 <igx-card elevated>
                     <igx-card-header vertical="true">
                         <igx-card-media height="32px">
@@ -35,7 +38,8 @@
                         </button>
                     </igx-card-actions>
                 </igx-card>
-            </article>
+                </article>
+            }
         </div>
     </div>
-</div>
+}

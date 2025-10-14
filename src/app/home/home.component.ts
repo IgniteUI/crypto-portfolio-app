@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     styleUrls: ['./home.component.scss'],
     animations: [flyInOut()],
     standalone: true,
-    imports: [NgIf, NgFor, DecimalPipe, FormsModule, IgxInputGroupModule, IgxIconModule, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, IgxFilterModule]
+    imports: [DecimalPipe, FormsModule, IgxInputGroupModule, IgxIconModule, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, IgxFilterModule]
 })
 export class HomeComponent implements OnInit {
   cryptos: CoinItem[];

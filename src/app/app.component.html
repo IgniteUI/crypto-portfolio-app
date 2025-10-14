@@ -2,32 +2,42 @@
   <igx-nav-drawer #nav id="project-menu" [enableGestures]="true" width="280px" [pin]="false" pinThreshold="5000">
     <ng-template igxDrawer>
       <span igxDrawerItem [isHeader]="true">Menu</span>
-      <span *ngFor="let route of topNavLinks" igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active"
-        routerLink="{{route.path}}">
-        <span *ngIf="route.subItem">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        <igx-icon fontSet="material">{{route.icon}}</igx-icon>
-        <span>{{route.name}}</span>
-      </span>
+      @for (route of topNavLinks; track route.path) {
+        <span igxDrawerItem igxRipple routerLinkActive="igx-nav-drawer__item--active"
+          routerLink="{{route.path}}">
+          @if (route.subItem) {
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          }
+          <igx-icon fontSet="material">{{route.icon}}</igx-icon>
+          <span>{{route.name}}</span>
+        </span>
+      }
     </ng-template>
   </igx-nav-drawer>
   <div igxFlex>
     <igx-navbar title="Crypto Portfolio App" actionButtonIcon="menu" (action)="nav.toggle()" igxFlex>
         <div class="theme-chooser">
-            <div *ngIf ="darkTheme" class="theme-chooser__item--light"
-            (click)="this.changeTheme()" title = "Light Theme">
-            </div>
-            <div *ngIf ="!darkTheme" class="theme-chooser__item--dark" title = "Dark Theme"
-            (click)="this.changeTheme(true)">
-            </div>
+            @if (darkTheme) {
+              <div class="theme-chooser__item--light"
+              (click)="this.changeTheme()" title = "Light Theme">
+              </div>
+            } @else {
+              <div class="theme-chooser__item--dark" title = "Dark Theme"
+              (click)="this.changeTheme(true)">
+              </div>
+            }
           </div>
       <span>
-        <div class="account-container" *ngIf="authState$ | async as user; else showLogin">
-          <span *ngIf="innerWidth > 650">{{ name !== null ? 'Hi ' + name : '' }}</span>
-          <button igxButton="contained" igxRipple (click)="logout()">Logout</button>
-        </div>
-        <ng-template #showLogin>
+        @if (authState$ | async; as user) {
+          <div class="account-container">
+            @if (innerWidth > 650) {
+              <span>{{ name !== null ? 'Hi ' + name : '' }}</span>
+            }
+            <button igxButton="contained" igxRipple (click)="logout()">Logout</button>
+          </div>
+        } @else {
           <div><button igxButton="contained" igxRipple (click)="login()">Login</button></div>
-        </ng-template>
+        }
       </span>
     </igx-navbar>
     <div class="content" igxLayout igxLayoutJustify="center">

@@ -5,7 +5,7 @@ import { routes } from './app-routing.module';
 import { IgxNavigationDrawerComponent, IgxLayoutDirective, IgxLayoutModule, IgxNavigationDrawerModule, IgxRippleModule, IgxIconModule, IgxNavbarModule, IgxButtonModule } from '@infragistics/igniteui-angular';
 import { Auth, authState } from '@angular/fire/auth';
 import { AuthServiceService } from './services/auth.service';
-import { NgFor, NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-root',
@@ -16,8 +16,6 @@ import { NgFor, NgIf, AsyncPipe } from '@angular/common';
     imports: [
         IgxLayoutModule, 
         IgxNavigationDrawerModule, 
-        NgFor, 
-        NgIf,
         IgxRippleModule, 
         RouterLinkActive, 
         RouterLink, 

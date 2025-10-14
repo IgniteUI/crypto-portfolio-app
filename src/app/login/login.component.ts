@@ -5,7 +5,7 @@ import { facebook, google } from '@igniteui/material-icons-extended';
 import { IgxIconService, IgxIconModule, IgxButtonModule, IgxRippleModule } from '@infragistics/igniteui-angular';
 import { AuthServiceService } from '../services/auth.service';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-login',
@@ -14,7 +14,7 @@ import { NgIf } from '@angular/common';
     animations: [moveIn()],
     host: { '[@moveIn]': '' },
     standalone: true,
-    imports: [NgIf, IgxIconModule, IgxButtonModule, IgxRippleModule, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
+    imports: [IgxIconModule, IgxButtonModule, IgxRippleModule, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
 })
 export class LoginComponent implements OnInit {
    return = '';

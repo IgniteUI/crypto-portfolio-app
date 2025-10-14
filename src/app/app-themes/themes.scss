@@ -56,13 +56,6 @@ $new-navdrawer-theme: navdrawer-theme(
 
   .igx-navbar {
     position: fixed;
-    background: #7e47ff !important;
-    color: white !important;
-    
-    // Ensure all text content in navbar is white
-    * {
-      color: white !important;
-    }
   }
 
   .form-container {
