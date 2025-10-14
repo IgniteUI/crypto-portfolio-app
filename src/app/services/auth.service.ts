@@ -51,7 +51,7 @@ export class AuthServiceService {
 
   authLogin(provider, returnUrl?: string) {
     return signInWithPopup(this.auth, provider)
-    .then((result) => {
+    .then(() => {
           const targetUrl = returnUrl || '/home';
           
           // Retry navigation if it fails the first time

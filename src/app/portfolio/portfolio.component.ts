@@ -9,7 +9,7 @@ import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from
 import { transformCoinImgUrl } from '../core/utils';
 import { Auth, authState } from '@angular/fire/auth';
 import { IgxPieChartComponent, IgxItemLegendModule, IgxPieChartCoreModule } from 'igniteui-angular-charts';
-import { DecimalPipe, NgIf, NgFor } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { switchMap, filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
