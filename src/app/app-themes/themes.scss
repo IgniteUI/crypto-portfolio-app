@@ -9,13 +9,11 @@
   --ig-typography: 'Titillium Web', sans-serif;
 }
 
-$dark-green-palette: palette($primary:#222, $secondary:#72da67, $surface: #fff, $gray: #fff);
+$dark-green-palette: palette($primary: #222, $secondary: #72da67, $surface: #fff, $gray: #fff);
 
-$app-palette: palette(
-  $primary: #8049ff,
-  $secondary: #E29C45,
-  $surface: #fff
-);
+$app-palette: palette($primary: #8049ff,
+    $secondary: #E29C45,
+    $surface: #fff);
 
 // Background of selected cell
 $light-cell-selection: grid-theme(
@@ -42,7 +40,7 @@ $new-navdrawer-theme: navdrawer-theme(
 
   @include dark-theme($dark-green-palette);
   // Pass the theme to a to the `igx-navdrawer` mixin
-  @include navdrawer($new-navdrawer-theme);
+  @include css-vars($new-navdrawer-theme);
 
   .igx-group-label__icon.igx-icon, .igx-group-label__column-name{
     color: #fff;
@@ -58,6 +56,13 @@ $new-navdrawer-theme: navdrawer-theme(
 
   .igx-navbar {
     position: fixed;
+    background: #7e47ff !important;
+    color: white !important;
+    
+    // Ensure all text content in navbar is white
+    * {
+      color: white !important;
+    }
   }
 
   .form-container {
@@ -85,15 +90,20 @@ $new-navdrawer-theme: navdrawer-theme(
     @include theme($app-palette);
     @include grid($light-cell-selection);
 
-    // .igx-card [igxButton="flat"] {
-    //   // Pass the theme to a to the `igx-button` mixin
-    //   @include button($new-icon-button-theme);
-    // }
+    .igx-card [igxButton="flat"] {
+      // Pass the theme to a to the `igx-button` mixin
+      @include css-vars($new-icon-button-theme);
+    }
 
     .igx-navbar {
       position: fixed;
-    }
+      color: white;
 
+      .igx-navbar__left > igx-icon {
+        color: white;
+      }
+    }
+    
     .sample-wrapper {
         #sText {
             color: #000;
