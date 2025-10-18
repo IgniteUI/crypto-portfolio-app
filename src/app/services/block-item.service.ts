@@ -27,11 +27,12 @@ export class ItemService {
             // Create observable for Firebase data
             return new Observable<BlockItem[]>(observer => {
                const itemsRef = ref(this.database, `items/${user.uid}`);
-               onValue(itemsRef, (snapshot) => {
+               const unsubscribe = onValue(itemsRef, (snapshot) => {
                   const data = snapshot.val();
                   const items = data ? Object.keys(data).map(key => ({ ...data[key], key })) : [];
                   observer.next(items);
                });
+               return unsubscribe;
             });
          })
       );
@@ -57,6 +58,6 @@ export class ItemService {
    deleteItem(key: string): void {
       if (!this.userId) { return; }
       const itemRef = ref(this.database, `items/${this.userId}/${key}`);
-      remove(itemRef).catch(error => console.log(error));
+      remove(itemRef).catch(error => console.error(error));
    }
 }
