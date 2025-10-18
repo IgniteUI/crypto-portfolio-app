@@ -39,7 +39,7 @@ $new-navdrawer-theme: navdrawer-theme(
   display: block;
 
   @include dark-theme($dark-green-palette);
-  // Pass the theme to a to the `igx-navdrawer` mixin
+  // Expose the nav drawer theme via CSS variables
   @include css-vars($new-navdrawer-theme);
 
   .igx-group-label__icon.igx-icon, .igx-group-label__column-name{
