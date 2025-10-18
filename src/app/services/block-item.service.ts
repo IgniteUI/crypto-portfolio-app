@@ -58,6 +58,6 @@ export class ItemService {
    deleteItem(key: string): void {
       if (!this.userId) { return; }
       const itemRef = ref(this.database, `items/${this.userId}/${key}`);
-      remove(itemRef).catch(error => console.log(error));
+      remove(itemRef).catch(error => console.error(error));
    }
 }
