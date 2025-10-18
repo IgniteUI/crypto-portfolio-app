@@ -1,6 +1,5 @@
 import { Injectable, NgZone, inject } from '@angular/core';
 import { Auth, authState, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, GoogleAuthProvider, FacebookAuthProvider } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,7 +8,6 @@ import { Router } from '@angular/router';
 export class AuthServiceService {
   userData: any;
   private auth = inject(Auth);
-  private firestore = inject(Firestore);
 
   constructor(
     public router: Router,
