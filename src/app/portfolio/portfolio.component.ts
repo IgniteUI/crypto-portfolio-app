@@ -43,7 +43,7 @@ export class PortfolioComponent implements AfterViewInit, OnDestroy {
   public coinName;
   public holdings;
   public price;
-  public deletedItem = new BlockItem();
+  public deletedItem: BlockItem = {} as BlockItem;
   public totalPortfolioValue = 0;
   private auth = inject(Auth);
   private destroy$ = new Subject<void>();
