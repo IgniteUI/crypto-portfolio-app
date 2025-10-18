@@ -19,11 +19,11 @@
         <div class="theme-chooser">
             @if (darkTheme) {
               <div class="theme-chooser__item--light"
-              (click)="this.changeTheme()" title = "Light Theme">
+              (click)="changeTheme()" title = "Light Theme">
               </div>
             } @else {
               <div class="theme-chooser__item--dark" title = "Dark Theme"
-              (click)="this.changeTheme(true)">
+              (click)="changeTheme(true)">
               </div>
             }
           </div>
