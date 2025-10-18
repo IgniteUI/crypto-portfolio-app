@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       // Get the query params
       this.route.queryParams
          .subscribe(params => {
-            this.return = params['return'] ? decodeURIComponent(params['return']) : '/home';
+            this.return = params['return'] ? params['return'] : '/home';
          });
 
       // Register a single icon
