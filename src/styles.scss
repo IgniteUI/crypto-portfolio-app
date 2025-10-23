@@ -1,17 +1,11 @@
-// CSS Reset, comment out if not required or using a different module
-@use "minireset.css/minireset" as *;
-@forward "minireset.css/minireset";
-
 @use '@infragistics/igniteui-angular/theming' as *;
-@forward '@infragistics/igniteui-angular/theming';
+@use "minireset.css/minireset" as *;
+@use 'app/app-themes/themes.scss';
+
 // Specifies large size for all components to match the previous defaults
-// This may not be needed for your project. Please consult https://www.infragistics.com/products/ignite-ui-angular/angular/components/general/update-guide for more details.
 :root {
     --ig-size: var(--ig-size-large);
 }
-
-
-@import 'app/app-themes/themes.scss';
 
 /* autoprefixer grid: on */
 html, body, app-root {

@@ -1,119 +1,132 @@
 // Import the theme utilities first
 @use '@infragistics/igniteui-angular/theming' as *;
-@forward '@infragistics/igniteui-angular/theming';
+
 @include core();
 @include typography();
-@import 'mixins';
 
-:root {
-  --ig-typography: 'Titillium Web', sans-serif;
-}
-
-$dark-green-palette: palette($primary: #222, $secondary: #72da67, $surface: #fff, $gray: #fff);
-
-$app-palette: palette($primary: #8049ff,
-    $secondary: #E29C45,
-    $surface: #fff);
-
-// Background of selected cell
-$light-cell-selection: grid-theme(
-  $cell-selected-background: color($app-palette, 'primary', 200)
-);
+$dark-green-palette: palette($primary: #8049ff, $secondary: #72da67, $surface: #111);
+$app-palette: palette($primary: #8049ff, $secondary: #e29c45, $surface: #fff);
 
 // Card button style
 $new-icon-button-theme: button-theme(
-  $foreground: #E29C45,
-  $hover-background: color($app-palette, 'secondary', 100),
-  $hover-foreground: #E29C45
-);
-
-// Navigation drawer theme
-$new-navdrawer-theme: navdrawer-theme(
-  $item-active-text-color: color($dark-green-palette, 'secondary'),
-  $item-active-icon-color: color($dark-green-palette, 'secondary'),
-  $background: color($dark-green-palette, 'primary', 500)
+	$foreground: #e29c45,
+	$hover-background: color($app-palette, 'secondary', 100),
+	$hover-foreground: #e29c45
 );
 
 .dark-theme {
-  background: #333 !important;
-  display: block;
+	$schema: $dark-material-schema;
+	
+	$navdrawer-theme: navdrawer-theme(
+		$schema: $schema,
+		$item-active-text-color: color($dark-green-palette, 'secondary'),
+		$item-active-icon-color: color($dark-green-palette, 'secondary'),
+		$background: color($dark-green-palette, 'gray', 50)
+	);
+	
+	$navbar-theme: navbar-theme(
+		$schema: $schema,
+		$background: color($dark-green-palette, 'gray', 50)
+	);
+	
+	@include theme(
+		$palette: $dark-green-palette,
+		$schema: $schema
+	);
+	
+	@include css-vars($navdrawer-theme);
+	@include css-vars($navbar-theme);
+	
+	
+	background: #333 !important;
+	display: block;
 
-  @include dark-theme($dark-green-palette);
-  // Expose the nav drawer theme via CSS variables
-  @include css-vars($new-navdrawer-theme);
-
-  .igx-group-label__icon.igx-icon, .igx-group-label__column-name{
-    color: #fff;
-  }
-
-  .igx-grid__group-row--active {
-    background: rgba(114, 218, 103, 0.19);
-
-    &:Hover {
-      background: rgba(114, 218, 103, 0.19);
-    }
-  }
-
-  .igx-navbar {
-    position: fixed;
-  }
-
-  .form-container {
-    .alc {
-      color: #72da67;
-    }
-    #lockIcon {
-      color: #72da67;
-    }
-  }
-
-  .chart-wrapper{
-    color: #fff;
-    height: 100%;
-  }
-
-  .list-sample {
-    background: #424242;
-  }
+	.igx-group-label__icon.igx-icon,
+	.igx-group-label__column-name {
+		color: #fff;
+	}
+	
+	.igx-grid__group-row--active {
+		background: rgba(114, 218, 103, 0.19);
+		
+		&:Hover {
+			background: rgba(114, 218, 103, 0.19);
+		}
+	}
+	
+	.igx-navbar {
+		position: fixed;
+	}
+	
+	.form-container {
+		.alc {
+			color: #72da67;
+		}
+		
+		#lockIcon {
+			color: #72da67;
+		}
+	}
+	
+	.chart-wrapper {
+		color: #fff;
+		height: 100%;
+	}
+	
+	.list-sample {
+		background: #424242;
+	}
 }
 
 .light-theme {
-    background: #f8f8f8;
-    display: block;
-    @include theme($app-palette);
-    @include grid($light-cell-selection);
-
-    .igx-card [igxButton="flat"] {
-      // Pass the theme to a to the `igx-button` mixin
-      @include css-vars($new-icon-button-theme);
-    }
-
-    .igx-navbar {
-      position: fixed;
-      color: white;
-
-      .igx-navbar__left > igx-icon {
-        color: white;
-      }
-    }
-    
-    .sample-wrapper {
-        #sText {
-            color: #000;
-        }
-    }
-    .form-container {
-        #register-header {
-            color: #000;
-        }
-    }
-    .chart-wrapper {
-        background: transparent;
-        margin-left: 30px;
-        height: 100%;
-
-    }
-    .list-sample {
-        background: #fff;
-    }
+	// Background of selected cell
+	$light-cell-selection: grid-theme(
+		$cell-selected-background: color($app-palette, 'primary', 200)
+	);
+	
+	background: #f8f8f8;
+	display: block;
+	
+	@include theme($app-palette);
+	
+	@include grid(
+		$light-cell-selection
+	);
+	
+	.igx-card [igxButton='flat'] {
+		// Pass the theme to a to the `igx-button` mixin
+		@include css-vars($new-icon-button-theme);
+	}
+	
+	.igx-navbar {
+		position: fixed;
+		color: white;
+		
+		.igx-navbar__left > igx-icon {
+			color: white;
+		}
+	}
+	
+	.sample-wrapper {
+		#sText {
+			color: #000;
+		}
+	}
+	
+	.form-container {
+		#register-header {
+			color: #000;
+		}
+	}
+	
+	.chart-wrapper {
+		background: transparent;
+		margin-left: rem(30px);
+		height: 100%;
+		
+	}
+	
+	.list-sample {
+		background: #fff;
+	}
 }
