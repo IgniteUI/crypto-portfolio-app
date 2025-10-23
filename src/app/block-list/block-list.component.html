@@ -1,24 +1,27 @@
-<div class="sample-wrapper">
+<div class="sample-wrapper ig-scrollbar">
     <igx-input-group type="search" class="search">
         <igx-prefix>
             <igx-icon>search</igx-icon>
         </igx-prefix>
         <input #search igxInput placeholder="Search by name" [(ngModel)]="searchCrypto">
-        <igx-suffix *ngIf="search.value.length > 0" (click)="searchCrypto = null">
-            <igx-icon>clear</igx-icon>
-        </igx-suffix>
+        @if (search.value.length > 0) {
+            <igx-suffix (click)="searchCrypto = null">
+                <igx-icon>clear</igx-icon>
+            </igx-suffix>
+        }
     </igx-input-group>
 
     <div class="list-sample">
         <igx-list [@listAnimation]="remoteData.length">
             <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
-            <igx-list-item #item *ngFor="let crypto of remoteData | igxFilter: filterCryptos;">
+            @for (crypto of remoteData | igxFilter: filterCryptos; track crypto.id) {
+                <igx-list-item #item>
                 <div class="crypto">
                     <div class="crypto__info">
                         <span class="crypto__item">
 
                             <div class="crypto__name">
-                              <igx-avatar size="small" class="crypto__avatar" src="{{ getCoinImage(crypto['imageUrl']) }}" roundShape="true"></igx-avatar>
+                              <igx-avatar size="small" class="crypto__avatar" src="{{ getCoinImage(crypto['imageUrl']) }}"></igx-avatar>
                               <span>
                                   {{ crypto['fullName'] }}
                               </span>
@@ -40,7 +43,8 @@
                         </span>
                     </div>
                 </div>
-            </igx-list-item>
+                </igx-list-item>
+            }
         </igx-list>
     </div>
 </div>

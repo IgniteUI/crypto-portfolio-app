@@ -1,35 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, inject, OnDestroy } from '@angular/core';
 import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from '@infragistics/igniteui-angular';
 import { ItemService } from '../services/block-item.service';
 import { BlockItem } from '../core/interfaces';
-import { AngularFireList } from '@angular/fire/compat/database';
-import { map } from 'rxjs/operators';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from '@infragistics/igniteui-angular';
 import { transformCoinImgUrl } from '../core/utils';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { IgxPieChartComponent, IgxItemLegendModule, IgxPieChartCoreModule } from 'igniteui-angular-charts';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { switchMap, filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-portfolio',
     templateUrl: './portfolio.component.html',
     styleUrls: ['./portfolio.component.scss'],
     standalone: true,
-    imports: [IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxItemLegendModule, IgxPieChartCoreModule, IgxSnackbarModule, IgxDialogModule, FormsModule, IgxInputGroupModule, DecimalPipe]
+    imports: [
+        IgxToggleModule,
+        IgxButtonModule,
+        IgxRippleModule,
+        IgxIconModule,
+        IgxGridModule,
+        IgxActionStripModule,
+        IgxItemLegendModule,
+        IgxPieChartCoreModule,
+        IgxSnackbarModule,
+        IgxDialogModule,
+        FormsModule,
+        IgxInputGroupModule,
+        DecimalPipe
+    ]
 })
-export class PortfolioComponent implements AfterViewInit {
+export class PortfolioComponent implements AfterViewInit, OnDestroy {
 
   public searchCrypto: string;
-  public blockItemsCollection: AngularFireList<BlockItem>;
   public blockItems: BlockItem[] = [];
   public newItem: BlockItem;
   public coinName;
   public holdings;
-  public deletedItem: BlockItem;
+  public price;
+  public deletedItem: BlockItem = {} as BlockItem;
+  public totalPortfolioValue = 0;
+  private auth = inject(Auth);
+  private destroy$ = new Subject<void>();
 
   // Number options
   public options = {
@@ -46,43 +63,37 @@ export class PortfolioComponent implements AfterViewInit {
   @ViewChild('modal', { static: true }) public dialog: IgxDialogComponent;
   @ViewChild("chart", { static: true }) public chart: IgxPieChartComponent;
 
-  constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService,
-    public afAuth: AngularFireAuth) { }
+  constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService) { }
 
   ngAfterViewInit() {
-    this.afAuth.authState.subscribe(res => {
-      if (res && res.uid) {
-        this.blockItemService.getItemsList().snapshotChanges().pipe(
-          map(actions =>
-            // actions.map(a => ({ key: a.payload.key, ...a.payload.val() }))
-            actions.map(a => {
-              const item: BlockItem = {
-                key: a.key,
-                fullName: a.payload.val().fullName,
-                holdings: a.payload.val().holdings,
-                name: a.payload.val().name,
-                supply: a.payload.val().supply,
-                changePct24Hour: a.payload.val().changePct24Hour,
-                price: a.payload.val().price,
-                imageUrl: a.payload.val().imageUrl,
-                total: a.payload.val().holdings * a.payload.val().price
-              };
+    // Use reactive approach: wait for authenticated user, then switch to data stream
+    authState(this.auth).pipe(
+      filter(user => !!user?.uid), // Only proceed when user is authenticated
+      switchMap(() => this.blockItemService.getItemsList()), // Switch to data stream
+      takeUntil(this.destroy$) // Clean up subscription on destroy
+    ).subscribe(items => {
+      this.blockItems = items.map(item => ({
+        ...item,
+        total: item.holdings * item.price
+      }));
+      
+      if (this.grid1 && items.length > 0) {
+        this.grid1.sort({ fieldName: 'total', dir: SortingDirection.Desc, ignoreCase: false });
+      }
 
-              return item;
-            })
-          )
-        ).subscribe(items => {
-          this.blockItems = items;
-          this.grid1.sort({ fieldName: 'total', dir: SortingDirection.Desc, ignoreCase: false });
+      // Update portfolio upon load
+      this.updatePortfolio();
 
-          // Update portfolio upon load
-          this.updatePortfolio();
-
-          // Explode the last slice
-          this.chart.explodedSlices.add(items.length - 1);
-        });
+      // Explode the last slice
+      if (this.chart && items.length > 0) {
+        this.chart.explodedSlices.add(items.length - 1);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // tslint:disable-next-line: member-ordering

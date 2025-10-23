@@ -26,14 +26,14 @@ export class EmailComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams
-      .subscribe(params => this.return = params['return'] || '/home');
+      .subscribe(params => {
+        this.return = params['return'] ? decodeURIComponent(params['return']) : '/home';
+      });
   }
 
   onSubmit(formData) {
     if (formData.valid) {
-      this.authService.signIn(formData.value.email, formData.value.password).then(() => {
-          this.router.navigate(['/home']);
-      }).catch((err) => {
+      this.authService.signInAndRedirect(formData.value.email, formData.value.password, this.return).catch((err) => {
         this.snack.open(err.message);
       });
     }

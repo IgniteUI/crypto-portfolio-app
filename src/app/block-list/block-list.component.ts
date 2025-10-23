@@ -3,7 +3,7 @@ import { DataService } from '../services/data.service';
 import { IgxFilterOptions, IgxInputGroupModule, IgxIconModule, IgxListModule, IgxAvatarModule, IgxFilterModule } from '@infragistics/igniteui-angular';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
 import { Animations } from '../core/animations';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     styleUrls: ['./block-list.component.scss'],
     animations: [Animations.listItemLoadAnimation],
     standalone: true,
-    imports: [IgxInputGroupModule, IgxIconModule, FormsModule, NgIf, IgxListModule, NgFor, IgxAvatarModule, DecimalPipe, IgxFilterModule]
+    imports: [IgxInputGroupModule, IgxIconModule, FormsModule, IgxListModule, IgxAvatarModule, DecimalPipe, IgxFilterModule]
 })
 export class BlockListComponent implements OnInit {
   public remoteData: any[];

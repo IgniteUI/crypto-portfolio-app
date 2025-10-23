@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation, inject } from '@angular/core';
 import { NavigationStart, Router, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { routes } from './app-routing.module';
 import { IgxNavigationDrawerComponent, IgxLayoutDirective, IgxLayoutModule, IgxNavigationDrawerModule, IgxRippleModule, IgxIconModule, IgxNavbarModule, IgxButtonModule } from '@infragistics/igniteui-angular';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { AuthServiceService } from './services/auth.service';
-import { NgFor, NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-root',
@@ -13,13 +13,25 @@ import { NgFor, NgIf, AsyncPipe } from '@angular/common';
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [IgxLayoutModule, IgxNavigationDrawerModule, NgFor, IgxRippleModule, RouterLinkActive, RouterLink, NgIf, IgxIconModule, IgxNavbarModule, IgxButtonModule, RouterOutlet, AsyncPipe]
+    imports: [
+        IgxLayoutModule, 
+        IgxNavigationDrawerModule, 
+        IgxRippleModule, 
+        RouterLinkActive, 
+        RouterLink, 
+        IgxIconModule, 
+        IgxNavbarModule, 
+        IgxButtonModule, 
+        RouterOutlet, 
+        AsyncPipe
+    ]
 })
 export class AppComponent implements OnInit {
    public isIE;
    name: any;
    public innerWidth: any;
    public darkTheme = false;
+   public authState$ = authState(inject(Auth));
    public topNavLinks: Array<{
       path: string,
       name: string,
@@ -28,13 +40,14 @@ export class AppComponent implements OnInit {
    }> = [];
    @ViewChild(IgxNavigationDrawerComponent, { static: true }) public navdrawer: IgxNavigationDrawerComponent;
    @ViewChild(IgxLayoutDirective, { read: IgxLayoutDirective, static: true }) public layout: IgxLayoutDirective;
+   private auth = inject(Auth);
 
    @HostListener('window:resize', ['$event'])
    onResize() {
       this.innerWidth = window.innerWidth;
    }
 
-   constructor(private router: Router, public afAuth: AngularFireAuth, private authService: AuthServiceService) {
+   constructor(private router: Router, private authService: AuthServiceService) {
       this.isIE = /trident\//i.test(window.navigator.userAgent);
       for (const route of routes) {
          if (route.path && route.data && route.path.indexOf('*') === -1) {
@@ -47,7 +60,7 @@ export class AppComponent implements OnInit {
          }
       }
 
-      this.afAuth.authState.subscribe(auth => {
+      authState(this.auth).subscribe(auth => {
          if (auth) {
             if (auth.displayName) {
                this.name = auth.displayName;
@@ -92,7 +105,9 @@ export class AppComponent implements OnInit {
    }
 
    public login() {
-      this.router.navigate(['/login']);
+      // Preserve current URL to redirect back after login
+      const currentUrl = this.router.url;
+      this.router.navigate(['/login'], { queryParams: { return: currentUrl } });
    }
 
 }

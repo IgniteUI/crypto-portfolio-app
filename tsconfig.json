@@ -1,12 +1,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "downlevelIteration": true,
     "module": "es2020",
+    "esModuleInterop": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": false,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "target": "ES2022",
     "typeRoots": [

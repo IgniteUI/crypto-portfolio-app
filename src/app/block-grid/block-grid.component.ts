@@ -6,14 +6,14 @@ import { CoinItem } from '../core/interfaces';
 import { interval } from 'rxjs';
 import { Router } from '@angular/router';
 import { startWith } from 'rxjs/operators';
-import { NgIf, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
     selector: 'app-block-grid',
     templateUrl: './block-grid.component.html',
     styleUrls: ['./block-grid.component.scss'],
     standalone: true,
-    imports: [NgIf, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule, DecimalPipe, IgxIconButtonDirective]
+    imports: [IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule, DecimalPipe, IgxIconButtonDirective]
 })
 export class BlockGridComponent implements OnInit, AfterViewInit {
   public remoteData: CoinItem[];

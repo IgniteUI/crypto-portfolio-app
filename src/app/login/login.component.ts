@@ -5,7 +5,7 @@ import { facebook, google } from '@igniteui/material-icons-extended';
 import { IgxIconService, IgxIconModule, IgxButtonModule, IgxRippleModule } from '@infragistics/igniteui-angular';
 import { AuthServiceService } from '../services/auth.service';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-login',
@@ -14,7 +14,7 @@ import { NgIf } from '@angular/common';
     animations: [moveIn()],
     host: { '[@moveIn]': '' },
     standalone: true,
-    imports: [NgIf, IgxIconModule, IgxButtonModule, IgxRippleModule, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
+    imports: [IgxIconModule, IgxButtonModule, IgxRippleModule, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
 })
 export class LoginComponent implements OnInit {
    return = '';
@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
    ngOnInit() {
       // Get the query params
       this.route.queryParams
-         .subscribe(params => this.return = params['return'] || '/home');
+         .subscribe(params => {
+            this.return = params['return'] ? params['return'] : '/home';
+         });
 
       // Register a single icon
       this.iconService.addSvgIconFromText(facebook.name, facebook.value, 'imx-icons');
@@ -39,11 +41,15 @@ export class LoginComponent implements OnInit {
    }
 
    loginFb() {
-      this.authService.facebookAuth();
+      this.authService.facebookAuth(this.return).catch(error => {
+         console.error('Facebook auth error:', error);
+      });
    }
 
    loginGoogle() {
-      this.authService.googleAuth();
+      this.authService.googleAuth(this.return).catch(error => {
+         console.error('Google auth error:', error);
+      });
    }
 
    loginEmail() {

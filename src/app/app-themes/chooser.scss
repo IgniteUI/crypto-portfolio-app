@@ -1,7 +1,8 @@
-$chooser-size: 34px;
+@use 'igniteui-theming/sass/typography' as *;
+
+$chooser-size: rem(34px);
 
 @mixin theme-chooser-item($foreground, $background) {
-
     position: relative;
     width: $chooser-size;
     height: $chooser-size;
