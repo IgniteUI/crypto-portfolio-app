@@ -9,6 +9,9 @@ Application that uses Angular framework, Firebase Auth and Real time databse, an
 Open https://igniteui.github.io/crypto-portfolio-app/ to see the web app.
  - base href used for the web app - `<base href="https://igniteui.github.io/crypto-portfolio-app/">`
 
+> **Note**: The Angular build process (using the new application builder) outputs static files into the `dist/browser` directory.  
+> During CI/CD, the GitHub Action uploads this folder to GitHub Pages (`./dist/browser`), which serves as the root of the hosted site.
+
 This project is generated with [Angular CLI](https://github.com/angular/angular-cli).
 
 ## Start using the app

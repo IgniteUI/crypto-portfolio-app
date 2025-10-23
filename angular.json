@@ -17,9 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": {
-              "base": "dist"
-            },
+            "outputPath": "dist",
             "index": "src/index.html",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": [
@@ -43,8 +41,7 @@
               "includePaths": [
                 "node_modules"
               ]
-            },
-            "browser": "src/main.ts"
+            }
           },
           "configurations": {
             "production": {
