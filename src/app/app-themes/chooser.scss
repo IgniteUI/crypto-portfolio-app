@@ -10,6 +10,7 @@ $chooser-size: rem(34px);
     overflow: hidden;
     transform: rotate(45deg);
     border: 2px solid white;
+    padding: 0;
     cursor: pointer;
     transition: box-shadow .25s ease-out;
 
@@ -34,6 +35,11 @@ $chooser-size: rem(34px);
 
     &:hover {
       box-shadow: 0 0 2px 3px rgba(0, 0, 0, .24);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--ig-secondary-500);
+      outline-offset: 3px;
     }
   }
 

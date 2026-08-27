@@ -1,0 +1,22 @@
+@use '@infragistics/igniteui-angular/theming' as *;
+
+// $success / $error carry the app's own gain/loss colours, so --ig-success-500 and
+// --ig-error-500 resolve to exactly the values the design uses in the grid.
+$gain: #3f9a47;
+$loss: #aa2222;
+
+$light: palette(
+  $primary: #8049ff,
+  $secondary: #e29c45,
+  $surface: #fff,
+  $success: $gain,
+  $error: $loss
+);
+
+$dark: palette(
+  $primary: #8049ff,
+  $secondary: #72da67,
+  $surface: #111,
+  $success: $gain,
+  $error: $loss
+);

@@ -1,12 +1,14 @@
-@import './app-themes/chooser.scss';
+@use './app-themes/chooser';
 .main {
     width: 100%;
     height: 100%;
 }
 
 .content {
-    flex: 1 1 100%;
-    height: 85%;
+    position: relative;
+    z-index: 0;
+    flex: 1 1 auto;
+    height: calc(100% - 56px);
 }
 
 .temp {
@@ -20,10 +22,15 @@
 igx-navbar {
     height: 56px;
     display: block;
-}
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    flex-shrink: 0;
 
-.igx-navbar {
-    position: fixed;
+    .igx-navbar__title {
+        color: #fff;
+        font-weight: 700;
+    }
 }
 
 .account-container span {

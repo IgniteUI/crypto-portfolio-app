@@ -1,37 +1,44 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, viewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { moveIn, fallIn } from '../router.animations';
-import { IgxSnackbarComponent, IgxIconModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, IgxSnackbarModule } from '@infragistics/igniteui-angular';
+import { IgxSnackbarComponent } from '@infragistics/igniteui-angular/snackbar';
+import { IgxIconComponent } from '@infragistics/igniteui-angular/icon';
+import { IGX_INPUT_GROUP_DIRECTIVES } from '@infragistics/igniteui-angular/input-group';
+import { IgxButtonDirective, IgxRippleDirective } from '@infragistics/igniteui-angular/directives';
 import { AuthServiceService } from '../services/auth.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { getErrorMessage } from '../core/utils';
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.scss'],
     animations: [moveIn(), fallIn()],
-    // tslint:disable-next-line: use-host-property-decorator
     host: { '[@moveIn]': '' },
-    standalone: true,
-    imports: [IgxIconModule, FormsModule, IgxInputGroupModule, IgxButtonModule, IgxRippleModule, RouterLink, IgxSnackbarModule]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IgxIconComponent, ReactiveFormsModule, IGX_INPUT_GROUP_DIRECTIVES, IgxButtonDirective, IgxRippleDirective, RouterLink, IgxSnackbarComponent]
 })
 export class SignupComponent {
+   private readonly router = inject(Router);
+   private readonly authService = inject(AuthServiceService);
 
-   state = '';
-   error: any;
-   email: any;
-   password: any;
-   @ViewChild('snack', { static: true }) public snack: IgxSnackbarComponent;
+   readonly snack = viewChild.required<IgxSnackbarComponent>('snack');
+   readonly form = new FormGroup({
+      email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+      password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+   });
 
-   constructor(private router: Router, private authService: AuthServiceService) { }
-
-   onSubmit(formData) {
-      if (formData.valid) {
-         this.authService.signUp(formData.value.email, formData.value.password).then(() => {
-               this.router.navigate(['/login']);
-            }).catch(
-               (err) => {
-                  this.snack.open(err.message);
-            });
+   onSubmit(): void {
+      if (this.form.invalid) {
+         this.form.markAllAsTouched();
+         return;
       }
+
+      const { email, password } = this.form.getRawValue();
+      void this.authService.signUp(email, password).then(() => {
+               return this.router.navigate(['/login']);
+            }).catch(
+               (error: unknown) => {
+                  this.snack().open(getErrorMessage(error));
+            });
    }
 }

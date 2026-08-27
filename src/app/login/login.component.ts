@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { moveIn } from '../router.animations';
 import { facebook, google } from '@igniteui/material-icons-extended';
-import { IgxIconService, IgxIconModule, IgxButtonModule, IgxRippleModule } from '@infragistics/igniteui-angular';
+import { IgxIconComponent, IgxIconService } from '@infragistics/igniteui-angular/icon';
+import { IgxButtonDirective, IgxRippleDirective } from '@infragistics/igniteui-angular/directives';
 import { AuthServiceService } from '../services/auth.service';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { map } from 'rxjs/operators';
+import { getErrorMessage } from '../core/utils';
 
 
 @Component({
@@ -13,49 +17,44 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
     styleUrls: ['./login.component.scss'],
     animations: [moveIn()],
     host: { '[@moveIn]': '' },
-    standalone: true,
-    imports: [IgxIconModule, IgxButtonModule, IgxRippleModule, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [IgxIconComponent, IgxButtonDirective, IgxRippleDirective, RouterLink, RouterLinkActive, LoadingSpinnerComponent]
 })
-export class LoginComponent implements OnInit {
-   return = '';
-   error: any;
-   googleAuthProvider: any;
-   facebookAuthProvider: any;
+export class LoginComponent {
+   private readonly router = inject(Router);
+   private readonly route = inject(ActivatedRoute);
+   private readonly iconService = inject(IgxIconService);
+   private readonly authService = inject(AuthServiceService);
 
-   showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
+   readonly returnUrl = toSignal(
+      this.route.queryParamMap.pipe(map(params => params.get('return') || '/home')),
+      { initialValue: '/home' }
+   );
+   readonly error = signal('');
+   readonly showSpinner = signal(localStorage.getItem('showSpinner') === 'true');
 
-   constructor(private router: Router, private route: ActivatedRoute,
-      private iconService: IgxIconService, private authService: AuthServiceService) {
-   }
-
-   ngOnInit() {
-      // Get the query params
-      this.route.queryParams
-         .subscribe(params => {
-            this.return = params['return'] ? params['return'] : '/home';
-         });
-
+   constructor() {
       // Register a single icon
       this.iconService.addSvgIconFromText(facebook.name, facebook.value, 'imx-icons');
       this.iconService.addSvgIconFromText(google.name, google.value, 'imx-icons');
    }
 
-   loginFb() {
-      this.authService.facebookAuth(this.return).catch(error => {
-         console.error('Facebook auth error:', error);
+   loginFb(): void {
+      void this.authService.facebookAuth(this.returnUrl()).catch((error: unknown) => {
+         this.error.set(getErrorMessage(error));
       });
    }
 
-   loginGoogle() {
-      this.authService.googleAuth(this.return).catch(error => {
-         console.error('Google auth error:', error);
+   loginGoogle(): void {
+      void this.authService.googleAuth(this.returnUrl()).catch((error: unknown) => {
+         this.error.set(getErrorMessage(error));
       });
    }
 
-   loginEmail() {
-      this.router.navigate(['/email'], {
+   loginEmail(): void {
+      void this.router.navigate(['/email'], {
          queryParams: {
-            return: this.return
+            return: this.returnUrl()
          }
       });
    }

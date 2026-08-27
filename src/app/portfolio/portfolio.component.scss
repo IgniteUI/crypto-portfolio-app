@@ -1,11 +1,12 @@
-#refreshBtn {
-  margin-bottom: 21px;
+:host {
+  width: 100%;
 }
 
-
-#addBtn {
-  margin-left: 10px;
-  margin-right: 10px;
+.portfolio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 21px;
 }
 
 .sample-content {
@@ -15,10 +16,9 @@
 
 .positionTop {
   width: 100%;
-  // margin-top: -7px;
 }
 
-.positionTop>img {
+.positionTop > img {
   width: 24px;
   height: 24px;
 }
@@ -29,16 +29,16 @@
   margin-left: 10px;
 }
 
+#legendTitle {
+  font-size: 1rem;
+  margin: 16px 0 8px;
+}
 
 :host ::ng-deep {
-  igx-icon {
-    cursor: pointer;
-  }
-
   .addCoinForm {
     padding: 12px 24px 24px;
 
-    igx-input-group+igx-input-group {
+    igx-input-group + igx-input-group {
       margin-top: 24px;
     }
   }
@@ -46,5 +46,4 @@
   igx-grid {
     margin: 20px;
   }
-
 }

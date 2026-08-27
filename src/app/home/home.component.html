@@ -1,39 +1,39 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-@if (cryptos) {
+@if (cryptos().length) {
     <div class="sample-wrapper">
         <igx-input-group type="search" class="searchBox">
-            <input #input1 igxInput placeholder="Search by name or symbol" [(ngModel)]="searchValue" />
+            <input igxInput placeholder="Search by name or symbol" [formControl]="searchControl" aria-label="Search cryptocurrencies" />
             <igx-prefix>
                 <igx-icon>search</igx-icon>
             </igx-prefix>
-            @if (input1.value.length > 0) {
-                <igx-suffix (click)="input1.value = ''; clear()">
+            @if (searchValue()) {
+                <button type="button" igxIconButton="flat" igxSuffix (click)="clear()" aria-label="Clear search">
                     <igx-icon>clear</igx-icon>
-                </igx-suffix>
+                </button>
             }
         </igx-input-group>
         <div class="sample-content">
-            @for (crypto of cryptos | igxFilter: filterOptions; track crypto.id) {
+            @for (crypto of cryptos() | igxFilter: filterOptions(); track crypto.id) {
                 <article class="sample-column card-wrapper" [@flyInOut]>
                 <igx-card elevated>
-                    <igx-card-header vertical="true">
+                    <igx-card-header [vertical]="true">
                         <igx-card-media height="32px">
-                            <img src="{{ getCoinImage(crypto['imageUrl']) }}" />
+                            <img [src]="getCoinImage(crypto.imageUrl)" [alt]="crypto.fullName + ' logo'" width="32" height="32" loading="lazy" />
                         </igx-card-media>
-                        <span igxCardHeaderTitle>{{ crypto['fullName'] }}</span><span>({{ crypto['name'] }})</span>
+                        <span igxCardHeaderTitle>{{ crypto.fullName }}</span><span>({{ crypto.name }})</span>
                     </igx-card-header>
                     <igx-card-content>
-                        <p><strong>Price: ${{ crypto['price'] | number: '1.0-8'  }} </strong>
-                            <span class="percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}">({{ crypto['changePct24Hour'] | number: '0.0-2' }})%</span> 24h
+                        <p><strong>Price: ${{ crypto.price | number: '1.0-8'  }} </strong>
+                            <span class="percent-style-{{ crypto.changePct24Hour >= 0 ? 'up' : 'down'}}">({{ crypto.changePct24Hour | number: '0.0-2' }})%</span> 24h
                         </p>
-                        <p>Rank: <strong>{{ crypto['rank'] }}</strong></p>
-                        <p>Proof type: <strong>{{ crypto['proofType'] }}</strong></p>
-                        <p>Market Cap: <strong>${{ crypto['mktcap'] | number:'3.0-2' }}</strong></p>
+                        <p>Rank: <strong>{{ crypto.rank }}</strong></p>
+                        <p>Proof type: <strong>{{ crypto.proofType }}</strong></p>
+                        <p>Market Cap: <strong>${{ crypto.mktcap | number:'3.0-2' }}</strong></p>
                     </igx-card-content>
                     <igx-divider></igx-divider>
                     <igx-card-actions>
-                        <button igxButton igxRipple (click)="openChart($event, crypto)">
+                        <button igxButton="flat" igxRipple (click)="openChart(crypto)">
                             View chart
                         </button>
                     </igx-card-actions>

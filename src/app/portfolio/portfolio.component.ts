@@ -1,262 +1,266 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ViewChild, AfterViewInit, inject, OnDestroy } from '@angular/core';
-import { IgxSnackbarComponent, IgxDialogComponent, SortingDirection, IgxToggleModule, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxGridModule, IgxActionStripModule, IgxSnackbarModule, IgxDialogModule, IgxInputGroupModule } from '@infragistics/igniteui-angular';
-import { ItemService } from '../services/block-item.service';
-import { BlockItem } from '../core/interfaces';
-import { DataService } from '../services/data.service';
-import { Router } from '@angular/router';
-import { IgxGridComponent, IgxOverlayOutletDirective, CloseScrollStrategy } from '@infragistics/igniteui-angular';
-import { transformCoinImgUrl } from '../core/utils';
-import { Auth, authState } from '@angular/fire/auth';
-import { IgxPieChartComponent, IgxItemLegendModule, IgxPieChartCoreModule } from 'igniteui-angular-charts';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  computed,
+  inject,
+  signal,
+  viewChild
+} from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { switchMap, filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
+import {
+  IgxButtonDirective,
+  IgxIconButtonDirective,
+  IgxRippleDirective
+} from '@infragistics/igniteui-angular/directives';
+import { IgxIconComponent } from '@infragistics/igniteui-angular/icon';
+import { IGX_INPUT_GROUP_DIRECTIVES } from '@infragistics/igniteui-angular/input-group';
+import { IgxDialogComponent } from '@infragistics/igniteui-angular/dialog';
+import { IgxSnackbarComponent } from '@infragistics/igniteui-angular/snackbar';
+import { IgxActionStripComponent } from '@infragistics/igniteui-angular/action-strip';
+import { IGX_GRID_DIRECTIVES } from '@infragistics/igniteui-angular/grids/grid';
+import {
+  IGridEditDoneEventArgs,
+  IRowDataEventArgs,
+  IgxGridEditingActionsComponent
+} from '@infragistics/igniteui-angular/grids/core';
+import {
+  IgxItemLegendModule,
+  IgxPieChartModule,
+  IgxSliceClickEventArgs
+} from 'igniteui-angular-charts';
+import { BlockItem } from '../core/interfaces';
+import {
+  getErrorMessage,
+  isRecord,
+  readNumber,
+  readString,
+  transformCoinImgUrl
+} from '../core/utils';
+import { ItemService } from '../services/block-item.service';
+import { DataService } from '../services/data.service';
 
 @Component({
-    selector: 'app-portfolio',
-    templateUrl: './portfolio.component.html',
-    styleUrls: ['./portfolio.component.scss'],
-    standalone: true,
-    imports: [
-        IgxToggleModule,
-        IgxButtonModule,
-        IgxRippleModule,
-        IgxIconModule,
-        IgxGridModule,
-        IgxActionStripModule,
-        IgxItemLegendModule,
-        IgxPieChartCoreModule,
-        IgxSnackbarModule,
-        IgxDialogModule,
-        FormsModule,
-        IgxInputGroupModule,
-        DecimalPipe
-    ]
+  selector: 'app-portfolio',
+  templateUrl: './portfolio.component.html',
+  styleUrls: ['./portfolio.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    DecimalPipe,
+    ReactiveFormsModule,
+    IGX_GRID_DIRECTIVES,
+    IGX_INPUT_GROUP_DIRECTIVES,
+    IgxActionStripComponent,
+    IgxButtonDirective,
+    IgxDialogComponent,
+    IgxGridEditingActionsComponent,
+    IgxIconButtonDirective,
+    IgxIconComponent,
+    IgxItemLegendModule,
+    IgxPieChartModule,
+    IgxRippleDirective,
+    IgxSnackbarComponent
+  ]
 })
-export class PortfolioComponent implements AfterViewInit, OnDestroy {
+export class PortfolioComponent {
+  private readonly itemService = inject(ItemService);
+  private readonly router = inject(Router);
+  private readonly dataService = inject(DataService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  public searchCrypto: string;
-  public blockItems: BlockItem[] = [];
-  public newItem: BlockItem;
-  public coinName;
-  public holdings;
-  public price;
-  public deletedItem: BlockItem = {} as BlockItem;
-  public totalPortfolioValue = 0;
-  private auth = inject(Auth);
-  private destroy$ = new Subject<void>();
+  readonly dialog = viewChild.required<IgxDialogComponent>('modal');
+  readonly snackbar = viewChild.required<IgxSnackbarComponent>('snack');
+  readonly statusSnackbar = viewChild.required<IgxSnackbarComponent>('statusSnack');
 
-  // Number options
-  public options = {
+  readonly blockItems = signal<BlockItem[]>([]);
+  readonly deletedItem = signal<BlockItem | null>(null);
+  readonly displayedItems = computed(() =>
+    [...this.blockItems()].sort((left, right) => right.total - left.total)
+  );
+  readonly totalPortfolioValue = computed(() =>
+    this.blockItems().reduce((total, coin) => total + coin.holdings * coin.price, 0)
+  );
+
+  readonly addCoinForm = new FormGroup({
+    symbol: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(/^[a-zA-Z0-9]+$/)]
+    }),
+    holdings: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(Number.EPSILON)]
+    })
+  });
+
+  readonly formatOptions = {
     digitsInfo: '1.2-2',
     currencyCode: 'USD'
   };
-  public formatOptions = this.options;
 
-  public helper = new Helper();
-  @ViewChild(IgxOverlayOutletDirective, { static: true }) public outlet: IgxOverlayOutletDirective;
-  @ViewChild('snack', { static: true }) public snack: IgxSnackbarComponent;
-  @ViewChild('snackExists', { static: true }) public snackExists: IgxSnackbarComponent;
-  @ViewChild('grid1', { static: true }) public grid1: IgxGridComponent;
-  @ViewChild('modal', { static: true }) public dialog: IgxDialogComponent;
-  @ViewChild("chart", { static: true }) public chart: IgxPieChartComponent;
-
-  constructor(private blockItemService: ItemService, private router: Router, private dataService: DataService) { }
-
-  ngAfterViewInit() {
-    // Use reactive approach: wait for authenticated user, then switch to data stream
-    authState(this.auth).pipe(
-      filter(user => !!user?.uid), // Only proceed when user is authenticated
-      switchMap(() => this.blockItemService.getItemsList()), // Switch to data stream
-      takeUntil(this.destroy$) // Clean up subscription on destroy
-    ).subscribe(items => {
-      this.blockItems = items.map(item => ({
-        ...item,
-        total: item.holdings * item.price
-      }));
-      
-      if (this.grid1 && items.length > 0) {
-        this.grid1.sort({ fieldName: 'total', dir: SortingDirection.Desc, ignoreCase: false });
-      }
-
-      // Update portfolio upon load
-      this.updatePortfolio();
-
-      // Explode the last slice
-      if (this.chart && items.length > 0) {
-        this.chart.explodedSlices.add(items.length - 1);
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  // tslint:disable-next-line: member-ordering
-  private _dialogOverlaySettings = {
-    closeOnOutsideClick: true,
-    modal: true,
-    outlet: null,
-    scrollStrategy: new CloseScrollStrategy()
+  readonly dailyChanges = {
+    positive: (rowData: BlockItem) => rowData.changePct24Hour >= 0,
+    negative: (rowData: BlockItem) => rowData.changePct24Hour < 0
   };
 
-  public restore() {
-    this.blockItemService.createItem(this.deletedItem);
-    this.snack.close();
-    this.deletedItem = new BlockItem();
-  }
-
-  public openDialog() {
-    this._dialogOverlaySettings.outlet = this.outlet;
-    this.dialog.open(this._dialogOverlaySettings);
-  }
-
-  public updatePortfolio() {
-    for (const coin of this.blockItems) {
-      this.dataService.getSpecificCoinData(coin.name).subscribe(res => {
-        coin.changePct24Hour = res.changePct24Hour;
-        coin.price = res.price;
-      });
+  readonly formatLabel = (context: unknown): string => {
+    if (!isRecord(context)) {
+      return '';
     }
+
+    const item = isRecord(context['item']) ? context['item'] : {};
+    const name = readString(item, 'fullName', 'Coin');
+    const percentage = Math.round(readNumber(context, 'percentValue') * 100) / 100;
+    return `${name} (${percentage}%)`;
+  };
+
+  constructor() {
+    this.itemService.getItemsList()
+      .pipe(takeUntilDestroyed())
+      .subscribe(items => {
+        this.blockItems.set(items.map(item => this.withTotal(item)));
+        this.updatePortfolio();
+      });
   }
 
-  public openChart(evt, symbol) {
-    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }]);
+  restore(): void {
+    const item = this.deletedItem();
+    if (!item) {
+      return;
+    }
+
+    this.itemService.createItem(item);
+    this.deletedItem.set(null);
+    this.snackbar().close();
   }
 
-  public getCoinImage(imageUrl: string) {
+  openDialog(): void {
+    this.dialog().open();
+  }
+
+  updatePortfolio(): void {
+    const items = this.blockItems();
+    if (items.length === 0) {
+      return;
+    }
+
+    forkJoin(items.map(item =>
+      this.dataService.getSpecificCoinData(item.name).pipe(
+        map(marketItem => Object.assign(new BlockItem(), marketItem, item, {
+          price: marketItem.price,
+          changePct24Hour: marketItem.changePct24Hour,
+          imageUrl: marketItem.imageUrl || item.imageUrl,
+          total: item.holdings * marketItem.price
+        })),
+        catchError(() => of(item))
+      )
+    ))
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(itemsWithPrices => this.blockItems.set(itemsWithPrices));
+  }
+
+  openChart(symbol: string): void {
+    void this.router.navigate([
+      '/statistics',
+      { text: 'Volatility', iconName: 'show_chart', cryptoName: symbol, daysCount: 100 }
+    ]);
+  }
+
+  getCoinImage(imageUrl: string): string {
     return transformCoinImgUrl(imageUrl);
   }
 
-  public calculateTotalPortfolio() {
-    let total = 0;
-
-    for (const coin of this.blockItems) {
-      total += this.helper.calculateHoldings(coin.holdings, coin.price);
+  addItem(): void {
+    if (this.addCoinForm.invalid) {
+      this.addCoinForm.markAllAsTouched();
+      this.showStatus('Enter a valid coin symbol and a holdings amount greater than zero.');
+      return;
     }
 
-    return total;
-  }
+    const symbol = this.addCoinForm.controls.symbol.value.trim().toUpperCase();
+    const holdings = this.addCoinForm.controls.holdings.value;
 
-  public addItem(event) {
-    // Check whether the coin is already in your portfolio
-    this.checkCoinExistence(this.coinName);
-    event.dialog.close();
-  }
-
-  private checkCoinExistence(coin) {
-    const fCoin = this.blockItems.filter(item => item.name === coin.toUpperCase());
-
-    if (fCoin.length !== 0) {
-      this.snackExists.open('Already added!');
-    } else {
-      // find coin and add it if exist
-      this.addRow(coin.toUpperCase());
+    if (this.blockItems().some(item => item.name === symbol)) {
+      this.showStatus('Already added!');
+      return;
     }
+
+    this.dataService.getCryptoIdFromSymbol(symbol)
+      .pipe(
+        switchMap(lookup => lookup
+          ? this.dataService.getSpecificCoinData(lookup.Name)
+          : of(null)),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: item => {
+          if (!item) {
+            this.showStatus('Coin does not exist!');
+            return;
+          }
+
+          const portfolioItem = Object.assign(new BlockItem(), item, {
+            holdings,
+            total: holdings * item.price
+          });
+          this.itemService.createItem(portfolioItem);
+          this.addCoinForm.reset({ symbol: '', holdings: 0 });
+          this.dialog().close();
+          this.showStatus('Coin added!');
+        },
+        error: (error: unknown) => this.showStatus(getErrorMessage(error))
+      });
   }
 
-  public addRow(symbol) {
-    this.dataService.getCryptoIdFromSymbol(symbol).subscribe(filteredItem => {
-      if (filteredItem) {
-        this.dataService.getSpecificCoinData(filteredItem['Name']).subscribe(blockItem => {
-          blockItem.holdings = this.holdings;
-          this.blockItemService.createItem(blockItem);
+  updateCell(event: IGridEditDoneEventArgs): void {
+    if (event.column?.field !== 'holdings') {
+      return;
+    }
 
-          this.snackExists.open('Coin Added!');
-          this.clearFormInputs();
-        }, err => {
-          this.clearFormInputs();
-          this.snackExists.open(err);
-        });
-      } else {
-        this.snackExists.open('Coin does not exist!');
-      }
+    const item = this.asBlockItem(event.rowData);
+    const holdings = typeof event.newValue === 'number' ? event.newValue : Number(event.newValue);
+    const key = item?.key;
+    if (!key || !Number.isFinite(holdings) || holdings < 0) {
+      return;
+    }
+
+    const updated = Object.assign(new BlockItem(), item, {
+      holdings,
+      total: holdings * item.price
     });
+    this.blockItems.update(items => items.map(current => current.key === updated.key ? updated : current));
+    this.itemService.updateItem(key, updated);
   }
 
-  public deleteRow(cell) {
-    const blockItem = cell.row.data;
+  deleteRow(event: IRowDataEventArgs): void {
+    const item = this.asBlockItem(event.rowData);
+    if (!item?.key) {
+      return;
+    }
 
-    this.delete(blockItem);
+    this.itemService.deleteItem(item.key);
+    const restorable = Object.assign(new BlockItem(), item);
+    delete restorable.key;
+    this.deletedItem.set(restorable);
+    this.snackbar().open();
   }
 
-  public updateRow(evt) {
-    const rowItem = evt.rowID;
-    rowItem.holdings = evt.newValue;
-
-    this.blockItemService.updateItem(rowItem.key, rowItem);
-
-  }
-  /*
-    Used by action strip grid
-  */
-  public updateCell(evt) {
-    const rowItem = evt.owner.getRowData(evt.rowID);
-    rowItem.holdings = evt.newValue;
-
-    this.blockItemService.updateItem(rowItem.key, rowItem);
+  onSliceClick(event: { args: IgxSliceClickEventArgs }): void {
+    event.args.isExploded = !event.args.isExploded;
   }
 
-  public deleteRowFromActions(evt) {
-    this.delete(evt.data);
+  private withTotal(item: BlockItem): BlockItem {
+    return Object.assign(new BlockItem(), item, { total: item.holdings * item.price });
   }
 
-  public delete(blockItem) {
-    // Delele item from AngularFireList
-    this.blockItemService.deleteItem(blockItem.key);
-
-    // Stores deleted item for the 'Restore' Snackbar logic
-    this.deletedItem = new BlockItem();
-    Object.assign(this.deletedItem, blockItem);
-
-    delete this.deletedItem['key'];
-    this.snack.open();
-  }
-  private positive24h = (rowData: any): boolean => {
-    return rowData.changePct24Hour > 0;
-  }
-  private negative24h = (rowData: any): boolean => {
-    return rowData.changePct24Hour < 0;
+  private asBlockItem(value: unknown): BlockItem | null {
+    return isRecord(value) ? Object.assign(new BlockItem(), value) : null;
   }
 
-  // tslint:disable-next-line:member-ordering
-  public dailyChanges = {
-    positive: this.positive24h,
-    negative: this.negative24h
-  };
-
-  private clearFormInputs() {
-    this.coinName = '';
-    this.holdings = '';
-  }
-
-  public removeSorting($event) {
-    this.grid1.columns.forEach((col) => {
-      if (!(col.field === $event.fieldName)) {
-        this.grid1.clearSort(col.field);
-      }
-    });
-  }
-  public calculateHoldings(holdings: number, price: number) {
-    return this.helper.calculateHoldings(holdings, price);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public setFormat(context) {
-    return context.item.fullName + " (" + Math.round(context.percentValue * 100)/100 + '%)';
-  }
-
-  public pieSliceClickEvent(e: any): void {
-    e.args.isExploded = !e.args.isExploded;
-  }
-}
-
-class Helper {
-  public calculateHoldings(holdings: number, price: number) {
-    return holdings * price;
+  private showStatus(message: string): void {
+    this.statusSnackbar().open(message);
   }
 }

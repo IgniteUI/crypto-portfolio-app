@@ -1,0 +1,31 @@
+// Dark theme bundle. See light.scss for why `theme()` is called at the document
+// root rather than nested under a class.
+@use '@infragistics/igniteui-angular/theming' as *;
+@use 'palettes';
+
+@include core();
+@include typography();
+
+@include theme(
+  $palette: palettes.$dark,
+  $schema: $dark-material-schema
+);
+
+// The drawer and navbar sit on the darkest surface rather than the schema default.
+@include tokens(
+  navdrawer-theme(
+    $schema: $dark-material-schema,
+    $item-active-text-color: color(palettes.$dark, 'secondary'),
+    $item-active-icon-color: color(palettes.$dark, 'secondary'),
+    $background: color(palettes.$dark, 'gray', 50)
+  ),
+  $mode: 'scoped'
+);
+
+@include tokens(
+  navbar-theme(
+    $schema: $dark-material-schema,
+    $background: color(palettes.$dark, 'gray', 50)
+  ),
+  $mode: 'scoped'
+);

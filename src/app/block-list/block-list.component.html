@@ -3,39 +3,45 @@
         <igx-prefix>
             <igx-icon>search</igx-icon>
         </igx-prefix>
-        <input #search igxInput placeholder="Search by name" [(ngModel)]="searchCrypto">
-        @if (search.value.length > 0) {
-            <igx-suffix (click)="searchCrypto = null">
+        <input igxInput placeholder="Search by name" [formControl]="searchControl" aria-label="Search cryptocurrencies">
+        @if (searchCrypto()) {
+            <button type="button" igxIconButton="flat" igxSuffix (click)="clearSearch()" aria-label="Clear search">
                 <igx-icon>clear</igx-icon>
-            </igx-suffix>
+            </button>
         }
     </igx-input-group>
 
     <div class="list-sample">
-        <igx-list [@listAnimation]="remoteData.length">
-            <igx-list-item isHeader="true">Cryptocurrencies</igx-list-item>
-            @for (crypto of remoteData | igxFilter: filterCryptos; track crypto.id) {
+        <igx-list [@listAnimation]="remoteData().length">
+            <igx-list-item [isHeader]="true">Cryptocurrencies</igx-list-item>
+            @for (crypto of remoteData() | igxFilter: filterCryptos(); track crypto.id) {
                 <igx-list-item #item>
                 <div class="crypto">
                     <div class="crypto__info">
                         <span class="crypto__item">
 
                             <div class="crypto__name">
-                              <igx-avatar size="small" class="crypto__avatar" src="{{ getCoinImage(crypto['imageUrl']) }}"></igx-avatar>
+                              <igx-avatar
+                                size="small"
+                                class="crypto__avatar"
+                                [src]="getCoinImage(crypto.imageUrl)"
+                                [attr.aria-label]="crypto.fullName + ' logo'"
+                              ></igx-avatar>
                               <span>
-                                  {{ crypto['fullName'] }}
+                                  {{ crypto.fullName }}
                               </span>
                             </div>
 
                             <div class="crypto__details">
-                              <span class="crypto__price">${{ crypto['price'] | number: '1.0-3' }}</span>
+                              <span class="crypto__price">${{ crypto.price | number: '1.0-3' }}</span>
 
-                              <span class="percent-style-{{ crypto['changePct24Hour'] >= 0 ? 'up' : 'down'}}">
-                                  {{ crypto['changePct24Hour'] | number: '0.0-2' }} %
+                              <span class="percent-style-{{ crypto.changePct24Hour >= 0 ? 'up' : 'down'}}">
+                                  {{ crypto.changePct24Hour | number: '0.0-2' }} %
                               </span>
 
-                              <igx-icon [color]="crypto['changePct24Hour'] >= 0 ? 'green' : 'red'">
-                                    {{ crypto['changePct24Hour'] >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}
+                              <igx-icon [class.change-positive]="crypto.changePct24Hour >= 0"
+                                [class.change-negative]="crypto.changePct24Hour < 0">
+                                    {{ crypto.changePct24Hour >= 0 ? 'arrow_drop_up' : 'arrow_drop_down'}}
                               </igx-icon>
 
                               <span class="li_item">(24h)</span>

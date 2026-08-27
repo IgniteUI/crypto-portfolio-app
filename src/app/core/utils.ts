@@ -1,30 +1,29 @@
 
 const baseUrl = 'https://www.cryptocompare.com';
 
-export function sortDataByKey(array, keyToSortBy) {
-    function sortByKey(a, b) {
-        const x = a[keyToSortBy];
-        const y = b[keyToSortBy];
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    }
+export type UnknownRecord = Record<string, unknown>;
 
-    return array.sort(sortByKey);
+export function isRecord(value: unknown): value is UnknownRecord {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-export function flattenObject(ob) {
-    const toReturn = {};
+export function sortDataByKey<T, K extends keyof T>(array: readonly T[], keyToSortBy: K): T[] {
+    return [...array].sort((a, b) => compareValues(a[keyToSortBy], b[keyToSortBy]));
+}
 
-    for (const i in ob) {
-        if (!Object.prototype.hasOwnProperty.call(ob, i)) { continue; }
+export function flattenObject(ob: UnknownRecord): UnknownRecord {
+    const toReturn: UnknownRecord = {};
 
-        if ((typeof ob[i]) === 'object') {
-            const flatObject = flattenObject(ob[i]);
-            for (const x in flatObject) {
-                if (!Object.prototype.hasOwnProperty.call(flatObject, x) || i === 'DISPLAY') { continue; }
-                toReturn[x] = flatObject[x];
+    for (const [key, value] of Object.entries(ob)) {
+        if (isRecord(value)) {
+            const flatObject = flattenObject(value);
+            for (const [nestedKey, nestedValue] of Object.entries(flatObject)) {
+                if (key !== 'DISPLAY') {
+                    toReturn[nestedKey] = nestedValue;
+                }
             }
         } else {
-            toReturn[i.toUpperCase()] = ob[i];
+            toReturn[key.toUpperCase()] = value;
         }
     }
     return toReturn;
@@ -34,14 +33,29 @@ export function transformCoinImgUrl(imgUrl: string) {
     return baseUrl + imgUrl;
 }
 
+export function getErrorMessage(error: unknown): string {
+    return error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+}
 
-export function fillFromJSON(obj, jsonObj) {
-    for (const propName in obj) {
-        if (propName === 'name' && jsonObj['FROMSYMBOL'] !== undefined) {
-            obj['name'] = jsonObj['FROMSYMBOL'];
-            obj['fullName'] = jsonObj['FROMSYMBOL'];
-        } else { obj[propName] = jsonObj[propName.toUpperCase()]; }
+export function readString(record: UnknownRecord, key: string, fallback = ''): string {
+    const value = record[key];
+    return typeof value === 'string' ? value : fallback;
+}
+
+export function readNumber(record: UnknownRecord, key: string, fallback = 0): number {
+    const value = record[key];
+    if (typeof value === 'number' && Number.isFinite(value)) {
+        return value;
     }
 
-    return obj;
+    const parsed = typeof value === 'string' ? Number(value) : Number.NaN;
+    return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function compareValues(left: unknown, right: unknown): number {
+    if (typeof left === 'number' && typeof right === 'number') {
+        return left - right;
+    }
+
+    return String(left ?? '').localeCompare(String(right ?? ''));
 }

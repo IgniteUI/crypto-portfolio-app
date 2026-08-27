@@ -1,0 +1,43 @@
+// Light theme bundle.
+//
+// Compiled as its own non-injected stylesheet and swapped in at runtime (see
+// angular.json -> styles, and AppComponent.setTheme). `theme()` MUST be called at
+// the document root here: nesting it under a class makes the library emit every
+// component's local, inheriting variables (--background, --color, ...) onto that
+// class as well, where the last one wins and leaks over the whole document.
+@use '@infragistics/igniteui-angular/theming' as *;
+@use 'palettes';
+
+@include core();
+@include typography();
+
+@include theme(
+  $palette: palettes.$light,
+  $schema: $light-material-schema
+);
+
+// Selected grid cells use the brand purple rather than the schema default.
+@include tokens(
+  grid-theme(
+    $schema: $light-material-schema,
+    $cell-selected-background: color(palettes.$light, 'primary', 200)
+  ),
+  $mode: 'scoped'
+);
+
+// Card action buttons follow the secondary accent.
+//
+// Called at root with an explicit $scope rather than nested under `.igx-card`:
+// scoped mode nested under a selector emits the theme onto `&` as well as the
+// component selector, and the button's generic vars (--background, etc.) would
+// overwrite the card's own tokens of the same name.
+@include tokens(
+  flat-button-theme(
+    $schema: $light-material-schema,
+    $foreground: color(palettes.$light, 'secondary'),
+    $hover-background: color(palettes.$light, 'secondary', 100),
+    $hover-foreground: color(palettes.$light, 'secondary')
+  ),
+  $mode: 'scoped',
+  $scope: '.igx-card [igxButton="flat"]'
+);

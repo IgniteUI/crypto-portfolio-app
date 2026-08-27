@@ -1,110 +1,127 @@
-import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
-import { DataService } from '../services/data.service';
-import { IgxGridComponent, SortingDirection, IgxExcelExporterOptions, IgxExcelExporterService, IGroupingDoneEventArgs, IgxColumnComponent, IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule, IgxIconButtonDirective } from '@infragistics/igniteui-angular';
-import { transformCoinImgUrl } from '../core/utils';
-import { CoinItem } from '../core/interfaces';
-import { interval } from 'rxjs';
-import { Router } from '@angular/router';
-import { startWith } from 'rxjs/operators';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+  viewChild
+} from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { merge, Subject, switchMap, timer } from 'rxjs';
+import {
+  IgxButtonDirective,
+  IgxIconButtonDirective,
+  IgxRippleDirective,
+  IgxTooltipDirective,
+  IgxTooltipTargetDirective
+} from '@infragistics/igniteui-angular/directives';
+import { IgxIconComponent } from '@infragistics/igniteui-angular/icon';
+import { IgxBadgeComponent } from '@infragistics/igniteui-angular/badge';
+import { IGX_GRID_DIRECTIVES, IgxGridComponent } from '@infragistics/igniteui-angular/grids/grid';
+import {
+  IGroupingDoneEventArgs,
+  IgxExcelExporterOptions,
+  IgxExcelExporterService
+} from '@infragistics/igniteui-angular/grids/core';
+import { SortingDirection } from '@infragistics/igniteui-angular/core';
+import { CoinItem } from '../core/interfaces';
+import { transformCoinImgUrl } from '../core/utils';
+import { DataService } from '../services/data.service';
 
 @Component({
-    selector: 'app-block-grid',
-    templateUrl: './block-grid.component.html',
-    styleUrls: ['./block-grid.component.scss'],
-    standalone: true,
-    imports: [IgxButtonModule, IgxRippleModule, IgxIconModule, IgxTooltipModule, IgxGridModule, IgxBadgeModule, DecimalPipe, IgxIconButtonDirective]
+  selector: 'app-block-grid',
+  templateUrl: './block-grid.component.html',
+  styleUrls: ['./block-grid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(window:resize)': 'onResize()'
+  },
+  imports: [
+    DecimalPipe,
+    IGX_GRID_DIRECTIVES,
+    IgxBadgeComponent,
+    IgxButtonDirective,
+    IgxIconButtonDirective,
+    IgxIconComponent,
+    IgxRippleDirective,
+    IgxTooltipDirective,
+    IgxTooltipTargetDirective
+  ]
 })
-export class BlockGridComponent implements OnInit, AfterViewInit {
-  public remoteData: CoinItem[];
-  private windowWidth: any;
-  @ViewChild('grid1', { static: true }) public grid1: IgxGridComponent;
+export class BlockGridComponent implements AfterViewInit {
+  private readonly dataService = inject(DataService);
+  private readonly excelExportService = inject(IgxExcelExporterService);
+  private readonly router = inject(Router);
+  private readonly refreshRequests = new Subject<void>();
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.windowWidth = event.target.innerWidth;
+  readonly grid = viewChild.required<IgxGridComponent>('grid1');
+  readonly remoteData = signal<CoinItem[]>([]);
+  readonly windowWidth = signal(typeof window === 'undefined' ? 1024 : window.innerWidth);
+  readonly hideColumn = computed(() => this.windowWidth() < 800);
+
+  readonly changes24h = {
+    positive: (rowData: CoinItem) => rowData.changePct24Hour >= 0,
+    negative: (rowData: CoinItem) => rowData.changePct24Hour < 0
+  };
+
+  constructor() {
+    merge(timer(0, 15_000), this.refreshRequests)
+      .pipe(
+        switchMap(() => this.dataService.getData()),
+        takeUntilDestroyed()
+      )
+      .subscribe(data => this.remoteData.set(data));
   }
 
-  constructor(private dataService: DataService, private excelExportService: IgxExcelExporterService, private router: Router) { }
-
-  ngOnInit() {
-    this.windowWidth = window.innerWidth;
+  ngAfterViewInit(): void {
+    this.grid().groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
   }
 
-  private loadData() {
-    interval(15000)
-      .pipe(startWith(0))
-      .subscribe(() => {
-        this.dataService.getData().subscribe(res => {
-        this.remoteData = res;
-      });
-    });
-  }
-  // tslint:disable-next-line:use-life-cycle-interface
-  ngAfterViewInit() {
-    this.grid1.groupingDone.subscribe((args: IGroupingDoneEventArgs) => {
-      if (args.groupedColumns instanceof Array && args.groupedColumns.length !== 0) {
-        const colNotForGroup = (args.groupedColumns as IgxColumnComponent[]).find(col => col.field === 'changePct24Hour');
-        if ( colNotForGroup ) {
-          this.grid1.clearGrouping('changePct24Hour');
-          if ((args.groupedColumns as IgxColumnComponent[]).find(col => col.field === 'dailyScale') === undefined) {
-            this.grid1.groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
-          }
-        }
-      } else if (args.groupedColumns instanceof IgxColumnComponent) {
-          if (args.groupedColumns.field === 'changePct24Hour') {
-            this.grid1.clearGrouping('changePct24Hour');
-            this.grid1.groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
-          }
-      }
-    });
-    this.grid1.groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
-
-    this.refreshGrid();
+  onResize(): void {
+    this.windowWidth.set(window.innerWidth);
   }
 
-  get hideColumn() {
-    return this.windowWidth && this.windowWidth < 800;
+  onGroupingDone(args: IGroupingDoneEventArgs): void {
+    const columns = Array.isArray(args.groupedColumns) ? args.groupedColumns : [args.groupedColumns];
+    if (!columns.some(column => column.field === 'changePct24Hour')) {
+      return;
+    }
+
+    this.grid().clearGrouping('changePct24Hour');
+    if (!columns.some(column => column.field === 'dailyScale')) {
+      this.grid().groupBy({ fieldName: 'dailyScale', dir: SortingDirection.Asc });
+    }
   }
 
-  public setWidth(withHideColumns: string, withoutHideColumns: string)  {
-   return this.hideColumn ? withHideColumns : withoutHideColumns;
+  setWidth(withHiddenColumns: string, withoutHiddenColumns: string): string {
+    return this.hideColumn() ? withHiddenColumns : withoutHiddenColumns;
   }
 
-  public getCoinImage(imageUrl: string) {
+  getCoinImage(imageUrl: string): string {
     return transformCoinImgUrl(imageUrl);
   }
 
-  private positive24h = (rowData: any): boolean => {
-    return rowData['changePct24Hour'] >= 0;
-  }
-
-  private negative24h = (rowData: any): boolean => {
-    return rowData['changePct24Hour'] < 0;
-  }
-
-  public exportGrid() {
-    const options =  new IgxExcelExporterOptions('ExportFileFromGrid');
+  exportGrid(): void {
+    const options = new IgxExcelExporterOptions('ExportFileFromGrid');
     options.ignoreColumnsVisibility = true;
-    this.excelExportService.export(this.grid1, options);
+    this.excelExportService.export(this.grid(), options);
   }
 
-  // tslint:disable-next-line:member-ordering
-  public changes24h = {
-    positive: this.positive24h,
-    negative: this.negative24h
-  };
-
-  public refreshGrid() {
-    // this.grid1.reflow();
-    this.loadData();
+  refreshGrid(): void {
+    this.refreshRequests.next();
   }
 
-  public getHeader(fieldName: string): string {
-    return this.grid1.getColumnByName(fieldName).header;
+  getHeader(fieldName: string): string {
+    return this.grid().getColumnByName(fieldName)?.header ?? fieldName;
   }
 
-  public openChart(evt, symbol) {
-    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'insert_chart', cryptoName: symbol, daysCount: 100 }]);
- }
+  openChart(symbol: string): void {
+    void this.router.navigate([
+      '/statistics',
+      { text: 'Volatility', iconName: 'insert_chart', cryptoName: symbol, daysCount: 100 }
+    ]);
+  }
 }

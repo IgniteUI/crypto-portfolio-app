@@ -1,25 +1,34 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { provideZonelessChangeDetection } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import { LoginComponent } from './login.component';
+import { AuthServiceService } from '../services/auth.service';
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [LoginComponent]
-})
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(async () => {
+    localStorage.removeItem('showSpinner');
+    await TestBed.configureTestingModule({
+      imports: [LoginComponent],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideAnimations(),
+        provideRouter([]),
+        {
+          provide: AuthServiceService,
+          useValue: {
+            facebookAuth: async () => undefined,
+            googleAuth: async () => undefined
+          }
+        }
+      ]
+    }).compileComponents();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('creates in zoneless mode', () => {
+    const fixture = TestBed.createComponent(LoginComponent);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });
