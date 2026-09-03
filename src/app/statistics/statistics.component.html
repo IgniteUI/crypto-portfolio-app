@@ -1,24 +1,33 @@
 <div class="sample-wrapper">
   <div class="chart-wrapper">
     <span class="content-span">
-      <igx-combo #combo [itemsMaxHeight]="255"
-        [data]="coins" [displayKey]="'name'" [valueKey]="'symbol'"
-        placeholder="Cryptocurrencies" searchPlaceholder="Search...">
-      </igx-combo>
+      <igx-combo
+        #combo
+        [itemsMaxHeight]="255"
+        [data]="coins()"
+        displayKey="name"
+        valueKey="symbol"
+        placeholder="Cryptocurrencies"
+        searchPlaceholder="Search cryptocurrencies"
+        aria-label="Cryptocurrencies shown on the chart"
+        (selectionChanging)="onSelectionChanging($event)"
+      ></igx-combo>
     </span>
+
     <igx-financial-chart
-      [dataSource]="data"
+      [dataSource]="data()"
       [isToolbarVisible]="true"
       [crosshairsAnnotationEnabled]="true"
       height="100%"
       width="100%"
-      style="margin-top: 20px;"
-      crosshairsDisplayMode="both"
-      crosshairsAnnotationEnabled="true"
-      chartType="candle"
+      class="financial-chart"
+      crosshairsDisplayMode="Both"
+      chartType="Candle"
       trendLineType="ExponentialFit"
       indicatorTypes="StochRSI"
-      finalValueAnnotationsVisible="true" >
-    </igx-financial-chart>
+      overlayTypes="PriceChannel"
+      [finalValueAnnotationsVisible]="true"
+      aria-label="Historical cryptocurrency price chart"
+    ></igx-financial-chart>
   </div>
 </div>

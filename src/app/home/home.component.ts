@@ -1,47 +1,62 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { DataService } from '../services/data.service';
-import { IgxFilterOptions, IgxExpansionPanelComponent, IgxInputGroupModule, IgxIconModule, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, IgxFilterModule } from '@infragistics/igniteui-angular';
+import { IgxButtonDirective, IgxDividerComponent, IgxFilterOptions, IgxFilterPipe, IgxIconButtonDirective, IgxRippleDirective } from '@infragistics/igniteui-angular/directives';
+import { IGX_INPUT_GROUP_DIRECTIVES } from '@infragistics/igniteui-angular/input-group';
+import { IgxIconComponent } from '@infragistics/igniteui-angular/icon';
+import { IgxCardActionsComponent, IgxCardComponent, IgxCardContentDirective, IgxCardHeaderComponent, IgxCardHeaderTitleDirective, IgxCardMediaDirective } from '@infragistics/igniteui-angular/card';
 import { Router } from '@angular/router';
 import { flyInOut } from '../router.animations';
 import { sortDataByKey, transformCoinImgUrl } from '../core/utils';
 import { CoinItem } from '../core/interfaces';
 import { DecimalPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     animations: [flyInOut()],
-    standalone: true,
-    imports: [DecimalPipe, FormsModule, IgxInputGroupModule, IgxIconModule, IgxCardModule, IgxDividerModule, IgxButtonModule, IgxRippleModule, IgxFilterModule]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+      DecimalPipe,
+      ReactiveFormsModule,
+      IGX_INPUT_GROUP_DIRECTIVES,
+      IgxIconComponent,
+      IgxCardComponent,
+      IgxCardHeaderComponent,
+      IgxCardMediaDirective,
+      IgxCardHeaderTitleDirective,
+      IgxCardContentDirective,
+      IgxCardActionsComponent,
+      IgxDividerComponent,
+      IgxButtonDirective,
+      IgxIconButtonDirective,
+      IgxRippleDirective,
+      IgxFilterPipe
+    ]
 })
-export class HomeComponent implements OnInit {
-  cryptos: CoinItem[];
-  public searchValue: string;
-  @ViewChild(IgxExpansionPanelComponent)
-  public panel: IgxExpansionPanelComponent;
+export class HomeComponent {
+  private readonly data = inject(DataService);
+  private readonly router = inject(Router);
 
-  constructor(private data: DataService, private router: Router) { }
-
-  ngOnInit() {
-    this.loadData();
-  }
-
-  private loadData() {
-    this.data.getData()
-      .subscribe(res => {
-        this.cryptos = sortDataByKey(res, 'rank');
-      });
-  }
-
-  get filterOptions() {
+  readonly searchControl = new FormControl('', { nonNullable: true });
+  readonly searchValue = toSignal(
+    this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
+    { initialValue: '' }
+  );
+  readonly cryptos = toSignal(
+    this.data.getData().pipe(map(items => sortDataByKey(items, 'rank'))),
+    { initialValue: [] as CoinItem[] }
+  );
+  readonly filterOptions = computed(() => {
     const fo = new IgxFilterOptions();
-    fo.items = this.cryptos;
+    fo.items = this.cryptos();
     fo.key = 'fullName';
-    fo.inputValue = this.searchValue ? this.searchValue : '';
+    fo.inputValue = this.searchValue();
     if (fo.items && fo.inputValue) {
-      const fI = fo.items.find(item => {
+      const fI = this.cryptos().find(item => {
         return item.name.toUpperCase().includes(fo.inputValue.toUpperCase());
       });
       if (fI) {
@@ -49,22 +64,18 @@ export class HomeComponent implements OnInit {
       }
     }
     return fo;
+  });
+
+  public clear(): void {
+    this.searchControl.setValue('');
   }
 
-  public clear() {
-    this.searchValue = '';
+  public openChart(crypto: CoinItem): void {
+    void this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart',
+      cryptoName: [crypto.name, crypto.fullName], daysCount: 100 }]);
   }
 
-  public openChart(evt, crypto) {
-    this.router.navigate(['/statistics', { text: 'Volatility', iconName: 'show_chart',
-      cryptoName: [crypto['name'], crypto['fullName']], daysCount: 100 }]);
-  }
-
-  public getCoinImage(imageUrl: string) {
+  public getCoinImage(imageUrl: string): string {
     return transformCoinImgUrl(imageUrl);
-  }
-
-  public toggleDetails() {
-    this.panel.toggle();
   }
 }

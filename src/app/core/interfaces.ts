@@ -3,14 +3,33 @@ export interface CryptoCoin {
    symbol: string;
 }
 
+export interface HistoricalPrice {
+   time: Date;
+   open: number;
+   high: number;
+   low: number;
+   close: number;
+   volumefrom?: number;
+   volumeto?: number;
+}
+
+export interface HistoricalSeries {
+   data: HistoricalPrice[];
+   symbol: string;
+}
+
+export interface CryptoLookup {
+   Name: string;
+}
+
 export class CoinItem {
-   id = 0;                 // CoinInfo.Id
+   id = '';                // CoinInfo.Id
    name = '';              // CoinInfo.Name
    fullName = '';          // CoinInfo.FullName
    price = 0;              // RAW.USD.PRICE
    supply = 0;             // RAW.USD.SUPPLY
    changePct24Hour = 0;    // RAW.USD.CHANGEPCT24HOUR
-   dailyScale: boolean;            // RAW.USD.DAILYSCALE
+   dailyScale = false;     // RAW.USD.DAILYSCALE
    proofType = '';         // CoinInfo.ProofType
    algorithm = '';         // CoinInfo.Algorithm
    rank = 0;               // CoinInfo.Rank
@@ -22,7 +41,7 @@ export class CoinItem {
 }
 
 export class BlockItem {
-   key ='';
+   key?: string;
    fullName = '';
    holdings = 0;
    name = '';

@@ -1,113 +1,102 @@
-import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, ViewEncapsulation, computed, inject, signal, viewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationStart, Router, RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { routes } from './app-routing.module';
-import { IgxNavigationDrawerComponent, IgxLayoutDirective, IgxLayoutModule, IgxNavigationDrawerModule, IgxRippleModule, IgxIconModule, IgxNavbarModule, IgxButtonModule } from '@infragistics/igniteui-angular';
-import { Auth, authState } from '@angular/fire/auth';
+import { navigationLinks } from './app.routes';
+import { IgxNavigationDrawerComponent, IgxNavDrawerItemDirective, IgxNavDrawerTemplateDirective } from '@infragistics/igniteui-angular/navigation-drawer';
+import { IgxButtonDirective, IgxFlexDirective, IgxLayoutDirective, IgxRippleDirective } from '@infragistics/igniteui-angular/directives';
+import { IgxIconComponent } from '@infragistics/igniteui-angular/icon';
+import { IgxNavbarComponent } from '@infragistics/igniteui-angular/navbar';
 import { AuthServiceService } from './services/auth.service';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+      '(window:resize)': 'onResize()'
+    },
     imports: [
-        IgxLayoutModule, 
-        IgxNavigationDrawerModule, 
-        IgxRippleModule, 
-        RouterLinkActive, 
-        RouterLink, 
-        IgxIconModule, 
-        IgxNavbarModule, 
-        IgxButtonModule, 
-        RouterOutlet, 
-        AsyncPipe
+        IgxLayoutDirective,
+        IgxFlexDirective,
+        IgxNavigationDrawerComponent,
+        IgxNavDrawerItemDirective,
+        IgxNavDrawerTemplateDirective,
+        IgxRippleDirective,
+        RouterLinkActive,
+        RouterLink,
+        IgxIconComponent,
+        IgxNavbarComponent,
+        IgxButtonDirective,
+        RouterOutlet
     ]
 })
 export class AppComponent implements OnInit {
-   public isIE;
-   name: any;
-   public innerWidth: any;
-   public darkTheme = false;
-   public authState$ = authState(inject(Auth));
-   public topNavLinks: Array<{
-      path: string,
-      name: string,
-      icon: string,
-      subItem: boolean
-   }> = [];
-   @ViewChild(IgxNavigationDrawerComponent, { static: true }) public navdrawer: IgxNavigationDrawerComponent;
-   @ViewChild(IgxLayoutDirective, { read: IgxLayoutDirective, static: true }) public layout: IgxLayoutDirective;
-   private auth = inject(Auth);
+   private readonly router = inject(Router);
+   private readonly authService = inject(AuthServiceService);
+   private readonly destroyRef = inject(DestroyRef);
+   private readonly document = inject(DOCUMENT);
 
-   @HostListener('window:resize', ['$event'])
-   onResize() {
-      this.innerWidth = window.innerWidth;
-   }
-
-   constructor(private router: Router, private authService: AuthServiceService) {
-      this.isIE = /trident\//i.test(window.navigator.userAgent);
-      for (const route of routes) {
-         if (route.path && route.data && route.path.indexOf('*') === -1) {
-            this.topNavLinks.push({
-               name: route.data.text,
-               path: '/' + route.path,
-               icon: route.data.iconName,
-               subItem: route.data.subItem
-            });
-         }
-      }
-
-      authState(this.auth).subscribe(auth => {
-         if (auth) {
-            if (auth.displayName) {
-               this.name = auth.displayName;
-            } else {
-               this.name = auth.email.split('@')[0];
-            }
-         }
-      });
-   }
+   readonly navdrawer = viewChild.required<IgxNavigationDrawerComponent>('nav');
+   readonly user = this.authService.user;
+   readonly name = computed(() => {
+      const user = this.user();
+      return user?.displayName || user?.email?.split('@')[0] || '';
+   });
+   readonly innerWidth = signal(typeof window === 'undefined' ? 0 : window.innerWidth);
+   readonly darkTheme = signal(false);
+   readonly topNavLinks = navigationLinks;
 
    public ngOnInit(): void {
-      document.body.classList.add('light-theme');
-      document.body.style.background = '#eee';
+      this.setTheme(false);
       this.router.events
-         .pipe(filter((x) => x instanceof NavigationStart))
-         .subscribe((event: NavigationStart) => {
-            if (event.url !== '/' && !this.navdrawer.pin) {
+         .pipe(
+            filter((event): event is NavigationStart => event instanceof NavigationStart),
+            takeUntilDestroyed(this.destroyRef)
+         )
+         .subscribe(event => {
+            const drawer = this.navdrawer();
+            if (event.url !== '/' && !drawer.pin) {
                // Close drawer when selecting a view on mobile (unpinned)
-               this.navdrawer.close();
+               drawer.close();
             }
          });
-
-      this.innerWidth = window.innerWidth;
    }
 
-   public changeTheme(dark?: boolean) {
-      if (dark) {
-         this.darkTheme = true;
-         document.body.classList.remove('light-theme');
-         document.body.classList.add('dark-theme');
-         document.body.style.background = '#414141';
-      } else {
-         document.body.classList.remove('dark-theme');
-         document.body.classList.add('light-theme');
-         document.body.style.background = '#eee';
-         this.darkTheme = false;
-      }
+   public onResize(): void {
+      this.innerWidth.set(window.innerWidth);
    }
 
-   public logout() {
-      this.authService.signOut();
+   public changeTheme(): void {
+      this.setTheme(!this.darkTheme());
    }
 
-   public login() {
+   public logout(): void {
+      void this.authService.signOut();
+   }
+
+   public login(): void {
       // Preserve current URL to redirect back after login
       const currentUrl = this.router.url;
-      this.router.navigate(['/login'], { queryParams: { return: currentUrl } });
+      void this.router.navigate(['/login'], { queryParams: { return: currentUrl } });
    }
 
+   private setTheme(dark: boolean): void {
+      this.darkTheme.set(dark);
+      this.document.body.classList.toggle('dark-theme', dark);
+      this.document.body.classList.toggle('light-theme', !dark);
+
+      // The Ignite UI theme ships as its own bundle rather than nested under the
+      // body class: nesting theme() makes the library emit each component's local
+      // inheriting variables (--background, --color, ...) onto that class too,
+      // where the last one wins and bleeds over the whole document.
+      const link = this.document.getElementById('ig-theme') as HTMLLinkElement | null;
+      const href = dark ? 'theme-dark.css' : 'theme-light.css';
+      if (link && !link.getAttribute('href')?.endsWith(href)) {
+         link.setAttribute('href', href);
+      }
+   }
 }

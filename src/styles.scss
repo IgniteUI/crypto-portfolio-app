@@ -1,6 +1,6 @@
 @use '@infragistics/igniteui-angular/theming' as *;
-@use "minireset.css/minireset" as *;
 @use 'app/app-themes/themes.scss';
+@import 'minireset.css/minireset.css' layer(ig.reset);
 
 // Specifies large size for all components to match the previous defaults
 :root {
@@ -23,19 +23,11 @@ body {
   }
 }
 
-.content p {
-  margin: 15px;
-}
-
 app-home {
   width: 100%;
 }
 
 app-block-grid {
-  width: 100%;
-}
-
-app-portfolio {
   width: 100%;
 }
 
@@ -59,7 +51,7 @@ app-statistics {
   width: 9.5rem;
   height: 9.5rem;
   font-size: 9.5rem;
-  color: #E29C45;
+  color: var(--ig-secondary-500);
   margin: 0.2em auto 0 auto;
   display: block;
 
@@ -92,7 +84,7 @@ app-statistics {
 }
 
 .sample-title {
-  color: #0375be;
+  color: var(--ig-primary-500);
   margin-bottom: 24px;
 }
 
@@ -106,13 +98,7 @@ app-statistics {
   color: #717171;
 }
 
-.igx-card {
-  flex-flow: row;
-}
 
-.igx-card igx-card-content {
-  padding: 0;
-}
 
 .form-container {
   height: calc(100vh - 56px);
@@ -121,6 +107,10 @@ app-statistics {
 }
 
 igx-grid {
+  // Opt the group-by chips out of the 22.0 derived grid theme, which tints them
+  // from the grid foreground; the app's design uses the neutral chip background.
+  --ig-chip-background: var(--ig-gray-300);
+
   .percent-style-up,
   .percent-style-down {
     position: relative;
@@ -140,21 +130,21 @@ igx-grid {
 }
 
 .percent-style-up {
-  color: #3f9a47;
+  color: var(--ig-success-500);
   &:after {
-    background: #3f9a47;
+    background: var(--ig-success-500);
   }
 }
 
 .percent-style-down {
-  color: #aa2222;
+  color: var(--ig-error-500);
   &:after {
-    background: #aa2222;
+    background: var(--ig-error-500);
   }
 }
 
 .igx-grid__td--selected.negative {
-  background: #aa2222 !important;
+  background: var(--ig-error-500) !important;
 
   .percent-style-down {
     color: #fff !important;
@@ -166,7 +156,7 @@ igx-grid {
 }
 
 .igx-grid__td--selected.positive {
-  background: #3f9a47 !important;
+  background: var(--ig-success-500) !important;
 
   .percent-style-up {
     color: #fff !important;
@@ -198,7 +188,7 @@ igx-grid {
   display: block;
   margin: 15px 0;
   text-decoration: underline;
-  color: #8049ff
+  color: var(--ig-primary-500);
 }
 
 .sbPosition {

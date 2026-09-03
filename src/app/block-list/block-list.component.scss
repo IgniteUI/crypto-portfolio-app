@@ -68,6 +68,14 @@
   white-space: nowrap;
 }
 
+.change-positive {
+  color: var(--ig-success-500);
+}
+
+.change-negative {
+  color: var(--ig-error-500);
+}
+
 @media only screen and (max-width: 639px) {
   .crypto__details {
     min-width: 100%;

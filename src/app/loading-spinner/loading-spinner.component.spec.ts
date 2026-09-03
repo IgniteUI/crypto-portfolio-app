@@ -1,25 +1,19 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { provideZonelessChangeDetection } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { LoadingSpinnerComponent } from './loading-spinner.component';
 
 describe('LoadingSpinnerComponent', () => {
-  let component: LoadingSpinnerComponent;
-  let fixture: ComponentFixture<LoadingSpinnerComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [LoadingSpinnerComponent]
-})
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoadingSpinnerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LoadingSpinnerComponent],
+      providers: [provideZonelessChangeDetection()]
+    }).compileComponents();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('creates in zoneless mode', () => {
+    const fixture = TestBed.createComponent(LoadingSpinnerComponent);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

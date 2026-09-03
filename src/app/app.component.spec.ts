@@ -1,23 +1,34 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import { AppComponent } from './app.component';
-import { IgxNavigationDrawerModule, IgxNavbarModule, IgxLayoutModule, IgxRippleModule } from '@infragistics/igniteui-angular/main';
+import { AuthServiceService } from './services/auth.service';
+
 describe('AppComponent', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [
-        RouterTestingModule,
-        IgxNavigationDrawerModule,
-        IgxNavbarModule,
-        IgxLayoutModule,
-        IgxRippleModule,
-        AppComponent
-    ],
-}).compileComponents();
-  }));
-  it('should create the app', waitForAsync(() => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideAnimations(),
+        provideRouter([]),
+        {
+          provide: AuthServiceService,
+          useValue: {
+            user: signal(null),
+            signOut: async () => undefined
+          }
+        }
+      ]
+    }).compileComponents();
+  });
+
+  it('creates the application shell in zoneless mode', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(fixture.componentInstance).toBeTruthy();
+  });
 });

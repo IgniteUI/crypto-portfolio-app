@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { provideZonelessChangeDetection } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import { SignupComponent } from './signup.component';
+import { AuthServiceService } from '../services/auth.service';
 
 describe('SignupComponent', () => {
-  let component: SignupComponent;
-  let fixture: ComponentFixture<SignupComponent>;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [SignupComponent]
-})
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SignupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SignupComponent],
+      providers: [
+        provideZonelessChangeDetection(),
+        provideAnimations(),
+        provideRouter([]),
+        { provide: AuthServiceService, useValue: { signUp: async () => undefined } }
+      ]
+    }).compileComponents();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('creates a typed reactive registration form', () => {
+    const fixture = TestBed.createComponent(SignupComponent);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.form.valid).toBe(false);
   });
 });

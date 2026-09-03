@@ -1,120 +1,106 @@
 import {
-   Component, ViewChild, AfterViewInit, ChangeDetectionStrategy,
-   ChangeDetectorRef,
-   OnInit,
-   NgZone
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  Injector,
+  afterNextRender,
+  inject,
+  signal,
+  viewChild
 } from '@angular/core';
-import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, first } from 'rxjs/operators';
-import { IgxComboComponent, IComboSelectionChangingEventArgs, IgxComboModule } from '@infragistics/igniteui-angular';
-import { CryptoCoin } from '../core/interfaces';
-import { IgxFinancialChartComponent, IgxFinancialChartCoreModule } from 'igniteui-angular-charts';
-import { FinancialOverlayType } from 'igniteui-angular-charts';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  IComboSelectionChangingEventArgs,
+  IgxComboComponent
+} from '@infragistics/igniteui-angular/combo';
+import { IgxFinancialChartModule } from 'igniteui-angular-charts';
+import { CryptoCoin, HistoricalPrice } from '../core/interfaces';
+import { DataService } from '../services/data.service';
+
+export type FinancialChartSeries = HistoricalPrice[] & { title: string };
 
 @Component({
-    selector: 'app-statistics',
-    templateUrl: './statistics.component.html',
-    styleUrls: ['./statistics.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Default,
-    standalone: true,
-    imports: [IgxComboModule, IgxFinancialChartCoreModule]
+  selector: 'app-statistics',
+  templateUrl: './statistics.component.html',
+  styleUrls: ['./statistics.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [IgxComboComponent, IgxFinancialChartModule]
 })
-export class StatisticsComponent implements OnInit, AfterViewInit {
-   @ViewChild('combo', { read: IgxComboComponent, static: true }) public combo: IgxComboComponent;
-   @ViewChild(IgxFinancialChartComponent, { static: true }) public chart: IgxFinancialChartComponent;
+export class StatisticsComponent {
+  private readonly dataService = inject(DataService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly injector = inject(Injector);
+  private readonly destroyRef = inject(DestroyRef);
 
-   public coins: CryptoCoin[];
-   public cryptoName: CryptoCoin;
-   public daysCount: number;
-   public int = 0;
-   public data: any = [];
+  readonly combo = viewChild.required<IgxComboComponent>('combo');
+  readonly coins = signal<CryptoCoin[]>([]);
+  readonly data = signal<FinancialChartSeries[]>([]);
+  readonly initialCoin = signal(this.readInitialCoin());
 
-   constructor(private dataService: DataService, private route: ActivatedRoute, private cdr: ChangeDetectorRef, private zone: NgZone) {
+  constructor() {
+    this.dataService.getData()
+      .pipe(takeUntilDestroyed())
+      .subscribe(items => {
+        const coins = items.map(item => ({ name: item.fullName, symbol: item.name }));
+        this.coins.set(coins);
 
-      this.route
-         .paramMap
-         .pipe(map(params => params.getAll('cryptoName') || route.routeConfig.data.cryptoName)).subscribe(res => {
-            this.cryptoName = res.length === 0 ? { name: 'Bitcoin', symbol: 'BTC'} :
-               { name: res[0].split(',')[1], symbol: res[0].split(',')[0] };
-         });
-
-      this.route
-         .paramMap
-         .pipe(map(params => params.get('daysCount') || route.routeConfig.data.daysCount)).subscribe(res => this.daysCount = res);
-   }
-
-   ngAfterViewInit() {
-      // this.getAndTransformData();
-      this.chart.overlayTypes.add(FinancialOverlayType.PriceChannel);
-   }
-
-   ngOnInit() {
-      this.getAndTransformData();
-      this.combo.selectionChanging.subscribe((evt: IComboSelectionChangingEventArgs) => {
-         if (this.coins) {
-            if (evt.newValue.length === 0) {
-               this.clearChartData();
-            } else {
-               const coin = evt.added.length !== 0 ? evt.added : evt.removed;
-               const removeRecord = evt.added.length !== 0 ? false : true;
-               this.fillChart(coin, removeRecord);
-            }
-         }
+        const initial = coins.find(coin => coin.symbol === this.initialCoin().symbol) ?? this.initialCoin();
+        this.initialCoin.set(initial);
+        this.addSeries(initial);
+        afterNextRender(() => this.combo().select([initial.symbol]), { injector: this.injector });
       });
-   }
+  }
 
-   public fillChart(obj, removeRecord) {
-      this.dataService.getHistoricalData(obj[0].symbol)
-         .subscribe(res => {
-            const returnedData: any = Object.assign(res.data).Data.map(item => {
-               // Transform data for the Chart. Multiply by 1000 because Date() requires miliseconds
-               const dateObject = new Date(item.time * 1000);
-               item.time = dateObject;
-               return item;
-            });
+  onSelectionChanging(event: IComboSelectionChangingEventArgs): void {
+    if (event.newValue.length === 0) {
+      this.data.set([]);
+      return;
+    }
 
-            if (removeRecord) {
-               // Removing data item
-               this.data = this.arrayRemove(this.data, obj[0].name);
-               this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0].name]);
-            } else {
-               // Adding data item
-               this.data.push([returnedData, returnedData.title = obj[0].name]);
-               this.chart.notifyInsertItem(this.data, this.data.length - 1, [returnedData, returnedData.title = obj[0].name]);
-            }
-         });
-   }
+    const addedCoin = this.asCryptoCoin(event.added[0]);
+    if (addedCoin) {
+      this.addSeries(addedCoin);
+    }
 
-   private arrayRemove(arr, value) {
-      return arr.filter(function(item) {
-          return item[1] !== value;
+    const removedCoin = this.asCryptoCoin(event.removed[0]);
+    if (removedCoin) {
+      this.data.update(series => series.filter(item => item.title !== removedCoin.name));
+    }
+  }
+
+  private addSeries(coin: CryptoCoin): void {
+    this.dataService.getHistoricalData(coin.symbol)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(result => {
+        const series = Object.assign([...result.data], { title: coin.name });
+        this.data.update(current => [
+          ...current.filter(item => item.title !== coin.name),
+          series
+        ]);
       });
-   }
+  }
 
-   // Fill coins collection
-   public getAndTransformData() {
-      this.dataService.getData().pipe(map((data: any[]) => {
-         const obj = [];
-         for (let index = 0; index < data.length; index++) {
-            const name = data[index]['fullName'];
-            const symbol = data[index]['name'];
-            obj.push({ name: name, symbol: symbol });
-         }
-         return obj;
-      })).subscribe(res => {
-         // set combo datasource
-         this.coins = res;
+  private readInitialCoin(): CryptoCoin {
+    const configured = this.route.snapshot.data['cryptoName'];
+    const raw = this.route.snapshot.paramMap.get('cryptoName')
+      ?? (typeof configured === 'string' ? configured : 'BTC');
+    const [symbol, ...nameParts] = raw.split(',');
 
-         // Or use
-         // this.cdr.detectChanges();
-         this.zone.onStable.pipe(first()).subscribe(() => {
-            this.combo.select([this.cryptoName.symbol]);
-         });
-      });
-   }
+    return {
+      symbol: symbol || 'BTC',
+      name: nameParts.join(',') || symbol || 'Bitcoin'
+    };
+  }
 
-   private clearChartData() {
-      this.data = [];
-   }
+  private asCryptoCoin(value: unknown): CryptoCoin | null {
+    if (!value || typeof value !== 'object') {
+      return null;
+    }
+
+    const coin = value as Partial<CryptoCoin>;
+    return typeof coin.name === 'string' && typeof coin.symbol === 'string'
+      ? { name: coin.name, symbol: coin.symbol }
+      : null;
+  }
 }

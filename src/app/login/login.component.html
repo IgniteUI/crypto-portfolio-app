@@ -1,9 +1,9 @@
 <div class="form-container">
-  @if (!showSpinner) {
+  @if (!showSpinner()) {
     <div>
       <igx-icon id="lockIcon">lock_open</igx-icon>
-      @if (error) {
-        <span class="error">{{ error }}</span>
+      @if (error()) {
+        <span class="error" role="alert">{{ error() }}</span>
       }
 
       <button class="button" igxButton="contained" igxRipple (click)="loginGoogle()" id="google">
