@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
+  // Serve generated market data instead of calling the third-party CryptoCompare API.
+  useMockData: true,
   firebaseConfig: {
     apiKey: '${FIREBASE_API_KEY}',
     authDomain: '${FIREBASE_AUTH_DOMAIN}',

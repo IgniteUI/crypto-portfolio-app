@@ -30,6 +30,12 @@ export function flattenObject(ob: UnknownRecord): UnknownRecord {
 }
 
 export function transformCoinImgUrl(imgUrl: string) {
+    // The mock service ships self-contained icons (inline SVG), the live API returns
+    // paths that have to be resolved against its media host.
+    if (!imgUrl || /^(?:data:|https?:|assets\/)/i.test(imgUrl)) {
+        return imgUrl;
+    }
+
     return baseUrl + imgUrl;
 }
 

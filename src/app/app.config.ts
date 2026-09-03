@@ -11,6 +11,9 @@ import { IgxExcelExporterService } from '@infragistics/igniteui-angular/grids/co
 import { provideIgniteIntl } from '@infragistics/igniteui-angular/core';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
+import { DataService } from './services/data.service';
+import { MockDataService } from './services/mock-data.service';
+import { CryptoCompareDataService } from './services/crypto-compare-data.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +26,10 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase()),
     provideStorage(() => getStorage()),
+    {
+      provide: DataService,
+      useClass: environment.useMockData ? MockDataService : CryptoCompareDataService
+    },
     IgxExcelExporterService
   ]
 };

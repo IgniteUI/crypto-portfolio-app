@@ -18,8 +18,27 @@ This project is generated with [Angular CLI](https://github.com/angular/angular-
 
 ### Prerequisites
 1. **Node.js**: Use node version 18+ (recommended)
-2. **CryptoCompare API Key**: [Generate CryptoCompare API key](https://min-api.cryptocompare.com/pricing?utm_source=homepage&utm_medium=banner&utm_campaign=home_banner_cta) (Used by data services)
-3. **Firebase Project** (applicable when the project is forked): [Create a Firebase project](https://firebase.google.com/docs/web/setup) (Used for authentication and data storage)
+2. **Firebase Project** (applicable when the project is forked): [Create a Firebase project](https://firebase.google.com/docs/web/setup) (Used for authentication and data storage)
+
+## Market data
+
+Out of the box the app serves **generated market data** - no third-party API key, rate limit, or
+outage involved. Prices, 24 hour statistics, and two years of daily OHLC history are produced by the
+seeded simulator in [`src/app/core/mock-market.ts`](src/app/core/mock-market.ts) and exposed through
+`MockDataService`. Values are derived from the coin symbol and the current time, so they move on
+every refresh, stay in sync between the grid, the cards, and the portfolio, and are reproducible
+across reloads. Coin logos are inline SVG badges, so no images are fetched either.
+
+To point the app back at the live [CryptoCompare API](https://min-api.cryptocompare.com/) instead,
+set `useMockData: false` in `src/environments/environment.ts` (and `environment.prod.ts` for
+production builds). `app.config.ts` then provides `CryptoCompareDataService`, which needs a
+[CryptoCompare API key](https://min-api.cryptocompare.com/pricing?utm_source=homepage&utm_medium=banner&utm_campaign=home_banner_cta).
+
+| Screen | Data source |
+| --- | --- |
+| Home, list, grid, statistics | `DataService` - mocked by default, CryptoCompare when `useMockData` is `false` |
+| Portfolio holdings | Firebase Realtime Database (prices come from `DataService`) |
+| Sign in / sign up | Firebase Auth |
 
 
 ## Build Commands
